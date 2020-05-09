@@ -26,7 +26,6 @@ namespace Revolutions.Components.Revolutions
         #endregion
 
         public HashSet<Revolution> Revolutions = new HashSet<Revolution>();
-        private object info;
 
         public Revolution GetRevolutionByPartyId(string id)
         {
@@ -175,12 +174,6 @@ namespace Revolutions.Components.Revolutions
                 int amountOfEliteTroops = (Settings.Instance.BaseRevoltArmySize + (int)(revolution.Settlement.Prosperity * Settings.Instance.ArmyProsperityMulitplier)) / 2;
                 revolution.Party.MobileParty.MemberRoster.Add(RevolutionsManagers.PartyManager.GenerateEliteTroopRoster(revolution.Party.LeaderHero, amountOfEliteTroops));
             }
-            else
-            {
-                //Hero newOwner = revolution.Party.MobileParty.LeaderHero ?? revolution.SettlementInfoRevolutions.LoyalFaction.Leader;
-                //revolution.Party.MobileParty.RemoveParty();
-                //ChangeOwnerOfSettlementAction.ApplyBySiege(newOwner, newOwner, revolution.Settlement);
-            }
 
             this.Revolutions.Remove(revolution);
         }
@@ -204,8 +197,8 @@ namespace Revolutions.Components.Revolutions
             {
                 hero = RevolutionsManagers.CharacterManager.CreateRandomLeader(settlement.OwnerClan, settlementInfo);
                 RevolutionsManagers.CharacterManager.GetInfo(hero.CharacterObject).IsRevoltKingdomLeader = true;
-                var clan = RevolutionsManagers.ClanManager.CreateClan(hero, hero.Name, hero.Name);
-                var kingdom = RevolutionsManagers.KingdomManager.CreateKingdom(hero, settlement, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"));
+                RevolutionsManagers.ClanManager.CreateClan(hero, hero.Name, hero.Name);
+                RevolutionsManagers.KingdomManager.CreateKingdom(hero, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"));
 
                 RevolutionsManagers.ClanManager.GetInfo(hero.Clan).CanJoinOtherKingdoms = false;
             }

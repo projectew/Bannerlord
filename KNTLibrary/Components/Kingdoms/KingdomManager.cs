@@ -175,7 +175,7 @@ namespace KNTLibrary.Components.Kingdoms
             DestroyKingdomAction.Apply(kingdom);
         }
 
-        public Kingdom CreateKingdom(Hero leader, Settlement settlement, TextObject name, TextObject informalName)
+        public Kingdom CreateKingdom(Hero leader, TextObject name, TextObject informalName)
         {
             Kingdom kingdom = MBObjectManager.Instance.CreateObject<Kingdom>();
             kingdom.InitializeKingdom(name, informalName, leader.Culture, Banner.CreateRandomClanBanner(leader.StringId.GetDeterministicHashCode()), leader.Clan.Color, leader.Clan.Color2, leader.Clan.InitialPosition);

@@ -9,8 +9,8 @@ namespace Revolutions.Screens
 {
     public class TownRevolutionsScreen : ScreenBase
     {
-        private SettlementInfoRevolutions _settlementInfo;
-        private FactionInfoRevolutions _factionInfo;
+        private readonly SettlementInfoRevolutions _settlementInfo;
+        private readonly FactionInfoRevolutions _factionInfo;
         private TownRevolutionViewModel _dataSource;
         private GauntletLayer _gauntletLayer;
         private GauntletMovie _movie;
