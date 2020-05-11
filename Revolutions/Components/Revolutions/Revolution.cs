@@ -34,6 +34,7 @@ namespace Revolutions.Components.Revolutions
         }
 
         #endregion
+
         public Revolution()
         {
 

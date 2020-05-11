@@ -12,7 +12,7 @@ namespace Revolutions
     {
         private DataStorage _dataStorage;
 
-        internal static string ModuleDataPath => System.IO.Path.Combine(Utilities.GetConfigsPath(), "Revolutions");
+        internal static string BaseSavePath => System.IO.Path.Combine(Utilities.GetConfigsPath(), "Revolutions", "Saves");
 
         protected override void OnBeforeInitialModuleScreenSetAsRoot()
         {

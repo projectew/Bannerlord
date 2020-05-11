@@ -6,6 +6,7 @@ using TaleWorlds.CampaignSystem.Actions;
 using KNTLibrary;
 using Revolutions.Components.Settlements;
 using Revolutions.Components.Revolutions;
+using HarmonyLib;
 
 namespace Revolutions.CampaignBehaviors
 {
@@ -36,18 +37,16 @@ namespace Revolutions.CampaignBehaviors
         {
             try
             {
+                this.DataStorage.SaveId = AccessTools.Field(typeof(MBSaveLoad), "ActiveSaveSlotName").GetValue(null).ToString();
+
                 if (dataStore.IsLoading)
                 {
                     this.DataStorage.InitializeData();
-
-                    dataStore.SyncData("Revolutions.SaveId", ref this.DataStorage.SaveId);
                     this.DataStorage.LoadData();
                 }
 
                 if (dataStore.IsSaving)
                 {
-                    this.DataStorage.SaveId = Guid.NewGuid().ToString();
-                    dataStore.SyncData("Revolutions.SaveId", ref this.DataStorage.SaveId);
                     this.DataStorage.SaveData();
                 }
             }

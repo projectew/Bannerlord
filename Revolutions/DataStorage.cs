@@ -15,8 +15,7 @@ namespace Revolutions
 {
     public class DataStorage
     {
-        [SaveableField(0)]
-        internal string SaveId = string.Empty;
+        internal string SaveId { get; set; } = string.Empty;
 
         internal void InitializeData()
         {
@@ -30,7 +29,7 @@ namespace Revolutions
 
         internal void LoadData()
         {
-            var directoryPath = Path.Combine(SubModule.ModuleDataPath, "Saves", this.SaveId);
+            var directoryPath = Path.Combine(SubModule.BaseSavePath, this.SaveId);
 
             RevolutionsManagers.FactionManager.Infos = LibraryManagers.FileManager.Load<List<FactionInfoRevolutions>>(directoryPath, "FactionInfos").ToHashSet();
             RevolutionsManagers.FactionManager.CleanupDuplicatedInfos();
@@ -55,7 +54,7 @@ namespace Revolutions
 
         internal void SaveData()
         {
-            var directoryPath = Path.Combine(SubModule.ModuleDataPath, "Saves", this.SaveId);
+            var directoryPath = Path.Combine(SubModule.BaseSavePath, this.SaveId);
 
             LibraryManagers.FileManager.Save(RevolutionsManagers.KingdomManager.Infos, directoryPath, "KingdomInfos");
             LibraryManagers.FileManager.Save(RevolutionsManagers.FactionManager.Infos, directoryPath, "FactionInfos");
