@@ -184,9 +184,8 @@ namespace Revolutions.Components.Revolts
                 mobileParty.Ai.SetDoNotMakeNewDecisions(false);
 
                 SetPartyAiAction.GetActionForPatrollingAroundSettlement(mobileParty, Revolt.Settlement);
+                this.Revolts.Remove(Revolt);
             }
-
-            this.Revolts.Remove(Revolt);
         }
 
         public void StartRebellionEvent(Settlement settlement)

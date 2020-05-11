@@ -27,13 +27,13 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
             CampaignEvents.MapEventEnded.AddNonSerializedListener(this, new Action<MapEvent>(this.MapEventEnded));
 
             CampaignEvents.OnSettlementOwnerChangedEvent.AddNonSerializedListener(this, new Action<Settlement, bool, Hero, Hero, Hero, ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail>(this.OnSettlementOwnerChangedEvent));
-
             CampaignEvents.KingdomDestroyedEvent.AddNonSerializedListener(this, new Action<Kingdom>(this.KingdomDestroyedEvent));
             CampaignEvents.OnClanDestroyedEvent.AddNonSerializedListener(this, new Action<Clan>(this.OnClanDestroyedEvent));
             CampaignEvents.OnPartyRemovedEvent.AddNonSerializedListener(this, new Action<PartyBase>(this.OnPartyRemovedEvent));
             CampaignEvents.ClanChangedKingdom.AddNonSerializedListener(this, new Action<Clan, Kingdom, Kingdom, bool, bool>(this.ClanChangedKingdom));
-        }
 
+        }
+        
         public override void SyncData(IDataStore dataStore)
         {
             try
@@ -82,6 +82,20 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
         {
             var settlementInfo = RevolutionsManagers.Settlement.GetInfo(settlement);
             settlementInfo.UpdateOwnerRevolt(newOwner.MapFaction);
+
+            if (capturedHero != null && RevolutionsManagers.Character.GetInfo(capturedHero.CharacterObject).IsRevoltKingdomLeader)
+            {
+                var revolt = RevoltManager.Instance.GetRevoltByParty(capturedHero.PartyBelongedTo.Party);
+                if (!Settings.Instance.RevoltsMinorFactionsMechanic && revolt.IsMinorFaction)
+                {
+                    Hero noble = KNTLibrary.BaseManagers.Faction.GetLordWithLeastFiefs(revolt.SettlementInfo.LoyalFaction).HeroObject;
+                    ChangeOwnerOfSettlementAction.ApplyBySiege(noble, noble, settlement);
+                    RevolutionsManagers.Kingdom.RemoveAndDestroyKingdom(capturedHero.Clan.Kingdom);
+                    RevolutionsManagers.Clan.RemoveAndDestroyClan(capturedHero.Clan);
+                    capturedHero.PartyBelongedTo.RemoveParty();
+                    RevoltManager.Instance.Revolts.Remove(revolt);
+                }
+            } 
         }
 
         private void KingdomDestroyedEvent(Kingdom kingdom)
