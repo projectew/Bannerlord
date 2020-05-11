@@ -80,7 +80,7 @@ namespace Revolts
 
             if (isWin)
             {
-                RevolutionsManagers.Revolt.EndSucceededRevoluton(Revolt);
+                RevolutionsManagers.Revolt.EndSucceededRevolutin(Revolt);
             }
             else
             {

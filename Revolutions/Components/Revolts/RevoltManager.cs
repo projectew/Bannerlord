@@ -118,17 +118,17 @@ namespace Revolutions.Components.Revolts
             }
         }
 
-        public void EndFailedRevolt(Revolt Revolt)
+        public void EndFailedRevolt(Revolt revolt)
         {
             var information = new TextObject("{=dkpS074R}The revolt in {SETTLEMENT} has ended.");
-            information.SetTextVariable("SETTLEMENT", Revolt.Settlement.Name.ToString());
+            information.SetTextVariable("SETTLEMENT", revolt.Settlement.Name.ToString());
             InformationManager.DisplayMessage(new InformationMessage(information.ToString(), ColorHelper.Yellow));
 
-            Revolt.SettlementInfo.CurrentFactionInfoRevolts.CityRevoltionFailed(Revolt.Settlement);
+            revolt.SettlementInfo.CurrentFactionInfoRevolts.CityRevoltionFailed(revolt.Settlement);
 
-            if (Revolt.IsMinorFaction)
+            if (revolt.IsMinorFaction)
             {
-                var kingdom = Revolt.Party.Owner.Clan.Kingdom;
+                var kingdom = revolt.Party.Owner.Clan.Kingdom;
                 var mapFaction = kingdom.MapFaction;
                 foreach (var faction in Campaign.Current.Factions.Where(go => go.IsAtWarWith(mapFaction)))
                 {
@@ -139,54 +139,54 @@ namespace Revolutions.Components.Revolts
                     }
                 }
 
-                KillCharacterAction.ApplyByExecution(Revolt.Party.Owner, Revolt.Settlement.OwnerClan?.Kingdom.Leader ?? Revolt.Settlement.OwnerClan.Leader);
+                KillCharacterAction.ApplyByExecution(revolt.Party.Owner, revolt.Settlement.OwnerClan?.Kingdom.Leader ?? revolt.Settlement.OwnerClan.Leader);
                 RevolutionsManagers.Kingdom.RemoveKingdom(kingdom);
             }
 
-            if (Revolt.Party?.MobileParty != null)
+            if (revolt.Party?.MobileParty != null)
             {
-                DestroyPartyAction.Apply(Revolt.SettlementInfo.Garrision, Revolt.Party.MobileParty);
+                DestroyPartyAction.Apply(revolt.SettlementInfo.Garrision, revolt.Party.MobileParty);
             }
 
-            this.Revolts.Remove(Revolt);
+            this.Revolts.Remove(revolt);
         }
 
-        public void EndSucceededRevoluton(Revolt Revolt)
+        public void EndSucceededRevolutin(Revolt revolt)
         {
             var information = new TextObject("{=dkpS074R}The revolt in {SETTLEMENT} has ended.");
-            information.SetTextVariable("SETTLEMENT", Revolt.Settlement.Name.ToString());
+            information.SetTextVariable("SETTLEMENT", revolt.Settlement.Name.ToString());
             InformationManager.DisplayMessage(new InformationMessage(information.ToString(), ColorHelper.Yellow));
 
-            Revolt.SettlementInfo.CurrentFactionInfoRevolts.CityRevoltionSucceeded(Revolt.Settlement);
+            revolt.SettlementInfo.CurrentFactionInfoRevolts.CityRevoltionSucceeded(revolt.Settlement);
 
-            if (Settings.Instance.RevoltsImperialLoyaltyMechanic && Revolt.SettlementInfo.IsCurrentFactionOfImperialCulture && !Revolt.SettlementInfo.IsLoyalFactionOfImperialCulture)
+            if (Settings.Instance.RevoltsImperialLoyaltyMechanic && revolt.SettlementInfo.IsCurrentFactionOfImperialCulture && !revolt.SettlementInfo.IsLoyalFactionOfImperialCulture)
             {
-                Revolt.Settlement.OwnerClan.AddRenown(-Settings.Instance.RevoltsImperialRenownLoss);
+                revolt.Settlement.OwnerClan.AddRenown(-Settings.Instance.RevoltsImperialRenownLoss);
             }
 
-            if (Settings.Instance.RevoltsMinorFactionsMechanic && Revolt.IsMinorFaction)
+            if (Settings.Instance.RevoltsMinorFactionsMechanic && revolt.IsMinorFaction)
             {
-                ChangeOwnerOfSettlementAction.ApplyBySiege(Revolt.Party.LeaderHero, Revolt.Party.LeaderHero, Revolt.Settlement);
-                Revolt.Party.LeaderHero.Clan.AddRenown(Settings.Instance.RevoltsMinorFactionsRenownGainOnWin);
+                ChangeOwnerOfSettlementAction.ApplyBySiege(revolt.Party.LeaderHero, revolt.Party.LeaderHero, revolt.Settlement);
+                revolt.Party.LeaderHero.Clan.AddRenown(Settings.Instance.RevoltsMinorFactionsRenownGainOnWin);
 
-                var companion = RevolutionsManagers.Character.CreateRandomLeader(Revolt.Party.LeaderHero.Clan, Revolt.SettlementInfo);
+                var companion = RevolutionsManagers.Character.CreateRandomLeader(revolt.Party.LeaderHero.Clan, revolt.SettlementInfo);
                 RevolutionsManagers.Character.GetInfo(companion.CharacterObject);
                 RevolutionsManagers.Clan.CreateClan(companion, companion.Name, companion.Name);
-                var mobileParty = RevolutionsManagers.Party.CreateMobileParty(companion, Revolt.Settlement.GatePosition, Revolt.Settlement, true, true);
-                ChangeKingdomAction.ApplyByJoinToKingdom(companion.Clan, Revolt.Party.LeaderHero.Clan.Kingdom, true);
+                var mobileParty = RevolutionsManagers.Party.CreateMobileParty(companion, revolt.Settlement.GatePosition, revolt.Settlement, true, true);
+                ChangeKingdomAction.ApplyByJoinToKingdom(companion.Clan, revolt.Party.LeaderHero.Clan.Kingdom, true);
 
                 RevolutionsManagers.Clan.GetInfo(companion.Clan).CanJoinOtherKingdoms = false;
 
-                var amountOfEliteTroops = (Settings.Instance.RevoltsGeneralBaseArmy + (int)(Revolt.Settlement.Prosperity * Settings.Instance.RevoltsGeneralArmyProsperityMulitplier)) / 2;
+                var amountOfEliteTroops = (Settings.Instance.RevoltsGeneralBaseArmy + (int)(revolt.Settlement.Prosperity * Settings.Instance.RevoltsGeneralArmyProsperityMulitplier)) / 2;
                 mobileParty.MemberRoster.Add(RevolutionsManagers.Party.GenerateEliteTroopRoster(mobileParty.LeaderHero, amountOfEliteTroops));
 
-                Revolt.Party.MobileParty.Ai.SetDoNotMakeNewDecisions(false);
+                revolt.Party.MobileParty.Ai.SetDoNotMakeNewDecisions(false);
                 mobileParty.Ai.SetDoNotMakeNewDecisions(false);
 
-                SetPartyAiAction.GetActionForPatrollingAroundSettlement(mobileParty, Revolt.Settlement);
-            }
+                SetPartyAiAction.GetActionForPatrollingAroundSettlement(mobileParty, revolt.Settlement);
 
-            this.Revolts.Remove(Revolt);
+                this.Revolts.Remove(revolt);
+            }
         }
 
         public void StartRebellionEvent(Settlement settlement)

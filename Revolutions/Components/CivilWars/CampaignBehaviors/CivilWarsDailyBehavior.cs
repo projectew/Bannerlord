@@ -1,8 +1,11 @@
 ﻿using Revolutions.Components.Base.Characters;
+using Revolutions.Components.Base.Clans;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.Core;
+using TaleWorlds.CampaignSystem.Actions;
+using TaleWorlds.Localization;
 
 namespace Revolutions.Components.CivilWars.CampaignBehaviors
 {
@@ -51,7 +54,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 var relationshipStopPlottingTreshhold = 0; //Config
                 if (clanLeaderInfo.PlotState == PlotState.IsPlotting && relationBetweenClanLeaderAndKingdomLeader > relationshipStopPlottingTreshhold)
                 {
-                    clanLeaderInfo.PlotState = PlotState.Loyal;
+                    clanLeaderInfo.PlotState = PlotState.IsLoyal;
 
                     foreach (var clanLeaderFriendInfo in clanLeaderFriendsInsideKingdom.Select(s => RevolutionsManagers.Character.GetInfo(s.CharacterObject)).Where(w => w.PlotState == PlotState.IsPlotting))
                     {
@@ -59,7 +62,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                         var friendWillPlotting = this.WillPlotting(clanLeaderFriend);
                         if (!friendWillPlotting)
                         {
-                            RevolutionsManagers.Character.GetInfo(clanLeaderFriend.CharacterObject).PlotState = PlotState.Loyal;
+                            RevolutionsManagers.Character.GetInfo(clanLeaderFriend.CharacterObject).PlotState = PlotState.IsLoyal;
                         }
                     }
 
@@ -82,7 +85,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
             foreach (var clan in Campaign.Current.Clans)
             {
                 var clanLeaderInfo = RevolutionsManagers.Character.GetInfo(clan.Leader.CharacterObject);
-                if(clanLeaderInfo.PlotState != PlotState.WillPlotting)
+                if (clanLeaderInfo.PlotState != PlotState.WillPlotting)
                 {
                     continue;
                 }
@@ -92,33 +95,76 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
             foreach (var kingdom in Campaign.Current.Kingdoms)
             {
-                var clanLeadersOfKingdom = Campaign.Current.Clans.Where(w => w.Kingdom?.StringId == kingdom.StringId).Select(s => s.Leader).ToList();
-                //PlotLeader = Highest Clan Tier
-
-                //Check if plotting clan will declare war
-                foreach (var clanLeader in clanLeadersOfKingdom)
+                var kingdomClans = Campaign.Current.Clans.Where(w => w.Kingdom?.StringId == kingdom.StringId).ToList();
+                var kingdomLoyalClans = new List<ClanInfo>();
+                var kingdomPlottingClans = new List<ClanInfo>();
+                foreach (var clan in kingdomClans)
                 {
-                    var clanLeaderInfo = RevolutionsManagers.Character.GetInfo(clanLeader.CharacterObject);
-                    if (clanLeaderInfo.PlotState != PlotState.IsPlotting)
+                    var clanInfo = RevolutionsManagers.Clan.GetInfo(clan);
+                    var characterInfo = RevolutionsManagers.Character.GetInfo(clan.Leader.CharacterObject);
+
+                    if (characterInfo.PlotState == PlotState.IsLoyal)
                     {
-                        continue;
+                        kingdomLoyalClans.Add(clanInfo);
+                    }
+                    else if (characterInfo.PlotState == PlotState.IsPlotting)
+                    {
+                        kingdomPlottingClans.Add(clanInfo);
+                    }
+                }
+
+                if(kingdomPlottingClans.Count == 0)
+                {
+                    continue;
+                }
+
+                var loyalTroopWeight = 0f;
+                foreach (var loyalClan in kingdomLoyalClans)
+                {
+                    loyalTroopWeight += loyalClan.Clan.TotalStrength;
+                }
+
+                var plottersTroopWeight = 0f;
+                foreach (var plotterClan in kingdomPlottingClans)
+                {
+                    plottersTroopWeight += plotterClan.Clan.TotalStrength;
+                }
+
+                var plotLeader = kingdomPlottingClans.OrderByDescending(o => o.Tier).FirstOrDefault();
+
+                var kingdomLeader = kingdom.Leader;
+                var plottingLeader = plotLeader.Leader;
+
+                var kingdomLeaderGenerosity = kingdomLeader.GetHeroTraits().Generosity;
+                var kingdomLeaderMercy = kingdomLeader.GetHeroTraits().Mercy;
+                var kingdomLeaderValor = kingdomLeader.GetHeroTraits().Valor;
+                var kingdomLeaderCalculating = kingdomLeader.GetHeroTraits().Calculating;
+
+                var plottingLeaderGenerosity = plottingLeader.GetHeroTraits().Generosity;
+                var plottingLeaderMercy = plottingLeader.GetHeroTraits().Mercy;
+                var plottingLeaderValor = plottingLeader.GetHeroTraits().Valor;
+                var plottingLeaderCalculating = plottingLeader.GetHeroTraits().Calculating;
+
+                var baseWarChance = 2; //Config MinValue 2 MaxValue 5
+                var personalityModifier = 1.15; //Config MaxValue 2
+
+                var warChance = baseWarChance * Math.Pow(personalityModifier, plottingLeaderGenerosity + kingdomLeaderGenerosity + plottingLeaderMercy + kingdomLeaderMercy)
+                    * (plottersTroopWeight / loyalTroopWeight * (1 + (plottingLeaderValor == 0 ? 1 : plottingLeaderValor * 2)))
+                    * (Math.Pow(kingdomPlottingClans.Count / kingdomLoyalClans.Count, 1 + plottingLeaderCalculating));
+
+                var warResult = new Random().Next(0, 100) > warChance;
+                if(warResult)
+                {
+                    var newKingdom = RevolutionsManagers.Kingdom.CreateKingdom(plottingLeader, new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), new TextObject($"Kingdom of {plottingLeader.Clan.Name}"));
+                    ChangeKingdomAction.ApplyByLeaveKingdom(plotLeader, false);
+
+                    foreach (var plottingClan in kingdomPlottingClans)
+                    {
+                        ChangeKingdomAction.ApplyByLeaveWithRebellionAgainstKingdom(plottingClan.Clan, newKingdom, true);
                     }
 
-                    var kingdomLeader = clanLeader.Clan?.Kingdom?.Leader;
-                    if (kingdomLeader == null)
-                    {
-                        continue;
-                    }
-
-                    var kingdomLeaderGenerosity = kingdomLeader.GetHeroTraits().Generosity;
-                    var kingdomLeaderMercy = kingdomLeader.GetHeroTraits().Mercy;
-                    var kingdomLeaderValor = kingdomLeader.GetHeroTraits().Valor;
-                    var kingdomLeaderCalculating = kingdomLeader.GetHeroTraits().Calculating;
-
-                    var clanLeaderGenerosity = clanLeader.GetHeroTraits().Generosity;
-                    var clanLeaderMercy = clanLeader.GetHeroTraits().Mercy;
-                    var clanLeaderValor = clanLeader.GetHeroTraits().Valor;
-                    var clanLeaderCalculating = clanLeader.GetHeroTraits().Calculating;
+                    FactionManager.DeclareWar(newKingdom, kingdom);
+                    Campaign.Current.FactionManager.RegisterCampaignWar(newKingdom, kingdom);
                 }
             }
         }
@@ -137,8 +183,8 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
             var kingdomClanLeaders = Campaign.Current.Clans.Where(w => w.Kingdom.StringId == clanLeader.Clan.Kingdom?.StringId).Select(s => s.Leader).ToList();
             var clanLeaderFriends = kingdomClanLeaders.Where(w => w.IsFriend(clanLeader)).ToList();
 
-            var basePlottingChance = 2; //Config
-            var baseFriendWeight = 1.04; //Config
+            var basePlottingChance = 2; //Config MinValue 2 MaxValue 5
+            var baseFriendWeight = 1.04; //Config MaxValue 2
 
             return new Random().Next(0, 100) > Math.Pow(basePlottingChance, -(kingdomLeaderHonor + clanLeaderHonor)) * Math.Pow(baseFriendWeight, clanLeaderFriends.Count);
         }

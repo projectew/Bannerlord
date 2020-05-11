@@ -45,7 +45,7 @@ namespace Revolutions.Components.Base.Characters
 
         public bool IsRevoltKingdomLeader { get; set; } = false;
 
-        public PlotState PlotState { get; set; } = PlotState.Loyal;
+        public PlotState PlotState { get; set; } = PlotState.IsLoyal;
 
         #endregion
     }
@@ -53,7 +53,7 @@ namespace Revolutions.Components.Base.Characters
     [Serializable]
     public enum PlotState
     {
-        Loyal = 0,
+        IsLoyal = 0,
         WillPlotting = 1,
         IsPlotting = 2
     }

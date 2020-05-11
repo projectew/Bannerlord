@@ -74,7 +74,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
             }
             else
             {
-                RevolutionsManagers.Revolt.EndSucceededRevoluton(currentRevolt);
+                RevolutionsManagers.Revolt.EndSucceededRevolutin(currentRevolt);
             }
         }
 
@@ -82,6 +82,20 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
         {
             var settlementInfo = RevolutionsManagers.Settlement.GetInfo(settlement);
             settlementInfo.UpdateOwnerRevolt(newOwner.MapFaction);
+
+            if (capturedHero != null && RevolutionsManagers.Character.GetInfo(capturedHero.CharacterObject).IsRevoltKingdomLeader)
+            {
+                var revolt = RevoltManager.Instance.GetRevoltByParty(capturedHero.PartyBelongedTo.Party);
+                if (!Settings.Instance.RevoltsMinorFactionsMechanic && revolt.IsMinorFaction)
+                {
+                    Hero noble = KNTLibrary.BaseManagers.Faction.GetLordWithLeastFiefs(revolt.SettlementInfo.LoyalFaction).HeroObject;
+                    ChangeOwnerOfSettlementAction.ApplyBySiege(noble, noble, settlement);
+                    RevolutionsManagers.Kingdom.RemoveAndDestroyKingdom(capturedHero.Clan.Kingdom);
+                    RevolutionsManagers.Clan.RemoveAndDestroyClan(capturedHero.Clan);
+                    capturedHero.PartyBelongedTo.RemoveParty();
+                    RevoltManager.Instance.Revolts.Remove(revolt);
+                }
+            }
         }
 
         private void KingdomDestroyedEvent(Kingdom kingdom)
