@@ -3,10 +3,10 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.SandBox.GameComponents;
 using TaleWorlds.Localization;
 using TaleWorlds.Core;
-using KNTLibrary;
-using Revolutions.Components.Settlements;
+using KNTLibrary.Helpers;
+using Revolutions.Components.BaseComponents.Settlements;
 
-namespace Revolutions.Models
+namespace Revolts.Models
 {
     public class SettlementLoyaltyModel : DefaultSettlementLoyaltyModel
     {
@@ -27,7 +27,7 @@ namespace Revolutions.Models
             try
             {
                 var explainedNumber = new ExplainedNumber(0.0f, statExplainer, null);
-                var settlementInfo = RevolutionsManagers.SettlementManager.GetInfo(town.Settlement);
+                var settlementInfo = RevoltsManagers.Settlement.GetInfo(town.Settlement);
 
                 if (settlementInfo.CurrentFaction?.Leader == Hero.MainHero)
                 {
@@ -52,22 +52,22 @@ namespace Revolutions.Models
             }
             catch (Exception exception)
             {
-                InformationManager.DisplayMessage(new InformationMessage("Revolutions: Failed to calculate loyalty change! Using TaleWorld logic now.", ColorManager.Red));
-                InformationManager.DisplayMessage(new InformationMessage($"Town: {town?.Name} | StringId: {town?.StringId}", ColorManager.Red));
+                InformationManager.DisplayMessage(new InformationMessage("Revolts: Failed to calculate loyalty change! Using TaleWorld logic now.", ColorHelper.Red));
+                InformationManager.DisplayMessage(new InformationMessage($"Town: {town?.Name} | StringId: {town?.StringId}", ColorHelper.Red));
 
                 if(Settings.Instance.DebugMode)
                 {
-                    InformationManager.DisplayMessage(new InformationMessage($"Exception: {exception.Message}", ColorManager.Red));
-                    InformationManager.DisplayMessage(new InformationMessage($"StackTrace: {exception.StackTrace}", ColorManager.Red));
-                    InformationManager.DisplayMessage(new InformationMessage($"InnerException: {exception.InnerException.Message}", ColorManager.Red));
-                    InformationManager.DisplayMessage(new InformationMessage($"StackTrace: {exception.InnerException.StackTrace}", ColorManager.Red));
+                    InformationManager.DisplayMessage(new InformationMessage($"Exception: {exception.Message}", ColorHelper.Red));
+                    InformationManager.DisplayMessage(new InformationMessage($"StackTrace: {exception.StackTrace}", ColorHelper.Red));
+                    InformationManager.DisplayMessage(new InformationMessage($"InnerException: {exception.InnerException.Message}", ColorHelper.Red));
+                    InformationManager.DisplayMessage(new InformationMessage($"StackTrace: {exception.InnerException.StackTrace}", ColorHelper.Red));
                 }
 
                 return base.CalculateLoyaltyChange(town, statExplainer);
             }
         }
 
-        private void Overextension(SettlementInfoRevolutions settlementInfo, ref ExplainedNumber explainedNumber)
+        private void Overextension(SettlementInfo settlementInfo, ref ExplainedNumber explainedNumber)
         {
             if (settlementInfo.CurrentFaction?.StringId == settlementInfo.LoyalFaction?.StringId)
             {
@@ -88,11 +88,11 @@ namespace Revolutions.Models
             explainedNumber.Add(overExtension.Value * Settings.Instance.OverExtensionMultiplier, new TextObject("{=YnRmNltF}Overextension"));
         }
 
-        private void BaseLoyalty(SettlementInfoRevolutions settlementInfo, ref ExplainedNumber explainedNumber)
+        private void BaseLoyalty(SettlementInfo settlementInfo, ref ExplainedNumber explainedNumber)
         {
             if (settlementInfo.CurrentFaction?.IsKingdomFaction == true)
             {
-                if (RevolutionsManagers.KingdomManager.GetInfo((Kingdom)settlementInfo.CurrentFaction)?.LuckyNation == true)
+                if (RevoltsManagers.Kingdom.GetInfo((Kingdom)settlementInfo.CurrentFaction)?.LuckyNation == true)
                 {
                     explainedNumber.Add(10, new TextObject("{=glCo42fD}Loyal population)"));
                     return;

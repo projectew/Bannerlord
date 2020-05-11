@@ -1,7 +1,7 @@
 ﻿using System;
 using TaleWorlds.CampaignSystem;
 
-namespace Revolutions.CampaignBehaviors
+namespace Revolts.CampaignBehaviors
 {
     public class CleanupBehavior : CampaignBehaviorBase
     {
@@ -27,14 +27,14 @@ namespace Revolutions.CampaignBehaviors
 
         private void DailyTickEvent()
         {
-            RevolutionsManagers.FactionManager.CleanupDuplicatedInfos();
-            RevolutionsManagers.KingdomManager.CleanupDuplicatedInfos();
-            RevolutionsManagers.ClanManager.CleanupDuplicatedInfos();
-            RevolutionsManagers.PartyManager.CleanupDuplicatedInfos();
-            RevolutionsManagers.CharacterManager.CleanupDuplicatedInfos();
-            RevolutionsManagers.SettlementManager.CleanupDuplicatedInfos();
+            RevoltsManagers.Faction.CleanupDuplicatedInfos();
+            RevoltsManagers.Kingdom.CleanupDuplicatedInfos();
+            RevoltsManagers.Clan.CleanupDuplicatedInfos();
+            RevoltsManagers.Party.CleanupDuplicatedInfos();
+            RevoltsManagers.Character.CleanupDuplicatedInfos();
+            RevoltsManagers.Settlement.CleanupDuplicatedInfos();
 
-            RevolutionsManagers.PartyManager.UpdateInfos();
+            RevoltsManagers.Party.UpdateInfos();
         }
 
         private void TickEvent(float dt)
@@ -43,19 +43,19 @@ namespace Revolutions.CampaignBehaviors
             switch (this._currentTick)
             {
                 case RefreshAtTick:
-                    RevolutionsManagers.FactionManager.UpdateInfos();
+                    RevoltsManagers.Faction.UpdateInfos();
                     break;
                 case RefreshAtTick + 30:
-                    RevolutionsManagers.KingdomManager.UpdateInfos();
+                    RevoltsManagers.Kingdom.UpdateInfos();
                     break;
                 case RefreshAtTick + 60:
-                    RevolutionsManagers.ClanManager.UpdateInfos();
+                    RevoltsManagers.Clan.UpdateInfos();
                     break;
                 case RefreshAtTick + 90:
-                    RevolutionsManagers.SettlementManager.UpdateInfos();
+                    RevoltsManagers.Settlement.UpdateInfos();
                     break;
                 case RefreshAtTick + 120:
-                    RevolutionsManagers.CharacterManager.UpdateInfos();
+                    RevoltsManagers.Character.UpdateInfos();
                     this._currentTick = 0;
                     break;
                 default:
@@ -66,22 +66,22 @@ namespace Revolutions.CampaignBehaviors
 
         private void PartyRemovedEvent(PartyBase party)
         {
-            RevolutionsManagers.PartyManager.RemoveInfo(party.Id);
+            RevoltsManagers.Party.RemoveInfo(party.Id);
         }
 
         private void MobilePartyDestroyed(MobileParty mobileParty, PartyBase party)
         {
-            RevolutionsManagers.PartyManager.RemoveInfo(mobileParty.Party.Id);
+            RevoltsManagers.Party.RemoveInfo(mobileParty.Party.Id);
         }
 
         private void KingdomDestroyedEvent(Kingdom kingdom)
         {
-            RevolutionsManagers.KingdomManager.RemoveInfo(kingdom.StringId);
+            RevoltsManagers.Kingdom.RemoveInfo(kingdom.StringId);
         }
 
         private void ClanDestroyedEvent(Clan clan)
         {
-            RevolutionsManagers.ClanManager.RemoveInfo(clan.StringId);
+            RevoltsManagers.Clan.RemoveInfo(clan.StringId);
         }
     }
 }

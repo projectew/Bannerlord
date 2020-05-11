@@ -1,7 +1,7 @@
 ﻿<Module>
-  <Name value="Revolutions"/>
-  <Id value="Revolutions"/>
-  <Version value="v0.4.11"/>
+  <Name value="Revolts"/>
+  <Id value="Revolts"/>
+  <Version value="v0.5.0"/>
   <SingleplayerModule value="true"/>
   <MultiplayerModule value="false"/>
   <DependedModules>
@@ -12,9 +12,9 @@
   </DependedModules>
   <SubModules>
     <SubModule>
-      <Name value="Revolutions"/>
-      <DLLName value="Revolutions.dll"/>
-      <SubModuleClassType value="Revolutions.SubModule"/>
+      <Name value="Revolts"/>
+      <DLLName value="Revolts.dll"/>
+      <SubModuleClassType value="Revolts.SubModule"/>
       <Tags>
         <Tag key="DedicatedServerType" value="none" />
         <Tag key="IsNoRenderModeElement" value="false" />

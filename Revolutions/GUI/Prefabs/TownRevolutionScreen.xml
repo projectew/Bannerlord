@@ -59,7 +59,7 @@
                     HorizontalAlignment="Center"
                     MarginTop="100"
                     MarginLeft="0"
-                    Text="@RevolutionProgress"
+                    Text="@RevoltProgress"
                     Brush="CenterAlignedSmallFont" />
               </Children>
             </Widget>

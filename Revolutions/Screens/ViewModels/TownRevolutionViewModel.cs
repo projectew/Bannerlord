@@ -1,18 +1,18 @@
-﻿using Revolutions.Components.Factions;
-using Revolutions.Components.Settlements;
+﻿using Revolutions.Components.BaseComponents.Factions;
+using Revolutions.Components.BaseComponents.Settlements;
 using TaleWorlds.Core;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
-namespace Revolutions.Screens.ViewModels
+namespace Revolts.Screens.ViewModels
 {
-    public class TownRevolutionViewModel : ViewModel
+    public class TownRevoltViewModel : ViewModel
     {
-        private readonly SettlementInfoRevolutions SettlementInfo;
-        private readonly FactionInfoRevolutions FactionInfo;
+        private readonly SettlementInfo SettlementInfo;
+        private readonly FactionInfo FactionInfo;
 
-        public TownRevolutionViewModel(SettlementInfoRevolutions settlementInfo, FactionInfoRevolutions factionInfo)
+        public TownRevoltViewModel(SettlementInfo settlementInfo, FactionInfo factionInfo)
         {
             this.SettlementInfo = settlementInfo;
             this.FactionInfo = factionInfo;
@@ -49,7 +49,7 @@ namespace Revolutions.Screens.ViewModels
         {
             get
             {
-                if (this.SettlementInfo.RevolutionProgress < 10)
+                if (this.SettlementInfo.RevoltProgress < 10)
                 {
                     var textObject = new TextObject("{=3fBkqk4u}The people of {SETTLEMENT} seem to be content.");
                     textObject.SetTextVariable("SETTLEMENT", this.SettlementInfo.Settlement.Name);
@@ -58,7 +58,7 @@ namespace Revolutions.Screens.ViewModels
                 }
                 else
                 {
-                    var textObject = new TextObject("{=dRoS0zTD}Flames of revolution are slowly stirring in {SETTLEMENT}.");
+                    var textObject = new TextObject("{=dRoS0zTD}Flames of Revolt are slowly stirring in {SETTLEMENT}.");
                     textObject.SetTextVariable("SETTLEMENT", this.SettlementInfo.Settlement.Name);
 
                     return textObject.ToString();
@@ -79,12 +79,12 @@ namespace Revolutions.Screens.ViewModels
         }
 
         [DataSourceProperty]
-        public string RevolutionProgress
+        public string RevoltProgress
         {
             get
             {
                 var textObject = new TextObject("{=q2tbSs8d}Current revolt progress is {PROGRESS}%.");
-                textObject.SetTextVariable("PROGRESS", this.SettlementInfo.RevolutionProgress);
+                textObject.SetTextVariable("PROGRESS", this.SettlementInfo.RevoltProgress);
 
                 return textObject.ToString();
             }
@@ -152,7 +152,7 @@ namespace Revolutions.Screens.ViewModels
             this.OnPropertyChanged("FactionVisual");
             this.OnPropertyChanged("TownDescription");
             this.OnPropertyChanged("TownOwnership");
-            this.OnPropertyChanged("RevolutionProgress");
+            this.OnPropertyChanged("RevoltProgress");
             this.OnPropertyChanged("RevoltMood");
         }
     }

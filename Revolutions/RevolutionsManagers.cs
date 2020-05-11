@@ -1,33 +1,33 @@
-﻿using KNTLibrary.Components.Kingdoms;
-using KNTLibrary.Components.Factions;
+﻿using KNTLibrary.Components.Factions;
+using KNTLibrary.Components.Kingdoms;
 using KNTLibrary.Components.Clans;
 using KNTLibrary.Components.Parties;
 using KNTLibrary.Components.Characters;
 using KNTLibrary.Components.Settlements;
-using Revolutions.Components.Kingdoms;
-using Revolutions.Components.Factions;
-using Revolutions.Components.Clans;
-using Revolutions.Components.Parties;
-using Revolutions.Components.Characters;
-using Revolutions.Components.Settlements;
-using Revolutions.Components.Revolutions;
+using Revolutions.Components.BaseComponents.Settlements;
+using Revolutions.Components.BaseComponents.Parties;
+using Revolutions.Components.BaseComponents.Kingdoms;
+using Revolutions.Components.BaseComponents.Factions;
+using Revolutions.Components.BaseComponents.Clans;
+using Revolutions.Components.BaseComponents.Characters;
+using Revolutions.Components.Revolts;
 
-namespace Revolutions
+namespace Revolts
 {
-    public static class RevolutionsManagers
+    public static class RevoltsManagers
     {
-        public static KingdomManager<KingdomInfoRevolutions> KingdomManager { get; } = KingdomManager<KingdomInfoRevolutions>.Instance;
+        public static BaseKingdomManager<KingdomInfo> Kingdom { get; } = BaseKingdomManager<KingdomInfo>.Instance;
 
-        public static FactionManager<FactionInfoRevolutions> FactionManager { get; } = FactionManager<FactionInfoRevolutions>.Instance;
+        public static BaseFactionManager<FactionInfo> Faction { get; } = BaseFactionManager<FactionInfo>.Instance;
 
-        public static ClanManager<ClanInfoRevolutions> ClanManager { get; } = ClanManager<ClanInfoRevolutions>.Instance;
+        public static BaseClanManager<ClanInfo> Clan { get; } = BaseClanManager<ClanInfo>.Instance;
 
-        public static PartyManager<PartyInfoRevolutions> PartyManager { get; } = PartyManager<PartyInfoRevolutions>.Instance;
+        public static BasePartyManager<PartyInfo> Party { get; } = BasePartyManager<PartyInfo>.Instance;
 
-        public static CharacterManager<CharacterInfoRevolutions> CharacterManager { get; } = CharacterManager<CharacterInfoRevolutions>.Instance;
+        public static BaseCharacterManager<CharacterInfo> Character { get; } = BaseCharacterManager<CharacterInfo>.Instance;
 
-        public static SettlementManager<SettlementInfoRevolutions> SettlementManager { get; } = SettlementManager<SettlementInfoRevolutions>.Instance;
+        public static BaseSettlementManager<SettlementInfo> Settlement { get; } = BaseSettlementManager<SettlementInfo>.Instance;
 
-        public static RevolutionManager RevolutionManager { get; } = RevolutionManager.Instance;
+        public static RevoltManager Revolt { get; } = RevoltManager.Instance;
     }
 }

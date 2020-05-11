@@ -3,18 +3,18 @@ using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem.Actions;
-using KNTLibrary;
-using Revolutions.Components.Settlements;
-using Revolutions.Components.Revolutions;
 using HarmonyLib;
+using KNTLibrary.Helpers;
+using Revolutions.Components.BaseComponents.Settlements;
+using Revolutions.Components.Revolts;
 
-namespace Revolutions.CampaignBehaviors
+namespace Revolts.CampaignBehaviors
 {
-    public class RevolutionBehavior : CampaignBehaviorBase
+    public class RevoltBehavior : CampaignBehaviorBase
     {
         private readonly DataStorage DataStorage;
 
-        public RevolutionBehavior(ref DataStorage dataStorage)
+        public RevoltBehavior(ref DataStorage dataStorage)
         {
             this.DataStorage = dataStorage;
         }
@@ -52,8 +52,8 @@ namespace Revolutions.CampaignBehaviors
             }
             catch (Exception exception)
             {
-                InformationManager.DisplayMessage(new InformationMessage($"Revolutions: SyncData failed ({dataStore.IsLoading} | {dataStore.IsSaving} | {this.DataStorage.SaveId})!", ColorManager.Red));
-                InformationManager.DisplayMessage(new InformationMessage(exception.ToString(), ColorManager.Red));
+                InformationManager.DisplayMessage(new InformationMessage($"Revolts: SyncData failed ({dataStore.IsLoading} | {dataStore.IsSaving} | {this.DataStorage.SaveId})!", ColorHelper.Red));
+                InformationManager.DisplayMessage(new InformationMessage(exception.ToString(), ColorHelper.Red));
             }
         }
 
@@ -64,48 +64,48 @@ namespace Revolutions.CampaignBehaviors
 
         private void MapEventEnded(MapEvent mapEvent)
         {
-            var involvedParty = mapEvent.InvolvedParties.Intersect(RevolutionManager.Instance.GetParties()).FirstOrDefault();
+            var involvedParty = mapEvent.InvolvedParties.Intersect(RevoltManager.Instance.GetParties()).FirstOrDefault();
             if (involvedParty == null)
             {
                 return;
             }
 
-            var currentRevolution = RevolutionsManagers.RevolutionManager.GetRevolutionByPartyId(involvedParty.Id);
+            var currentRevolt = RevoltsManagers.Revolt.GetRevoltByPartyId(involvedParty.Id);
 
             var winnerSide = mapEvent.BattleState == BattleState.AttackerVictory ? mapEvent.AttackerSide : mapEvent.DefenderSide;
             if (winnerSide.PartiesOnThisSide.FirstOrDefault(party => party.Id == involvedParty.Id) == null)
             {
-                RevolutionsManagers.RevolutionManager.EndFailedRevolution(currentRevolution);
+                RevoltsManagers.Revolt.EndFailedRevolt(currentRevolt);
             }
             else
             {
-                RevolutionsManagers.RevolutionManager.EndSucceededRevoluton(currentRevolution);
+                RevoltsManagers.Revolt.EndSucceededRevoluton(currentRevolt);
             }
         }
 
         private void OnSettlementOwnerChangedEvent(Settlement settlement, bool openToClaim, Hero newOwner, Hero oldOwner, Hero capturedHero, ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail detail)
         {
-            var settlementInfo = RevolutionsManagers.SettlementManager.GetInfo(settlement);
-            settlementInfo.UpdateOwnerRevolution(newOwner.MapFaction);
+            var settlementInfo = RevoltsManagers.Settlement.GetInfo(settlement);
+            settlementInfo.UpdateOwnerRevolt(newOwner.MapFaction);
         }
 
         private void KingdomDestroyedEvent(Kingdom kingdom)
         {
-            if(RevolutionsManagers.KingdomManager.GetInfo(kingdom)?.IsCustomKingdom == true)
+            if(RevoltsManagers.Kingdom.GetInfo(kingdom)?.IsCustomKingdom == true)
             {
                 foreach (var clan in kingdom.Clans)
                 {
-                    RevolutionsManagers.CharacterManager.RemoveAndDestroyCharacter(clan.Leader.CharacterObject);
-                    RevolutionsManagers.ClanManager.RemoveAndDestroyClan(clan);
+                    RevoltsManagers.Character.RemoveAndDestroyCharacter(clan.Leader.CharacterObject);
+                    RevoltsManagers.Clan.RemoveAndDestroyClan(clan);
                 }
             }
 
-            RevolutionsManagers.KingdomManager.RemoveKingdom(kingdom);
+            RevoltsManagers.Kingdom.RemoveKingdom(kingdom);
         }
 
         private void OnClanDestroyedEvent(Clan clan)
         {
-            var info = RevolutionsManagers.ClanManager.GetInfo(clan);
+            var info = RevoltsManagers.Clan.GetInfo(clan);
             if(info == null || !info.IsCustomClan)
             {
                 return;
@@ -113,20 +113,20 @@ namespace Revolutions.CampaignBehaviors
 
             if(clan.Kingdom.Clans.Where(go => go.StringId != clan.StringId).Count() == 0)
             {
-                RevolutionsManagers.KingdomManager.RemoveAndDestroyKingdom(clan.Kingdom);
+                RevoltsManagers.Kingdom.RemoveAndDestroyKingdom(clan.Kingdom);
             }
 
-            RevolutionsManagers.ClanManager.RemoveClan(clan);
+            RevoltsManagers.Clan.RemoveClan(clan);
         }
 
         private void OnPartyRemovedEvent(PartyBase party)
         {
-            RevolutionsManagers.PartyManager.RemoveInfo(party.Id);
+            RevoltsManagers.Party.RemoveInfo(party.Id);
         }
 
         private void ClanChangedKingdom(Clan clan, Kingdom oldKingdom, Kingdom newKingdom, bool byRebellion, bool showNotification)
         {
-            var clanInfo = RevolutionsManagers.ClanManager.GetInfo(clan);
+            var clanInfo = RevoltsManagers.Clan.GetInfo(clan);
 
             if (clanInfo != null && newKingdom != null &
                 !clanInfo.CanJoinOtherKingdoms && newKingdom.RulingClan.StringId != clan.StringId

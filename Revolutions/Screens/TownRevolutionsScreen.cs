@@ -1,17 +1,17 @@
-﻿using Revolutions.Components.Factions;
-using Revolutions.Components.Settlements;
-using Revolutions.Screens.ViewModels;
+﻿using Revolts.Screens.ViewModels;
+using Revolutions.Components.BaseComponents.Factions;
+using Revolutions.Components.BaseComponents.Settlements;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.GauntletUI.Data;
 
-namespace Revolutions.Screens
+namespace Revolts.Screens
 {
-    public class TownRevolutionsScreen : ScreenBase
+    public class TownRevoltsScreen : ScreenBase
     {
-        private readonly SettlementInfoRevolutions _settlementInfo;
-        private readonly FactionInfoRevolutions _factionInfo;
-        private TownRevolutionViewModel _dataSource;
+        private readonly SettlementInfo _settlementInfo;
+        private readonly FactionInfo _factionInfo;
+        private TownRevoltViewModel _dataSource;
         private GauntletLayer _gauntletLayer;
         private GauntletMovie _movie;
 
@@ -26,7 +26,7 @@ namespace Revolutions.Screens
             this._movie = null;
         }
 
-        public TownRevolutionsScreen(SettlementInfoRevolutions settlementInfo, FactionInfoRevolutions factionInfo)
+        public TownRevoltsScreen(SettlementInfo settlementInfo, FactionInfo factionInfo)
         {
             this._settlementInfo = settlementInfo;
             this._factionInfo = factionInfo;
@@ -36,7 +36,7 @@ namespace Revolutions.Screens
         {
             base.OnInitialize();
 
-            this._dataSource = new TownRevolutionViewModel(this._settlementInfo, this._factionInfo);
+            this._dataSource = new TownRevoltViewModel(this._settlementInfo, this._factionInfo);
             this._gauntletLayer = new GauntletLayer(100)
             {
                 IsFocusLayer = true
@@ -46,7 +46,7 @@ namespace Revolutions.Screens
             this._gauntletLayer.InputRestrictions.SetInputRestrictions();
             ScreenManager.TrySetFocus(this._gauntletLayer);
 
-            this._movie = this._gauntletLayer.LoadMovie("TownRevolutionScreen", this._dataSource);
+            this._movie = this._gauntletLayer.LoadMovie("TownRevoltScreen", this._dataSource);
             this._firstRender = true;
         }
 

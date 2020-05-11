@@ -3,9 +3,9 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameMenus;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.Localization;
-using Revolutions.Screens;
+using Revolts.Screens;
 
-namespace Revolutions.CampaignBehaviors
+namespace Revolts.CampaignBehaviors
 {
     public class GuiHandlersBehavior : CampaignBehaviorBase
     {
@@ -33,8 +33,8 @@ namespace Revolutions.CampaignBehaviors
                 return true;
             }, (MenuCallbackArgs args) =>
             {
-                var settlementInfo = RevolutionsManagers.SettlementManager.GetInfo(Settlement.CurrentSettlement);
-                ScreenManager.PushScreen(new TownRevolutionsScreen(settlementInfo, settlementInfo.CurrentFactionInfoRevolutions));
+                var settlementInfo = RevoltsManagers.Settlement.GetInfo(Settlement.CurrentSettlement);
+                ScreenManager.PushScreen(new TownRevoltsScreen(settlementInfo, settlementInfo.CurrentFactionInfoRevolts));
             }, false, 4);
         }
     }

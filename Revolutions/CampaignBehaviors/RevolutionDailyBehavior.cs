@@ -1,15 +1,15 @@
 ﻿using System;
 using TaleWorlds.CampaignSystem;
-using Revolutions.Components.Settlements;
-using Revolutions.Components.Factions;
+using Revolutions.Components.BaseComponents.Settlements;
+using Revolutions.Components.BaseComponents.Factions;
 
-namespace Revolutions.CampaignBehaviors
+namespace Revolts.CampaignBehaviors
 {
-    public class RevolutionDailyBehavior : CampaignBehaviorBase
+    public class RevoltDailyBehavior : CampaignBehaviorBase
     {
         private readonly DataStorage DataStorage;
 
-        public RevolutionDailyBehavior(ref DataStorage dataStorage)
+        public RevoltDailyBehavior(ref DataStorage dataStorage)
         {
             this.DataStorage = dataStorage;
         }
@@ -26,19 +26,19 @@ namespace Revolutions.CampaignBehaviors
 
         private void DailyTickEvent()
         {
-            RevolutionsManagers.RevolutionManager.IncreaseDailyLoyaltyForSettlement();
-            RevolutionsManagers.RevolutionManager.CheckRevolutionProgress();
+            RevoltsManagers.Revolt.IncreaseDailyLoyaltyForSettlement();
+            RevoltsManagers.Revolt.CheckRevoltProgress();
             this.UpdateSettlementInfos();
         }
 
         private void UpdateSettlementInfos()
         {
-            foreach (var factionInfo in RevolutionsManagers.FactionManager.Infos)
+            foreach (var factionInfo in RevoltsManagers.Faction.Infos)
             {
                 factionInfo.DailyUpdate();
             }
 
-            foreach (var settlementInfo in RevolutionsManagers.SettlementManager.Infos)
+            foreach (var settlementInfo in RevoltsManagers.Settlement.Infos)
             {
                 settlementInfo.DailyUpdate();
             }

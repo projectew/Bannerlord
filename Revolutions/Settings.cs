@@ -2,15 +2,15 @@
 using MBOptionScreen.Attributes.v2;
 using MBOptionScreen.Settings;
 
-namespace Revolutions
+namespace Revolts
 {
     public class Settings : AttributeSettings<Settings>
     {
-        public override string Id { get; set; } = "RevolutionsSettings_v049";
+        public override string Id { get; set; } = "RevoltsSettings_v049";
 
-        public override string ModuleFolderName => "Revolutions";
+        public override string ModuleFolderName => "Revolts";
 
-        public override string ModName => "Revolutions";
+        public override string ModName => "Revolts";
 
         #region General
 
