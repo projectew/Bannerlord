@@ -9,6 +9,7 @@ using Revolutions.Components.Base.Factions;
 using Revolutions.Components.Base.Clans;
 using Revolutions.Components.Base.Characters;
 using Revolutions.Components.Revolts;
+using Revolutions;
 
 namespace Revolts
 {
@@ -16,8 +17,15 @@ namespace Revolts
     {
         internal string SaveId { get; set; } = string.Empty;
 
-        internal void InitializeData()
+        internal void InitializeBaseData()
         {
+            RevoltsManagers.Faction.DebugMode = Settings.Instance.DebugMode;
+            RevoltsManagers.Kingdom.DebugMode = Settings.Instance.DebugMode;
+            RevoltsManagers.Clan.DebugMode = Settings.Instance.DebugMode;
+            RevoltsManagers.Party.DebugMode = Settings.Instance.DebugMode;
+            RevoltsManagers.Character.DebugMode = Settings.Instance.DebugMode;
+            RevoltsManagers.Settlement.DebugMode = Settings.Instance.DebugMode;
+
             RevoltsManagers.Kingdom.InitializeInfos();
             RevoltsManagers.Faction.InitializeInfos();
             RevoltsManagers.Clan.InitializeInfos();
@@ -26,7 +34,7 @@ namespace Revolts
             RevoltsManagers.Settlement.InitializeInfos();
         }
 
-        internal void LoadData()
+        internal void LoadBaseData()
         {
             var directoryPath = Path.Combine(SubModule.BaseSavePath, this.SaveId);
 
@@ -47,11 +55,16 @@ namespace Revolts
 
             RevoltsManagers.Settlement.Infos = FileHelper.Load<List<SettlementInfo>>(directoryPath, "Settlements").ToHashSet();
             RevoltsManagers.Settlement.CleanupDuplicatedInfos();
+        }
+
+        internal void LoadRevoltData()
+        {
+            var directoryPath = Path.Combine(SubModule.BaseSavePath, this.SaveId);
 
             RevoltsManagers.Revolt.Revolts = FileHelper.Load<List<Revolt>>(directoryPath, "Revolts").ToHashSet();
         }
 
-        internal void SaveData()
+        internal void SaveBaseData()
         {
             var directoryPath = Path.Combine(SubModule.BaseSavePath, this.SaveId);
 
@@ -61,6 +74,12 @@ namespace Revolts
             FileHelper.Save(RevoltsManagers.Party.Infos, directoryPath, "Parties");
             FileHelper.Save(RevoltsManagers.Character.Infos, directoryPath, "Characters");
             FileHelper.Save(RevoltsManagers.Settlement.Infos, directoryPath, "Settlements");
+        }
+
+        internal void SaveRevoltData()
+        {
+            var directoryPath = Path.Combine(SubModule.BaseSavePath, this.SaveId);
+
             FileHelper.Save(RevoltsManagers.Revolt.Revolts, directoryPath, "Revolts");
         }
     }

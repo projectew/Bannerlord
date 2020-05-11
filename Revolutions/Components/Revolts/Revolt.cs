@@ -3,7 +3,6 @@ using TaleWorlds.CampaignSystem;
 using KNTLibrary.Components;
 using Revolutions.Components.Base.Settlements;
 using Revolutions.Components.Base.Parties;
-using Revolts;
 
 namespace Revolutions.Components.Revolts
 {

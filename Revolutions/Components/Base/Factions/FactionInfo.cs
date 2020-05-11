@@ -2,7 +2,6 @@
 using TaleWorlds.CampaignSystem;
 using KNTLibrary.Components.Factions;
 using Revolutions.Components.Base.Settlements;
-using Revolts;
 
 namespace Revolutions.Components.Base.Factions
 {

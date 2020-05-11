@@ -6,23 +6,24 @@ using TaleWorlds.CampaignSystem.Actions;
 using HarmonyLib;
 using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Settlements;
-using Revolutions.Components.Revolts;
+using Revolts;
 
-namespace Revolts.CampaignBehaviors
+namespace Revolutions.Components.Revolts.CampaignBehaviors
 {
     public class RevoltBehavior : CampaignBehaviorBase
     {
         private readonly DataStorage DataStorage;
 
-        public RevoltBehavior(ref DataStorage dataStorage)
+        public RevoltBehavior(ref DataStorage dataStorage, CampaignGameStarter campaignGameStarter)
         {
             this.DataStorage = dataStorage;
+
+            campaignGameStarter.AddBehavior(new RevoltsDailyBehavior());
+            campaignGameStarter.AddBehavior(new LuckyNationBehaviour());
         }
 
         public override void RegisterEvents()
         {
-            CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.OnSessionLaunchedEvent));
-
             CampaignEvents.MapEventEnded.AddNonSerializedListener(this, new Action<MapEvent>(this.MapEventEnded));
 
             CampaignEvents.OnSettlementOwnerChangedEvent.AddNonSerializedListener(this, new Action<Settlement, bool, Hero, Hero, Hero, ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail>(this.OnSettlementOwnerChangedEvent));
@@ -41,25 +42,19 @@ namespace Revolts.CampaignBehaviors
 
                 if (dataStore.IsLoading)
                 {
-                    this.DataStorage.InitializeData();
-                    this.DataStorage.LoadData();
+                    this.DataStorage.LoadRevoltData();
                 }
 
                 if (dataStore.IsSaving)
                 {
-                    this.DataStorage.SaveData();
+                    this.DataStorage.SaveRevoltData();
                 }
             }
             catch (Exception exception)
             {
-                InformationManager.DisplayMessage(new InformationMessage($"Revolts: SyncData failed ({dataStore.IsLoading} | {dataStore.IsSaving} | {this.DataStorage.SaveId})!", ColorHelper.Red));
+                InformationManager.DisplayMessage(new InformationMessage($"Revolutions.Revolt: SyncData failed ({dataStore.IsLoading} | {dataStore.IsSaving} | {this.DataStorage.SaveId})!", ColorHelper.Red));
                 InformationManager.DisplayMessage(new InformationMessage(exception.ToString(), ColorHelper.Red));
             }
-        }
-
-        private void OnSessionLaunchedEvent(CampaignGameStarter obj)
-        {
-            this.DataStorage.InitializeData();
         }
 
         private void MapEventEnded(MapEvent mapEvent)
@@ -91,7 +86,7 @@ namespace Revolts.CampaignBehaviors
 
         private void KingdomDestroyedEvent(Kingdom kingdom)
         {
-            if(RevoltsManagers.Kingdom.GetInfo(kingdom)?.IsCustomKingdom == true)
+            if (RevoltsManagers.Kingdom.GetInfo(kingdom)?.IsCustomKingdom == true)
             {
                 foreach (var clan in kingdom.Clans)
                 {
@@ -106,12 +101,12 @@ namespace Revolts.CampaignBehaviors
         private void OnClanDestroyedEvent(Clan clan)
         {
             var info = RevoltsManagers.Clan.GetInfo(clan);
-            if(info == null || !info.IsCustomClan)
+            if (info == null || !info.IsCustomClan)
             {
                 return;
             }
 
-            if(clan.Kingdom.Clans.Where(go => go.StringId != clan.StringId).Count() == 0)
+            if (clan.Kingdom.Clans.Where(go => go.StringId != clan.StringId).Count() == 0)
             {
                 RevoltsManagers.Kingdom.RemoveAndDestroyKingdom(clan.Kingdom);
             }

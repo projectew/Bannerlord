@@ -3,15 +3,13 @@ using TaleWorlds.CampaignSystem;
 using Revolutions.Components.Base.Settlements;
 using Revolutions.Components.Base.Factions;
 
-namespace Revolts.CampaignBehaviors
+namespace Revolutions.Components.Revolts.CampaignBehaviors
 {
-    public class RevoltDailyBehavior : CampaignBehaviorBase
+    public class RevoltsDailyBehavior : CampaignBehaviorBase
     {
-        private readonly DataStorage DataStorage;
-
-        public RevoltDailyBehavior(ref DataStorage dataStorage)
+        public RevoltsDailyBehavior()
         {
-            this.DataStorage = dataStorage;
+
         }
 
         public override void RegisterEvents()
@@ -28,10 +26,10 @@ namespace Revolts.CampaignBehaviors
         {
             RevoltsManagers.Revolt.IncreaseDailyLoyaltyForSettlement();
             RevoltsManagers.Revolt.CheckRevoltProgress();
-            this.UpdateSettlementInfos();
+            this.DailyUpdates();
         }
 
-        private void UpdateSettlementInfos()
+        private void DailyUpdates()
         {
             foreach (var factionInfo in RevoltsManagers.Faction.Infos)
             {

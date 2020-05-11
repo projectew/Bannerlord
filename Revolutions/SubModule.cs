@@ -2,9 +2,11 @@
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
-using Revolts.CampaignBehaviors;
 using TaleWorlds.Engine;
 using KNTLibrary.Helpers;
+using Revolutions.Components.Revolts.CampaignBehaviors;
+using Revolutions;
+using Revolutions.CampaignBehaviors;
 
 namespace Revolts
 {
@@ -12,13 +14,13 @@ namespace Revolts
     {
         private DataStorage _dataStorage;
 
-        internal static string BaseSavePath => System.IO.Path.Combine(Utilities.GetConfigsPath(), "Revolts", "Saves");
+        internal static string BaseSavePath => System.IO.Path.Combine(Utilities.GetConfigsPath(), "Revolutions", "Saves");
 
         protected override void OnBeforeInitialModuleScreenSetAsRoot()
         {
             base.OnBeforeInitialModuleScreenSetAsRoot();
 
-            InformationManager.DisplayMessage(new InformationMessage("Revolts: Loaded Mod.", ColorHelper.Green));
+            InformationManager.DisplayMessage(new InformationMessage("Revolutions: Loaded Mod.", ColorHelper.Green));
         }
 
         protected override void OnGameStart(Game game, IGameStarter gameStarter)
@@ -30,37 +32,27 @@ namespace Revolts
                 return;
             }
 
-            this.InitializeMod(gameStarter as CampaignGameStarter);
+            this.Initialize(gameStarter as CampaignGameStarter);
         }
 
-        private void InitializeMod(CampaignGameStarter campaignGameStarter)
+        private void Initialize(CampaignGameStarter campaignGameStarter)
         {
             try
             {
                 this._dataStorage = new DataStorage();
                 this.AddBehaviours(campaignGameStarter);
-
-                RevoltsManagers.Faction.DebugMode = Settings.Instance.DebugMode;
-                RevoltsManagers.Kingdom.DebugMode = Settings.Instance.DebugMode;
-                RevoltsManagers.Clan.DebugMode = Settings.Instance.DebugMode;
-                RevoltsManagers.Party.DebugMode = Settings.Instance.DebugMode;
-                RevoltsManagers.Character.DebugMode = Settings.Instance.DebugMode;
-                RevoltsManagers.Settlement.DebugMode = Settings.Instance.DebugMode;
             }
             catch (Exception exception)
             {
-                InformationManager.DisplayMessage(new InformationMessage("Revolts: Failed to initialize!", ColorHelper.Red));
+                InformationManager.DisplayMessage(new InformationMessage("Revolutions: Failed to initialize!", ColorHelper.Red));
                 InformationManager.DisplayMessage(new InformationMessage(exception.ToString(), ColorHelper.Red));
             }
         }
 
         private void AddBehaviours(CampaignGameStarter campaignGameStarter)
         {
-            campaignGameStarter.AddBehavior(new LuckyNationBehaviour());
-            campaignGameStarter.AddBehavior(new RevoltBehavior(ref this._dataStorage));
-            campaignGameStarter.AddBehavior(new RevoltDailyBehavior(ref this._dataStorage));
-            campaignGameStarter.AddBehavior(new GuiHandlersBehavior());
-            campaignGameStarter.AddBehavior(new CleanupBehavior());
+            campaignGameStarter.AddBehavior(new RevolutionsBehavior(ref this._dataStorage, campaignGameStarter));
+            campaignGameStarter.AddBehavior(new RevoltBehavior(ref this._dataStorage, campaignGameStarter));
 
             campaignGameStarter.AddModel(new Models.SettlementLoyaltyModel(ref this._dataStorage));
         }

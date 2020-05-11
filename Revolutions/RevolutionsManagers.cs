@@ -12,7 +12,7 @@ using Revolutions.Components.Base.Clans;
 using Revolutions.Components.Base.Characters;
 using Revolutions.Components.Revolts;
 
-namespace Revolts
+namespace Revolutions
 {
     public static class RevoltsManagers
     {

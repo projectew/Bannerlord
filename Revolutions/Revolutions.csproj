@@ -78,7 +78,8 @@
   <ItemGroup>
     <Compile Include="CampaignBehaviors\CleanupBehavior.cs" />
     <Compile Include="CampaignBehaviors\GuiHandlersBehavior.cs" />
-    <Compile Include="CampaignBehaviors\LuckyNationBehaviour.cs" />
+    <Compile Include="CampaignBehaviors\RevolutionsBehavior.cs" />
+    <Compile Include="Components\Revolts\CampaignBehaviors\LuckyNationBehaviour.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="Components\Base\Kingdoms\KingdomInfo.cs" />
     <Compile Include="Components\Base\Kingdoms\KingdomInfoExtension.cs" />
@@ -96,8 +97,8 @@
     <Compile Include="Components\Base\Settlements\SettlementInfo.cs" />
     <Compile Include="Components\Base\Settlements\SettlementInfoExtension.cs" />
     <Compile Include="DataStorage.cs" />
-    <Compile Include="CampaignBehaviors\RevolutionBehavior.cs" />
-    <Compile Include="CampaignBehaviors\RevolutionDailyBehavior.cs" />
+    <Compile Include="Components\Revolts\CampaignBehaviors\RevoltsBehavior.cs" />
+    <Compile Include="Components\Revolts\CampaignBehaviors\RevoltsDailyBehavior.cs" />
     <Compile Include="Models\SettlementLoyaltyModel.cs" />
     <Compile Include="RevolutionsManagers.cs" />
     <Compile Include="Screens\TownRevolutionsScreen.cs" />

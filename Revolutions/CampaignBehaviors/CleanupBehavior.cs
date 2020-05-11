@@ -1,7 +1,7 @@
 ﻿using System;
 using TaleWorlds.CampaignSystem;
 
-namespace Revolts.CampaignBehaviors
+namespace Revolutions.CampaignBehaviors
 {
     public class CleanupBehavior : CampaignBehaviorBase
     {

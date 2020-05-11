@@ -5,7 +5,7 @@ using TaleWorlds.Engine.Screens;
 using TaleWorlds.Localization;
 using Revolts.Screens;
 
-namespace Revolts.CampaignBehaviors
+namespace Revolutions.CampaignBehaviors
 {
     public class GuiHandlersBehavior : CampaignBehaviorBase
     {
@@ -27,11 +27,11 @@ namespace Revolts.CampaignBehaviors
         private void CreateLoyaltyMenu(CampaignGameStarter obj)
         {
             var menuName = new TextObject("{=Ts1iVN8d}Town Loyalty");
-            obj.AddGameMenuOption("town", "town_enter_entr_option", menuName.ToString(), (MenuCallbackArgs args) =>
+            obj.AddGameMenuOption("town", "town_enter_entr_option", menuName.ToString(), (args) =>
             {
                 args.optionLeaveType = GameMenuOption.LeaveType.Submenu;
                 return true;
-            }, (MenuCallbackArgs args) =>
+            }, (args) =>
             {
                 var settlementInfo = RevoltsManagers.Settlement.GetInfo(Settlement.CurrentSettlement);
                 ScreenManager.PushScreen(new TownRevoltsScreen(settlementInfo, settlementInfo.CurrentFactionInfoRevolts));

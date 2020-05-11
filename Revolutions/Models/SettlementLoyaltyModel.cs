@@ -5,6 +5,7 @@ using TaleWorlds.Localization;
 using TaleWorlds.Core;
 using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Settlements;
+using Revolutions;
 
 namespace Revolts.Models
 {
@@ -52,7 +53,7 @@ namespace Revolts.Models
             }
             catch (Exception exception)
             {
-                InformationManager.DisplayMessage(new InformationMessage("Revolts: Failed to calculate loyalty change! Using TaleWorld logic now.", ColorHelper.Red));
+                InformationManager.DisplayMessage(new InformationMessage("Revolutions: Failed to calculate loyalty change! Using TaleWorld logic now.", ColorHelper.Red));
                 InformationManager.DisplayMessage(new InformationMessage($"Town: {town?.Name} | StringId: {town?.StringId}", ColorHelper.Red));
 
                 if(Settings.Instance.DebugMode)

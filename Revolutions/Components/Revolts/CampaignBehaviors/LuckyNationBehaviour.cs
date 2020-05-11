@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Revolts;
+using System;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 
-namespace Revolts.CampaignBehaviors
+namespace Revolutions.Components.Revolts.CampaignBehaviors
 {
     public class LuckyNationBehaviour : CampaignBehaviorBase
     {
