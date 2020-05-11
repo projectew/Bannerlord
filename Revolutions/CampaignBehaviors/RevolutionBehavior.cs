@@ -5,7 +5,7 @@ using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem.Actions;
 using HarmonyLib;
 using KNTLibrary.Helpers;
-using Revolutions.Components.BaseComponents.Settlements;
+using Revolutions.Components.Base.Settlements;
 using Revolutions.Components.Revolts;
 
 namespace Revolts.CampaignBehaviors

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using KNTLibrary.Helpers;
-using Revolutions.Components.BaseComponents.Settlements;
-using Revolutions.Components.BaseComponents.Parties;
-using Revolutions.Components.BaseComponents.Kingdoms;
-using Revolutions.Components.BaseComponents.Factions;
-using Revolutions.Components.BaseComponents.Clans;
-using Revolutions.Components.BaseComponents.Characters;
+using Revolutions.Components.Base.Settlements;
+using Revolutions.Components.Base.Parties;
+using Revolutions.Components.Base.Kingdoms;
+using Revolutions.Components.Base.Factions;
+using Revolutions.Components.Base.Clans;
+using Revolutions.Components.Base.Characters;
 using Revolutions.Components.Revolts;
 
 namespace Revolts

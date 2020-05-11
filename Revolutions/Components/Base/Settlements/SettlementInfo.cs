@@ -3,9 +3,9 @@ using TaleWorlds.CampaignSystem;
 using KNTLibrary.Components.Factions;
 using KNTLibrary.Components.Settlements;
 using Revolts;
-using Revolutions.Components.BaseComponents.Factions;
+using Revolutions.Components.Base.Factions;
 
-namespace Revolutions.Components.BaseComponents.Settlements
+namespace Revolutions.Components.Base.Settlements
 {
     [Serializable]
     public class SettlementInfo : BaseSettlementInfo

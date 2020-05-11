@@ -6,7 +6,7 @@ using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Localization;
 using Helpers;
 using KNTLibrary.Helpers;
-using Revolutions.Components.BaseComponents.Factions;
+using Revolutions.Components.Base.Factions;
 using Revolts;
 
 namespace Revolutions.Components.Revolts

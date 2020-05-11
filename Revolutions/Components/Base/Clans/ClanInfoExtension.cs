@@ -1,4 +1,4 @@
-﻿namespace Revolutions.Components.BaseComponents.Clans
+﻿namespace Revolutions.Components.Base.Clans
 {
     public static class ClanInfoExtension
     {

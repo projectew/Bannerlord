@@ -1,7 +1,7 @@
 ﻿using Revolts;
 using TaleWorlds.CampaignSystem;
 
-namespace Revolutions.Components.BaseComponents.Settlements
+namespace Revolutions.Components.Base.Settlements
 {
     public static class SettlementInfoExtension
     {

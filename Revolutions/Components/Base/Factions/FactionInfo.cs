@@ -1,10 +1,10 @@
 ﻿using System;
 using TaleWorlds.CampaignSystem;
 using KNTLibrary.Components.Factions;
-using Revolutions.Components.BaseComponents.Settlements;
+using Revolutions.Components.Base.Settlements;
 using Revolts;
 
-namespace Revolutions.Components.BaseComponents.Factions
+namespace Revolutions.Components.Base.Factions
 {
     [Serializable]
     public class FactionInfo : BaseFactionInfo

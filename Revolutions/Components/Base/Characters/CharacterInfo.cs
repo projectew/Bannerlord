@@ -1,18 +1,18 @@
-﻿using KNTLibrary.Components.Kingdoms;
-using System;
+﻿using System;
 using TaleWorlds.CampaignSystem;
+using KNTLibrary.Components.Characters;
 
-namespace Revolutions.Components.BaseComponents.Kingdoms
+namespace Revolutions.Components.Base.Characters
 {
     [Serializable]
-    public class KingdomInfo : BaseKingdomInfo
+    public class CharacterInfo : BaseCharacterInfo
     {
-        public KingdomInfo() : base()
+        public CharacterInfo() : base()
         {
 
         }
 
-        public KingdomInfo(Kingdom kingdom) : base(kingdom)
+        public CharacterInfo(CharacterObject character) : base(character)
         {
 
         }
@@ -43,7 +43,7 @@ namespace Revolutions.Components.BaseComponents.Kingdoms
 
         #region Normal Properties
 
-        public bool LuckyNation { get; set; } = false;
+        public bool IsRevoltKingdomLeader { get; set; } = false;
 
         #endregion
     }

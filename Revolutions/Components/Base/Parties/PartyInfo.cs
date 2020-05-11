@@ -1,18 +1,18 @@
 ﻿using System;
 using TaleWorlds.CampaignSystem;
-using KNTLibrary.Components.Clans;
+using KNTLibrary.Components.Parties;
 
-namespace Revolutions.Components.BaseComponents.Clans
+namespace Revolutions.Components.Base.Parties
 {
     [Serializable]
-    public class ClanInfo : BaseClanInfo
+    public class PartyInfo : BasePartyInfo
     {
-        public ClanInfo() : base()
+        public PartyInfo() : base()
         {
 
         }
 
-        public ClanInfo(Clan clan) : base(clan)
+        public PartyInfo(PartyBase party) : base(party)
         {
 
         }

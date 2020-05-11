@@ -4,7 +4,7 @@ using TaleWorlds.CampaignSystem.SandBox.GameComponents;
 using TaleWorlds.Localization;
 using TaleWorlds.Core;
 using KNTLibrary.Helpers;
-using Revolutions.Components.BaseComponents.Settlements;
+using Revolutions.Components.Base.Settlements;
 
 namespace Revolts.Models
 {

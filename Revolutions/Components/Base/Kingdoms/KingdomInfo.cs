@@ -1,18 +1,18 @@
-﻿using System;
+﻿using KNTLibrary.Components.Kingdoms;
+using System;
 using TaleWorlds.CampaignSystem;
-using KNTLibrary.Components.Parties;
 
-namespace Revolutions.Components.BaseComponents.Parties
+namespace Revolutions.Components.Base.Kingdoms
 {
     [Serializable]
-    public class PartyInfo : BasePartyInfo
+    public class KingdomInfo : BaseKingdomInfo
     {
-        public PartyInfo() : base()
+        public KingdomInfo() : base()
         {
 
         }
 
-        public PartyInfo(PartyBase party) : base(party)
+        public KingdomInfo(Kingdom kingdom) : base(kingdom)
         {
 
         }
@@ -43,7 +43,7 @@ namespace Revolutions.Components.BaseComponents.Parties
 
         #region Normal Properties
 
-
+        public bool LuckyNation { get; set; } = false;
 
         #endregion
     }

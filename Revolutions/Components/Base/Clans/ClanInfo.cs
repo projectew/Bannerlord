@@ -1,18 +1,18 @@
 ﻿using System;
 using TaleWorlds.CampaignSystem;
-using KNTLibrary.Components.Characters;
+using KNTLibrary.Components.Clans;
 
-namespace Revolutions.Components.BaseComponents.Characters
+namespace Revolutions.Components.Base.Clans
 {
     [Serializable]
-    public class CharacterInfo : BaseCharacterInfo
+    public class ClanInfo : BaseClanInfo
     {
-        public CharacterInfo() : base()
+        public ClanInfo() : base()
         {
 
         }
 
-        public CharacterInfo(CharacterObject character) : base(character)
+        public ClanInfo(Clan clan) : base(clan)
         {
 
         }
@@ -43,7 +43,7 @@ namespace Revolutions.Components.BaseComponents.Characters
 
         #region Normal Properties
 
-        public bool IsRevoltKingdomLeader { get; set; } = false;
+
 
         #endregion
     }

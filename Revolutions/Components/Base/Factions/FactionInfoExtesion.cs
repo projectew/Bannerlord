@@ -1,7 +1,7 @@
 ﻿using Revolts;
 using TaleWorlds.CampaignSystem;
 
-namespace Revolutions.Components.BaseComponents.Factions
+namespace Revolutions.Components.Base.Factions
 {
     public static class FactionInfoExtesion
     {

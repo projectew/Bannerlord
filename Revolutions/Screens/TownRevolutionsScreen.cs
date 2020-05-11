@@ -1,6 +1,6 @@
 ﻿using Revolts.Screens.ViewModels;
-using Revolutions.Components.BaseComponents.Factions;
-using Revolutions.Components.BaseComponents.Settlements;
+using Revolutions.Components.Base.Factions;
+using Revolutions.Components.Base.Settlements;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.GauntletUI.Data;
