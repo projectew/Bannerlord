@@ -6,7 +6,7 @@ namespace Revolts
 {
     public class Settings : AttributeSettings<Settings>
     {
-        public override string Id { get; set; } = "RevoltsSettings_v049";
+        public override string Id { get; set; } = "RevoltsSettings_v050";
 
         public override string ModuleFolderName => "Revolts";
 
@@ -14,108 +14,140 @@ namespace Revolts
 
         #region General
 
-        [SettingPropertyGroup(groupName: "{=MYu8nKqq}General", order: 0)]
-        [SettingPropertyFloatingInteger(displayName: "{=Pqk4uuGz}Revolt Cooldown", minValue: 0f, maxValue: 250f, Order = 0, HintText = "{=zx12ijyW}The time before another revolt can arise in the same faction.", RequireRestart = false)]
-        public float RevoltCooldownTime { get; set; } = 30.0f;
+        [SettingPropertyGroup("General", order: 0)]
+        [SettingPropertyFloatingInteger(displayName: "Base Player Loyalty", minValue: 0f, maxValue: 100f, Order = 0, HintText = "The base loyalty of cities to the player.", RequireRestart = false)]
+        public float GeneralBasePlayerLoyalty { get; set; } = 5.0f;
 
-        [SettingPropertyGroup("{=MYu8nKqq}General", order: 0)]
-        [SettingPropertyFloatingInteger(displayName: "{=qNWmNP0z}Base Loyalty", minValue: 0f, maxValue: 100f, Order = 1, HintText = "{=tOZS0maD}The base loyalty of cities to the player.", RequireRestart = false)]
-        public float BasePlayerLoyalty { get; set; } = 5.0f;
+        [SettingPropertyGroup("General", order: 0)]
+        [SettingPropertyInteger(displayName: "Loyalty Change", minValue: 0, maxValue: 365, Order = 1, HintText = "Days until the city's loyalty to the new owner changes.", RequireRestart = false)]
+        public int GeneralDaysUntilLoyaltyChange { get; set; } = 60;
 
-        [SettingPropertyGroup("{=MYu8nKqq}General", order: 0)]
-        [SettingPropertyInteger(displayName: "{=3fQwLwkC}Loyalty Change", minValue: 0, maxValue: 365, Order = 2, HintText = "{=dRoMEfb0}Days until the city's loyalty to the new owner changes.", RequireRestart = false)]
-        public int DaysUntilLoyaltyChange { get; set; } = 60;
+        [SettingPropertyGroup("General", order: 0)]
+        [SettingPropertyInteger(displayName: "Loyalty Increase", minValue: 0, maxValue: 100, Order = 2, HintText = "The amount by which loyalty increases when the owner is in town.", RequireRestart = false)]
+        public int GeneralPlayerInTownLoyaltyIncrease { get; set; } = 5;
 
-        [SettingPropertyGroup("{=MYu8nKqq}General", order: 0)]
-        [SettingPropertyInteger(displayName: "{=cXCfwzPp}Loyalty Increase", minValue: 0, maxValue: 100, Order = 3, HintText = "{=HWiD4aR1}The amount by which loyalty increases when the owner is in town.", RequireRestart = false)]
-        public int PlayerInTownLoyaltyIncrease { get; set; } = 5;
-
-        [SettingPropertyGroup("{=MYu8nKqq}General", order: 0)]
-        [SettingPropertyInteger(displayName: "{=ZuwszZww}Minimum Obedience", minValue: 0, maxValue: 250, Order = 4, HintText = "{=BkGsVccZ}Minimal loyalty is required for the city's obedience to the owner.", RequireRestart = false)]
-        public int MinimumObedienceLoyalty { get; set; } = 25;
-
-        [SettingPropertyGroup("{=MYu8nKqq}General", order: 0)]
-        [SettingPropertyInteger(displayName: "{=Z64szZ0r}Base Army Size", minValue: 0, maxValue: 1000, Order = 5, HintText = "{=u54sxY0r}The base size of the revolting army, which gets spawned.", RequireRestart = false)]
-        public int BaseRevoltArmySize { get; set; } = 100;
-
-        [SettingPropertyGroup("{=MYu8nKqq}General", order: 0)]
-        [SettingPropertyFloatingInteger(displayName: "{=Z64soMEf}Army Prosperity Multiplier", minValue: 0f, maxValue: 100f, Order = 6, HintText = "{=uD4aRY0r}This multiplier gets multiplied by the towns prosperity to add the amount to the base army size.", RequireRestart = false)]
-        public float ArmyProsperityMulitplier { get; set; } = 0.1f;
+        [SettingPropertyGroup("General", order: 0)]
+        [SettingPropertyInteger(displayName: "Minimum Obedience", minValue: 0, maxValue: 250, Order = 3, HintText = "Minimal loyalty is required for the city's obedience to the owner.", RequireRestart = false)]
+        public int GeneralMinimumObedienceLoyalty { get; set; } = 25;
 
         #endregion
 
-        #region Loyalty
+        #region Revolts
 
-        [SettingPropertyGroup(groupName: "{=hPERH4u4}Imperial Loyalty", order: 1)]
-        [SettingPropertyBool(displayName: "{=hPERH4u4}Imperial Loyalty", Order = 0, HintText = "{=YnRmSelp}Enables/Disables the mechanic for the empire loyalty.", RequireRestart = false)]
-        public bool EmpireLoyaltyMechanics { get; set; } = true;
+        [SettingPropertyGroup(groupName: "Revolts", order: 1, isMainToggle: true)]
+        [SettingPropertyBool(displayName: "Revolts", Order = 0, HintText = "{=E08Khju4}Enables/Disables Revolts.", RequireRestart = false)]
+        public bool EnableRevolts { get; set; } = true;
 
-        [SettingPropertyGroup(groupName: "{=hPERH4u4}Imperial Loyalty", order: 1)]
-        [SettingPropertyInteger(displayName: "{=ER9izZPu}Renown Loss", minValue: 0, maxValue: 1000, Order = 1, HintText = "{=1i5izHqq}The amount of renown a imperial clan will loose after a revolt against them had success.", RequireRestart = false)]
-        public int ImperialRenownLossOnWin { get; set; } = 50;
+        #region General
+
+        [SettingPropertyGroup(groupName: "Revolts", order: 1)]
+        [SettingPropertyBool(displayName: "::::: General :::::", Order = 1, HintText = "This won't have any affect. Only for grouping purpose.", RequireRestart = false)]
+        public bool RevoltsGeneral { get; set; } = false;
+
+        [SettingPropertyGroup(groupName: "Revolts", order: 1)]
+        [SettingPropertyFloatingInteger(displayName: "Revolt Cooldown", minValue: 0f, maxValue: 250f, Order = 2, HintText = "The time before another revolt can arise in the same faction.", RequireRestart = false)]
+        public float RevoltsGeneralCooldownTime { get; set; } = 30.0f;
+
+        [SettingPropertyGroup("Revolts", order: 1)]
+        [SettingPropertyInteger(displayName: "Base Army", minValue: 0, maxValue: 1000, Order = 3, HintText = "The base size of the revolting army, which gets spawned.", RequireRestart = false)]
+        public int RevoltsGeneralBaseArmy { get; set; } = 100;
+
+        [SettingPropertyGroup("Revolts", order: 1)]
+        [SettingPropertyFloatingInteger(displayName: "Army Prosperity Multiplier", minValue: 0f, maxValue: 100f, Order = 4, HintText = "This multiplier gets multiplied by the towns prosperity to add the amount to the base army size.", RequireRestart = false)]
+        public float RevoltsGeneralArmyProsperityMulitplier { get; set; } = 0.1f;
+
+        #endregion
+
+        #region Imperial Loyalty
+
+        [SettingPropertyGroup(groupName: "Revolts", order: 1)]
+        [SettingPropertyBool(displayName: "::::: Imperial Loyalty :::::", Order = 5, HintText = "This won't have any affect. Only for grouping purpose.", RequireRestart = false)]
+        public bool RevoltsImperialLoyalty { get; set; } = false;
+
+        [SettingPropertyGroup(groupName: "Revolts", order: 1)]
+        [SettingPropertyBool(displayName: "Mechanic", Order = 6, HintText = "Enables/Disables the Revolts mechanic for Imperial Loyalty.", RequireRestart = false)]
+        public bool RevoltsImperialLoyaltyMechanic { get; set; } = true;
+
+        [SettingPropertyGroup(groupName: "Revolts", order: 1)]
+        [SettingPropertyInteger(displayName: "Renown Loss", minValue: 0, maxValue: 1000, Order = 7, HintText = "The amount of renown a imperial clan will loose after a revolt against them had success.", RequireRestart = false)]
+        public int RevoltsImperialRenownLoss { get; set; } = 50;
 
         #endregion
 
         #region Overextension
 
-        [SettingPropertyGroup(groupName: "{=Ts1iV2pO}Overextension", order: 2)]
-        [SettingPropertyBool(displayName: "{=Ts1iV2pO}Overextension", Order = 0, HintText = "{=ZRlNsvev}Enables/Disables the mechanics for overextension.", RequireRestart = false)]
-        public bool OverextensionMechanics { get; set; } = true;
+        [SettingPropertyGroup(groupName: "Revolts", order: 1)]
+        [SettingPropertyBool(displayName: "::::: Overextension :::::", Order = 8, HintText = "This won't have any affect. Only for grouping purpose.", RequireRestart = false)]
+        public bool RevoltsOverextension { get; set; } = false;
 
-        [SettingPropertyGroup(groupName: "{=Ts1iV2pO}Overextension", order: 2)]
-        [SettingPropertyBool(displayName: "{=vuDS5ns8}Affects Player", Order = 1, HintText = "{=7LzQHMVj}Does the overextension mechanism affect the player.", RequireRestart = false)]
-        public bool PlayerAffectedByOverextension { get; set; } = true;
+        [SettingPropertyGroup(groupName: "Revolts", order: 1)]
+        [SettingPropertyBool(displayName: "Mechanic", Order = 9, HintText = "Enables/Disables the Revolutions mechanics for Overextension.", RequireRestart = false)]
+        public bool RevoltsOverextensionMechanics { get; set; } = true;
 
-        [SettingPropertyGroup(groupName: "{=Ts1iV2pO}Overextension", order: 2)]
-        [SettingPropertyFloatingInteger(displayName: "{=q2tbqN8d}Multiplier", minValue: 0f, maxValue: 10f, Order = 2, HintText = "{=6m1Ss8fW}A multiplier to calculate overextension.", RequireRestart = false)]
-        public float OverExtensionMultiplier { get; set; } = 2.0f;
+        [SettingPropertyGroup(groupName: "Revolts", order: 1)]
+        [SettingPropertyBool(displayName: "Affects Player", Order = 10, HintText = "Does the mechanic affects the player as well.", RequireRestart = false)]
+        public bool RevoltsOverextensionAffectsPlayer { get; set; } = true;
+
+        [SettingPropertyGroup(groupName: "Revolts", order: 1)]
+        [SettingPropertyFloatingInteger(displayName: "Multiplier", minValue: 0f, maxValue: 10f, Order = 11, HintText = "A multiplier to calculate with.", RequireRestart = false)]
+        public float RevoltsOverextensionMultiplier { get; set; } = 2.0f;
 
         #endregion
 
         #region Minor Factions
 
-        [SettingPropertyGroup(groupName: "{=WbOKuWbq}Minor Factions", order: 3)]
-        [SettingPropertyBool(displayName: "{=WbOKuWbq}Minor Factions", Order = 0, HintText = "{=P1g6H41e}Enables/Disables the mechanics for minor factions.", RequireRestart = false)]
-        public bool AllowMinorFactions { get; set; } = true;
+        [SettingPropertyGroup(groupName: "Revolts", order: 1)]
+        [SettingPropertyBool(displayName: "::::: Minor Factions :::::", Order = 12, HintText = "This won't have any affect. Only for grouping purpose.", RequireRestart = false)]
+        public bool RevoltsMinorFactions { get; set; } = false;
 
-        [SettingPropertyGroup(groupName: "{=WbOKuWbq}Minor Factions", order: 3)]
-        [SettingPropertyInteger(displayName: "{=Z79izZPu}Renown Gain", minValue: 0, maxValue: 1000, Order = 1, HintText = "{=1i9izH4u}The amount of renown a minor faction will get after they successful revolted.", RequireRestart = false)]
-        public int RenownGainOnWin { get; set; } = 350;
+        [SettingPropertyGroup(groupName: "Revolts", order: 1)]
+        [SettingPropertyBool(displayName: "Mechanic", Order = 13, HintText = "Enables/Disables the Revolutions mechanics Minor Factions.", RequireRestart = false)]
+        public bool RevoltsMinorFactionsMechanic { get; set; } = true;
 
-        #endregion
-
-        #region Lucky Nations
-
-        [SettingPropertyGroup(groupName: "{=6F34Ffer}Lucky Nations", order: 4)]
-        [SettingPropertyBool(displayName: "{=6F34Ffer}Lucky Nations", Order = 0, HintText = "{=Zkl46vev}Enables/Disables the mechanics for lucky nations.", RequireRestart = false)]
-        public bool EnableLuckyNations { get; set; } = true;
-
-        [SettingPropertyGroup(groupName: "{=6F34Ffer}Lucky Nations", order: 4)]
-        [SettingPropertyBool(displayName: "{=7fGer34R}Random Lucky Nation", Order = 1, HintText = "{=lgkTi59R}Enables/Disables a random lucky nation from all possible kingdoms.", RequireRestart = false)]
-        public bool RandomLuckyNation { get; set; } = true;
-
-        [SettingPropertyGroup(groupName: "{=6F34Ffer}Lucky Nations", order: 4)]
-        [SettingPropertyBool(displayName: "{=kgjR53Sd}Imperial Lucky Nation", Order = 2, HintText = "{=lgkr98EE}Guarantees an Imperial lucky nation.", RequireRestart = false)]
-        public bool ImperialLuckyNation { get; set; } = true;
-
-        [SettingPropertyGroup(groupName: "{=6F34Ffer}Lucky Nations", order: 4)]
-        [SettingPropertyBool(displayName: "{=klge23qZ}Non-Imperial Lucky Nation", Order = 3, HintText = "{=mvb34Sdk}Guarantees a  Non-Imperial lucky nation.", RequireRestart = false)]
-        public bool NonImperialLuckyNation { get; set; } = true;
+        [SettingPropertyGroup(groupName: "Revolts", order: 1)]
+        [SettingPropertyInteger(displayName: "Renown Gain", minValue: 0, maxValue: 1000, Order = 14, HintText = "The amount of renown a minor faction will get after they successful revolted.", RequireRestart = false)]
+        public int RevoltsMinorFactionsRenownGainOnWin { get; set; } = 350;
 
         #endregion
 
-        #region Separatism
+        #region Lucky Nation
 
-        [SettingPropertyGroup(groupName: "{=4r7V2pz6}Civil Wars", order: 5)]
-        [SettingPropertyBool(displayName: "{=4r7V2pz6}Civil Wars", Order = 0, HintText = "{=4J7V2Wbq}Enables/Disables the mechanics for Civil Wars.", RequireRestart = false)]
-        public bool SeparatismMechanic { get; set; } = false;
+        [SettingPropertyGroup(groupName: "Revolts", order: 1)]
+        [SettingPropertyBool(displayName: "::::: Lucky Nation :::::", Order = 15, HintText = "This won't have any affect. Only for grouping purpose.", RequireRestart = false)]
+        public bool RevoltsLuckyNation { get; set; } = false;
+
+        [SettingPropertyGroup(groupName: "Revolts", order: 1)]
+        [SettingPropertyBool(displayName: "Mechanic", Order = 16, HintText = "Enables/Disables the Revolts mechanics for lucky nation.", RequireRestart = false)]
+        public bool RevoltsLuckyNationMechanic { get; set; } = true;
+
+        [SettingPropertyGroup(groupName: "Revolts", order: 1)]
+        [SettingPropertyBool(displayName: "Random", Order = 17, HintText = "A random lucky nation from all possible kingdoms.", RequireRestart = false)]
+        public bool RevoltsLuckyNationRandom { get; set; } = true;
+
+        [SettingPropertyGroup(groupName: "Revolts", order: 1)]
+        [SettingPropertyBool(displayName: "Imperial", Order = 18, HintText = "Guarantees an Imperial lucky nation.", RequireRestart = false)]
+        public bool RevoltsLuckyNationImperial { get; set; } = true;
+
+        [SettingPropertyGroup(groupName: "Revolts", order: 1)]
+        [SettingPropertyBool(displayName: "Non-Imperial", Order = 19, HintText = "Guarantees a  Non-Imperial lucky nation.", RequireRestart = false)]
+        public bool RevoltsLuckyNationNonImperial { get; set; } = true;
+
+        #endregion
+
+        #endregion
+
+        #region Civil Wars
+
+        [SettingPropertyGroup(groupName: "Civil Wars", order: 2, isMainToggle: true)]
+        [SettingPropertyBool(displayName: "Civil Wars", Order = 0, HintText = "Enables/Disables Civil Wars.", RequireRestart = false)]
+        public bool EnableCivilWars { get; set; } = false;
 
         #endregion
 
         #region Miscellaneous
 
-        [SettingPropertyGroup(groupName: "{=3r7O82pO}Miscellaneous", order: 6)]
-        [SettingPropertyBool(displayName: "{=3H348per}Debug Mode", Order = 0, HintText = "{=3L33P8pr}Enables/Disables the output of detailed information.", RequireRestart = true)]
+        [SettingPropertyGroup(groupName: "Miscellaneous", order: 99)]
+        [SettingPropertyBool(displayName: "Debug Mode", Order = 0, HintText = "Enables/Disables the output of detailed information.", RequireRestart = true)]
         public bool DebugMode { get; set; } = false;
 
         #endregion

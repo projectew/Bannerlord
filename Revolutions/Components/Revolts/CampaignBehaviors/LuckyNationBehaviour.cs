@@ -31,7 +31,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
         private void SetLuckyNations()
         {
-            if (!Settings.Instance.EnableLuckyNations)
+            if (!Settings.Instance.RevoltsLuckyNationMechanic)
             {
                 foreach (var info in RevoltsManagers.Kingdom.Infos.Where(kingdomInfo => kingdomInfo.LuckyNation))
                 {
@@ -41,7 +41,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
                 return;
             }
 
-            if (Settings.Instance.RandomLuckyNation)
+            if (Settings.Instance.RevoltsLuckyNationRandom)
             {
                 if (!RevoltsManagers.Kingdom.Infos.Any(i => i.LuckyNation) && RevoltsManagers.Kingdom.Infos.Count > 0)
                 {
@@ -49,7 +49,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
                 }
             }
 
-            if (Settings.Instance.ImperialLuckyNation)
+            if (Settings.Instance.RevoltsLuckyNationImperial)
             {
                 var imperialNations = RevoltsManagers.Kingdom.Infos.Where(i => i.Kingdom.Culture.Name.ToString().ToLower().Contains("empire"));
                 if (!imperialNations.Any(i => i.LuckyNation) && imperialNations.Count() > 0)
@@ -58,7 +58,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
                 }
             }
 
-            if (Settings.Instance.NonImperialLuckyNation)
+            if (Settings.Instance.RevoltsLuckyNationNonImperial)
             {
                 var nonImperialNations = RevoltsManagers.Kingdom.Infos.Where(i => !i.Kingdom.Culture.Name.ToString().ToLower().Contains("empire"));
                 if (!nonImperialNations.Any(i => i.LuckyNation) && nonImperialNations.Count() > 0)

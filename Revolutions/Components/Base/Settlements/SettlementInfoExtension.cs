@@ -16,7 +16,7 @@ namespace Revolutions.Components.Base.Settlements
         {
             settlementInfo.DaysOwnedByOwner++;
 
-            if (settlementInfo.LoyalFactionId != settlementInfo.CurrentFactionId && settlementInfo.DaysOwnedByOwner > Settings.Instance.DaysUntilLoyaltyChange)
+            if (settlementInfo.LoyalFactionId != settlementInfo.CurrentFactionId && settlementInfo.DaysOwnedByOwner > Settings.Instance.GeneralDaysUntilLoyaltyChange)
             {
                 settlementInfo.LoyalFactionId = settlementInfo.CurrentFactionId;
             }

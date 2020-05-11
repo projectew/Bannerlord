@@ -5,10 +5,10 @@ using TaleWorlds.MountAndBlade;
 using TaleWorlds.Engine;
 using KNTLibrary.Helpers;
 using Revolutions.Components.Revolts.CampaignBehaviors;
-using Revolutions;
 using Revolutions.CampaignBehaviors;
+using Revolts;
 
-namespace Revolts
+namespace Revolutions
 {
     public class SubModule : MBSubModuleBase
     {
@@ -32,10 +32,10 @@ namespace Revolts
                 return;
             }
 
-            this.Initialize(gameStarter as CampaignGameStarter);
+            this.InitializeRevolutions(gameStarter as CampaignGameStarter);
         }
 
-        private void Initialize(CampaignGameStarter campaignGameStarter)
+        private void InitializeRevolutions(CampaignGameStarter campaignGameStarter)
         {
             try
             {

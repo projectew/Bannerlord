@@ -2,6 +2,7 @@
 using KNTLibrary.Helpers;
 using Revolts;
 using System;
+using System.Threading;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 
@@ -29,6 +30,7 @@ namespace Revolutions.CampaignBehaviors
             try
             {
                 this.DataStorage.SaveId = AccessTools.Field(typeof(MBSaveLoad), "ActiveSaveSlotName").GetValue(null).ToString();
+                Thread.Sleep(1000);
 
                 if (dataStore.IsLoading)
                 {

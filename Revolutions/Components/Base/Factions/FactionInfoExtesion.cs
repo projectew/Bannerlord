@@ -33,7 +33,7 @@ namespace Revolutions.Components.Base.Factions
         {
             factionInfo.DaysSinceLastRevolt++;
 
-            if (factionInfo.DaysSinceLastRevolt > Settings.Instance.RevoltCooldownTime)
+            if (factionInfo.DaysSinceLastRevolt > Settings.Instance.RevoltsGeneralCooldownTime)
             {
                 factionInfo.CanRevolt = true;
             }
