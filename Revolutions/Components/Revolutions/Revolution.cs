@@ -30,7 +30,7 @@ namespace Revolutions.Components.Revolutions
 
         public override int GetHashCode()
         {
-            return this.PartyId.GetHashCode() ^ this.SettlementId.GetHashCode();
+            return (this.PartyId, this.SettlementId).GetHashCode();
         }
 
         #endregion

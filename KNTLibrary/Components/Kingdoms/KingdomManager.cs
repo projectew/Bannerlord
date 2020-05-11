@@ -154,6 +154,8 @@ namespace KNTLibrary.Components.Kingdoms
                 kingdoms.Add(kingdom);
                 return kingdoms;
             });
+
+            this.GetInfo(kingdom).IsCustomKingdom = true;
         }
 
         public void RemoveKingdom(Kingdom kingdom)
@@ -167,6 +169,8 @@ namespace KNTLibrary.Components.Kingdoms
 
                 return null;
             });
+
+            this.RemoveInfo(kingdom.StringId);
         }
 
         public void RemoveAndDestroyKingdom(Kingdom kingdom)
@@ -177,18 +181,17 @@ namespace KNTLibrary.Components.Kingdoms
 
         public Kingdom CreateKingdom(Hero leader, TextObject name, TextObject informalName)
         {
-            Kingdom kingdom = MBObjectManager.Instance.CreateObject<Kingdom>();
+            var kingdom = MBObjectManager.Instance.CreateObject<Kingdom>();
             kingdom.InitializeKingdom(name, informalName, leader.Culture, Banner.CreateRandomClanBanner(leader.StringId.GetDeterministicHashCode()), leader.Clan.Color, leader.Clan.Color2, leader.Clan.InitialPosition);
 
             ChangeKingdomAction.ApplyByJoinToKingdom(leader.Clan, kingdom, true);
             kingdom.RulingClan = leader.Clan;
 
-            kingdom.AddPolicy(DefaultPolicies.NobleRetinues);
+            AccessTools.Property(typeof(Kingdom), "AlternativeColor").SetValue(kingdom, leader.Clan.Color);
+            AccessTools.Property(typeof(Kingdom), "AlternativeColor2").SetValue(kingdom, leader.Clan.Color2);
+            AccessTools.Property(typeof(Kingdom), "LabelColor").SetValue(kingdom, ColorManager.Black.ToUnsignedInteger());
 
-            MBObjectManager.Instance.RegisterObject(kingdom);
             this.AddKingdom(kingdom);
-
-            this.GetInfo(kingdom).UserMadeKingdom = true;
             return kingdom;
         }
     }

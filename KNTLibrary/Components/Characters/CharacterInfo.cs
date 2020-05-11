@@ -60,9 +60,9 @@ namespace KNTLibrary.Components.Characters
 
         #region Normal Properties
 
-        public bool CanJoinOtherKingdoms { get; set; } = true;
-
         public bool IsCustomCharater { get; set; } = false;
+
+        public bool CanJoinOtherKingdoms { get; set; } = true;
 
         #endregion
     }

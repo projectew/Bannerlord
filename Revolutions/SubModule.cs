@@ -1,11 +1,10 @@
 ﻿using System;
-using System.IO;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
-using TaleWorlds.Library;
 using KNTLibrary;
 using Revolutions.CampaignBehaviors;
+using TaleWorlds.Engine;
 
 namespace Revolutions
 {
@@ -13,7 +12,7 @@ namespace Revolutions
     {
         private DataStorage _dataStorage;
 
-        internal static string ModuleDataPath => Path.Combine(BasePath.Name, "Modules", "Revolutions", "ModuleData");
+        internal static string ModuleDataPath => System.IO.Path.Combine(Utilities.GetConfigsPath(), "Revolutions");
 
         protected override void OnBeforeInitialModuleScreenSetAsRoot()
         {

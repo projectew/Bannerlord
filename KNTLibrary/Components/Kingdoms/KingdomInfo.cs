@@ -60,7 +60,7 @@ namespace KNTLibrary.Components.Kingdoms
 
         #region Normal Properties
 
-        public bool UserMadeKingdom { get; set; } = false;
+        public bool IsCustomKingdom { get; set; } = false;
 
         #endregion
     }

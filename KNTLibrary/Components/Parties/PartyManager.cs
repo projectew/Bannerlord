@@ -133,14 +133,14 @@ namespace KNTLibrary.Components.Parties
 
         public MobileParty CreateMobileParty(Hero leader, Vec2 spawnPosition, Settlement homeSettlement, bool addLeaderToRoster, bool addInitialFood = true)
         {
-            MobileParty mobileParty = MBObjectManager.Instance.CreateObject<MobileParty>(leader.CharacterObject.Name.ToString() + "_" + leader.Id);
+            var mobileParty = MBObjectManager.Instance.CreateObject<MobileParty>();
             mobileParty.Initialize();
 
-            TroopRoster memberRoster = new TroopRoster
+            var memberRoster = new TroopRoster
             {
                 IsPrisonRoster = false
             };
-            TroopRoster prisonerRoster = new TroopRoster
+            var prisonerRoster = new TroopRoster
             {
                 IsPrisonRoster = true
             };
@@ -157,20 +157,20 @@ namespace KNTLibrary.Components.Parties
 
             if (addInitialFood)
             {
-                ItemObject foodItem = Campaign.Current.Items.First(item => item.IsFood);
-                mobileParty.ItemRoster.AddToCounts(foodItem, 200);
+                var foodItem = Campaign.Current.Items.Where(item => item.IsFood).GetRandomElement();
+                mobileParty.ItemRoster.AddToCounts(foodItem, new Random().Next(100, 300));
             }
 
             mobileParty.HomeSettlement = homeSettlement;
             mobileParty.Quartermaster = leader;
 
-            this.GetInfo(mobileParty.Party);
+            this.GetInfo(mobileParty.Party).IsCustomParty = true;
             return mobileParty;
         }
 
         public TroopRoster GenerateBasicTroopRoster(Hero leader, int amount, bool withTier1 = true, bool withTier2 = true, bool withTier3 = true, bool withTier4 = true)
         {
-            TroopRoster basicUnits = new TroopRoster();
+            var basicUnits = new TroopRoster();
 
             var basicTroop = leader?.Culture?.BasicTroop;
             if(basicTroop == null)
@@ -180,7 +180,7 @@ namespace KNTLibrary.Components.Parties
 
             basicUnits.AddToCounts(basicTroop, amount);
 
-            foreach (CharacterObject tier1 in basicTroop.UpgradeTargets)
+            foreach (var tier1 in basicTroop?.UpgradeTargets)
             {
                 if (tier1 == null)
                 {
@@ -189,10 +189,10 @@ namespace KNTLibrary.Components.Parties
 
                 if (withTier1)
                 {
-                    basicUnits.AddToCounts(tier1, amount / 4);
+                    basicUnits.AddToCounts(tier1, amount / 2);
                 }
 
-                foreach (CharacterObject tier2 in tier1?.UpgradeTargets)
+                foreach (var tier2 in tier1?.UpgradeTargets)
                 {
                     if (tier2 == null)
                     {
@@ -204,7 +204,7 @@ namespace KNTLibrary.Components.Parties
                         basicUnits.AddToCounts(tier2, amount / 4);
                     }
 
-                    foreach (CharacterObject tier3 in tier2?.UpgradeTargets)
+                    foreach (var tier3 in tier2?.UpgradeTargets)
                     {
                         if (tier3 == null)
                         {
@@ -216,7 +216,7 @@ namespace KNTLibrary.Components.Parties
                             basicUnits.AddToCounts(tier3, amount / 8);
                         }
 
-                        foreach (CharacterObject tier4 in tier3?.UpgradeTargets)
+                        foreach (var tier4 in tier3?.UpgradeTargets)
                         {
                             if (tier4 == null)
                             {
@@ -237,7 +237,7 @@ namespace KNTLibrary.Components.Parties
 
         public TroopRoster GenerateEliteTroopRoster(Hero leader, int amount, bool withTier1 = true, bool withTier2 = true, bool withTier3 = true, bool withTier4 = true)
         {
-            TroopRoster eliteUnits = new TroopRoster();
+            var eliteUnits = new TroopRoster();
 
             var eliteBasicTroop = leader?.Culture?.EliteBasicTroop;
             if (eliteBasicTroop == null)
@@ -247,7 +247,7 @@ namespace KNTLibrary.Components.Parties
 
             eliteUnits.AddToCounts(leader.Culture.EliteBasicTroop, amount);
 
-            foreach (CharacterObject tier1 in eliteBasicTroop.UpgradeTargets)
+            foreach (var tier1 in eliteBasicTroop?.UpgradeTargets)
             {
                 if(tier1 == null)
                 {
@@ -259,7 +259,7 @@ namespace KNTLibrary.Components.Parties
                     eliteUnits.AddToCounts(tier1, amount / 2);
                 }
 
-                foreach (CharacterObject tier2 in tier1?.UpgradeTargets)
+                foreach (var tier2 in tier1?.UpgradeTargets)
                 {
                     if (tier2 == null)
                     {
@@ -271,7 +271,7 @@ namespace KNTLibrary.Components.Parties
                         eliteUnits.AddToCounts(tier2, amount / 2);
                     }
 
-                    foreach (CharacterObject tier3 in tier2?.UpgradeTargets)
+                    foreach (var tier3 in tier2?.UpgradeTargets)
                     {
                         if (tier3 == null)
                         {
@@ -283,7 +283,7 @@ namespace KNTLibrary.Components.Parties
                             eliteUnits.AddToCounts(tier3, amount / 4);
                         }
 
-                        foreach (CharacterObject tier4 in tier3?.UpgradeTargets)
+                        foreach (var tier4 in tier3?.UpgradeTargets)
                         {
                             if (tier4 == null)
                             {

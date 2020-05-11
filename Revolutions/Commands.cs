@@ -298,7 +298,7 @@ namespace Revolutions
                 return "Format is \"revolutions.show_lucky_nations\"";
             }
 
-            List<string> luckyNations = new List<string>();
+            var luckyNations = new List<string>();
 
             foreach (var info in RevolutionsManagers.KingdomManager.Infos.Where(i => i.LuckyNation))
             {

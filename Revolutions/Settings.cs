@@ -87,26 +87,34 @@ namespace Revolutions
         #region Lucky Nations
 
         [SettingPropertyGroup(groupName: "{=6F34Ffer}Lucky Nations", order: 4)]
-        [SettingPropertyBool(displayName: "{=6F34Ffer}Lucky Nations", Order = 0, HintText = "{=Zkl46vev}Enables/Disables the mechanics for lucky nations.", RequireRestart = true)]
+        [SettingPropertyBool(displayName: "{=6F34Ffer}Lucky Nations", Order = 0, HintText = "{=Zkl46vev}Enables/Disables the mechanics for lucky nations.", RequireRestart = false)]
         public bool EnableLuckyNations { get; set; } = true;
 
         [SettingPropertyGroup(groupName: "{=6F34Ffer}Lucky Nations", order: 4)]
-        [SettingPropertyBool(displayName: "{=7fGer34R}Random Lucky Nation", Order = 1, HintText = "{=lgkTi59R}Enables/Disables a random lucky nation from all possible kingdoms.", RequireRestart = true)]
+        [SettingPropertyBool(displayName: "{=7fGer34R}Random Lucky Nation", Order = 1, HintText = "{=lgkTi59R}Enables/Disables a random lucky nation from all possible kingdoms.", RequireRestart = false)]
         public bool RandomLuckyNation { get; set; } = true;
 
         [SettingPropertyGroup(groupName: "{=6F34Ffer}Lucky Nations", order: 4)]
-        [SettingPropertyBool(displayName: "{=kgjR53Sd}Imperial Lucky Nation", Order = 2, HintText = "{=lgkr98EE}Guarantees an Imperial lucky nation.", RequireRestart = true)]
+        [SettingPropertyBool(displayName: "{=kgjR53Sd}Imperial Lucky Nation", Order = 2, HintText = "{=lgkr98EE}Guarantees an Imperial lucky nation.", RequireRestart = false)]
         public bool ImperialLuckyNation { get; set; } = true;
 
         [SettingPropertyGroup(groupName: "{=6F34Ffer}Lucky Nations", order: 4)]
-        [SettingPropertyBool(displayName: "{=klge23qZ}Non-Imperial Lucky Nation", Order = 3, HintText = "{=mvb34Sdk}Guarantees a  Non-Imperial lucky nation.", RequireRestart = true)]
+        [SettingPropertyBool(displayName: "{=klge23qZ}Non-Imperial Lucky Nation", Order = 3, HintText = "{=mvb34Sdk}Guarantees a  Non-Imperial lucky nation.", RequireRestart = false)]
         public bool NonImperialLuckyNation { get; set; } = true;
+
+        #endregion
+
+        #region Separatism
+
+        [SettingPropertyGroup(groupName: "{=4r7V2pz6}Civil Wars", order: 5)]
+        [SettingPropertyBool(displayName: "{=4r7V2pz6}Civil Wars", Order = 0, HintText = "{=4J7V2Wbq}Enables/Disables the mechanics for Civil Wars.", RequireRestart = false)]
+        public bool SeparatismMechanic { get; set; } = false;
 
         #endregion
 
         #region Miscellaneous
 
-        [SettingPropertyGroup(groupName: "{=3r7O82pO}Miscellaneous", order: 5)]
+        [SettingPropertyGroup(groupName: "{=3r7O82pO}Miscellaneous", order: 6)]
         [SettingPropertyBool(displayName: "{=3H348per}Debug Mode", Order = 0, HintText = "{=3L33P8pr}Enables/Disables the output of detailed information.", RequireRestart = true)]
         public bool DebugMode { get; set; } = false;
 

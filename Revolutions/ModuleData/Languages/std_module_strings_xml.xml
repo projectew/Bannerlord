@@ -49,6 +49,9 @@
     <string id="klge23qZ" text="Non-Imperial Lucky Nation" />
     <string id="mvb34Sdk" text="Guarantees a Non-Imperial lucky nation." />
     <string id="glCo42fD" text="Loyal population" />
+    <!-- Civil Wars -->
+    <string id="4r7V2pz6" text="Civil Wars" />
+    <string id="4J7V2Wbq" text="Enables/Disables the mechanics for Civil Wars." />
     <!-- Miscellaneous-->
     <string id="3r7O82pO" text="Miscellaneous" />
     <string id="3H348per" text="Debug Mode" />

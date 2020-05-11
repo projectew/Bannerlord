@@ -1,9 +1,12 @@
-﻿using KNTLibrary.Components.Settlements;
+﻿using HarmonyLib;
+using KNTLibrary.Components.Settlements;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Core;
+using TaleWorlds.Library;
 
 namespace KNTLibrary.Components.Characters
 {
@@ -130,37 +133,64 @@ namespace KNTLibrary.Components.Characters
 
         public Hero CreateRandomLeader(Clan clan, SettlementInfo settlementInfo)
         {
-            Random random = new Random();
+            var random = new Random();
             Hero hero = null;
 
-            CharacterObject templateBase = clan.Leader.CharacterObject;
+            var templateBase = clan.Leader.CharacterObject;
 
-            CharacterObject characterTemplate = CharacterObject.Templates.Where(go => go.Culture == settlementInfo.InitialCulture && (go.Occupation == Occupation.Lord || go.Occupation == Occupation.Lady)).GetRandomElement();
+            var characterTemplate = CharacterObject.Templates.Where(go => go.Culture == settlementInfo.InitialCulture && (go.Occupation == Occupation.Lord || go.Occupation == Occupation.Lady)).GetRandomElement();
             characterTemplate.InitializeEquipmentsOnLoad(templateBase.AllEquipments.ToList());
 
-            hero = HeroCreator.CreateSpecialHero(characterTemplate, settlementInfo.Settlement, clan, null, -1);
-            hero.StringId = Campaign.Current.Heroes[Campaign.Current.Heroes.Count - 1].StringId + random.Next(int.MaxValue);
-            hero.Name = NameGenerator.Current.GenerateHeroFirstName(hero, true);
-            hero.ChangeState(Hero.CharacterStates.NotSpawned);
-            hero.IsMinorFactionHero = false;
-            hero.IsNoble = true;
-            hero.BornSettlement = settlementInfo.Settlement;
-            hero.UpdateHomeSettlement();
+            foreach (var attribute in CharacterAttributes.All)
+            {
+                characterTemplate.SetAttributeValue(attribute.AttributeEnum, templateBase.GetAttributeValue(attribute.AttributeEnum));
+            }
 
-            hero.AddSkillXp(SkillObject.GetSkill(0), random.Next(80000, 500000)); // One Handed
-            hero.AddSkillXp(SkillObject.GetSkill(2), random.Next(80000, 500000)); // Pole Arm
-            hero.AddSkillXp(SkillObject.GetSkill(6), random.Next(80000, 500000)); // Riding
-            hero.AddSkillXp(SkillObject.GetSkill(7), random.Next(80000, 500000)); // Athletics
-            hero.AddSkillXp(SkillObject.GetSkill(9), random.Next(80000, 500000)); // Tactics
-            hero.AddSkillXp(SkillObject.GetSkill(13), random.Next(80000, 500000)); // Leadership
-            hero.AddSkillXp(SkillObject.GetSkill(15), random.Next(80000, 500000)); // Steward
-            hero.AddSkillXp(SkillObject.GetSkill(17), random.Next(80000, 500000)); // Engineering
+            foreach (var skill in SkillObject.All)
+            {
+                characterTemplate.SetSkillValue(skill, templateBase.GetSkillValue(skill));
+            }
+
+            hero = HeroCreator.CreateSpecialHero(characterTemplate, settlementInfo.Settlement, clan, null, -1);
+            hero.ChangeState(Hero.CharacterStates.NotSpawned);
+            hero.IsNoble = true;
+            hero.IsMinorFactionHero = false;
 
             hero.ChangeState(Hero.CharacterStates.Active);
 
-            this.GetInfo(hero.CharacterObject);
+            this.GetInfo(hero.CharacterObject).IsCustomCharater = true;
             return hero;
         }
 
+        public void ModifyCharacterList(Func<List<CharacterObject>, List<CharacterObject>> modificator)
+        {
+            var characters = new List<CharacterObject>(Campaign.Current.Characters.ToList());
+            characters = modificator(characters);
+            if (characters != null)
+            {
+                AccessTools.Field(Campaign.Current.GetType(), "_characters").SetValue(Campaign.Current, new MBReadOnlyList<CharacterObject>(characters));
+            }
+        }
+
+        public void RemoveCharacter(CharacterObject character)
+        {
+            this.ModifyCharacterList(gos =>
+            {
+                if (gos.RemoveAll(go => go == character) > 0)
+                {
+                    return gos;
+                }
+
+                return null;
+            });
+
+            this.RemoveInfo(character.StringId);
+        }
+
+        public void RemoveAndDestroyCharacter(CharacterObject character)
+        {
+            this.RemoveCharacter(character);
+            KillCharacterAction.ApplyByRemove(character.HeroObject);
+        }
     }
 }

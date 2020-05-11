@@ -60,7 +60,7 @@ namespace KNTLibrary.Components.Parties
 
         #region Normal Properties
 
-
+        public bool IsCustomParty { get; set; } = false;
 
         #endregion
     }

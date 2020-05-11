@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("KNTLibrary")]
-[assembly: AssemblyCopyright("Copyright © 2020 Kommissar & TH3UNKN0WN1337")]
+[assembly: AssemblyCopyright("Copyright © 2020 K&T Mods")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

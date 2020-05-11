@@ -59,10 +59,10 @@ namespace Revolutions.CampaignBehaviors
 
             if (Settings.Instance.NonImperialLuckyNation)
             {
-                var nonImperialLuckyNations = RevolutionsManagers.KingdomManager.Infos.Where(i => !i.Kingdom.Culture.Name.ToString().ToLower().Contains("empire"));
-                if (!nonImperialLuckyNations.Any(i => i.LuckyNation) && nonImperialLuckyNations.Count() > 0)
+                var nonImperialNations = RevolutionsManagers.KingdomManager.Infos.Where(i => !i.Kingdom.Culture.Name.ToString().ToLower().Contains("empire"));
+                if (!nonImperialNations.Any(i => i.LuckyNation) && nonImperialNations.Count() > 0)
                 {
-                    nonImperialLuckyNations.GetRandomElement().LuckyNation = true;
+                    nonImperialNations.GetRandomElement().LuckyNation = true;
                 }
             }
         }

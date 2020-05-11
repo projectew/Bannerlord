@@ -27,8 +27,9 @@ namespace Revolutions.CampaignBehaviors
             CampaignEvents.OnSettlementOwnerChangedEvent.AddNonSerializedListener(this, new Action<Settlement, bool, Hero, Hero, Hero, ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail>(this.OnSettlementOwnerChangedEvent));
 
             CampaignEvents.KingdomDestroyedEvent.AddNonSerializedListener(this, new Action<Kingdom>(this.KingdomDestroyedEvent));
-            CampaignEvents.ClanChangedKingdom.AddNonSerializedListener(this, new Action<Clan, Kingdom, Kingdom, bool, bool>(this.ClanChangedKingdom));
+            CampaignEvents.OnClanDestroyedEvent.AddNonSerializedListener(this, new Action<Clan>(this.OnClanDestroyedEvent));
             CampaignEvents.OnPartyRemovedEvent.AddNonSerializedListener(this, new Action<PartyBase>(this.OnPartyRemovedEvent));
+            CampaignEvents.ClanChangedKingdom.AddNonSerializedListener(this, new Action<Clan, Kingdom, Kingdom, bool, bool>(this.ClanChangedKingdom));
         }
 
         public override void SyncData(IDataStore dataStore)
@@ -91,8 +92,37 @@ namespace Revolutions.CampaignBehaviors
 
         private void KingdomDestroyedEvent(Kingdom kingdom)
         {
+            if(RevolutionsManagers.KingdomManager.GetInfo(kingdom)?.IsCustomKingdom == true)
+            {
+                foreach (var clan in kingdom.Clans)
+                {
+                    RevolutionsManagers.CharacterManager.RemoveAndDestroyCharacter(clan.Leader.CharacterObject);
+                    RevolutionsManagers.ClanManager.RemoveAndDestroyClan(clan);
+                }
+            }
+
             RevolutionsManagers.KingdomManager.RemoveKingdom(kingdom);
-            RevolutionsManagers.KingdomManager.RemoveInfo(kingdom.StringId);
+        }
+
+        private void OnClanDestroyedEvent(Clan clan)
+        {
+            var info = RevolutionsManagers.ClanManager.GetInfo(clan);
+            if(info == null || !info.IsCustomClan)
+            {
+                return;
+            }
+
+            if(clan.Kingdom.Clans.Where(go => go.StringId != clan.StringId).Count() == 0)
+            {
+                RevolutionsManagers.KingdomManager.RemoveAndDestroyKingdom(clan.Kingdom);
+            }
+
+            RevolutionsManagers.ClanManager.RemoveClan(clan);
+        }
+
+        private void OnPartyRemovedEvent(PartyBase party)
+        {
+            RevolutionsManagers.PartyManager.RemoveInfo(party.Id);
         }
 
         private void ClanChangedKingdom(Clan clan, Kingdom oldKingdom, Kingdom newKingdom, bool byRebellion, bool showNotification)
@@ -107,11 +137,6 @@ namespace Revolutions.CampaignBehaviors
             {
                 clan.ClanLeaveKingdom(false);
             }
-        }
-
-        private void OnPartyRemovedEvent(PartyBase party)
-        {
-            RevolutionsManagers.PartyManager.RemoveInfo(party.Id);
         }
     }
 }

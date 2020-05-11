@@ -1,7 +1,9 @@
-﻿using System;
+﻿using HarmonyLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
@@ -132,16 +134,48 @@ namespace KNTLibrary.Components.Clans
 
         public Clan CreateClan(Hero leader, TextObject name, TextObject informalName)
         {
-            Clan clan = MBObjectManager.Instance.CreateObject<Clan>();
+            var clanName = NameGenerator.Current.GenerateClanName(leader.Culture, leader.HomeSettlement);
+
+            var clan = MBObjectManager.Instance.CreateObject<Clan>();
             clan.Culture = leader.Culture;
             clan.AddRenown(900, false);
             clan.SetLeader(leader);
             leader.Clan = clan;
+            clan.InitializeClan(clanName, clanName, leader.Culture, Banner.CreateRandomClanBanner(leader.StringId.GetDeterministicHashCode()));
 
-            clan.InitializeClan(name, informalName, leader.Culture, Banner.CreateRandomClanBanner(leader.StringId.GetDeterministicHashCode()));
-
-            this.GetInfo(clan);
+            this.GetInfo(clan).IsCustomClan = true;
             return clan;
+        }
+
+        public void ModifyClanList(Func<List<Clan>, List<Clan>> modificator)
+        {
+            var clans = new List<Clan>(Campaign.Current.Clans.ToList());
+            clans = modificator(clans);
+            if (clans != null)
+            {
+                AccessTools.Field(Campaign.Current.GetType(), "_clans").SetValue(Campaign.Current, new MBReadOnlyList<Clan>(clans));
+            }
+        }
+
+        public void RemoveClan(Clan clan)
+        {
+            this.ModifyClanList(gos =>
+            {
+                if (gos.RemoveAll(go => go == clan) > 0)
+                {
+                    return gos;
+                }
+
+                return null;
+            });
+
+            this.RemoveInfo(clan.StringId);
+        }
+
+        public void RemoveAndDestroyClan(Clan clan)
+        {
+            this.RemoveClan(clan);
+            DestroyClanAction.Apply(clan);
         }
     }
 }
