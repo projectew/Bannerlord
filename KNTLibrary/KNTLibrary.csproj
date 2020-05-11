@@ -72,6 +72,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\Banners\BaseBannerInfo.cs" />
+    <Compile Include="Components\Banners\BaseBannerManager.cs" />
     <Compile Include="Components\Characters\BaseCharacterInfoExtension.cs" />
     <Compile Include="Components\Clans\BaseClanInfoExtension.cs" />
     <Compile Include="Components\IBaseComponent.cs" />

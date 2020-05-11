@@ -195,5 +195,21 @@ namespace KNTLibrary.Components.Kingdoms
             this.AddKingdom(kingdom);
             return kingdom;
         }
+        
+        public Kingdom CreateKingdom(Hero leader, Banner banner, TextObject name, TextObject informalName)
+        {
+            var kingdom = MBObjectManager.Instance.CreateObject<Kingdom>();
+            kingdom.InitializeKingdom(name, informalName, leader.Culture, banner, leader.Clan.Color, leader.Clan.Color2, leader.Clan.InitialPosition);
+
+            ChangeKingdomAction.ApplyByJoinToKingdom(leader.Clan, kingdom, true);
+            kingdom.RulingClan = leader.Clan;
+
+            AccessTools.Property(typeof(Kingdom), "AlternativeColor").SetValue(kingdom, leader.Clan.Color);
+            AccessTools.Property(typeof(Kingdom), "AlternativeColor2").SetValue(kingdom, leader.Clan.Color2);
+            AccessTools.Property(typeof(Kingdom), "LabelColor").SetValue(kingdom, ColorHelper.Black.ToUnsignedInteger());
+
+            this.AddKingdom(kingdom);
+            return kingdom;
+        }
     }
 }

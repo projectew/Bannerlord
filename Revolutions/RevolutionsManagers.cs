@@ -1,4 +1,5 @@
-﻿using KNTLibrary.Components.Factions;
+﻿using KNTLibrary.Components.Banners;
+using KNTLibrary.Components.Factions;
 using KNTLibrary.Components.Kingdoms;
 using KNTLibrary.Components.Clans;
 using KNTLibrary.Components.Parties;
@@ -17,6 +18,7 @@ namespace Revolutions
 {
     public static class RevolutionsManagers
     {
+        public static BaseBannerManager BannerManager { get; } = BaseBannerManager.Instance;
         public static BaseKingdomManager<KingdomInfo> Kingdom { get; } = BaseKingdomManager<KingdomInfo>.Instance;
 
         public static BaseFactionManager<FactionInfo> Faction { get; } = BaseFactionManager<FactionInfo>.Instance;

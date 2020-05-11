@@ -2,9 +2,13 @@
 using KNTLibrary.Helpers;
 using Revolts;
 using System;
+using System.IO;
 using System.Threading;
+using KNTLibrary.Components.Banners;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
+using TaleWorlds.Library;
+using TaleWorlds.MountAndBlade;
 
 namespace Revolutions.CampaignBehaviors
 {
@@ -18,6 +22,7 @@ namespace Revolutions.CampaignBehaviors
 
             campaignGameStarter.AddBehavior(new GuiHandlersBehavior());
             campaignGameStarter.AddBehavior(new CleanupBehavior());
+            RevolutionsManagers.BannerManager.AddBanners(BasePath.Name + "Modules/Revolutions/ModuleData", "Banners");
         }
 
         public override void RegisterEvents()
