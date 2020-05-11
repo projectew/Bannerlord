@@ -79,6 +79,10 @@
     <Compile Include="CampaignBehaviors\CleanupBehavior.cs" />
     <Compile Include="CampaignBehaviors\GuiHandlersBehavior.cs" />
     <Compile Include="CampaignBehaviors\RevolutionsBehavior.cs" />
+    <Compile Include="Components\CivilWars\CampaignBehaviors\CivilWarsBehavior.cs" />
+    <Compile Include="Components\CivilWars\CampaignBehaviors\CivilWarsDailyBehavior.cs" />
+    <Compile Include="Components\CivilWars\CivilWar.cs" />
+    <Compile Include="Components\CivilWars\CivilWarManager.cs" />
     <Compile Include="Components\Revolts\CampaignBehaviors\LuckyNationBehaviour.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="Components\Base\Kingdoms\KingdomInfo.cs" />

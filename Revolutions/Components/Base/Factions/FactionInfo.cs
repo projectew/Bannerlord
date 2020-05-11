@@ -28,9 +28,9 @@ namespace Revolutions.Components.Base.Factions
 
         #region Reference Properties
 
-        public Settlement RevoltedSettlement => RevoltsManagers.Settlement.GetGameObject(this.RevoltedSettlementId);
+        public Settlement RevoltedSettlement => RevolutionsManagers.Settlement.GetGameObject(this.RevoltedSettlementId);
 
-        public SettlementInfo RevoltedSettlementInfo => RevoltsManagers.Settlement.GetInfo(this.RevoltedSettlement);
+        public SettlementInfo RevoltedSettlementInfo => RevolutionsManagers.Settlement.GetInfo(this.RevoltedSettlement);
 
         #endregion
 

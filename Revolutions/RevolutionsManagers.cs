@@ -11,10 +11,11 @@ using Revolutions.Components.Base.Factions;
 using Revolutions.Components.Base.Clans;
 using Revolutions.Components.Base.Characters;
 using Revolutions.Components.Revolts;
+using Revolutions.Components.CivilWars;
 
 namespace Revolutions
 {
-    public static class RevoltsManagers
+    public static class RevolutionsManagers
     {
         public static BaseKingdomManager<KingdomInfo> Kingdom { get; } = BaseKingdomManager<KingdomInfo>.Instance;
 
@@ -29,5 +30,7 @@ namespace Revolutions
         public static BaseSettlementManager<SettlementInfo> Settlement { get; } = BaseSettlementManager<SettlementInfo>.Instance;
 
         public static RevoltManager Revolt { get; } = RevoltManager.Instance;
+
+        public static CivilWarManager CivilWar { get; } = CivilWarManager.Instance;
     }
 }

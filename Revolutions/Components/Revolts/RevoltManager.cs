@@ -60,7 +60,7 @@ namespace Revolutions.Components.Revolts
 
         public void IncreaseDailyLoyaltyForSettlement()
         {
-            foreach (var info in RevoltsManagers.Settlement.Infos)
+            foreach (var info in RevolutionsManagers.Settlement.Infos)
             {
                 foreach (var party in info.Settlement.Parties)
                 {
@@ -83,7 +83,7 @@ namespace Revolutions.Components.Revolts
 
         public void CheckRevoltProgress()
         {
-            foreach (var settlementInfo in RevoltsManagers.Settlement.Infos)
+            foreach (var settlementInfo in RevolutionsManagers.Settlement.Infos)
             {
                 var settlement = settlementInfo.Settlement;
 
@@ -140,7 +140,7 @@ namespace Revolutions.Components.Revolts
                 }
 
                 KillCharacterAction.ApplyByExecution(Revolt.Party.Owner, Revolt.Settlement.OwnerClan?.Kingdom.Leader ?? Revolt.Settlement.OwnerClan.Leader);
-                RevoltsManagers.Kingdom.RemoveKingdom(kingdom);
+                RevolutionsManagers.Kingdom.RemoveKingdom(kingdom);
             }
 
             if (Revolt.Party?.MobileParty != null)
@@ -169,16 +169,16 @@ namespace Revolutions.Components.Revolts
                 ChangeOwnerOfSettlementAction.ApplyBySiege(Revolt.Party.LeaderHero, Revolt.Party.LeaderHero, Revolt.Settlement);
                 Revolt.Party.LeaderHero.Clan.AddRenown(Settings.Instance.RevoltsMinorFactionsRenownGainOnWin);
 
-                var companion = RevoltsManagers.Character.CreateRandomLeader(Revolt.Party.LeaderHero.Clan, Revolt.SettlementInfo);
-                RevoltsManagers.Character.GetInfo(companion.CharacterObject);
-                RevoltsManagers.Clan.CreateClan(companion, companion.Name, companion.Name);
-                var mobileParty = RevoltsManagers.Party.CreateMobileParty(companion, Revolt.Settlement.GatePosition, Revolt.Settlement, true, true);
+                var companion = RevolutionsManagers.Character.CreateRandomLeader(Revolt.Party.LeaderHero.Clan, Revolt.SettlementInfo);
+                RevolutionsManagers.Character.GetInfo(companion.CharacterObject);
+                RevolutionsManagers.Clan.CreateClan(companion, companion.Name, companion.Name);
+                var mobileParty = RevolutionsManagers.Party.CreateMobileParty(companion, Revolt.Settlement.GatePosition, Revolt.Settlement, true, true);
                 ChangeKingdomAction.ApplyByJoinToKingdom(companion.Clan, Revolt.Party.LeaderHero.Clan.Kingdom, true);
 
-                RevoltsManagers.Clan.GetInfo(companion.Clan).CanJoinOtherKingdoms = false;
+                RevolutionsManagers.Clan.GetInfo(companion.Clan).CanJoinOtherKingdoms = false;
 
                 var amountOfEliteTroops = (Settings.Instance.RevoltsGeneralBaseArmy + (int)(Revolt.Settlement.Prosperity * Settings.Instance.RevoltsGeneralArmyProsperityMulitplier)) / 2;
-                mobileParty.MemberRoster.Add(RevoltsManagers.Party.GenerateEliteTroopRoster(mobileParty.LeaderHero, amountOfEliteTroops));
+                mobileParty.MemberRoster.Add(RevolutionsManagers.Party.GenerateEliteTroopRoster(mobileParty.LeaderHero, amountOfEliteTroops));
 
                 Revolt.Party.MobileParty.Ai.SetDoNotMakeNewDecisions(false);
                 mobileParty.Ai.SetDoNotMakeNewDecisions(false);
@@ -195,29 +195,29 @@ namespace Revolutions.Components.Revolts
             information.SetTextVariable("SETTLEMENT", settlement.Name.ToString());
             InformationManager.DisplayMessage(new InformationMessage(information.ToString(), ColorHelper.Yellow));
 
-            var settlementInfo = RevoltsManagers.Settlement.GetInfo(settlement);
+            var settlementInfo = RevolutionsManagers.Settlement.GetInfo(settlement);
             var atWarWithLoyalFaction = settlementInfo.CurrentFaction.IsAtWarWith(settlementInfo.LoyalFaction);
 
             Hero hero;
 
             if (atWarWithLoyalFaction)
             {
-                hero = RevoltsManagers.Faction.GetLordWithLeastFiefs(settlementInfo.LoyalFaction).HeroObject;
+                hero = RevolutionsManagers.Faction.GetLordWithLeastFiefs(settlementInfo.LoyalFaction).HeroObject;
             }
             else
             {
-                hero = RevoltsManagers.Character.CreateRandomLeader(settlement.OwnerClan, settlementInfo);
-                RevoltsManagers.Character.GetInfo(hero.CharacterObject).IsRevoltKingdomLeader = true;
-                RevoltsManagers.Clan.CreateClan(hero, hero.Name, hero.Name);
-                RevoltsManagers.Kingdom.CreateKingdom(hero, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"));
+                hero = RevolutionsManagers.Character.CreateRandomLeader(settlement.OwnerClan, settlementInfo);
+                RevolutionsManagers.Character.GetInfo(hero.CharacterObject).IsRevoltKingdomLeader = true;
+                RevolutionsManagers.Clan.CreateClan(hero, hero.Name, hero.Name);
+                RevolutionsManagers.Kingdom.CreateKingdom(hero, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"));
 
-                RevoltsManagers.Clan.GetInfo(hero.Clan).CanJoinOtherKingdoms = false;
+                RevolutionsManagers.Clan.GetInfo(hero.Clan).CanJoinOtherKingdoms = false;
             }
 
-            var mobileParty = RevoltsManagers.Party.CreateMobileParty(hero, settlement.GatePosition, settlement, !atWarWithLoyalFaction, true);
+            var mobileParty = RevolutionsManagers.Party.CreateMobileParty(hero, settlement.GatePosition, settlement, !atWarWithLoyalFaction, true);
 
             var amountOfBasicTroops = Settings.Instance.RevoltsGeneralBaseArmy + (int)(settlement.Prosperity * Settings.Instance.RevoltsGeneralArmyProsperityMulitplier);
-            mobileParty.MemberRoster.Add(RevoltsManagers.Party.GenerateBasicTroopRoster(hero, amountOfBasicTroops, withTier4: false));
+            mobileParty.MemberRoster.Add(RevolutionsManagers.Party.GenerateBasicTroopRoster(hero, amountOfBasicTroops, withTier4: false));
 
             if (settlement.MilitaParty != null && settlement.MilitaParty.CurrentSettlement == settlement && settlement.MilitaParty.MapEvent == null)
             {

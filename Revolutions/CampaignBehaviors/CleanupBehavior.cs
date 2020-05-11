@@ -27,14 +27,14 @@ namespace Revolutions.CampaignBehaviors
 
         private void DailyTickEvent()
         {
-            RevoltsManagers.Faction.CleanupDuplicatedInfos();
-            RevoltsManagers.Kingdom.CleanupDuplicatedInfos();
-            RevoltsManagers.Clan.CleanupDuplicatedInfos();
-            RevoltsManagers.Party.CleanupDuplicatedInfos();
-            RevoltsManagers.Character.CleanupDuplicatedInfos();
-            RevoltsManagers.Settlement.CleanupDuplicatedInfos();
+            RevolutionsManagers.Faction.CleanupDuplicatedInfos();
+            RevolutionsManagers.Kingdom.CleanupDuplicatedInfos();
+            RevolutionsManagers.Clan.CleanupDuplicatedInfos();
+            RevolutionsManagers.Party.CleanupDuplicatedInfos();
+            RevolutionsManagers.Character.CleanupDuplicatedInfos();
+            RevolutionsManagers.Settlement.CleanupDuplicatedInfos();
 
-            RevoltsManagers.Party.UpdateInfos();
+            RevolutionsManagers.Party.UpdateInfos();
         }
 
         private void TickEvent(float dt)
@@ -43,19 +43,19 @@ namespace Revolutions.CampaignBehaviors
             switch (this._currentTick)
             {
                 case RefreshAtTick:
-                    RevoltsManagers.Faction.UpdateInfos();
+                    RevolutionsManagers.Faction.UpdateInfos();
                     break;
                 case RefreshAtTick + 30:
-                    RevoltsManagers.Kingdom.UpdateInfos();
+                    RevolutionsManagers.Kingdom.UpdateInfos();
                     break;
                 case RefreshAtTick + 60:
-                    RevoltsManagers.Clan.UpdateInfos();
+                    RevolutionsManagers.Clan.UpdateInfos();
                     break;
                 case RefreshAtTick + 90:
-                    RevoltsManagers.Settlement.UpdateInfos();
+                    RevolutionsManagers.Settlement.UpdateInfos();
                     break;
                 case RefreshAtTick + 120:
-                    RevoltsManagers.Character.UpdateInfos();
+                    RevolutionsManagers.Character.UpdateInfos();
                     this._currentTick = 0;
                     break;
                 default:
@@ -66,22 +66,22 @@ namespace Revolutions.CampaignBehaviors
 
         private void PartyRemovedEvent(PartyBase party)
         {
-            RevoltsManagers.Party.RemoveInfo(party.Id);
+            RevolutionsManagers.Party.RemoveInfo(party.Id);
         }
 
         private void MobilePartyDestroyed(MobileParty mobileParty, PartyBase party)
         {
-            RevoltsManagers.Party.RemoveInfo(mobileParty.Party.Id);
+            RevolutionsManagers.Party.RemoveInfo(mobileParty.Party.Id);
         }
 
         private void KingdomDestroyedEvent(Kingdom kingdom)
         {
-            RevoltsManagers.Kingdom.RemoveInfo(kingdom.StringId);
+            RevolutionsManagers.Kingdom.RemoveInfo(kingdom.StringId);
         }
 
         private void ClanDestroyedEvent(Clan clan)
         {
-            RevoltsManagers.Clan.RemoveInfo(clan.StringId);
+            RevolutionsManagers.Clan.RemoveInfo(clan.StringId);
         }
     }
 }

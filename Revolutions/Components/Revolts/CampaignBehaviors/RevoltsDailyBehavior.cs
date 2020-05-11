@@ -24,19 +24,19 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
         private void DailyTickEvent()
         {
-            RevoltsManagers.Revolt.IncreaseDailyLoyaltyForSettlement();
-            RevoltsManagers.Revolt.CheckRevoltProgress();
+            RevolutionsManagers.Revolt.IncreaseDailyLoyaltyForSettlement();
+            RevolutionsManagers.Revolt.CheckRevoltProgress();
             this.DailyUpdates();
         }
 
         private void DailyUpdates()
         {
-            foreach (var factionInfo in RevoltsManagers.Faction.Infos)
+            foreach (var factionInfo in RevolutionsManagers.Faction.Infos)
             {
                 factionInfo.DailyUpdate();
             }
 
-            foreach (var settlementInfo in RevoltsManagers.Settlement.Infos)
+            foreach (var settlementInfo in RevolutionsManagers.Settlement.Infos)
             {
                 settlementInfo.DailyUpdate();
             }

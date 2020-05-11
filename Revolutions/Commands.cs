@@ -34,10 +34,10 @@ namespace Revolts
                 return $"{settlement.Name} is under siege.";
             }
 
-            var settlementInfo = RevoltsManagers.Settlement.GetInfo(settlement);
+            var settlementInfo = RevolutionsManagers.Settlement.GetInfo(settlement);
             settlementInfo.RevoltProgress = 100;
 
-            RevoltsManagers.Revolt.StartRebellionEvent(settlement);
+            RevolutionsManagers.Revolt.StartRebellionEvent(settlement);
 
             return $"Started a Revolt in {settlement.Name}.";
         }
@@ -67,7 +67,7 @@ namespace Revolts
                 return $"There is no Settlement \"{settlementName}\".";
             }
 
-            var Revolt = RevoltsManagers.Revolt.GetRevoltBySettlementId(settlement.StringId);
+            var Revolt = RevolutionsManagers.Revolt.GetRevoltBySettlementId(settlement.StringId);
             if (Revolt == null)
             {
                 return $"{settlementName} is not conflicted in a revolt.";
@@ -80,11 +80,11 @@ namespace Revolts
 
             if (isWin)
             {
-                RevoltsManagers.Revolt.EndSucceededRevoluton(Revolt);
+                RevolutionsManagers.Revolt.EndSucceededRevoluton(Revolt);
             }
             else
             {
-                RevoltsManagers.Revolt.EndFailedRevolt(Revolt);
+                RevolutionsManagers.Revolt.EndFailedRevolt(Revolt);
             }
 
             return $"Ended a {(isWin ? "successful" : "failed")} Revolt in {settlement.Name}.";
@@ -111,7 +111,7 @@ namespace Revolts
                 return $"There is no Settlement \"{settlementName}\".";
             }
 
-            var settlementInfo = RevoltsManagers.Settlement.GetInfo(settlement);
+            var settlementInfo = RevolutionsManagers.Settlement.GetInfo(settlement);
             settlementInfo.LoyalFactionId = Hero.MainHero.MapFaction.StringId;
 
             return $"{settlement.Name} is now loyal to {settlementInfo.LoyalFaction.Name}.";
@@ -138,7 +138,7 @@ namespace Revolts
                 return $"There is no Settlement \"{settlementName}\".";
             }
 
-            var settlementInfo = RevoltsManagers.Settlement.GetInfo(settlement);
+            var settlementInfo = RevolutionsManagers.Settlement.GetInfo(settlement);
             settlementInfo.LoyalFactionId = settlementInfo.CurrentFactionId;
 
             return $"{settlement.Name} is now loyal to {settlementInfo.LoyalFaction.Name}.";
@@ -177,7 +177,7 @@ namespace Revolts
                 return $"There is no Faction \"{factionName}\".";
             }
 
-            var settlementInfo = RevoltsManagers.Settlement.GetInfo(settlement);
+            var settlementInfo = RevolutionsManagers.Settlement.GetInfo(settlement);
             settlementInfo.LoyalFactionId = faction.StringId;
 
             return $"{settlement.Name} is now loyal to {settlementInfo.LoyalFaction.Name}.";
@@ -204,7 +204,7 @@ namespace Revolts
                 return $"There is no Settlement \"{settlementName}\".";
             }
 
-            var settlementInfo = RevoltsManagers.Settlement.GetInfo(settlement);
+            var settlementInfo = RevolutionsManagers.Settlement.GetInfo(settlement);
             settlementInfo.RevoltProgress = 0;
             settlementInfo.CurrentFactionId = Hero.MainHero.MapFaction.StringId;
             settlementInfo.LoyalFactionId = Hero.MainHero.MapFaction.StringId;
@@ -246,7 +246,7 @@ namespace Revolts
                 return $"There is no Clan \"{clanName}\".";
             }
 
-            var settlementInfo = RevoltsManagers.Settlement.GetInfo(settlement);
+            var settlementInfo = RevolutionsManagers.Settlement.GetInfo(settlement);
             settlementInfo.RevoltProgress = 0;
             settlementInfo.CurrentFactionId = clan.MapFaction.StringId;
             settlementInfo.LoyalFactionId = clan.MapFaction.StringId;
@@ -281,7 +281,7 @@ namespace Revolts
                 return $"Settlement \"{settlementName}\" is not a town.";
             }
 
-            var settlementInfo = RevoltsManagers.Settlement.GetInfo(settlement);
+            var settlementInfo = RevolutionsManagers.Settlement.GetInfo(settlement);
             return $"{settlement.Name} is loyal to {settlementInfo.LoyalFaction.Name} with a score of {settlement.Town.Loyalty}.";
         }
 
@@ -301,7 +301,7 @@ namespace Revolts
 
             var luckyNations = new List<string>();
 
-            foreach (var info in RevoltsManagers.Kingdom.Infos.Where(i => i.LuckyNation))
+            foreach (var info in RevolutionsManagers.Kingdom.Infos.Where(i => i.LuckyNation))
             {
                 luckyNations.Add(info.Kingdom.Name.ToString());
             }

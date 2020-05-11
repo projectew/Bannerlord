@@ -19,68 +19,82 @@ namespace Revolts
 
         internal void InitializeBaseData()
         {
-            RevoltsManagers.Faction.DebugMode = Settings.Instance.DebugMode;
-            RevoltsManagers.Kingdom.DebugMode = Settings.Instance.DebugMode;
-            RevoltsManagers.Clan.DebugMode = Settings.Instance.DebugMode;
-            RevoltsManagers.Party.DebugMode = Settings.Instance.DebugMode;
-            RevoltsManagers.Character.DebugMode = Settings.Instance.DebugMode;
-            RevoltsManagers.Settlement.DebugMode = Settings.Instance.DebugMode;
+            RevolutionsManagers.Faction.DebugMode = Settings.Instance.DebugMode;
+            RevolutionsManagers.Kingdom.DebugMode = Settings.Instance.DebugMode;
+            RevolutionsManagers.Clan.DebugMode = Settings.Instance.DebugMode;
+            RevolutionsManagers.Party.DebugMode = Settings.Instance.DebugMode;
+            RevolutionsManagers.Character.DebugMode = Settings.Instance.DebugMode;
+            RevolutionsManagers.Settlement.DebugMode = Settings.Instance.DebugMode;
 
-            RevoltsManagers.Kingdom.InitializeInfos();
-            RevoltsManagers.Faction.InitializeInfos();
-            RevoltsManagers.Clan.InitializeInfos();
-            RevoltsManagers.Party.InitializeInfos();
-            RevoltsManagers.Character.InitializeInfos();
-            RevoltsManagers.Settlement.InitializeInfos();
+            RevolutionsManagers.Kingdom.InitializeInfos();
+            RevolutionsManagers.Faction.InitializeInfos();
+            RevolutionsManagers.Clan.InitializeInfos();
+            RevolutionsManagers.Party.InitializeInfos();
+            RevolutionsManagers.Character.InitializeInfos();
+            RevolutionsManagers.Settlement.InitializeInfos();
         }
 
         internal void LoadBaseData()
         {
             var directoryPath = Path.Combine(SubModule.BaseSavePath, this.SaveId);
 
-            RevoltsManagers.Faction.Infos = FileHelper.Load<List<FactionInfo>>(directoryPath, "Factions").ToHashSet();
-            RevoltsManagers.Faction.CleanupDuplicatedInfos();
+            RevolutionsManagers.Faction.Infos = FileHelper.Load<List<FactionInfo>>(directoryPath, "Factions").ToHashSet();
+            RevolutionsManagers.Faction.CleanupDuplicatedInfos();
 
-            RevoltsManagers.Kingdom.Infos = FileHelper.Load<List<KingdomInfo>>(directoryPath, "Kingdoms").ToHashSet();
-            RevoltsManagers.Kingdom.CleanupDuplicatedInfos();
+            RevolutionsManagers.Kingdom.Infos = FileHelper.Load<List<KingdomInfo>>(directoryPath, "Kingdoms").ToHashSet();
+            RevolutionsManagers.Kingdom.CleanupDuplicatedInfos();
 
-            RevoltsManagers.Clan.Infos = FileHelper.Load<List<ClanInfo>>(directoryPath, "Clans").ToHashSet();
-            RevoltsManagers.Clan.CleanupDuplicatedInfos();
+            RevolutionsManagers.Clan.Infos = FileHelper.Load<List<ClanInfo>>(directoryPath, "Clans").ToHashSet();
+            RevolutionsManagers.Clan.CleanupDuplicatedInfos();
 
-            RevoltsManagers.Party.Infos = FileHelper.Load<List<PartyInfo>>(directoryPath, "Parties").ToHashSet();
-            RevoltsManagers.Party.CleanupDuplicatedInfos();
+            RevolutionsManagers.Party.Infos = FileHelper.Load<List<PartyInfo>>(directoryPath, "Parties").ToHashSet();
+            RevolutionsManagers.Party.CleanupDuplicatedInfos();
 
-            RevoltsManagers.Character.Infos = FileHelper.Load<List<CharacterInfo>>(directoryPath, "Characters").ToHashSet();
-            RevoltsManagers.Character.CleanupDuplicatedInfos();
+            RevolutionsManagers.Character.Infos = FileHelper.Load<List<CharacterInfo>>(directoryPath, "Characters").ToHashSet();
+            RevolutionsManagers.Character.CleanupDuplicatedInfos();
 
-            RevoltsManagers.Settlement.Infos = FileHelper.Load<List<SettlementInfo>>(directoryPath, "Settlements").ToHashSet();
-            RevoltsManagers.Settlement.CleanupDuplicatedInfos();
+            RevolutionsManagers.Settlement.Infos = FileHelper.Load<List<SettlementInfo>>(directoryPath, "Settlements").ToHashSet();
+            RevolutionsManagers.Settlement.CleanupDuplicatedInfos();
         }
 
         internal void LoadRevoltData()
         {
             var directoryPath = Path.Combine(SubModule.BaseSavePath, this.SaveId);
 
-            RevoltsManagers.Revolt.Revolts = FileHelper.Load<List<Revolt>>(directoryPath, "Revolts").ToHashSet();
+            RevolutionsManagers.Revolt.Revolts = FileHelper.Load<List<Revolt>>(directoryPath, "Revolts").ToHashSet();
+        }
+
+        internal void LoadCivilWarData()
+        {
+            var directoryPath = Path.Combine(SubModule.BaseSavePath, this.SaveId);
+
+            RevolutionsManagers.Revolt.Revolts = FileHelper.Load<List<Revolt>>(directoryPath, "CivilWars").ToHashSet();
         }
 
         internal void SaveBaseData()
         {
             var directoryPath = Path.Combine(SubModule.BaseSavePath, this.SaveId);
 
-            FileHelper.Save(RevoltsManagers.Faction.Infos, directoryPath, "Factions");
-            FileHelper.Save(RevoltsManagers.Kingdom.Infos, directoryPath, "Kingdoms");
-            FileHelper.Save(RevoltsManagers.Clan.Infos, directoryPath, "Clans");
-            FileHelper.Save(RevoltsManagers.Party.Infos, directoryPath, "Parties");
-            FileHelper.Save(RevoltsManagers.Character.Infos, directoryPath, "Characters");
-            FileHelper.Save(RevoltsManagers.Settlement.Infos, directoryPath, "Settlements");
+            FileHelper.Save(RevolutionsManagers.Faction.Infos, directoryPath, "Factions");
+            FileHelper.Save(RevolutionsManagers.Kingdom.Infos, directoryPath, "Kingdoms");
+            FileHelper.Save(RevolutionsManagers.Clan.Infos, directoryPath, "Clans");
+            FileHelper.Save(RevolutionsManagers.Party.Infos, directoryPath, "Parties");
+            FileHelper.Save(RevolutionsManagers.Character.Infos, directoryPath, "Characters");
+            FileHelper.Save(RevolutionsManagers.Settlement.Infos, directoryPath, "Settlements");
         }
 
         internal void SaveRevoltData()
         {
             var directoryPath = Path.Combine(SubModule.BaseSavePath, this.SaveId);
 
-            FileHelper.Save(RevoltsManagers.Revolt.Revolts, directoryPath, "Revolts");
+            FileHelper.Save(RevolutionsManagers.CivilWar.CivilWars, directoryPath, "Revolts");
+        }
+
+        internal void SaveCivilWarData()
+        {
+            var directoryPath = Path.Combine(SubModule.BaseSavePath, this.SaveId);
+
+            FileHelper.Save(RevolutionsManagers.CivilWar.CivilWars, directoryPath, "CivilWars");
         }
     }
 }

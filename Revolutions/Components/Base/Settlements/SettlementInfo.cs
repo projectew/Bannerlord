@@ -29,25 +29,25 @@ namespace Revolutions.Components.Base.Settlements
 
         #region Reference Properties
 
-        public IFaction LoyalFaction => RevoltsManagers.Faction.GetGameObject(this.LoyalFactionId);
+        public IFaction LoyalFaction => RevolutionsManagers.Faction.GetGameObject(this.LoyalFactionId);
 
-        public BaseFactionInfo LoyalFactionInfo => RevoltsManagers.Faction.GetInfo(this.LoyalFaction);
+        public BaseFactionInfo LoyalFactionInfo => RevolutionsManagers.Faction.GetInfo(this.LoyalFaction);
 
-        public FactionInfo LoyalFactionInfoRevolts => RevoltsManagers.Faction.GetInfo(this.LoyalFaction);
+        public FactionInfo LoyalFactionInfoRevolts => RevolutionsManagers.Faction.GetInfo(this.LoyalFaction);
 
         #endregion
 
         #region Reference Properties Inherited
 
-        public FactionInfo InitialFactionInfoRevolts => RevoltsManagers.Faction.GetInfo(this.InitialFaction);
+        public FactionInfo InitialFactionInfoRevolts => RevolutionsManagers.Faction.GetInfo(this.InitialFaction);
 
-        public FactionInfo CurrentFactionInfoRevolts => RevoltsManagers.Faction.GetInfo(this.CurrentFaction);
+        public FactionInfo CurrentFactionInfoRevolts => RevolutionsManagers.Faction.GetInfo(this.CurrentFaction);
 
-        public FactionInfo PreviousFactionInfoRevolts => RevoltsManagers.Faction.GetInfo(this.PreviousFaction);
+        public FactionInfo PreviousFactionInfoRevolts => RevolutionsManagers.Faction.GetInfo(this.PreviousFaction);
 
         #endregion
 
-        public bool IsLoyalFactionOfImperialCulture => RevoltsManagers.Faction.GetGameObject(this.LoyalFactionId).Name.ToString().ToLower().Contains("empire");
+        public bool IsLoyalFactionOfImperialCulture => RevolutionsManagers.Faction.GetGameObject(this.LoyalFactionId).Name.ToString().ToLower().Contains("empire");
 
         #endregion
 

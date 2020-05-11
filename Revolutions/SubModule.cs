@@ -52,9 +52,16 @@ namespace Revolutions
         private void AddBehaviours(CampaignGameStarter campaignGameStarter)
         {
             campaignGameStarter.AddBehavior(new RevolutionsBehavior(ref this._dataStorage, campaignGameStarter));
-            campaignGameStarter.AddBehavior(new RevoltBehavior(ref this._dataStorage, campaignGameStarter));
 
-            campaignGameStarter.AddModel(new Models.SettlementLoyaltyModel(ref this._dataStorage));
+            if (Settings.Instance.EnableRevolts)
+            {
+                campaignGameStarter.AddBehavior(new RevoltBehavior(ref this._dataStorage, campaignGameStarter));
+            }
+
+            if (Settings.Instance.EnableRevolts || Settings.Instance.EnableCivilWars)
+            {
+                campaignGameStarter.AddModel(new Models.SettlementLoyaltyModel(ref this._dataStorage));
+            }
         }
     }
 }
