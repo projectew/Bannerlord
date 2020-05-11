@@ -130,10 +130,10 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                     plottersTroopWeight += plotterClan.Clan.TotalStrength;
                 }
 
-                var plotLeader = kingdomPlottingClans.OrderByDescending(o => o.Tier).FirstOrDefault();
+                var plotLeader = kingdomPlottingClans.OrderByDescending(o => o.Clan.Tier).FirstOrDefault();
 
                 var kingdomLeader = kingdom.Leader;
-                var plottingLeader = plotLeader.Leader;
+                var plottingLeader = plotLeader.Clan.Leader;
 
                 var kingdomLeaderGenerosity = kingdomLeader.GetHeroTraits().Generosity;
                 var kingdomLeaderMercy = kingdomLeader.GetHeroTraits().Mercy;
@@ -156,7 +156,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 if(warResult)
                 {
                     var newKingdom = RevolutionsManagers.Kingdom.CreateKingdom(plottingLeader, new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), new TextObject($"Kingdom of {plottingLeader.Clan.Name}"));
-                    ChangeKingdomAction.ApplyByLeaveKingdom(plotLeader, false);
+                    ChangeKingdomAction.ApplyByLeaveKingdom(plotLeader.Clan, false);
 
                     foreach (var plottingClan in kingdomPlottingClans)
                     {
