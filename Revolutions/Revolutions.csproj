@@ -114,7 +114,11 @@
     <Content Include="GUI\Prefabs\TownRevoltScreen.xml" />
     <Content Include="Images\German.PNG" />
     <Content Include="Images\Logo.png" />
-    <Content Include="ModuleData\Banners\Banners.xml" />
+    <Content Include="ModuleData\Banners\Aserai.xml" />
+    <Content Include="ModuleData\Banners\Battania.xml" />
+    <Content Include="ModuleData\Banners\Empire.xml" />
+    <Content Include="ModuleData\Banners\Khuzait.xml" />
+    <Content Include="ModuleData\Banners\Sturgia.xml" />
     <Content Include="ModuleData\Banners\Vlandia.xml" />
     <Content Include="ModuleData\Languages\DE\std_module_strings_xml.xml" />
     <Content Include="ModuleData\Languages\std_module_strings_xml.xml" />
@@ -137,8 +141,7 @@ xcopy /d /y /i "$(MSBuildProjectDirectory)\GUI\Brushes\ButtonBrush.xml" "$(Solut
 xcopy /d /y /i "$(MSBuildProjectDirectory)\GUI\Prefabs\TownRevoltScreen.xml" "$(SolutionDir)\..\Revolutions\GUI\Prefabs\"
 
 xcopy /d /y /i "$(MSBuildProjectDirectory)\ModuleData\Languages\std_module_strings_xml.xml" "$(SolutionDir)\..\Revolutions\ModuleData\Languages\"
-xcopy /d /y /i "$(MSBuildProjectDirectory)\ModuleData\Banners\Banners.xml" "$(SolutionDir)\..\Revolutions\ModuleData\Banners\"
-xcopy /d /y /i "$(MSBuildProjectDirectory)\ModuleData\Banners\Vlandia.xml" "$(SolutionDir)\..\Revolutions\ModuleData\Banners\"
+xcopy /d /y /i /e /y "$(MSBuildProjectDirectory)\ModuleData\Banners" "$(SolutionDir)\..\Revolutions\ModuleData\Banners"
 xcopy /d /y /i "$(MSBuildProjectDirectory)\ModuleData\Languages\DE\std_module_strings_xml.xml" "$(SolutionDir)\..\Revolutions\ModuleData\Languages\DE\"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
