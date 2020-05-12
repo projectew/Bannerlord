@@ -5,7 +5,6 @@ using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Localization;
 using Helpers;
-using KNTLibrary.Components.Banners;
 using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Factions;
 

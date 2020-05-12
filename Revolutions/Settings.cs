@@ -6,11 +6,11 @@ namespace Revolutions
 {
     public class Settings : AttributeSettings<Settings>
     {
-        public override string Id { get; set; } = "RevoltsSettings_v050";
+        public override string Id { get; set; } = "Revolutions_v050";
 
-        public override string ModuleFolderName => "Revolts";
+        public override string ModuleFolderName => "Revolutions";
 
-        public override string ModName => "Revolts";
+        public override string ModName => "Revolutions";
 
         #region General
 

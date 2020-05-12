@@ -1,9 +1,7 @@
 ﻿using System;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
-using HarmonyLib;
 using KNTLibrary.Helpers;
-using System.Linq;
 
 namespace Revolutions.Components.CivilWars.CampaignBehaviors
 {
@@ -32,7 +30,6 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
         {
             try
             {
-                this.DataStorage.SaveId = AccessTools.Field(typeof(MBSaveLoad), "ActiveSaveSlotName").GetValue(null).ToString();
 
                 if (dataStore.IsLoading)
                 {
