@@ -208,9 +208,16 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                         newKingdom = RevolutionsManagers.Kingdom.CreateKingdom(plotLeader.Clan.Leader, new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), new TextObject($"Kingdom of {plottingLeader.Clan.Name}"));
                     }
 
-                    foreach (var plottingClan in kingdomPlottingClans)
+                    var plottingClansWithoutLeader = kingdomPlottingClans.Where(w => w.ClanId != plotLeader.ClanId);
+                    if(plottingClansWithoutLeader.Count() == 0)
                     {
-                        InformationManager.DisplayMessage(new InformationMessage($"{plotLeader.Clan.Leader.Name} of {plotLeader.Clan.Name} will be with the plotting leader!.", ColorHelper.Orange));
+                        InformationManager.DisplayMessage(new InformationMessage($"Seems like {plotLeader.Clan.Leader.Name} of {plotLeader.Clan.Name} will be on his own.", ColorHelper.Orange));
+
+                    }
+
+                    foreach (var plottingClan in plottingClansWithoutLeader)
+                    {
+                        InformationManager.DisplayMessage(new InformationMessage($"{plotLeader.Clan.Leader.Name} of {plotLeader.Clan.Name} will be with the plotting leader!", ColorHelper.Orange));
 
                         ChangeKingdomAction.ApplyByLeaveKingdom(plottingClan.Clan, false);
                         ChangeKingdomAction.ApplyByJoinToKingdom(plottingClan.Clan, newKingdom, false);
