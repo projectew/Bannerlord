@@ -20,7 +20,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
         public override void RegisterEvents()
         {
-            CampaignEvents.MapEventEnded.AddNonSerializedListener(this, new Action<MapEvent>(this.MapEventEnded));
+
         }
 
         public override void SyncData(IDataStore dataStore)
@@ -44,11 +44,6 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 InformationManager.DisplayMessage(new InformationMessage($"Revolutions.CivilWars: SyncData failed ({dataStore.IsLoading} | {dataStore.IsSaving} | {this.DataStorage.SaveId})!", ColorHelper.Red));
                 InformationManager.DisplayMessage(new InformationMessage(exception.ToString(), ColorHelper.Red));
             }
-        }
-
-        private void MapEventEnded(MapEvent mapEvent)
-        {
-
         }
     }
 }

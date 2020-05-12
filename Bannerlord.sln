@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KNTLibrary", "KNTLibrary\KN
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revolutions", "Revolutions\Revolutions.csproj", "{BD535D95-FD82-4AE2-A1A7-B669D58FCE8E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8BF0224A-9312-4145-8514-54961CC1AA64}"
+	ProjectSection(SolutionItems) = preProject
+		Revolutions_Civil_War_Magic.docx = Revolutions_Civil_War_Magic.docx
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

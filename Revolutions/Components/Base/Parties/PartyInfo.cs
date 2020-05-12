@@ -37,7 +37,11 @@ namespace Revolutions.Components.Base.Parties
 
         #endregion
 
+        #region Normal Properties
 
+
+
+        #endregion
 
         #endregion
 

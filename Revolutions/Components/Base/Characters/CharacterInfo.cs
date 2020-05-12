@@ -37,7 +37,11 @@ namespace Revolutions.Components.Base.Characters
 
         #endregion
 
+        #region Normal Properties
 
+
+
+        #endregion
 
         #endregion
 

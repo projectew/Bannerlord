@@ -35,7 +35,7 @@ namespace Revolts
         #region Revolts
 
         [SettingPropertyGroup(groupName: "Revolts", order: 1, isMainToggle: true)]
-        [SettingPropertyBool(displayName: "Revolts", Order = 0, HintText = "{=E08Khju4}Enables/Disables Revolts.", RequireRestart = false)]
+        [SettingPropertyBool(displayName: "Revolts", Order = 0, HintText = "Enables/Disables Revolts.", RequireRestart = false)]
         public bool EnableRevolts { get; set; } = true;
 
         #region General
@@ -121,6 +121,34 @@ namespace Revolts
         [SettingPropertyGroup(groupName: "Civil Wars", order: 2, isMainToggle: true)]
         [SettingPropertyBool(displayName: "Civil Wars", Order = 0, HintText = "Enables/Disables Civil Wars.", RequireRestart = false)]
         public bool EnableCivilWars { get; set; } = true;
+
+        [SettingPropertyGroup("Civil Wars", order: 0)]
+        [SettingPropertyInteger(displayName: "Loyal Relationship Treshold", minValue: -100, maxValue: 100, Order = 1, HintText = "When relationship between the Lord and his King deteriorate above this threshold, he will stop willing to plot.", RequireRestart = false)]
+        public int CivilWarsLoyalRelationshipTreshold { get; set; } = 0;
+
+        [SettingPropertyGroup("Civil Wars", order: 0)]
+        [SettingPropertyInteger(displayName: "Plotting Relationship Treshold", minValue: -100, maxValue: 100, Order = 2, HintText = "When relationship between the Lord and his King deteriorate below this threshold, there is a chance he will start plotting to overthrow him.", RequireRestart = false)]
+        public int CivilWarsPlottingRelationshipTreshold { get; set; } = -25;
+
+        [SettingPropertyGroup(groupName: "Civil Wars", order: 1)]
+        [SettingPropertyFloatingInteger(displayName: "Plotting Base Chance", minValue: 1f, maxValue: 50f, Order = 3, HintText = "Base chance to become a plotter before all other factors are taken into account.", RequireRestart = false)]
+        public float CivilWarsPlottingBaseChance { get; set; } = 5f;
+
+        [SettingPropertyGroup(groupName: "Civil Wars", order: 1)]
+        [SettingPropertyFloatingInteger(displayName: "Plotting Friend Multiplier", minValue: 1f, maxValue: 25f, Order = 4, HintText = "Increases chance of becoming a Plotter based on whether a lord’s friends are also plotting.", RequireRestart = false)]
+        public float CivilWarsPlottingFriendMultiplier { get; set; } = 1.05f;
+
+        [SettingPropertyGroup(groupName: "Civil Wars", order: 1)]
+        [SettingPropertyFloatingInteger(displayName: "Plotting Personality Multiplier", minValue: 1f, maxValue: 20f, Order = 5, HintText = "Increases chance of becoming a Plotter when the Lord and Vassal are dishonorable.", RequireRestart = false)]
+        public float CivilWarsPlottingPersonalityMultiplier { get; set; } = 1.15f;
+
+        [SettingPropertyGroup(groupName: "Civil Wars", order: 1)]
+        [SettingPropertyFloatingInteger(displayName: "War Base Chance", minValue: 1f, maxValue: 50f, Order = 6, HintText = "Base chance for the Plot Leader to declare War on liege before all other factors are taken into account.", RequireRestart = false)]
+        public float CivilWarsWarBaseChance { get; set; } = 25f;
+
+        [SettingPropertyGroup(groupName: "Civil Wars", order: 1)]
+        [SettingPropertyFloatingInteger(displayName: "Plotting Personality Multiplier", minValue: 1f, maxValue: 20f, Order = 7, HintText = "Decreases chance of declaring a war when the Lord and Vassal are generosity and mercy.", RequireRestart = false)]
+        public float CivilWarsWarPersonalityMultiplier { get; set; } = 1.15f;
 
         #endregion
 

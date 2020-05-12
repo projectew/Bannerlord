@@ -83,7 +83,7 @@ namespace Revolutions.Models
                 }
             }
 
-            var factionInfo = settlementInfo.CurrentFactionInfo;
+            var factionInfo = settlementInfo.CurrentFactionBaseInfo;
             var overExtension = factionInfo?.InitialTownsCount - factionInfo?.CurrentTownsCount;
 
             explainedNumber.Add(overExtension.Value * Settings.Instance.RevoltsOverextensionMultiplier, new TextObject("{=YnRmNltF}Overextension"));

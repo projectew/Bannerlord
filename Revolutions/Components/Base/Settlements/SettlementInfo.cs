@@ -31,19 +31,23 @@ namespace Revolutions.Components.Base.Settlements
 
         public IFaction LoyalFaction => RevolutionsManagers.Faction.GetGameObject(this.LoyalFactionId);
 
-        public BaseFactionInfo LoyalFactionInfo => RevolutionsManagers.Faction.GetInfo(this.LoyalFaction);
-
-        public FactionInfo LoyalFactionInfoRevolts => RevolutionsManagers.Faction.GetInfo(this.LoyalFaction);
+        public FactionInfo LoyalFactionInfo => RevolutionsManagers.Faction.GetInfo(this.LoyalFaction);
 
         #endregion
 
         #region Reference Properties Inherited
 
-        public FactionInfo InitialFactionInfoRevolts => RevolutionsManagers.Faction.GetInfo(this.InitialFaction);
+        public FactionInfo InitialFactionInfo => RevolutionsManagers.Faction.GetInfo(this.InitialFaction);
 
-        public FactionInfo CurrentFactionInfoRevolts => RevolutionsManagers.Faction.GetInfo(this.CurrentFaction);
+        public FactionInfo CurrentFactionInfo => RevolutionsManagers.Faction.GetInfo(this.CurrentFaction);
 
-        public FactionInfo PreviousFactionInfoRevolts => RevolutionsManagers.Faction.GetInfo(this.PreviousFaction);
+        public FactionInfo PreviousFactionInfo => RevolutionsManagers.Faction.GetInfo(this.PreviousFaction);
+
+        #endregion
+
+        #region Normal Properties
+
+
 
         #endregion
 

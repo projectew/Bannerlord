@@ -40,7 +40,11 @@ namespace Revolutions.Components.Base.Factions
 
         #endregion
 
+        #region Normal Properties
 
+
+
+        #endregion
 
         #endregion
 

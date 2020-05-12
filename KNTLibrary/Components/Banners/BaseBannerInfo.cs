@@ -7,16 +7,39 @@ namespace KNTLibrary.Components.Banners
     {
         public BaseBannerInfo()
         {
-            
+
         }
-        
+
         public BaseBannerInfo(string id, string bannerId)
         {
-            Id = id;
-            BannerId = bannerId;
+            this.Id = id;
+            this.BannerId = bannerId;
         }
-        
+
+        #region Reference Properties
+
         public string Id { get; set; }
+
         public string BannerId { get; set; }
+
+        #endregion
+
+        #region Virtual Objects
+
+        #region Reference Properties
+
+
+
+        #endregion
+
+
+
+        #endregion
+
+        #region Normal Properties
+
+
+
+        #endregion
     }
 }
