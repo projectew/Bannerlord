@@ -147,7 +147,7 @@ namespace Revolutions
         public float CivilWarsWarBaseChance { get; set; } = 25f;
 
         [SettingPropertyGroup(groupName: "Civil Wars", order: 1)]
-        [SettingPropertyFloatingInteger(displayName: "Plotting Personality Multiplier", minValue: 1f, maxValue: 20f, Order = 7, HintText = "Decreases chance of declaring a war when the Lord and Vassal are generosity and mercy.", RequireRestart = false)]
+        [SettingPropertyFloatingInteger(displayName: "War Personality Multiplier", minValue: 1f, maxValue: 20f, Order = 7, HintText = "Decreases chance of declaring a war when the Lord and Vassal are generosity and mercy.", RequireRestart = false)]
         public float CivilWarsWarPersonalityMultiplier { get; set; } = 1.15f;
 
         #endregion
