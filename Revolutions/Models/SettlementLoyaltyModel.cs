@@ -5,7 +5,6 @@ using TaleWorlds.Localization;
 using TaleWorlds.Core;
 using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Settlements;
-using Revolts;
 
 namespace Revolutions.Models
 {

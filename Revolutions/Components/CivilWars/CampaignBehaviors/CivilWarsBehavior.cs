@@ -3,7 +3,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using HarmonyLib;
 using KNTLibrary.Helpers;
-using Revolts;
+using System.Linq;
 
 namespace Revolutions.Components.CivilWars.CampaignBehaviors
 {
@@ -19,6 +19,11 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
         }
 
         public override void RegisterEvents()
+        {
+            CampaignEvents.MapEventEnded.AddNonSerializedListener(this, new Action<MapEvent>(this.MapEventEnded));
+        }
+
+        private void MapEventEnded(MapEvent mapEvent)
         {
 
         }

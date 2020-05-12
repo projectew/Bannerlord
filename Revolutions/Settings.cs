@@ -2,7 +2,7 @@
 using MBOptionScreen.Attributes.v2;
 using MBOptionScreen.Settings;
 
-namespace Revolts
+namespace Revolutions
 {
     public class Settings : AttributeSettings<Settings>
     {

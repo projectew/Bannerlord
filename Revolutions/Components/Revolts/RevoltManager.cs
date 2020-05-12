@@ -8,7 +8,6 @@ using Helpers;
 using KNTLibrary.Components.Banners;
 using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Factions;
-using Revolts;
 
 namespace Revolutions.Components.Revolts
 {

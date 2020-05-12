@@ -6,7 +6,6 @@ using TaleWorlds.Engine;
 using KNTLibrary.Helpers;
 using Revolutions.Components.Revolts.CampaignBehaviors;
 using Revolutions.CampaignBehaviors;
-using Revolts;
 using Revolutions.Components.CivilWars.CampaignBehaviors;
 
 namespace Revolutions
@@ -67,11 +66,6 @@ namespace Revolutions
             if (Settings.Instance.EnableCivilWars)
             {
                 campaignGameStarter.AddBehavior(new CivilWarsBehavior(ref this._dataStorage, campaignGameStarter));
-            }
-
-            if (Settings.Instance.EnableRevolts || Settings.Instance.EnableCivilWars)
-            {
-                campaignGameStarter.AddModel(new Models.SettlementLoyaltyModel(ref this._dataStorage));
             }
         }
     }

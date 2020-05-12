@@ -1,5 +1,4 @@
-﻿using Revolts;
-using Revolutions.Components.Base.Characters;
+﻿using Revolutions.Components.Base.Characters;
 using Revolutions.Components.Base.Clans;
 using System;
 using System.Collections.Generic;
@@ -94,6 +93,12 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
             foreach (var kingdom in Campaign.Current.Kingdoms)
             {
+                var civilWar = RevolutionsManagers.CivilWar.GetCivilWarByKingdom(kingdom);
+                if(civilWar != null)
+                {
+                    continue;
+                }
+
                 var kingdomClans = Campaign.Current.Clans.Where(w => w.Kingdom?.StringId == kingdom.StringId).ToList();
                 var kingdomLoyalClans = new List<ClanInfo>();
                 var kingdomPlottingClans = new List<ClanInfo>();
@@ -161,6 +166,8 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                     FactionManager.DeclareWar(newKingdom, kingdom);
                     Campaign.Current.FactionManager.RegisterCampaignWar(newKingdom, kingdom);
+
+                    RevolutionsManagers.CivilWar.CivilWars.Add(new CivilWar(kingdom, kingdomClans));
                 }
             }
         }

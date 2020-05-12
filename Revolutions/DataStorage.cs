@@ -9,9 +9,9 @@ using Revolutions.Components.Base.Factions;
 using Revolutions.Components.Base.Clans;
 using Revolutions.Components.Base.Characters;
 using Revolutions.Components.Revolts;
-using Revolutions;
+using Revolutions.Components.CivilWars;
 
-namespace Revolts
+namespace Revolutions
 {
     public class DataStorage
     {
@@ -68,7 +68,7 @@ namespace Revolts
         {
             var directoryPath = Path.Combine(SubModule.BaseSavePath, this.SaveId);
 
-            RevolutionsManagers.Revolt.Revolts = FileHelper.Load<List<Revolt>>(directoryPath, "CivilWars").ToHashSet();
+            RevolutionsManagers.CivilWar.CivilWars = FileHelper.Load<List<CivilWar>>(directoryPath, "CivilWars").ToHashSet();
         }
 
         internal void SaveBaseData()
@@ -87,7 +87,7 @@ namespace Revolts
         {
             var directoryPath = Path.Combine(SubModule.BaseSavePath, this.SaveId);
 
-            FileHelper.Save(RevolutionsManagers.CivilWar.CivilWars, directoryPath, "Revolts");
+            FileHelper.Save(RevolutionsManagers.Revolt.Revolts, directoryPath, "Revolts");
         }
 
         internal void SaveCivilWarData()

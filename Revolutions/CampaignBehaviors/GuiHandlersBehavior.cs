@@ -3,7 +3,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameMenus;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.Localization;
-using Revolts.Screens;
+using Revolutions.Screens;
 
 namespace Revolutions.CampaignBehaviors
 {
