@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
-using TaleWorlds.CampaignSystem;
-using TaleWorlds.Core;
-using TaleWorlds.CampaignSystem.Actions;
-using KNTLibrary.Helpers;
+﻿using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Settlements;
 using Revolutions.Settings;
+using System;
+using System.Linq;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Actions;
+using TaleWorlds.Core;
 
 namespace Revolutions.Components.Revolts.CampaignBehaviors
 {
@@ -134,18 +134,14 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
         {
             var clanInfo = Managers.Clan.GetInfo(clan);
 
-            //if (clanInfo != null && newKingdom != null &
-            //    !clanInfo.CanJoinOtherKingdoms && newKingdom.RulingClan.StringId != clan.StringId
-            //    && !(clan.Culture.Name.ToString().ToLower().Contains("empire") && newKingdom.Culture.Name.ToString().ToLower().Contains("empire"))
-            //    && !(clan.Culture.Name.ToString() == newKingdom.Culture.Name.ToString())
-            //    && clan.StringId != Clan.PlayerClan.StringId)
-            //{
-            //    clan.ClanLeaveKingdom(false);
-            //}
-            //else if(clanInfo.CanJoinOtherKingdoms)
-            //{
+            if (clan.StringId == Clan.PlayerClan.StringId || clanInfo.CanChangeKingdom || !clanInfo.IsRevoltClan || clan.StringId == newKingdom.RulingClan.StringId
+                || clan.Culture.Name.ToString().ToLower().Contains("empire") && newKingdom.Culture.Name.ToString().ToLower().Contains("empire")
+                || clan.Culture.Name.ToString() == newKingdom.Culture.Name.ToString())
+            {
+                return;
+            }
 
-            //}
+            clan.ClanLeaveKingdom(false);
         }
     }
 }

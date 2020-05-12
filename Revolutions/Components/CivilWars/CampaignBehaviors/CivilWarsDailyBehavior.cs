@@ -29,145 +29,133 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
         private void DailyTickEvent()
         {
-            var clansWithoutKing = Campaign.Current.Clans.Where(w => w.Leader.StringId != w.Kingdom?.Leader.StringId);
+            var considerableClans = Campaign.Current.Clans.Where(c => !c.IsUnderMercenaryService && c.Kingdom != null && c.Leader.StringId != c.Kingdom.Leader.StringId);
 
-            //Check if clans will be plotting
-            foreach (var clan in clansWithoutKing)
+            foreach (var kingdomWithClans in considerableClans.GroupBy(c => c.Kingdom.StringId, (key, clans) => new { KingdomId = key, Clans = clans.ToList() }))
             {
-                var clanLeader = clan.Leader;
-                if (clanLeader == null)
+                if (Managers.CivilWar.GetCivilWarByKingdomId(kingdomWithClans.KingdomId) != null)
                 {
                     continue;
                 }
 
-                var kingdomLeader = clan.Kingdom?.Leader;
-                if (kingdomLeader == null)
-                {
-                    continue;
-                }
-                var kingdomInfo = Managers.Kingdom.GetInfo(clan.Kingdom);
-                var civilWar = Managers.CivilWar.GetCivilWarByClan(clan);
-                if (kingdomInfo.HasCivilWar || civilWar != null || kingdomInfo.Kingdom.Clans.Count < 2)
+                var kingdomInfo = Managers.Kingdom.GetInfo(kingdomWithClans.KingdomId);
+                if (kingdomInfo.HasCivilWar || kingdomInfo.Kingdom.Clans.Count < 2)
                 {
                     continue;
                 }
 
-                var clanLeaderInfo = Managers.Character.GetInfo(clanLeader.CharacterObject);
-                var clanInfo = Managers.Clan.GetInfo(clanLeader.Clan);
+                #region Check PlotState
 
-                var clanLeadersOfKingdom = Campaign.Current.Clans.Where(w => w.Kingdom?.StringId == clanLeader.Clan.Kingdom?.StringId && kingdomLeader.StringId != clanLeader.StringId).Select(s => s.Leader).ToList();
-                var clanLeaderFriendsInsideKingdom = clanLeadersOfKingdom.Where(w => w.IsFriend(clanLeader)).ToList();
+                Hero clanLeader;
+                CharacterInfo clanLeaderInfo;
 
-                var relationBetweenClanLeaderAndKingdomLeader = clanLeader.GetRelation(kingdomLeader);
-
-                if (clanLeaderInfo.PlotState == PlotState.IsPlotting && relationBetweenClanLeaderAndKingdomLeader > RevolutionsSettings.Instance.CivilWarsPositiveRelationshipTreshold)
+                foreach (var clan in kingdomWithClans.Clans)
                 {
-                    clanLeaderInfo.PlotState = PlotState.IsLoyal;
+                    clanLeader = clan.Leader;
+                    clanLeaderInfo = Managers.Character.GetInfo(clanLeader.CharacterObject);
 
-                    foreach (var clanLeaderFriendInfo in clanLeaderFriendsInsideKingdom.Select(s => Managers.Character.GetInfo(s.CharacterObject)).Where(w => w.PlotState == PlotState.IsPlotting))
+                    var relationDifference = clanLeader.GetRelation(kingdomInfo.Kingdom.Leader);
+
+                    if (clanLeaderInfo.PlotState == PlotState.IsPlotting && relationDifference > RevolutionsSettings.Instance.CivilWarsPositiveRelationshipTreshold)
                     {
-                        var clanLeaderFriend = clanLeaderFriendInfo.Character.HeroObject;
-                        var friendWillPlotting = this.WillPlotting(clanLeaderFriend);
-                        if (!friendWillPlotting)
+                        clanLeaderInfo.PlotState = PlotState.IsLoyal;
+
+                        var clanLeaderPlottingFriends = kingdomWithClans.Clans.Select(go => go.Leader)
+                                                                              .Where(go => go.IsFriend(clanLeader))
+                                                                              .Select(go => Managers.Character.GetInfo(go.CharacterObject))
+                                                                              .Where(info => info.PlotState == PlotState.IsPlotting)
+                                                                              .ToList();
+
+                        foreach (var friend in clanLeaderPlottingFriends)
                         {
-                            Managers.Character.GetInfo(clanLeaderFriend.CharacterObject).PlotState = PlotState.IsLoyal;
+                            if (!this.WillPlotting(friend.Character.HeroObject))
+                            {
+                                friend.PlotState = PlotState.IsLoyal;
+                            }
                         }
                     }
 
-                    continue;
-                }
-
-                if (relationBetweenClanLeaderAndKingdomLeader > RevolutionsSettings.Instance.CivilWarsNegativeRelationshipTreshold)
-                {
-                    continue;
-                }
-
-                if (this.WillPlotting(clanLeader))
-                {
-                    Managers.Character.GetInfo(clanLeader.CharacterObject).PlotState = PlotState.WillPlotting;
-                }
-            }
-
-            //Check clans who are willed to plot and set IsPlotting
-            foreach (var clan in clansWithoutKing)
-            {
-                var clanLeader = clan.Leader;
-                if (clanLeader == null)
-                {
-                    continue;
-                }
-
-                var kingdomLeader = clan.Kingdom?.Leader;
-                if (kingdomLeader == null)
-                {
-                    continue;
-                }
-
-                var kingdomInfo = Managers.Kingdom.GetInfo(clan.Kingdom);
-                var civilWar = Managers.CivilWar.GetCivilWarByClan(clan);
-                if (kingdomInfo.HasCivilWar || civilWar != null || kingdomInfo.Kingdom.Clans.Count < 2)
-                {
-                    continue;
-                }
-
-                var clanLeaderInfo = Managers.Character.GetInfo(clan.Leader.CharacterObject);
-                if (clanLeaderInfo.PlotState != PlotState.WillPlotting)
-                {
-                    continue;
-                }
-
-                clanLeaderInfo.PlotState = PlotState.IsPlotting;
-            }
-
-            //Check if there will be a war for each kingdom
-            foreach (var kingdom in Campaign.Current.Kingdoms)
-            {
-                var kingdomInfo = Managers.Kingdom.GetInfo(kingdom);
-                var civilWar = Managers.CivilWar.GetCivilWarByKingdom(kingdom);
-                if (kingdomInfo.HasCivilWar || civilWar != null || kingdomInfo.Kingdom.Clans.Count < 2)
-                {
-                    continue;
-                }
-
-                var kingdomClans = Campaign.Current.Clans.Where(w => w.Kingdom?.StringId == kingdom.StringId).ToList();
-                var kingdomLoyalClans = new List<ClanInfo>();
-                var kingdomPlottingClans = new List<ClanInfo>();
-                foreach (var clan in kingdomClans)
-                {
-                    var clanInfo = Managers.Clan.GetInfo(clan);
-                    var characterInfo = Managers.Character.GetInfo(clan.Leader.CharacterObject);
-
-                    if (characterInfo.PlotState == PlotState.IsLoyal)
+                    if (relationDifference > RevolutionsSettings.Instance.CivilWarsNegativeRelationshipTreshold)
                     {
-                        kingdomLoyalClans.Add(clanInfo);
+                        continue;
                     }
-                    else if (characterInfo.PlotState == PlotState.IsPlotting)
+
+                    if (this.WillPlotting(clanLeader))
                     {
-                        kingdomPlottingClans.Add(clanInfo);
+                        clanLeaderInfo.PlotState = PlotState.WillPlotting;
+                    }
+
+                    clanLeader = null;
+                    clanLeaderInfo = null;
+                }
+
+                #endregion
+
+                #region Update PlotState
+
+                foreach (var clan in kingdomWithClans.Clans)
+                {
+                    clanLeader = clan.Leader;
+                    clanLeaderInfo = Managers.Character.GetInfo(clanLeader.CharacterObject);
+
+                    if (clanLeaderInfo.PlotState != PlotState.WillPlotting)
+                    {
+                        continue;
+                    }
+
+                    clanLeaderInfo.PlotState = PlotState.IsPlotting;
+
+                    clanLeader = null;
+                    clanLeaderInfo = null;
+                }
+
+                #endregion
+
+                #region Check War
+
+                var loyalClans = new List<Clan>();
+                var plottingClans = new List<Clan>();
+
+                foreach (var clan in kingdomWithClans.Clans)
+                {
+                    clanLeader = clan.Leader;
+                    clanLeaderInfo = Managers.Character.GetInfo(clanLeader.CharacterObject);
+
+                    if (clanLeaderInfo.PlotState == PlotState.IsLoyal)
+                    {
+                        loyalClans.Add(clan);
+                    }
+                    else if (clanLeaderInfo.PlotState == PlotState.IsPlotting)
+                    {
+                        plottingClans.Add(clan);
                     }
                 }
 
-                if (kingdomPlottingClans.Count == 0)
+                if (plottingClans.Count == 0)
                 {
                     continue;
                 }
 
                 var loyalTroopWeight = 0f;
-                foreach (var loyalClan in kingdomLoyalClans)
+                foreach (var loyalClan in loyalClans)
                 {
-                    loyalTroopWeight += loyalClan.Clan.TotalStrength;
+                    loyalTroopWeight += loyalClan.TotalStrength;
                 }
 
                 var plottersTroopWeight = 0f;
-                foreach (var plotterClan in kingdomPlottingClans)
+                foreach (var plotterClan in plottingClans)
                 {
-                    plottersTroopWeight += plotterClan.Clan.TotalStrength;
+                    plottersTroopWeight += plotterClan.TotalStrength;
                 }
 
-                var plotLeader = kingdomPlottingClans.OrderByDescending(o => o.Clan.Tier).FirstOrDefault();
+                var plotLeadingClan = plottingClans.OrderByDescending(go => go.Tier).FirstOrDefault();
+                if (plotLeadingClan == null)
+                {
+                    continue;
+                }
 
-                var kingdomLeader = kingdom.Leader;
-                var plottingLeader = plotLeader.Clan.Leader;
+                var kingdomLeader = kingdomInfo.Kingdom.Leader;
+                var plottingLeader = plotLeadingClan.Leader;
 
                 var kingdomLeaderGenerosity = kingdomLeader.GetHeroTraits().Generosity;
                 var kingdomLeaderMercy = kingdomLeader.GetHeroTraits().Mercy;
@@ -183,49 +171,52 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 float personalityWeight = MathF.Pow(RevolutionsSettings.Instance.CivilWarsWarPersonalityMultiplier, -personalityTraits + 0f);
                 float troopWeight = (plottersTroopWeight + 0f) / (loyalTroopWeight + 0f);
                 float valorModifier = 1f + (plottingLeaderValor + 0f <= 0f ? 1f : plottingLeaderValor + 0f * 2f);
-                float clanCountModifier = (kingdomPlottingClans.Count + 0f) / (kingdomLoyalClans.Count + 0f);
+                float clanCountModifier = (plottingClans.Count + 0f) / (loyalClans.Count + 0f);
                 float calculatingModifier = 1f + (plottingLeaderCalculating + 0f <= 0f ? 1f : plottingLeaderCalculating + 0f);
 
                 var warChance = RevolutionsSettings.Instance.CivilWarsWarBaseChance * personalityWeight * (troopWeight * valorModifier) * MathF.Pow(clanCountModifier, calculatingModifier);
                 if (warChance > new Random().Next(0, 100))
                 {
-                    var settlementInfo = Managers.Settlement.GetInfo(plotLeader.Clan.HomeSettlement);
-                    Kingdom newKingdom;
-
+                    var settlementInfo = Managers.Settlement.GetInfo(plotLeadingClan.HomeSettlement);
                     var bannerInfo = Managers.Banner.GetRevolutionsBannerBySettlementInfo(settlementInfo);
                     if (bannerInfo != null)
                     {
                         bannerInfo.Used = true;
-
-                        newKingdom = Managers.Kingdom.CreateKingdom(plotLeader.Clan.Leader, new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), new Banner(bannerInfo.BannerId), false);
                     }
-                    else
+
+                    var plotKingdom = Managers.Kingdom.CreateKingdom(plotLeadingClan.Leader, new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), bannerInfo != null ? new Banner(bannerInfo.BannerId) : null, false);
+
+                    InformationManager.DisplayMessage(new InformationMessage($"A Civil War started in {kingdomInfo.Kingdom.Name}! It's lead by the mighty {plotLeadingClan.Leader.Name} of {plotLeadingClan.Name}.", ColorHelper.RoyalRed));
+
+                    var otherPlottingClans = plottingClans.Where(go => go.StringId != plotLeadingClan.StringId);
+                    if (otherPlottingClans.Count() == 0)
                     {
-                        newKingdom = Managers.Kingdom.CreateKingdom(plotLeader.Clan.Leader, new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), null, false);
+                        InformationManager.DisplayMessage(new InformationMessage($"Seems like {plotLeadingClan.Leader.Name} of {plotLeadingClan.Name} will be on his own.", ColorHelper.Orange));
                     }
 
-                    var plottingClansWithoutLeader = kingdomPlottingClans.Where(w => w.ClanId != plotLeader.ClanId);
-
-                    FactionManager.DeclareWar(newKingdom, kingdom);
-                    Campaign.Current.FactionManager.RegisterCampaignWar(newKingdom, kingdom);
-
-                    InformationManager.DisplayMessage(new InformationMessage($"A Civil War started in {kingdom.Name}! It's lead by the mighty {plotLeader.Clan.Leader.Name} of {plotLeader.Clan.Name}.", ColorHelper.RoyalRed));
-
-                    if (plottingClansWithoutLeader.Count() == 0)
+                    foreach (var plottingClan in otherPlottingClans)
                     {
-                        InformationManager.DisplayMessage(new InformationMessage($"Seems like {plotLeader.Clan.Leader.Name} of {plotLeader.Clan.Name} will be on his own.", ColorHelper.Orange));
-
+                        InformationManager.DisplayMessage(new InformationMessage($"{plottingClan.Leader.Name} of {plottingClan.Name} will be with the plotting leader!", ColorHelper.Orange));
+                        ChangeKingdomAction.ApplyByJoinToKingdom(plottingClan, plotKingdom, false);
                     }
-                    foreach (var plottingClan in plottingClansWithoutLeader)
+
+                    if (RevolutionsSettings.Instance.CivilWarsKeepExistingWars)
                     {
-                        InformationManager.DisplayMessage(new InformationMessage($"{plottingClan.Clan.Leader.Name} of {plottingClan.Clan.Name} will be with the plotting leader!", ColorHelper.Orange));
-                        ChangeKingdomAction.ApplyByJoinToKingdom(plottingClan.Clan, newKingdom, false);
+                        var existingEnemyKingdoms = FactionManager.GetEnemyKingdoms(kingdomInfo.Kingdom);
+                        foreach (var enemyKingdom in existingEnemyKingdoms)
+                        {
+                            DeclareWarAction.Apply(plotKingdom, enemyKingdom);
+                        }
                     }
 
-                    Managers.CivilWar.CivilWars.Add(new CivilWar(kingdom, kingdomClans));
+                    DeclareWarAction.Apply(kingdomInfo.Kingdom, plotKingdom);
+
+                    Managers.CivilWar.CivilWars.Add(new CivilWar(kingdomInfo.Kingdom, kingdomWithClans.Clans));
                     kingdomInfo.HasCivilWar = true;
                 }
             }
+
+            #endregion
         }
 
         private bool WillPlotting(Hero clanLeader)

@@ -6,65 +6,72 @@
   <strings>
     <!-- Settings -->
     <!-- Header -->
-    <string id="MYu8nKqq" text="General" />
-    <string id="hPERH4u4" text="Imperial Loyalty" />
-    <string id="Ts1iV2pO" text="Overextension" />
-    <string id="WbOKuWbq" text="Minor Factions" />
-    <!-- General -->
-    <string id="Pqk4uuGz" text="Revolt Cooldown" />
-    <string id="zx12ijyW" text="The time before another revolt can arise in the same city." />
-    <string id="qNWmNP0z" text="Base Loyalty" />
-    <string id="tOZS0maD" text="The base loyalty of cities to the player." />
-    <string id="3fQwLwkC" text="Loyalty Change" />
-    <string id="dRoMEfb0" text="Days until the city's loyalty to the new owner changes." />
-    <string id="cXCfwzPp" text="Loyalty Increase" />
-    <string id="HWiD4aR1" text="The amount by which loyalty increases when the owner is in town over night." />
-    <string id="ZuwszZww" text="Minimum Obediance" />
-    <string id="BkGsVccZ" text="Minimal loyalty is required for the city's obedience to the owner." />
-    <string id="Z64szZ0r" text="Base Army Size" />
-    <string id="u54sxY0r" text="The base size of the revolting army, which gets spawned." />
-    <string id="Z64soMEf" text="Army Prosperity Multiplier" />
-    <string id="uD4aRY0r" text="This multiplier gets multiplied by the towns prosperity to add the amount to the base army size." />
+    <string id="" text="General" />
+    <string id="" text="Imperial Loyalty" />
+    <string id="" text="Overextension" />
+    <string id="" text="Minor Factions" />
+    <!-- Settings General -->
+    <string id="" text="Revolt Cooldown" />
+    <string id="" text="The time before another revolt can arise in the same city." />
+    <string id="" text="Base Loyalty" />
+    <string id="" text="The base loyalty of cities to the player." />
+    <string id="" text="Loyalty Change" />
+    <string id="" text="Days until the city's loyalty to the new owner changes." />
+    <string id="" text="Loyalty Increase" />
+    <string id="" text="The amount by which loyalty increases when the owner is in town over night." />
+    <string id="" text="Minimum Obediance" />
+    <string id="" text="Minimal loyalty is required for the city's obedience to the owner." />
+    <string id="" text="Base Army Size" />
+    <string id="" text="The base size of the revolting army, which gets spawned." />
+    <string id="" text="Army Prosperity Multiplier" />
+    <string id="" text="This multiplier gets multiplied by the towns prosperity to add the amount to the base army size." />
     <!-- Revolts -->
-    <string id="ERgZhju4" text="Revolts" />
-    <string id="E08Khju4" text="Enables/Disables Revolts.." />
-    <!-- Imperial Loyalty -->
-    <string id="YnRmSelp" text="Enables/Disables the mechanic for the empire loyalty." />
-    <string id="ER9izZPu" text="Renown Loss" />
-    <string id="1i5izHqq" text="The amount of renown a imperial faction will loose after a failed revolt." />
-    <!-- Overextension -->
-    <string id="ZRlNsvev" text="Enables/Disables the mechanics for overextension." />
-    <string id="vuDS5ns8" text="Affects Player" />
-    <string id="7LzQHMVj" text="Does the overextension mechanism affect the player." />
-    <string id="q2tbqN8d" text="Multiplier" />
-    <string id="6m1Ss8fW" text="A multiplier to calculate overextension. This affects the city's loyalty to the owner." />
-    <!-- Minor Factions -->
-    <string id="P1g6H41e" text="Enables/Disables the mechanics for forming minor factions." />
-    <string id="Z79izZPu" text="Renown Gain" />
-    <string id="1i9izH4u" text="The amount of renown a minor faction will get after a successful revolt." />
-    <!-- Lucky Nations -->
-    <string id="6F34Ffer" text="Lucky Nations" />
-    <string id="Zkl46vev" text="Enables/Disables the mechanics for lucky nations." />
-    <string id="7fGer34R" text="Random Lucky Nation" />
-    <string id="lgkTi59R" text="Enables/Disables a random lucky nation from all possible kingdoms." />
-    <string id="kgjR53Sd" text="Imperial Lucky Nation" />
-    <string id="lgkr98EE" text="Guarantees an Imperial lucky nation." />
-    <string id="klge23qZ" text="Non-Imperial Lucky Nation" />
-    <string id="mvb34Sdk" text="Guarantees a Non-Imperial lucky nation." />
-    <string id="glCo42fD" text="Loyal population" />
+    <!-- Revolts: General -->
+    <!-- Revolts: Imperial Loyalty -->
+    <!-- Revolts: Overextension -->
+    <!-- Revolts: Minor Factions -->
+    <!-- Revolts: Lucky Nation -->
     <!-- Civil Wars -->
-    <string id="4r7V2pz6" text="Civil Wars" />
-    <string id="4J7V2Wbq" text="Enables/Disables the mechanics for Civil Wars." />
+    <!-- Civil Wars: General -->
+    <string id="" text="Revolts" />
+    <string id="" text="Enables/Disables Revolts.." />
+    <!-- Imperial Loyalty -->
+    <string id="" text="Enables/Disables the mechanic for the empire loyalty." />
+    <string id="" text="Renown Loss" />
+    <string id="" text="The amount of renown a imperial faction will loose after a failed revolt." />
+    <!-- Overextension -->
+    <string id="" text="Enables/Disables the mechanics for overextension." />
+    <string id="" text="Affects Player" />
+    <string id="" text="Does the overextension mechanism affect the player." />
+    <string id="" text="Multiplier" />
+    <string id="" text="A multiplier to calculate overextension. This affects the city's loyalty to the owner." />
+    <!-- Minor Factions -->
+    <string id="" text="Enables/Disables the mechanics for forming minor factions." />
+    <string id="" text="Renown Gain" />
+    <string id="" text="The amount of renown a minor faction will get after a successful revolt." />
+    <!-- Lucky Nations -->
+    <string id="" text="Lucky Nations" />
+    <string id="" text="Enables/Disables the mechanics for lucky nations." />
+    <string id="" text="Random Lucky Nation" />
+    <string id="" text="Enables/Disables a random lucky nation from all possible kingdoms." />
+    <string id="" text="Imperial Lucky Nation" />
+    <string id="" text="Guarantees an Imperial lucky nation." />
+    <string id="" text="Non-Imperial Lucky Nation" />
+    <string id="" text="Guarantees a Non-Imperial lucky nation." />
+    <string id="" text="Loyal population" />
+    <!-- Civil Wars -->
+    <string id="" text="Civil Wars" />
+    <string id="" text="Enables/Disables the mechanics for Civil Wars." />
     <!-- Miscellaneous-->
-    <string id="3r7O82pO" text="Miscellaneous" />
-    <string id="3H348per" text="Debug Mode" />
-    <string id="3L33P8pr" text="Enables/Disables the output of detailed information." />
+    <string id="" text="Miscellaneous" />
+    <string id="" text="Debug Mode" />
+    <string id="" text="Enables/Disables the output of detailed information." />
 
     <!-- Loyalty Model -->
-    <string id="PqkwszGz" text="Seeing you spend time at {SETTLEMENT}, your subjects feel more loyal to you." />
-    <string id="dRoS0maD" text="{SETTLEMENT} is revolting!" />
-    <string id="Ts1iVN8d" text="Town Loyalty" />
-    <string id="q2t1Ss8d" text="Revoltary Mob" />
+    <string id="" text="Seeing you spend time at {SETTLEMENT}, your subjects feel more loyal to you." />
+    <string id="" text="{SETTLEMENT} is revolting!" />
+    <string id="" text="Town Loyalty" />
+    <string id="" text="Revoltary Mob" />
 
     <!-- Town Menu -->
     <string id="3fBkqk4u" text="The people of {SETTLEMENT} seem to be content." />

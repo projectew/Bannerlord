@@ -213,20 +213,14 @@ namespace Revolutions.Components.Revolts
                 Managers.Clan.CreateClan(leader, leader.Name, leader.Name);
                 Managers.Clan.GetInfo(leader.Clan).IsRevoltClan = true;
 
-                Kingdom kingdom;
                 var bannerInfo = Managers.Banner.GetRevolutionsBannerBySettlementInfo(settlementInfo);
                 if (bannerInfo != null)
                 {
-                    var banner = new Banner(bannerInfo.BannerId);
                     bannerInfo.Used = true;
-                    kingdom = Managers.Kingdom.CreateKingdom(leader, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"), banner);
-                }
-                else
-                {
-                    kingdom = Managers.Kingdom.CreateKingdom(leader, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"));
                 }
 
-                Managers.Kingdom.GetInfo(kingdom).IsRevoltKingdom = true;
+                var revoltKingdom = Managers.Kingdom.CreateKingdom(leader, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"), bannerInfo != null ? new Banner(bannerInfo.BannerId) : null, false);
+                Managers.Kingdom.GetInfo(revoltKingdom).IsRevoltKingdom = true;
             }
 
             var mobileParty = Managers.Party.CreateMobileParty(leader, settlement.GatePosition, settlement, !atWarWithLoyalFaction, true);
@@ -249,18 +243,13 @@ namespace Revolutions.Components.Revolts
                 mobileParty.ChangePartyLeader(mobileParty.Party.Owner.CharacterObject, false);
             }
 
-            this.Revolts.Add(new Revolt(mobileParty.Party.Id, settlement, !atWarWithLoyalFaction));
-
-            settlementInfo.HasRebellionEvent = true;
-
-            FactionManager.DeclareWar(leader.MapFaction, settlement.MapFaction);
-            Campaign.Current.FactionManager.RegisterCampaignWar(leader.MapFaction, settlement.MapFaction);
-
-            ChangeRelationAction.ApplyRelationChangeBetweenHeroes(leader, settlement.OwnerClan.Leader, -20, false);
-            ChangeRelationAction.ApplyRelationChangeBetweenHeroes(leader, settlement.OwnerClan.Kingdom.Leader, -20, false);
+            DeclareWarAction.Apply(settlement.OwnerClan.Kingdom, leader.Clan.Kingdom);
 
             mobileParty.Ai.SetDoNotMakeNewDecisions(true);
             SetPartyAiAction.GetActionForBesiegingSettlement(mobileParty, settlement);
+
+            this.Revolts.Add(new Revolt(mobileParty.Party.Id, settlement, !atWarWithLoyalFaction));
+            settlementInfo.HasRebellionEvent = true;
         }
     }
 }
