@@ -213,13 +213,13 @@ namespace Revolutions.Components.Revolts
                 RevolutionsManagers.Character.GetInfo(hero.CharacterObject).IsRevoltKingdomLeader = true;
                 RevolutionsManagers.Clan.CreateClan(hero, hero.Name, hero.Name);
 
-                BaseBannerInfo bannerInfo = ChooseRevoltBanner(settlementInfo);
+                BaseBannerInfo bannerInfo = this.ChooseRevoltBanner(settlementInfo);
 
                 if (bannerInfo != null)
                 {
                     var banner = new Banner(bannerInfo.BannerId);
                     bannerInfo.Used = true;
-                    RevolutionsManagers.Kingdom.CreateKingdom(hero, banner, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"));
+                    RevolutionsManagers.Kingdom.CreateKingdom(hero, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"), banner);
                 }
                 else
                 {

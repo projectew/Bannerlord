@@ -8,6 +8,10 @@ using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using Revolutions.Settings;
+using TaleWorlds.Core;
+using KNTLibrary.Helpers;
+using KNTLibrary.Components.Banners;
+using Revolutions.Components.Base.Settlements;
 
 namespace Revolutions.Components.CivilWars.CampaignBehaviors
 {
@@ -88,10 +92,12 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 clanLeaderInfo.PlotState = PlotState.IsPlotting;
             }
 
+            //Check if there will be a war for each kingdom
             foreach (var kingdom in Campaign.Current.Kingdoms)
             {
+                var kingdomInfo = RevolutionsManagers.Kingdom.GetInfo(kingdom);
                 var civilWar = RevolutionsManagers.CivilWar.GetCivilWarByKingdom(kingdom);
-                if (civilWar != null)
+                if (kingdomInfo.HasCivilWar || civilWar != null)
                 {
                     continue;
                 }
@@ -156,18 +162,35 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 var warChance = RevolutionsSettings.Instance.CivilWarsWarBaseChance * personalityWeight * (troopWeight * valorModifier) * MathF.Pow(clanCountModifier, calculatingModifier);
                 if (warChance > new Random().Next(0, 100))
                 {
-                    var newKingdom = RevolutionsManagers.Kingdom.CreateKingdom(plottingLeader, new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), new TextObject($"Kingdom of {plottingLeader.Clan.Name}"));
-                    ChangeKingdomAction.ApplyByLeaveKingdom(plotLeader.Clan, false);
+                    InformationManager.DisplayMessage(new InformationMessage($"A Civil War started in {kingdom.Name}! It's lead by the mighty {plotLeader.Clan.Leader.Name} of {plotLeader.Clan.Name}.", ColorHelper.Red));
+
+                    var settlementInfo = RevolutionsManagers.Settlement.GetInfo(plotLeader.Clan.HomeSettlement);
+                    Kingdom newKingdom;
+
+                    var bannerInfo = this.ChooseRevoltBanner(settlementInfo);
+                    if (bannerInfo != null)
+                    {
+                        var banner = new Banner(bannerInfo.BannerId);
+                        bannerInfo.Used = true;
+                        newKingdom = RevolutionsManagers.Kingdom.CreateKingdom(plotLeader.Clan.Leader, new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), banner);
+                    }
+                    else
+                    {
+                        newKingdom = RevolutionsManagers.Kingdom.CreateKingdom(plotLeader.Clan.Leader, new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), new TextObject($"Kingdom of {plottingLeader.Clan.Name}"));
+                    }
 
                     foreach (var plottingClan in kingdomPlottingClans)
                     {
-                        ChangeKingdomAction.ApplyByLeaveWithRebellionAgainstKingdom(plottingClan.Clan, newKingdom, true);
+                        InformationManager.DisplayMessage(new InformationMessage($"{plotLeader.Clan.Leader.Name} of {plotLeader.Clan.Name} will be with the plotting leader!.", ColorHelper.Red));
+
+                        ChangeKingdomAction.ApplyByJoinToKingdom(plottingClan.Clan, newKingdom);
                     }
 
                     FactionManager.DeclareWar(newKingdom, kingdom);
                     Campaign.Current.FactionManager.RegisterCampaignWar(newKingdom, kingdom);
 
                     RevolutionsManagers.CivilWar.CivilWars.Add(new CivilWar(kingdom, kingdomClans));
+                    kingdomInfo.HasCivilWar = true;
                 }
             }
         }
@@ -192,6 +215,37 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
             var plotChance = RevolutionsSettings.Instance.CivilWarsPlottingBaseChance * personalityWeight * friendWeight;
             return plotChance > new Random().Next(0, 100);
+        }
+
+        private BaseBannerInfo ChooseRevoltBanner(SettlementInfo settlementInfo)
+        {
+            BaseBannerInfo bannerInfo = null;
+
+            foreach (var info in RevolutionsManagers.Banner.Infos)
+            {
+                if (info.Used)
+                {
+                    continue;
+                }
+
+                if (info.Settlement == settlementInfo.Settlement.Name.ToString() && info.Culture == settlementInfo.Settlement.Culture.StringId)
+                {
+                    bannerInfo = info;
+                    break;
+                }
+                else if (info.Faction == settlementInfo.LoyalFaction.StringId)
+                {
+                    bannerInfo = info;
+                    break;
+                }
+                else if (info.Culture == settlementInfo.Settlement.Culture.StringId)
+                {
+                    bannerInfo = info;
+                    break;
+                }
+            }
+
+            return bannerInfo;
         }
     }
 }

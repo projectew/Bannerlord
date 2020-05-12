@@ -49,6 +49,8 @@ namespace Revolutions.Components.Base.Kingdoms
 
         public bool LuckyNation { get; set; } = false;
 
+        public bool HasCivilWar { get; set; } = false;
+
         #endregion
     }
 }
