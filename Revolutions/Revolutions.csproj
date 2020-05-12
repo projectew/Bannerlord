@@ -85,6 +85,7 @@
   </ItemGroup>
   <!-- Mod Resource Files -->
   <ItemGroup>
+    <Content Include="ModuleData\Banners\Vlandia.xml" />
     <Content Include="SubModule.xml" />
     <Content Include="ModuleData\Languages\DE\std_module_strings_xml.xml" />
     <Content Include="ModuleData\Languages\std_module_strings_xml.xml" />

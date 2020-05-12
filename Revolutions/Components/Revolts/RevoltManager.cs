@@ -5,9 +5,11 @@ using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Localization;
 using Helpers;
+using KNTLibrary.Components.Banners;
 using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Factions;
-using Revolutions.Settings;
+using Revolutions.Components.Base.Settlements;
+using TaleWorlds.Library;
 
 namespace Revolutions.Components.Revolts
 {
@@ -66,7 +68,7 @@ namespace Revolutions.Components.Revolts
                 {
                     if (party.IsLordParty && party.Party.Owner.Clan == info.Settlement.OwnerClan)
                     {
-                        info.Settlement.Town.Loyalty += RevolutionsSettings.Instance.GeneralPlayerInTownLoyaltyIncrease;
+                        info.Settlement.Town.Loyalty += Settings.Instance.GeneralPlayerInTownLoyaltyIncrease;
 
                         if (info.Settlement.OwnerClan.StringId == Hero.MainHero.Clan.StringId)
                         {
@@ -103,7 +105,7 @@ namespace Revolutions.Components.Revolts
                     continue;
                 }
 
-                settlementInfo.RevoltProgress += RevolutionsSettings.Instance.GeneralMinimumObedienceLoyalty - settlement.Town.Loyalty;
+                settlementInfo.RevoltProgress += Settings.Instance.GeneralMinimumObedienceLoyalty - settlement.Town.Loyalty;
 
                 if (settlementInfo.RevoltProgress >= 100 && !settlement.IsUnderSiege)
                 {
@@ -159,15 +161,15 @@ namespace Revolutions.Components.Revolts
 
             revolt.SettlementInfo.CurrentFactionInfo.CityRevoltionSucceeded(revolt.Settlement);
 
-            if (RevolutionsSettings.Instance.RevoltsImperialLoyaltyMechanic && revolt.SettlementInfo.IsCurrentFactionOfImperialCulture && !revolt.SettlementInfo.IsLoyalFactionOfImperialCulture)
+            if (Settings.Instance.RevoltsImperialLoyaltyMechanic && revolt.SettlementInfo.IsCurrentFactionOfImperialCulture && !revolt.SettlementInfo.IsLoyalFactionOfImperialCulture)
             {
-                revolt.Settlement.OwnerClan.AddRenown(-RevolutionsSettings.Instance.RevoltsImperialRenownLoss);
+                revolt.Settlement.OwnerClan.AddRenown(-Settings.Instance.RevoltsImperialRenownLoss);
             }
 
-            if (RevolutionsSettings.Instance.RevoltsMinorFactionsMechanic && revolt.IsMinorFaction)
+            if (Settings.Instance.RevoltsMinorFactionsMechanic && revolt.IsMinorFaction)
             {
                 ChangeOwnerOfSettlementAction.ApplyBySiege(revolt.Party.LeaderHero, revolt.Party.LeaderHero, revolt.Settlement);
-                revolt.Party.LeaderHero.Clan.AddRenown(RevolutionsSettings.Instance.RevoltsMinorFactionsRenownGainOnWin);
+                revolt.Party.LeaderHero.Clan.AddRenown(Settings.Instance.RevoltsMinorFactionsRenownGainOnWin);
 
                 var companion = RevolutionsManagers.Character.CreateRandomLeader(revolt.Party.LeaderHero.Clan, revolt.SettlementInfo);
                 RevolutionsManagers.Character.GetInfo(companion.CharacterObject);
@@ -177,7 +179,7 @@ namespace Revolutions.Components.Revolts
 
                 RevolutionsManagers.Clan.GetInfo(companion.Clan).CanJoinOtherKingdoms = false;
 
-                var amountOfEliteTroops = (RevolutionsSettings.Instance.RevoltsGeneralBaseArmy + (int)(revolt.Settlement.Prosperity * RevolutionsSettings.Instance.RevoltsGeneralArmyProsperityMulitplier)) / 2;
+                var amountOfEliteTroops = (Settings.Instance.RevoltsGeneralBaseArmy + (int)(revolt.Settlement.Prosperity * Settings.Instance.RevoltsGeneralArmyProsperityMulitplier)) / 2;
                 mobileParty.MemberRoster.Add(RevolutionsManagers.Party.GenerateEliteTroopRoster(mobileParty.LeaderHero, amountOfEliteTroops));
 
                 revolt.Party.MobileParty.Ai.SetDoNotMakeNewDecisions(false);
@@ -210,7 +212,8 @@ namespace Revolutions.Components.Revolts
                 RevolutionsManagers.Character.GetInfo(hero.CharacterObject).IsRevoltKingdomLeader = true;
                 RevolutionsManagers.Clan.CreateClan(hero, hero.Name, hero.Name);
 
-                var bannerInfo = RevolutionsManagers.Banner.Infos.FirstOrDefault(n => !n.Used && n.Faction == settlementInfo.LoyalFaction.StringId);
+                BaseBannerInfo bannerInfo = ChooseRevoltBanner(settlementInfo);
+
                 if (bannerInfo != null)
                 {
                     var banner = new Banner(bannerInfo.BannerId);
@@ -227,7 +230,7 @@ namespace Revolutions.Components.Revolts
 
             var mobileParty = RevolutionsManagers.Party.CreateMobileParty(hero, settlement.GatePosition, settlement, !atWarWithLoyalFaction, true);
 
-            var amountOfBasicTroops = RevolutionsSettings.Instance.RevoltsGeneralBaseArmy + (int)(settlement.Prosperity * RevolutionsSettings.Instance.RevoltsGeneralArmyProsperityMulitplier);
+            var amountOfBasicTroops = Settings.Instance.RevoltsGeneralBaseArmy + (int)(settlement.Prosperity * Settings.Instance.RevoltsGeneralArmyProsperityMulitplier);
             mobileParty.MemberRoster.Add(RevolutionsManagers.Party.GenerateBasicTroopRoster(hero, amountOfBasicTroops, withTier4: false));
 
             if (settlement.MilitaParty != null && settlement.MilitaParty.CurrentSettlement == settlement && settlement.MilitaParty.MapEvent == null)
@@ -255,6 +258,37 @@ namespace Revolutions.Components.Revolts
             ChangeRelationAction.ApplyRelationChangeBetweenHeroes(hero, settlement.OwnerClan.Kingdom.Leader, -20, false);
             mobileParty.Ai.SetDoNotMakeNewDecisions(true);
             SetPartyAiAction.GetActionForBesiegingSettlement(mobileParty, settlement);
+        }
+
+        private BaseBannerInfo ChooseRevoltBanner(SettlementInfo settlementInfo)
+        {
+            BaseBannerInfo bannerInfo = null;
+
+            foreach (var info in RevolutionsManagers.Banner.Infos)
+            {
+                if (info.Used)
+                {
+                    continue;
+                }
+
+                if (info.Settlement == settlementInfo.Settlement.Name.ToString() && info.Culture == settlementInfo.Settlement.Culture.StringId)
+                {
+                    bannerInfo = info;
+                    break;
+                }
+                else if (info.Faction == settlementInfo.LoyalFaction.StringId)
+                {
+                    bannerInfo = info;
+                    break;
+                }
+                else if (info.Culture == settlementInfo.Settlement.Culture.StringId)
+                {
+                    bannerInfo = info;
+                    break;
+                }
+            }
+
+            return bannerInfo;
         }
     }
 }
