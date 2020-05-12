@@ -61,7 +61,7 @@ namespace Revolutions
             RevolutionsManagers.Settlement.Infos = FileHelper.Load<List<SettlementInfo>>(saveDirectory, "Settlements").ToHashSet();
             RevolutionsManagers.Settlement.CleanupDuplicatedInfos();
 
-            RevolutionsManagers.Banner.Infos = FileHelper.Load<List<BaseBannerInfo>>(RevolutionsManagers.Banner.Infos.ToList(), directoryPath, "Banners").ToHashSet();
+            RevolutionsManagers.Banner.Infos = FileHelper.Load<List<BaseBannerInfo>>(RevolutionsManagers.Banner.Infos.ToList(), saveDirectory, "Banners").ToHashSet();
             RevolutionsManagers.Banner.CleanupDuplicatedInfos();
         }
 
@@ -101,7 +101,7 @@ namespace Revolutions
             FileHelper.Save(RevolutionsManagers.Party.Infos, saveDirectory, "Parties");
             FileHelper.Save(RevolutionsManagers.Character.Infos, saveDirectory, "Characters");
             FileHelper.Save(RevolutionsManagers.Settlement.Infos, saveDirectory, "Settlements");
-			FileHelper.Save(RevolutionsManagers.Banner.Infos, directoryPath, "Banners");
+			FileHelper.Save(RevolutionsManagers.Banner.Infos, saveDirectory, "Banners");
         }
 
         internal void SaveRevoltData()
