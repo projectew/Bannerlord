@@ -198,7 +198,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                     if (RevolutionsSettings.Instance.CivilWarsKeepExistingWars)
                     {
-                        var existingEnemyKingdoms = FactionManager.GetEnemyKingdoms(kingdomInfo.Kingdom);
+                        var existingEnemyKingdoms = FactionManager.GetEnemyKingdoms(kingdomInfo.Kingdom).ToList();
                         foreach (var enemyKingdom in existingEnemyKingdoms)
                         {
                             DeclareWarAction.Apply(plotKingdom, enemyKingdom);
