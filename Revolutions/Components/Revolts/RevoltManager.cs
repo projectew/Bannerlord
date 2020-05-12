@@ -10,6 +10,7 @@ using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Factions;
 using Revolutions.Components.Base.Settlements;
 using TaleWorlds.Library;
+using Revolutions.Settings;
 
 namespace Revolutions.Components.Revolts
 {
@@ -68,7 +69,7 @@ namespace Revolutions.Components.Revolts
                 {
                     if (party.IsLordParty && party.Party.Owner.Clan == info.Settlement.OwnerClan)
                     {
-                        info.Settlement.Town.Loyalty += Settings.Instance.GeneralPlayerInTownLoyaltyIncrease;
+                        info.Settlement.Town.Loyalty += RevolutionsSettings.Instance.GeneralPlayerInTownLoyaltyIncrease;
 
                         if (info.Settlement.OwnerClan.StringId == Hero.MainHero.Clan.StringId)
                         {
@@ -105,7 +106,7 @@ namespace Revolutions.Components.Revolts
                     continue;
                 }
 
-                settlementInfo.RevoltProgress += Settings.Instance.GeneralMinimumObedienceLoyalty - settlement.Town.Loyalty;
+                settlementInfo.RevoltProgress += RevolutionsSettings.Instance.GeneralMinimumObedienceLoyalty - settlement.Town.Loyalty;
 
                 if (settlementInfo.RevoltProgress >= 100 && !settlement.IsUnderSiege)
                 {
@@ -161,15 +162,15 @@ namespace Revolutions.Components.Revolts
 
             revolt.SettlementInfo.CurrentFactionInfo.CityRevoltionSucceeded(revolt.Settlement);
 
-            if (Settings.Instance.RevoltsImperialLoyaltyMechanic && revolt.SettlementInfo.IsCurrentFactionOfImperialCulture && !revolt.SettlementInfo.IsLoyalFactionOfImperialCulture)
+            if (RevolutionsSettings.Instance.RevoltsImperialLoyaltyMechanic && revolt.SettlementInfo.IsCurrentFactionOfImperialCulture && !revolt.SettlementInfo.IsLoyalFactionOfImperialCulture)
             {
-                revolt.Settlement.OwnerClan.AddRenown(-Settings.Instance.RevoltsImperialRenownLoss);
+                revolt.Settlement.OwnerClan.AddRenown(-RevolutionsSettings.Instance.RevoltsImperialRenownLoss);
             }
 
-            if (Settings.Instance.RevoltsMinorFactionsMechanic && revolt.IsMinorFaction)
+            if (RevolutionsSettings.Instance.RevoltsMinorFactionsMechanic && revolt.IsMinorFaction)
             {
                 ChangeOwnerOfSettlementAction.ApplyBySiege(revolt.Party.LeaderHero, revolt.Party.LeaderHero, revolt.Settlement);
-                revolt.Party.LeaderHero.Clan.AddRenown(Settings.Instance.RevoltsMinorFactionsRenownGainOnWin);
+                revolt.Party.LeaderHero.Clan.AddRenown(RevolutionsSettings.Instance.RevoltsMinorFactionsRenownGainOnWin);
 
                 var companion = RevolutionsManagers.Character.CreateRandomLeader(revolt.Party.LeaderHero.Clan, revolt.SettlementInfo);
                 RevolutionsManagers.Character.GetInfo(companion.CharacterObject);
@@ -179,7 +180,7 @@ namespace Revolutions.Components.Revolts
 
                 RevolutionsManagers.Clan.GetInfo(companion.Clan).CanJoinOtherKingdoms = false;
 
-                var amountOfEliteTroops = (Settings.Instance.RevoltsGeneralBaseArmy + (int)(revolt.Settlement.Prosperity * Settings.Instance.RevoltsGeneralArmyProsperityMulitplier)) / 2;
+                var amountOfEliteTroops = (RevolutionsSettings.Instance.RevoltsGeneralBaseArmy + (int)(revolt.Settlement.Prosperity * RevolutionsSettings.Instance.RevoltsGeneralArmyProsperityMulitplier)) / 2;
                 mobileParty.MemberRoster.Add(RevolutionsManagers.Party.GenerateEliteTroopRoster(mobileParty.LeaderHero, amountOfEliteTroops));
 
                 revolt.Party.MobileParty.Ai.SetDoNotMakeNewDecisions(false);
@@ -230,7 +231,7 @@ namespace Revolutions.Components.Revolts
 
             var mobileParty = RevolutionsManagers.Party.CreateMobileParty(hero, settlement.GatePosition, settlement, !atWarWithLoyalFaction, true);
 
-            var amountOfBasicTroops = Settings.Instance.RevoltsGeneralBaseArmy + (int)(settlement.Prosperity * Settings.Instance.RevoltsGeneralArmyProsperityMulitplier);
+            var amountOfBasicTroops = RevolutionsSettings.Instance.RevoltsGeneralBaseArmy + (int)(settlement.Prosperity * RevolutionsSettings.Instance.RevoltsGeneralArmyProsperityMulitplier);
             mobileParty.MemberRoster.Add(RevolutionsManagers.Party.GenerateBasicTroopRoster(hero, amountOfBasicTroops, withTier4: false));
 
             if (settlement.MilitaParty != null && settlement.MilitaParty.CurrentSettlement == settlement && settlement.MilitaParty.MapEvent == null)
