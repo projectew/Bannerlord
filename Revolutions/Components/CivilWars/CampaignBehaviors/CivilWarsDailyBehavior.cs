@@ -164,6 +164,8 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 {
                     InformationManager.DisplayMessage(new InformationMessage($"A Civil War started in {kingdom.Name}! It's lead by the mighty {plotLeader.Clan.Leader.Name} of {plotLeader.Clan.Name}.", ColorHelper.Red));
 
+                    ChangeKingdomAction.ApplyByLeaveKingdom(plotLeader.Clan, false);
+
                     var settlementInfo = RevolutionsManagers.Settlement.GetInfo(plotLeader.Clan.HomeSettlement);
                     Kingdom newKingdom;
 
@@ -183,7 +185,8 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                     {
                         InformationManager.DisplayMessage(new InformationMessage($"{plotLeader.Clan.Leader.Name} of {plotLeader.Clan.Name} will be with the plotting leader!.", ColorHelper.Red));
 
-                        ChangeKingdomAction.ApplyByJoinToKingdom(plottingClan.Clan, newKingdom);
+                        ChangeKingdomAction.ApplyByLeaveKingdom(plottingClan.Clan, false);
+                        ChangeKingdomAction.ApplyByJoinToKingdom(plottingClan.Clan, newKingdom, false);
                     }
 
                     FactionManager.DeclareWar(newKingdom, kingdom);
