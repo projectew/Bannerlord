@@ -21,19 +21,19 @@ namespace Revolutions
     {
         internal void InitializeBaseData()
         {
-            RevolutionsManagers.Faction.DebugMode = RevolutionsSettings.Instance.DebugMode;
-            RevolutionsManagers.Kingdom.DebugMode = RevolutionsSettings.Instance.DebugMode;
-            RevolutionsManagers.Clan.DebugMode = RevolutionsSettings.Instance.DebugMode;
-            RevolutionsManagers.Party.DebugMode = RevolutionsSettings.Instance.DebugMode;
-            RevolutionsManagers.Character.DebugMode = RevolutionsSettings.Instance.DebugMode;
-            RevolutionsManagers.Settlement.DebugMode = RevolutionsSettings.Instance.DebugMode;
+            Managers.Faction.DebugMode = RevolutionsSettings.Instance.DebugMode;
+            Managers.Kingdom.DebugMode = RevolutionsSettings.Instance.DebugMode;
+            Managers.Clan.DebugMode = RevolutionsSettings.Instance.DebugMode;
+            Managers.Party.DebugMode = RevolutionsSettings.Instance.DebugMode;
+            Managers.Character.DebugMode = RevolutionsSettings.Instance.DebugMode;
+            Managers.Settlement.DebugMode = RevolutionsSettings.Instance.DebugMode;
 
-            RevolutionsManagers.Kingdom.InitializeInfos();
-            RevolutionsManagers.Faction.InitializeInfos();
-            RevolutionsManagers.Clan.InitializeInfos();
-            RevolutionsManagers.Party.InitializeInfos();
-            RevolutionsManagers.Character.InitializeInfos();
-            RevolutionsManagers.Settlement.InitializeInfos();
+            Managers.Kingdom.InitializeInfos();
+            Managers.Faction.InitializeInfos();
+            Managers.Clan.InitializeInfos();
+            Managers.Party.InitializeInfos();
+            Managers.Character.InitializeInfos();
+            Managers.Settlement.InitializeInfos();
         }
 
         internal void LoadBaseData()
@@ -44,26 +44,26 @@ namespace Revolutions
                 return;
             }
 
-            RevolutionsManagers.Faction.Infos = FileHelper.Load<List<FactionInfo>>(saveDirectory, "Factions").ToHashSet();
-            RevolutionsManagers.Faction.CleanupDuplicatedInfos();
+            Managers.Faction.Infos = FileHelper.Load<List<FactionInfo>>(saveDirectory, "Factions").ToHashSet();
+            Managers.Faction.CleanupDuplicatedInfos();
 
-            RevolutionsManagers.Kingdom.Infos = FileHelper.Load<List<KingdomInfo>>(saveDirectory, "Kingdoms").ToHashSet();
-            RevolutionsManagers.Kingdom.CleanupDuplicatedInfos();
+            Managers.Kingdom.Infos = FileHelper.Load<List<KingdomInfo>>(saveDirectory, "Kingdoms").ToHashSet();
+            Managers.Kingdom.CleanupDuplicatedInfos();
 
-            RevolutionsManagers.Clan.Infos = FileHelper.Load<List<ClanInfo>>(saveDirectory, "Clans").ToHashSet();
-            RevolutionsManagers.Clan.CleanupDuplicatedInfos();
+            Managers.Clan.Infos = FileHelper.Load<List<ClanInfo>>(saveDirectory, "Clans").ToHashSet();
+            Managers.Clan.CleanupDuplicatedInfos();
 
-            RevolutionsManagers.Party.Infos = FileHelper.Load<List<PartyInfo>>(saveDirectory, "Parties").ToHashSet();
-            RevolutionsManagers.Party.CleanupDuplicatedInfos();
+            Managers.Party.Infos = FileHelper.Load<List<PartyInfo>>(saveDirectory, "Parties").ToHashSet();
+            Managers.Party.CleanupDuplicatedInfos();
 
-            RevolutionsManagers.Character.Infos = FileHelper.Load<List<CharacterInfo>>(saveDirectory, "Characters").ToHashSet();
-            RevolutionsManagers.Character.CleanupDuplicatedInfos();
+            Managers.Character.Infos = FileHelper.Load<List<CharacterInfo>>(saveDirectory, "Characters").ToHashSet();
+            Managers.Character.CleanupDuplicatedInfos();
 
-            RevolutionsManagers.Settlement.Infos = FileHelper.Load<List<SettlementInfo>>(saveDirectory, "Settlements").ToHashSet();
-            RevolutionsManagers.Settlement.CleanupDuplicatedInfos();
+            Managers.Settlement.Infos = FileHelper.Load<List<SettlementInfo>>(saveDirectory, "Settlements").ToHashSet();
+            Managers.Settlement.CleanupDuplicatedInfos();
 
-            RevolutionsManagers.Banner.Infos = FileHelper.Load<List<BaseBannerInfo>>(saveDirectory, "Banners").ToHashSet();
-            RevolutionsManagers.Banner.CleanupDuplicatedInfos();
+            Managers.Banner.Infos = FileHelper.Load<List<BaseBannerInfo>>(saveDirectory, "Banners").ToHashSet();
+            Managers.Banner.CleanupDuplicatedInfos();
         }
 
         internal void LoadRevoltData()
@@ -74,7 +74,7 @@ namespace Revolutions
                 return;
             }
 
-            RevolutionsManagers.Revolt.Revolts = FileHelper.Load<List<Revolt>>(saveDirectory, "Revolts").ToHashSet();
+            Managers.Revolt.Revolts = FileHelper.Load<List<Revolt>>(saveDirectory, "Revolts").ToHashSet();
         }
 
         internal void LoadCivilWarData()
@@ -85,7 +85,7 @@ namespace Revolutions
                 return;
             }
 
-            RevolutionsManagers.CivilWar.CivilWars = FileHelper.Load<List<CivilWar>>(saveDirectory, "CivilWars").ToHashSet();
+            Managers.CivilWar.CivilWars = FileHelper.Load<List<CivilWar>>(saveDirectory, "CivilWars").ToHashSet();
         }
 
         internal void SaveBaseData()
@@ -96,13 +96,13 @@ namespace Revolutions
                 return;
             }
 
-            FileHelper.Save(RevolutionsManagers.Faction.Infos, saveDirectory, "Factions");
-            FileHelper.Save(RevolutionsManagers.Kingdom.Infos, saveDirectory, "Kingdoms");
-            FileHelper.Save(RevolutionsManagers.Clan.Infos, saveDirectory, "Clans");
-            FileHelper.Save(RevolutionsManagers.Party.Infos, saveDirectory, "Parties");
-            FileHelper.Save(RevolutionsManagers.Character.Infos, saveDirectory, "Characters");
-            FileHelper.Save(RevolutionsManagers.Settlement.Infos, saveDirectory, "Settlements");
-			FileHelper.Save(RevolutionsManagers.Banner.Infos, saveDirectory, "Banners");
+            FileHelper.Save(Managers.Faction.Infos, saveDirectory, "Factions");
+            FileHelper.Save(Managers.Kingdom.Infos, saveDirectory, "Kingdoms");
+            FileHelper.Save(Managers.Clan.Infos, saveDirectory, "Clans");
+            FileHelper.Save(Managers.Party.Infos, saveDirectory, "Parties");
+            FileHelper.Save(Managers.Character.Infos, saveDirectory, "Characters");
+            FileHelper.Save(Managers.Settlement.Infos, saveDirectory, "Settlements");
+			FileHelper.Save(Managers.Banner.Infos, saveDirectory, "Banners");
         }
 
         internal void SaveRevoltData()
@@ -113,7 +113,7 @@ namespace Revolutions
                 return;
             }
 
-            FileHelper.Save(RevolutionsManagers.Revolt.Revolts, saveDirectory, "Revolts");
+            FileHelper.Save(Managers.Revolt.Revolts, saveDirectory, "Revolts");
         }
 
         internal void SaveCivilWarData()
@@ -124,7 +124,7 @@ namespace Revolutions
                 return;
             }
 
-            FileHelper.Save(RevolutionsManagers.CivilWar.CivilWars, saveDirectory, "CivilWars");
+            FileHelper.Save(Managers.CivilWar.CivilWars, saveDirectory, "CivilWars");
         }
 
         private string GetSaveDirectory()

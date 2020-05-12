@@ -62,8 +62,6 @@ namespace KNTLibrary.Components.Clans
 
         public bool IsCustomClan { get; set; } = false;
 
-        public bool CanJoinOtherKingdoms { get; set; } = true;
-
         #endregion
     }
 }

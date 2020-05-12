@@ -5,11 +5,8 @@ using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Localization;
 using Helpers;
-using KNTLibrary.Components.Banners;
 using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Factions;
-using Revolutions.Components.Base.Settlements;
-using TaleWorlds.Library;
 using Revolutions.Settings;
 
 namespace Revolutions.Components.Revolts
@@ -63,7 +60,7 @@ namespace Revolutions.Components.Revolts
 
         internal void IncreaseDailyLoyaltyForSettlement()
         {
-            foreach (var info in RevolutionsManagers.Settlement.Infos)
+            foreach (var info in Managers.Settlement.Infos)
             {
                 foreach (var party in info.Settlement.Parties)
                 {
@@ -86,7 +83,7 @@ namespace Revolutions.Components.Revolts
 
         internal void CheckRevoltProgress()
         {
-            foreach (var settlementInfo in RevolutionsManagers.Settlement.Infos)
+            foreach (var settlementInfo in Managers.Settlement.Infos)
             {
                 var settlement = settlementInfo.Settlement;
 
@@ -143,7 +140,7 @@ namespace Revolutions.Components.Revolts
                 }
 
                 KillCharacterAction.ApplyByExecution(revolt.Party.Owner, revolt.Settlement.OwnerClan?.Kingdom.Leader ?? revolt.Settlement.OwnerClan.Leader);
-                RevolutionsManagers.Kingdom.RemoveKingdom(kingdom);
+                Managers.Kingdom.RemoveKingdom(kingdom);
             }
 
             if (revolt.Party?.MobileParty != null)
@@ -154,7 +151,7 @@ namespace Revolutions.Components.Revolts
             this.Revolts.Remove(revolt);
         }
 
-        internal void EndSucceededRevolutin(Revolt revolt)
+        internal void EndSucceededRevolut(Revolt revolt)
         {
             var information = new TextObject("{=dkpS074R}The revolt in {SETTLEMENT} has ended.");
             information.SetTextVariable("SETTLEMENT", revolt.Settlement.Name.ToString());
@@ -172,16 +169,17 @@ namespace Revolutions.Components.Revolts
                 ChangeOwnerOfSettlementAction.ApplyBySiege(revolt.Party.LeaderHero, revolt.Party.LeaderHero, revolt.Settlement);
                 revolt.Party.LeaderHero.Clan.AddRenown(RevolutionsSettings.Instance.RevoltsMinorFactionsRenownGainOnWin);
 
-                var companion = RevolutionsManagers.Character.CreateRandomLeader(revolt.Party.LeaderHero.Clan, revolt.SettlementInfo);
-                RevolutionsManagers.Character.GetInfo(companion.CharacterObject);
-                RevolutionsManagers.Clan.CreateClan(companion, companion.Name, companion.Name);
-                var mobileParty = RevolutionsManagers.Party.CreateMobileParty(companion, revolt.Settlement.GatePosition, revolt.Settlement, true, true);
-                ChangeKingdomAction.ApplyByJoinToKingdom(companion.Clan, revolt.Party.LeaderHero.Clan.Kingdom, true);
+                var companion = Managers.Character.CreateRandomLeader(revolt.Party.LeaderHero.Clan, revolt.SettlementInfo);
+                Managers.Character.GetInfo(companion.CharacterObject);
 
-                RevolutionsManagers.Clan.GetInfo(companion.Clan).CanJoinOtherKingdoms = false;
+                var companionClan = Managers.Clan.CreateClan(companion, companion.Name, companion.Name);
+                Managers.Clan.GetInfo(companionClan).IsRevoltClan = true;
 
+                var mobileParty = Managers.Party.CreateMobileParty(companion, revolt.Settlement.GatePosition, revolt.Settlement, true, true);
                 var amountOfEliteTroops = (RevolutionsSettings.Instance.RevoltsGeneralBaseArmy + (int)(revolt.Settlement.Prosperity * RevolutionsSettings.Instance.RevoltsGeneralArmyProsperityMulitplier)) / 2;
-                mobileParty.MemberRoster.Add(RevolutionsManagers.Party.GenerateEliteTroopRoster(mobileParty.LeaderHero, amountOfEliteTroops));
+                mobileParty.MemberRoster.Add(Managers.Party.GenerateEliteTroopRoster(mobileParty.LeaderHero, amountOfEliteTroops));
+
+                ChangeKingdomAction.ApplyByJoinToKingdom(companion.Clan, revolt.Party.LeaderHero.Clan.Kingdom, true);
 
                 revolt.Party.MobileParty.Ai.SetDoNotMakeNewDecisions(false);
                 mobileParty.Ai.SetDoNotMakeNewDecisions(false);
@@ -198,41 +196,43 @@ namespace Revolutions.Components.Revolts
             information.SetTextVariable("SETTLEMENT", settlement.Name.ToString());
             InformationManager.DisplayMessage(new InformationMessage(information.ToString(), ColorHelper.Yellow));
 
-            var settlementInfo = RevolutionsManagers.Settlement.GetInfo(settlement);
+            var settlementInfo = Managers.Settlement.GetInfo(settlement);
             var atWarWithLoyalFaction = settlementInfo.CurrentFaction.IsAtWarWith(settlementInfo.LoyalFaction);
 
-            Hero hero;
+            Hero leader;
 
             if (atWarWithLoyalFaction)
             {
-                hero = RevolutionsManagers.Faction.GetLordWithLeastFiefs(settlementInfo.LoyalFaction).HeroObject;
+                leader = Managers.Faction.GetLordWithLeastFiefs(settlementInfo.LoyalFaction).HeroObject;
             }
             else
             {
-                hero = RevolutionsManagers.Character.CreateRandomLeader(settlement.OwnerClan, settlementInfo);
-                RevolutionsManagers.Character.GetInfo(hero.CharacterObject).IsRevoltKingdomLeader = true;
-                RevolutionsManagers.Clan.CreateClan(hero, hero.Name, hero.Name);
+                leader = Managers.Character.CreateRandomLeader(settlement.OwnerClan, settlementInfo);
+                Managers.Character.GetInfo(leader.CharacterObject).IsRevoltKingdomLeader = true;
 
-                BaseBannerInfo bannerInfo = this.ChooseRevoltBanner(settlementInfo);
+                Managers.Clan.CreateClan(leader, leader.Name, leader.Name);
+                Managers.Clan.GetInfo(leader.Clan).IsRevoltClan = true;
 
+                Kingdom kingdom;
+                var bannerInfo = Managers.Banner.GetRevolutionsBannerBySettlementInfo(settlementInfo);
                 if (bannerInfo != null)
                 {
                     var banner = new Banner(bannerInfo.BannerId);
                     bannerInfo.Used = true;
-                    RevolutionsManagers.Kingdom.CreateKingdom(hero, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"), banner);
+                    kingdom = Managers.Kingdom.CreateKingdom(leader, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"), banner);
                 }
                 else
                 {
-                    RevolutionsManagers.Kingdom.CreateKingdom(hero, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"));
+                    kingdom = Managers.Kingdom.CreateKingdom(leader, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"));
                 }
 
-                RevolutionsManagers.Clan.GetInfo(hero.Clan).CanJoinOtherKingdoms = false;
+                Managers.Kingdom.GetInfo(kingdom).IsRevoltKingdom = true;
             }
 
-            var mobileParty = RevolutionsManagers.Party.CreateMobileParty(hero, settlement.GatePosition, settlement, !atWarWithLoyalFaction, true);
+            var mobileParty = Managers.Party.CreateMobileParty(leader, settlement.GatePosition, settlement, !atWarWithLoyalFaction, true);
 
             var amountOfBasicTroops = RevolutionsSettings.Instance.RevoltsGeneralBaseArmy + (int)(settlement.Prosperity * RevolutionsSettings.Instance.RevoltsGeneralArmyProsperityMulitplier);
-            mobileParty.MemberRoster.Add(RevolutionsManagers.Party.GenerateBasicTroopRoster(hero, amountOfBasicTroops, withTier4: false));
+            mobileParty.MemberRoster.Add(Managers.Party.GenerateBasicTroopRoster(leader, amountOfBasicTroops, withTier4: false));
 
             if (settlement.MilitaParty != null && settlement.MilitaParty.CurrentSettlement == settlement && settlement.MilitaParty.MapEvent == null)
             {
@@ -253,43 +253,14 @@ namespace Revolutions.Components.Revolts
 
             settlementInfo.HasRebellionEvent = true;
 
-            FactionManager.DeclareWar(hero.MapFaction, settlement.MapFaction);
-            Campaign.Current.FactionManager.RegisterCampaignWar(hero.MapFaction, settlement.MapFaction);
-            ChangeRelationAction.ApplyRelationChangeBetweenHeroes(hero, settlement.OwnerClan.Leader, -20, false);
-            ChangeRelationAction.ApplyRelationChangeBetweenHeroes(hero, settlement.OwnerClan.Kingdom.Leader, -20, false);
+            FactionManager.DeclareWar(leader.MapFaction, settlement.MapFaction);
+            Campaign.Current.FactionManager.RegisterCampaignWar(leader.MapFaction, settlement.MapFaction);
+
+            ChangeRelationAction.ApplyRelationChangeBetweenHeroes(leader, settlement.OwnerClan.Leader, -20, false);
+            ChangeRelationAction.ApplyRelationChangeBetweenHeroes(leader, settlement.OwnerClan.Kingdom.Leader, -20, false);
+
             mobileParty.Ai.SetDoNotMakeNewDecisions(true);
             SetPartyAiAction.GetActionForBesiegingSettlement(mobileParty, settlement);
-        }
-
-        private BaseBannerInfo ChooseRevoltBanner(SettlementInfo settlementInfo)
-        {
-            BaseBannerInfo bannerInfo = null;
-
-            foreach (var info in RevolutionsManagers.Banner.Infos)
-            {
-                if (info.Used)
-                {
-                    continue;
-                }
-
-                if (info.Settlement == settlementInfo.Settlement.Name.ToString() && info.Culture == settlementInfo.Settlement.Culture.StringId)
-                {
-                    bannerInfo = info;
-                    break;
-                }
-                else if (info.Faction == settlementInfo.LoyalFaction.StringId)
-                {
-                    bannerInfo = info;
-                    break;
-                }
-                else if (info.Culture == settlementInfo.Settlement.Culture.StringId)
-                {
-                    bannerInfo = info;
-                    break;
-                }
-            }
-
-            return bannerInfo;
         }
     }
 }

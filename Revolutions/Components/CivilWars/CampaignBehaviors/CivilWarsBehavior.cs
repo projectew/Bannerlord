@@ -19,6 +19,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
         public override void RegisterEvents()
         {
             CampaignEvents.MapEventEnded.AddNonSerializedListener(this, new Action<MapEvent>(this.MapEventEnded));
+            CampaignEvents.ClanChangedKingdom.AddNonSerializedListener(this, new Action<Clan, Kingdom, Kingdom, bool, bool>(this.ClanChangedKingdom));
         }
 
         public override void SyncData(IDataStore dataStore)
@@ -46,6 +47,11 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
         private void MapEventEnded(MapEvent mapEvent)
         {
 
+        }
+
+        private void ClanChangedKingdom(Clan arg1, Kingdom arg2, Kingdom arg3, bool arg4, bool arg5)
+        {
+            //throw new NotImplementedException();
         }
     }
 }

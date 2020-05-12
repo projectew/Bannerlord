@@ -62,33 +62,33 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
                 return;
             }
 
-            var currentRevolt = RevolutionsManagers.Revolt.GetRevoltByPartyId(involvedParty.Id);
+            var currentRevolt = Managers.Revolt.GetRevoltByPartyId(involvedParty.Id);
 
             var winnerSide = mapEvent.BattleState == BattleState.AttackerVictory ? mapEvent.AttackerSide : mapEvent.DefenderSide;
             if (winnerSide.PartiesOnThisSide.FirstOrDefault(party => party.Id == involvedParty.Id) == null)
             {
-                RevolutionsManagers.Revolt.EndFailedRevolt(currentRevolt);
+                Managers.Revolt.EndFailedRevolt(currentRevolt);
             }
             else
             {
-                RevolutionsManagers.Revolt.EndSucceededRevolutin(currentRevolt);
+                Managers.Revolt.EndSucceededRevolut(currentRevolt);
             }
         }
 
         private void OnSettlementOwnerChangedEvent(Settlement settlement, bool openToClaim, Hero newOwner, Hero oldOwner, Hero capturedHero, ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail detail)
         {
-            var settlementInfo = RevolutionsManagers.Settlement.GetInfo(settlement);
+            var settlementInfo = Managers.Settlement.GetInfo(settlement);
             settlementInfo.UpdateOwnerRevolt(newOwner.MapFaction);
 
-            if (capturedHero != null && RevolutionsManagers.Character.GetInfo(capturedHero.CharacterObject).IsRevoltKingdomLeader)
+            if (capturedHero != null && Managers.Character.GetInfo(capturedHero.CharacterObject).IsRevoltKingdomLeader)
             {
                 var revolt = RevoltManager.Instance.GetRevoltByParty(capturedHero.PartyBelongedTo.Party);
                 if (!RevolutionsSettings.Instance.RevoltsMinorFactionsMechanic && revolt.IsMinorFaction)
                 {
                     Hero noble = KNTLibrary.BaseManagers.Faction.GetLordWithLeastFiefs(revolt.SettlementInfo.LoyalFaction).HeroObject;
                     ChangeOwnerOfSettlementAction.ApplyBySiege(noble, noble, settlement);
-                    RevolutionsManagers.Kingdom.RemoveAndDestroyKingdom(capturedHero.Clan.Kingdom);
-                    RevolutionsManagers.Clan.RemoveAndDestroyClan(capturedHero.Clan);
+                    Managers.Kingdom.RemoveAndDestroyKingdom(capturedHero.Clan.Kingdom);
+                    Managers.Clan.RemoveAndDestroyClan(capturedHero.Clan);
                     capturedHero.PartyBelongedTo.RemoveParty();
                     RevoltManager.Instance.Revolts.Remove(revolt);
                 }
@@ -97,21 +97,21 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
         private void KingdomDestroyedEvent(Kingdom kingdom)
         {
-            if (RevolutionsManagers.Kingdom.GetInfo(kingdom)?.IsCustomKingdom == true)
+            if (Managers.Kingdom.GetInfo(kingdom)?.IsCustomKingdom == true)
             {
                 foreach (var clan in kingdom.Clans)
                 {
-                    RevolutionsManagers.Character.RemoveAndDestroyCharacter(clan.Leader.CharacterObject);
-                    RevolutionsManagers.Clan.RemoveAndDestroyClan(clan);
+                    Managers.Character.RemoveAndDestroyCharacter(clan.Leader.CharacterObject);
+                    Managers.Clan.RemoveAndDestroyClan(clan);
                 }
             }
 
-            RevolutionsManagers.Kingdom.RemoveKingdom(kingdom);
+            Managers.Kingdom.RemoveKingdom(kingdom);
         }
 
         private void OnClanDestroyedEvent(Clan clan)
         {
-            var info = RevolutionsManagers.Clan.GetInfo(clan);
+            var info = Managers.Clan.GetInfo(clan);
             if (info == null || !info.IsCustomClan)
             {
                 return;
@@ -119,29 +119,33 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
             if (clan.Kingdom.Clans.Where(go => go.StringId != clan.StringId).Count() == 0)
             {
-                RevolutionsManagers.Kingdom.RemoveAndDestroyKingdom(clan.Kingdom);
+                Managers.Kingdom.RemoveAndDestroyKingdom(clan.Kingdom);
             }
 
-            RevolutionsManagers.Clan.RemoveClan(clan);
+            Managers.Clan.RemoveClan(clan);
         }
 
         private void OnPartyRemovedEvent(PartyBase party)
         {
-            RevolutionsManagers.Party.RemoveInfo(party.Id);
+            Managers.Party.RemoveInfo(party.Id);
         }
 
         private void ClanChangedKingdom(Clan clan, Kingdom oldKingdom, Kingdom newKingdom, bool byRebellion, bool showNotification)
         {
-            var clanInfo = RevolutionsManagers.Clan.GetInfo(clan);
+            var clanInfo = Managers.Clan.GetInfo(clan);
 
-            if (clanInfo != null && newKingdom != null &
-                !clanInfo.CanJoinOtherKingdoms && newKingdom.RulingClan.StringId != clan.StringId
-                && !(clan.Culture.Name.ToString().ToLower().Contains("empire") && newKingdom.Culture.Name.ToString().ToLower().Contains("empire"))
-                && !(clan.Culture.Name.ToString() == newKingdom.Culture.Name.ToString())
-                && clan.StringId != Clan.PlayerClan.StringId)
-            {
-                clan.ClanLeaveKingdom(false);
-            }
+            //if (clanInfo != null && newKingdom != null &
+            //    !clanInfo.CanJoinOtherKingdoms && newKingdom.RulingClan.StringId != clan.StringId
+            //    && !(clan.Culture.Name.ToString().ToLower().Contains("empire") && newKingdom.Culture.Name.ToString().ToLower().Contains("empire"))
+            //    && !(clan.Culture.Name.ToString() == newKingdom.Culture.Name.ToString())
+            //    && clan.StringId != Clan.PlayerClan.StringId)
+            //{
+            //    clan.ClanLeaveKingdom(false);
+            //}
+            //else if(clanInfo.CanJoinOtherKingdoms)
+            //{
+
+            //}
         }
     }
 }

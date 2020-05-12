@@ -1,5 +1,4 @@
-﻿using KNTLibrary.Components.Banners;
-using KNTLibrary.Components.Factions;
+﻿using KNTLibrary.Components.Factions;
 using KNTLibrary.Components.Kingdoms;
 using KNTLibrary.Components.Clans;
 using KNTLibrary.Components.Parties;
@@ -13,12 +12,13 @@ using Revolutions.Components.Base.Clans;
 using Revolutions.Components.Base.Characters;
 using Revolutions.Components.Revolts;
 using Revolutions.Components.CivilWars;
+using Revolutions.Components.Base.Banner;
 
 namespace Revolutions
 {
-    internal static class RevolutionsManagers
+    internal static class Managers
     {
-        internal static BaseBannerManager Banner { get; } = BaseBannerManager.Instance;
+        internal static BannerManager Banner { get; } = BannerManager.Instance;
 
         internal static BaseKingdomManager<KingdomInfo> Kingdom { get; } = BaseKingdomManager<KingdomInfo>.Instance;
 

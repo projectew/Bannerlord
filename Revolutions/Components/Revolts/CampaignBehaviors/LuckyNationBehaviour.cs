@@ -33,7 +33,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
         {
             if (!RevolutionsSettings.Instance.RevoltsLuckyNationMechanic)
             {
-                foreach (var info in RevolutionsManagers.Kingdom.Infos.Where(kingdomInfo => kingdomInfo.LuckyNation))
+                foreach (var info in Managers.Kingdom.Infos.Where(kingdomInfo => kingdomInfo.LuckyNation))
                 {
                     info.LuckyNation = false;
                 }
@@ -43,15 +43,15 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
             if (RevolutionsSettings.Instance.RevoltsLuckyNationRandom)
             {
-                if (!RevolutionsManagers.Kingdom.Infos.Any(i => i.LuckyNation) && RevolutionsManagers.Kingdom.Infos.Count > 0)
+                if (!Managers.Kingdom.Infos.Any(i => i.LuckyNation) && Managers.Kingdom.Infos.Count > 0)
                 {
-                    RevolutionsManagers.Kingdom.Infos.GetRandomElement().LuckyNation = true;
+                    Managers.Kingdom.Infos.GetRandomElement().LuckyNation = true;
                 }
             }
 
             if (RevolutionsSettings.Instance.RevoltsLuckyNationImperial)
             {
-                var imperialNations = RevolutionsManagers.Kingdom.Infos.Where(i => i.Kingdom.Culture.Name.ToString().ToLower().Contains("empire"));
+                var imperialNations = Managers.Kingdom.Infos.Where(i => i.Kingdom.Culture.Name.ToString().ToLower().Contains("empire"));
                 if (!imperialNations.Any(i => i.LuckyNation) && imperialNations.Count() > 0)
                 {
                     imperialNations.GetRandomElement().LuckyNation = true;
@@ -60,7 +60,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
             if (RevolutionsSettings.Instance.RevoltsLuckyNationNonImperial)
             {
-                var nonImperialNations = RevolutionsManagers.Kingdom.Infos.Where(i => !i.Kingdom.Culture.Name.ToString().ToLower().Contains("empire"));
+                var nonImperialNations = Managers.Kingdom.Infos.Where(i => !i.Kingdom.Culture.Name.ToString().ToLower().Contains("empire"));
                 if (!nonImperialNations.Any(i => i.LuckyNation) && nonImperialNations.Count() > 0)
                 {
                     nonImperialNations.GetRandomElement().LuckyNation = true;

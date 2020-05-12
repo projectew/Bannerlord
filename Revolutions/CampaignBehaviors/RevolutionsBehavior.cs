@@ -16,7 +16,7 @@ namespace Revolutions.CampaignBehaviors
 
             campaignGameStarter.AddBehavior(new GuiHandlersBehavior());
             campaignGameStarter.AddBehavior(new CleanupBehavior());
-            RevolutionsManagers.Banner.AddBanners(BasePath.Name + "Modules/Revolutions/ModuleData/Banners");
+            Managers.Banner.AddBanners(BasePath.Name + "Modules/Revolutions/ModuleData/Banners");
         }
 
         public override void RegisterEvents()

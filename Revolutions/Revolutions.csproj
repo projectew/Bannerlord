@@ -102,6 +102,8 @@
     <Compile Include="CampaignBehaviors\CleanupBehavior.cs" />
     <Compile Include="CampaignBehaviors\GuiHandlersBehavior.cs" />
     <Compile Include="CampaignBehaviors\RevolutionsBehavior.cs" />
+    <Compile Include="Components\Base\Banner\BannerInfoExtensions.cs" />
+    <Compile Include="Components\Base\Banner\BannerManager.cs" />
     <Compile Include="Components\CivilWars\CampaignBehaviors\CivilWarsBehavior.cs" />
     <Compile Include="Components\CivilWars\CampaignBehaviors\CivilWarsDailyBehavior.cs" />
     <Compile Include="Components\CivilWars\CivilWar.cs" />
@@ -127,7 +129,7 @@
     <Compile Include="Components\Revolts\CampaignBehaviors\RevoltsBehavior.cs" />
     <Compile Include="Components\Revolts\CampaignBehaviors\RevoltsDailyBehavior.cs" />
     <Compile Include="Models\SettlementLoyaltyModel.cs" />
-    <Compile Include="RevolutionsManagers.cs" />
+    <Compile Include="Managers.cs" />
     <Compile Include="Screens\TownRevolutionsScreen.cs" />
     <Compile Include="Screens\ViewModels\TownRevolutionViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

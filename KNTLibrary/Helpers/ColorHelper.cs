@@ -12,6 +12,8 @@ namespace KNTLibrary.Helpers
 
         public static Color Red => new Color(1f, 0f, 0f, 1f);
 
+        public static Color RoyalRed => new Color(155f, 28f, 49f, 1f);
+
         public static Color Green => new Color(0f, 1f, 0f, 1f);
 
         public static Color Blue => new Color(0f, 0f, 1f, 1f);

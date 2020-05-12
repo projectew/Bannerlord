@@ -57,13 +57,13 @@ namespace Revolutions.Components.Revolts
 
         #region Reference Properties Objects
 
-        public PartyBase Party => RevolutionsManagers.Party.GetGameObject(this.PartyId);
+        public PartyBase Party => Managers.Party.GetGameObject(this.PartyId);
 
-        public PartyInfo PartyInfoRevolts => RevolutionsManagers.Party.GetInfo(this.Party);
+        public PartyInfo PartyInfoRevolts => Managers.Party.GetInfo(this.Party);
 
-        public Settlement Settlement => RevolutionsManagers.Settlement.GetGameObject(this.SettlementId);
+        public Settlement Settlement => Managers.Settlement.GetGameObject(this.SettlementId);
 
-        public SettlementInfo SettlementInfo => RevolutionsManagers.Settlement.GetInfo(this.Settlement);
+        public SettlementInfo SettlementInfo => Managers.Settlement.GetInfo(this.Settlement);
 
         #endregion
 

@@ -49,6 +49,8 @@ namespace Revolutions.Components.Base.Characters
 
         public bool IsRevoltKingdomLeader { get; set; } = false;
 
+        public bool IsCivilWarKingdomLeader { get; set; } = false;
+
         public PlotState PlotState { get; set; } = PlotState.IsLoyal;
 
         #endregion

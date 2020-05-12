@@ -28,19 +28,19 @@ namespace Revolutions.Components.Base.Settlements
 
         #region Reference Properties
 
-        public IFaction LoyalFaction => RevolutionsManagers.Faction.GetGameObject(this.LoyalFactionId);
+        public IFaction LoyalFaction => Managers.Faction.GetGameObject(this.LoyalFactionId);
 
-        public FactionInfo LoyalFactionInfo => RevolutionsManagers.Faction.GetInfo(this.LoyalFaction);
+        public FactionInfo LoyalFactionInfo => Managers.Faction.GetInfo(this.LoyalFaction);
 
         #endregion
 
         #region Reference Properties Inherited
 
-        public FactionInfo InitialFactionInfo => RevolutionsManagers.Faction.GetInfo(this.InitialFaction);
+        public FactionInfo InitialFactionInfo => Managers.Faction.GetInfo(this.InitialFaction);
 
-        public FactionInfo CurrentFactionInfo => RevolutionsManagers.Faction.GetInfo(this.CurrentFaction);
+        public FactionInfo CurrentFactionInfo => Managers.Faction.GetInfo(this.CurrentFaction);
 
-        public FactionInfo PreviousFactionInfo => RevolutionsManagers.Faction.GetInfo(this.PreviousFaction);
+        public FactionInfo PreviousFactionInfo => Managers.Faction.GetInfo(this.PreviousFaction);
 
         #endregion
 
@@ -50,7 +50,7 @@ namespace Revolutions.Components.Base.Settlements
 
         #endregion
 
-        public bool IsLoyalFactionOfImperialCulture => RevolutionsManagers.Faction.GetGameObject(this.LoyalFactionId).Name.ToString().ToLower().Contains("empire");
+        public bool IsLoyalFactionOfImperialCulture => Managers.Faction.GetGameObject(this.LoyalFactionId).Name.ToString().ToLower().Contains("empire");
 
         #endregion
 

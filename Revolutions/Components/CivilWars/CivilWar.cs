@@ -57,9 +57,9 @@ namespace Revolutions.Components.CivilWars
 
         #region Reference Properties Objects
 
-        public Kingdom Kingdom => RevolutionsManagers.Kingdom.GetGameObject(this.KingdomId);
+        public Kingdom Kingdom => Managers.Kingdom.GetGameObject(this.KingdomId);
 
-        public KingdomInfo KingdomInfo => RevolutionsManagers.Kingdom.GetInfo(this.Kingdom);
+        public KingdomInfo KingdomInfo => Managers.Kingdom.GetInfo(this.Kingdom);
 
         #endregion
 

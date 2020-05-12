@@ -180,12 +180,12 @@ namespace KNTLibrary.Components.Kingdoms
             DestroyKingdomAction.Apply(kingdom);
         }
 
-        public Kingdom CreateKingdom(Hero leader, TextObject name, TextObject informalName, Banner banner = null)
+        public Kingdom CreateKingdom(Hero leader, TextObject name, TextObject informalName, Banner banner = null, bool showNotification = true)
         {
             var kingdom = MBObjectManager.Instance.CreateObject<Kingdom>();
             kingdom.InitializeKingdom(name, informalName, leader.Culture, banner ?? Banner.CreateRandomClanBanner(leader.StringId.GetDeterministicHashCode()), leader.Clan.Color, leader.Clan.Color2, leader.Clan.InitialPosition);
 
-            ChangeKingdomAction.ApplyByJoinToKingdom(leader.Clan, kingdom, true);
+            ChangeKingdomAction.ApplyByJoinToKingdom(leader.Clan, kingdom, showNotification);
             kingdom.RulingClan = leader.Clan;
 
             AccessTools.Property(typeof(Kingdom), "AlternativeColor").SetValue(kingdom, leader.Clan.Color);

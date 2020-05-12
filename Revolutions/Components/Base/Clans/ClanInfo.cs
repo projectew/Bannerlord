@@ -47,7 +47,7 @@ namespace Revolutions.Components.Base.Clans
 
         #region Normal Properties
 
-
+        public bool IsRevoltClan { get; set; } = false;
 
         #endregion
     }
