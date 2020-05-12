@@ -64,8 +64,9 @@
       <Private>False</Private>
     </Reference>
   </ItemGroup>
-  <!-- Files & Classes -->
+  <!-- NuGet -->
   <ItemGroup>
+	<None Include="packages.config" />
     <Reference Include="0Harmony, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Lib.Harmony.2.0.1\lib\net48\0Harmony.dll</HintPath>
     </Reference>
@@ -75,6 +76,27 @@
     <Reference Include="System" />
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
   </ItemGroup>
+  <!-- Project References -->
+  <ItemGroup>
+    <ProjectReference Include="..\KNTLibrary\KNTLibrary.csproj">
+      <Project>{D711D674-808C-421A-BA59-9DCD8B4A51DC}</Project>
+      <Name>KNTLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <!-- Mod Resource Files -->
+  <ItemGroup>
+    <Content Include="SubModule.xml" />
+    <Content Include="ModuleData\Languages\DE\std_module_strings_xml.xml" />
+    <Content Include="ModuleData\Languages\std_module_strings_xml.xml" />
+    <Content Include="ModuleData\Banners\Aserai.xml" />
+    <Content Include="ModuleData\Banners\Battania.xml" />
+    <Content Include="ModuleData\Banners\Empire.xml" />
+    <Content Include="ModuleData\Banners\Khuzait.xml" />
+    <Content Include="ModuleData\Banners\Sturgia.xml" />
+    <Content Include="Images\German.PNG" />
+    <Content Include="Images\Logo.png" />
+  </ItemGroup>
+  <!-- Mod Programming Files -->
   <ItemGroup>
     <Compile Include="CampaignBehaviors\CleanupBehavior.cs" />
     <Compile Include="CampaignBehaviors\GuiHandlersBehavior.cs" />
@@ -112,33 +134,19 @@
     <Compile Include="SubModule.cs" />
     <Content Include="GUI\Brushes\ButtonBrush.xml" />
     <Content Include="GUI\Prefabs\TownRevoltScreen.xml" />
-    <Content Include="Images\German.PNG" />
-    <Content Include="Images\Logo.png" />
-    <Content Include="ModuleData\Banners\Banners.xml" />
-    <Content Include="ModuleData\Banners\Vlandia.xml" />
-    <Content Include="ModuleData\Languages\DE\std_module_strings_xml.xml" />
-    <Content Include="ModuleData\Languages\std_module_strings_xml.xml" />
-    <Content Include="SubModule.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\KNTLibrary\KNTLibrary.csproj">
-      <Project>{D711D674-808C-421A-BA59-9DCD8B4A51DC}</Project>
-      <Name>KNTLibrary</Name>
-    </ProjectReference>
   </ItemGroup>
   <!-- Post-Build -->
   <PropertyGroup>
-    <PostBuildEvent>xcopy /d /y /i "$(MSBuildProjectDirectory)\SubModule.xml" "$(SolutionDir)\..\Revolutions\"	
+    <PostBuildEvent>
+      xcopy /d /y /i "$(MSBuildProjectDirectory)\SubModule.xml" "$(SolutionDir)\..\Revolutions\"
 
-xcopy /d /y /i "$(MSBuildProjectDirectory)\GUI\Brushes\ButtonBrush.xml" "$(SolutionDir)\..\Revolutions\GUI\Brushes\"
-xcopy /d /y /i "$(MSBuildProjectDirectory)\GUI\Prefabs\TownRevoltScreen.xml" "$(SolutionDir)\..\Revolutions\GUI\Prefabs\"
+      xcopy /d /y /i "$(MSBuildProjectDirectory)\GUI\Brushes\ButtonBrush.xml" "$(SolutionDir)\..\Revolutions\GUI\Brushes\"
+      xcopy /d /y /i "$(MSBuildProjectDirectory)\GUI\Prefabs\TownRevoltScreen.xml" "$(SolutionDir)\..\Revolutions\GUI\Prefabs\"
 
-xcopy /d /y /i "$(MSBuildProjectDirectory)\ModuleData\Languages\std_module_strings_xml.xml" "$(SolutionDir)\..\Revolutions\ModuleData\Languages\"
-xcopy /d /y /i "$(MSBuildProjectDirectory)\ModuleData\Languages\DE\std_module_strings_xml.xml" "$(SolutionDir)\..\Revolutions\ModuleData\Languages\DE\"
-xcopy /d /y /i "$(MSBuildProjectDirectory)\ModuleData\Banners" "$(SolutionDir)\..\Revolutions\ModuleData\Banners\"</PostBuildEvent>
+      xcopy /d /y /i "$(MSBuildProjectDirectory)\ModuleData\Languages\std_module_strings_xml.xml" "$(SolutionDir)\..\Revolutions\ModuleData\Languages\"
+      xcopy /d /y /i "$(MSBuildProjectDirectory)\ModuleData\Languages\DE\std_module_strings_xml.xml" "$(SolutionDir)\..\Revolutions\ModuleData\Languages\DE\"
+      xcopy /d /y /i "$(MSBuildProjectDirectory)\ModuleData\Banners" "$(SolutionDir)\..\Revolutions\ModuleData\Banners\"
+    </PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
