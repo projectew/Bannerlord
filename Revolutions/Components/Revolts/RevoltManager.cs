@@ -8,6 +8,8 @@ using Helpers;
 using KNTLibrary.Components.Banners;
 using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Factions;
+using Revolutions.Components.Base.Settlements;
+using TaleWorlds.Library;
 
 namespace Revolutions.Components.Revolts
 {
@@ -209,10 +211,8 @@ namespace Revolutions.Components.Revolts
                 hero = RevolutionsManagers.Character.CreateRandomLeader(settlement.OwnerClan, settlementInfo);
                 RevolutionsManagers.Character.GetInfo(hero.CharacterObject).IsRevoltKingdomLeader = true;
                 RevolutionsManagers.Clan.CreateClan(hero, hero.Name, hero.Name);
-
                 
-                BaseBannerInfo bannerInfo = RevolutionsManagers.Banner.Infos.FirstOrDefault(n =>
-                    !n.Used && n.Faction == settlementInfo.LoyalFaction.StringId);
+                BaseBannerInfo bannerInfo = ChooseRevoltBanner(settlementInfo);
 
                 if (bannerInfo != null)
                 {
@@ -259,6 +259,38 @@ namespace Revolutions.Components.Revolts
             ChangeRelationAction.ApplyRelationChangeBetweenHeroes(hero, settlement.OwnerClan.Kingdom.Leader, -20, false);
             mobileParty.Ai.SetDoNotMakeNewDecisions(true);
             SetPartyAiAction.GetActionForBesiegingSettlement(mobileParty, settlement);
+        }
+
+        private BaseBannerInfo ChooseRevoltBanner(SettlementInfo settlementInfo)
+        {
+            BaseBannerInfo bannerInfo = null;
+            
+            foreach (var binfo in RevolutionsManagers.Banner.Infos)
+            {
+                if (binfo.Used)
+                {
+                    continue;
+                }
+                    
+                if (binfo.Settlement == settlementInfo.Settlement.Name.ToString() && 
+                    binfo.Culture == settlementInfo.Settlement.Culture.StringId)
+                {
+                    bannerInfo = binfo;
+                    break;
+                }
+                else if (binfo.Faction == settlementInfo.LoyalFaction.StringId)
+                {
+                    bannerInfo = binfo;
+                    break;
+                }
+                else if (binfo.Culture == settlementInfo.Settlement.Culture.StringId)
+                {
+                    bannerInfo = binfo;
+                    break;
+                }
+            }
+
+            return bannerInfo;
         }
     }
 }
