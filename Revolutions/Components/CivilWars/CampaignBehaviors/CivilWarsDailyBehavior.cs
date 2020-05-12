@@ -140,20 +140,24 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 var kingdomLeader = kingdom.Leader;
                 var plottingLeader = plotLeader.Clan.Leader;
 
-                var kingdomLeaderGenerosity = kingdomLeader.GetHeroTraits().Generosity + 0f;
-                var kingdomLeaderMercy = kingdomLeader.GetHeroTraits().Mercy + 0f;
-                var kingdomLeaderValor = kingdomLeader.GetHeroTraits().Valor + 0f;
-                var kingdomLeaderCalculating = kingdomLeader.GetHeroTraits().Calculating + 0f;
+                var kingdomLeaderGenerosity = kingdomLeader.GetHeroTraits().Generosity;
+                var kingdomLeaderMercy = kingdomLeader.GetHeroTraits().Mercy;
+                var kingdomLeaderValor = kingdomLeader.GetHeroTraits().Valor;
+                var kingdomLeaderCalculating = kingdomLeader.GetHeroTraits().Calculating;
 
-                var plottingLeaderGenerosity = plottingLeader.GetHeroTraits().Generosity + 0f;
-                var plottingLeaderMercy = plottingLeader.GetHeroTraits().Mercy + 0f;
-                var plottingLeaderValor = plottingLeader.GetHeroTraits().Valor + 0f;
-                var plottingLeaderCalculating = plottingLeader.GetHeroTraits().Calculating + 0f;
+                var plottingLeaderGenerosity = plottingLeader.GetHeroTraits().Generosity;
+                var plottingLeaderMercy = plottingLeader.GetHeroTraits().Mercy;
+                var plottingLeaderValor = plottingLeader.GetHeroTraits().Valor;
+                var plottingLeaderCalculating = plottingLeader.GetHeroTraits().Calculating;
 
-                var personalityTraits = plottingLeaderGenerosity + kingdomLeaderGenerosity + plottingLeaderMercy + kingdomLeaderMercy + 0f;
-                var warChance = Settings.Instance.CivilWarsWarBaseChance * MathF.Pow(Settings.Instance.CivilWarsWarPersonalityMultiplier, personalityTraits)
-                    * (plottersTroopWeight / loyalTroopWeight * (1f + (plottingLeaderValor <= 0 ? 1f : plottingLeaderValor * 2f)))
-                    * MathF.Pow((kingdomPlottingClans.Count + 0f) / (kingdomLoyalClans.Count + 0f), 1f + plottingLeaderCalculating);
+                float personalityTraits = plottingLeaderGenerosity + kingdomLeaderGenerosity + plottingLeaderMercy + kingdomLeaderMercy;
+                float personalityWeight = MathF.Pow(Settings.Instance.CivilWarsWarPersonalityMultiplier, -personalityTraits);
+                float troopWeight = plottersTroopWeight / loyalTroopWeight;
+                float valorModifier = 1 + (plottingLeaderValor <= 0 ? 1 : plottingLeaderValor * 2);
+                float clanCountModifier = kingdomPlottingClans.Count / kingdomLoyalClans.Count;
+                float calculatingModifier = 1 + (plottingLeaderCalculating <= 0 ? 1 : plottingLeaderCalculating);
+
+                var warChance = Settings.Instance.CivilWarsWarBaseChance * personalityWeight * (troopWeight * valorModifier) * MathF.Pow(clanCountModifier, calculatingModifier);
 
                 if (warChance > new Random().Next(0, 100))
                 {
@@ -187,8 +191,11 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
             var kingdomClanLeaders = Campaign.Current.Clans.Where(w => w.Kingdom?.StringId == clanLeader.Clan.Kingdom?.StringId).Select(s => s.Leader).ToList();
             var clanLeaderFriends = kingdomClanLeaders.Where(w => w.IsFriend(clanLeader)).ToList();
 
-            var personalityTraits = kingdomLeaderHonor + clanLeaderHonor + 0f;
-            return Settings.Instance.CivilWarsPlottingBaseChance * MathF.Pow(Settings.Instance.CivilWarsPlottingPersonalityMultiplier, -personalityTraits) * MathF.Pow(Settings.Instance.CivilWarsPlottingBaseChance, clanLeaderFriends.Count + 0f) > new Random().Next(0, 100);
+            float personalityTraits = kingdomLeaderHonor + clanLeaderHonor;
+            float personalityWeight = MathF.Pow(Settings.Instance.CivilWarsPlottingPersonalityMultiplier, -personalityTraits);
+            float friendWeight = MathF.Pow(Settings.Instance.CivilWarsPlottingBaseChance, clanLeaderFriends.Count);
+
+            return Settings.Instance.CivilWarsPlottingBaseChance * personalityWeight * friendWeight > new Random().Next(0, 100);
         }
     }
 }
