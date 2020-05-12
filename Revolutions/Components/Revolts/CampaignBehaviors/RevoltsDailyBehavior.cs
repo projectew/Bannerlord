@@ -5,13 +5,8 @@ using Revolutions.Components.Base.Factions;
 
 namespace Revolutions.Components.Revolts.CampaignBehaviors
 {
-    public class RevoltsDailyBehavior : CampaignBehaviorBase
+    internal class RevoltsDailyBehavior : CampaignBehaviorBase
     {
-        public RevoltsDailyBehavior()
-        {
-
-        }
-
         public override void RegisterEvents()
         {
             CampaignEvents.DailyTickEvent.AddNonSerializedListener(this, new Action(this.DailyTickEvent));

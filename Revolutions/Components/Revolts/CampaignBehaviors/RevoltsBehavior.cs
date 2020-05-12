@@ -8,11 +8,11 @@ using Revolutions.Components.Base.Settlements;
 
 namespace Revolutions.Components.Revolts.CampaignBehaviors
 {
-    public class RevoltBehavior : CampaignBehaviorBase
+    internal class RevoltBehavior : CampaignBehaviorBase
     {
         private readonly DataStorage DataStorage;
 
-        public RevoltBehavior(ref DataStorage dataStorage, CampaignGameStarter campaignGameStarter)
+        internal RevoltBehavior(ref DataStorage dataStorage, CampaignGameStarter campaignGameStarter)
         {
             this.DataStorage = dataStorage;
 

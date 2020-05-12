@@ -1,6 +1,6 @@
 ﻿namespace Revolutions.Components.Revolts
 {
-    public static class RevoltExtension
+    internal static class RevoltExtension
     {
 
     }

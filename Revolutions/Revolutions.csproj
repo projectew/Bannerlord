@@ -137,9 +137,8 @@ xcopy /d /y /i "$(MSBuildProjectDirectory)\GUI\Brushes\ButtonBrush.xml" "$(Solut
 xcopy /d /y /i "$(MSBuildProjectDirectory)\GUI\Prefabs\TownRevoltScreen.xml" "$(SolutionDir)\..\Revolutions\GUI\Prefabs\"
 
 xcopy /d /y /i "$(MSBuildProjectDirectory)\ModuleData\Languages\std_module_strings_xml.xml" "$(SolutionDir)\..\Revolutions\ModuleData\Languages\"
-xcopy /d /y /i "$(MSBuildProjectDirectory)\ModuleData\Banners\Banners.xml" "$(SolutionDir)\..\Revolutions\ModuleData\Banners\"
-xcopy /d /y /i "$(MSBuildProjectDirectory)\ModuleData\Banners\Vlandia.xml" "$(SolutionDir)\..\Revolutions\ModuleData\Banners\"
-xcopy /d /y /i "$(MSBuildProjectDirectory)\ModuleData\Languages\DE\std_module_strings_xml.xml" "$(SolutionDir)\..\Revolutions\ModuleData\Languages\DE\"</PostBuildEvent>
+xcopy /d /y /i "$(MSBuildProjectDirectory)\ModuleData\Languages\DE\std_module_strings_xml.xml" "$(SolutionDir)\..\Revolutions\ModuleData\Languages\DE\"
+xcopy /d /y /i "$(MSBuildProjectDirectory)\ModuleData\Banners" "$(SolutionDir)\..\Revolutions\ModuleData\Banners\"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

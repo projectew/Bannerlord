@@ -1,6 +1,6 @@
 ﻿namespace Revolutions.Components.Base.Parties
 {
-    public static class PartyInfoExtension
+    internal static class PartyInfoExtension
     {
     }
 }

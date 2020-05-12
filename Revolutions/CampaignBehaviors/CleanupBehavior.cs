@@ -3,7 +3,7 @@ using TaleWorlds.CampaignSystem;
 
 namespace Revolutions.CampaignBehaviors
 {
-    public class CleanupBehavior : CampaignBehaviorBase
+    internal class CleanupBehavior : CampaignBehaviorBase
     {
         private const int RefreshAtTick = 0;
 

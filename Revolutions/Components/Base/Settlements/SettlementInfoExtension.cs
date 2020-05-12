@@ -2,16 +2,16 @@
 
 namespace Revolutions.Components.Base.Settlements
 {
-    public static class SettlementInfoExtension
+    internal static class SettlementInfoExtension
     {
-        public static void UpdateOwnerRevolt(this SettlementInfo settlementInfo, IFaction faction)
+        internal static void UpdateOwnerRevolt(this SettlementInfo settlementInfo, IFaction faction)
         {
             settlementInfo.PreviousFactionId = settlementInfo.CurrentFactionId;
             settlementInfo.CurrentFactionId = faction.StringId;
             settlementInfo.DaysOwnedByOwner = 0;
         }
 
-        public static void DailyUpdate(this SettlementInfo settlementInfo)
+        internal static void DailyUpdate(this SettlementInfo settlementInfo)
         {
             settlementInfo.DaysOwnedByOwner++;
 

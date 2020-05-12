@@ -10,13 +10,8 @@ using TaleWorlds.Localization;
 
 namespace Revolutions.Components.CivilWars.CampaignBehaviors
 {
-    public class CivilWarsDailyBehavior : CampaignBehaviorBase
+    internal class CivilWarsDailyBehavior : CampaignBehaviorBase
     {
-        public CivilWarsDailyBehavior()
-        {
-
-        }
-
         public override void RegisterEvents()
         {
             CampaignEvents.DailyTickEvent.AddNonSerializedListener(this, new Action(this.DailyTickEvent));

@@ -1,9 +1,9 @@
-﻿using Revolutions.Components.Base.Factions;
-using Revolutions.Components.Base.Settlements;
-using TaleWorlds.Core;
+﻿using TaleWorlds.Core;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
+using Revolutions.Components.Base.Factions;
+using Revolutions.Components.Base.Settlements;
 
 namespace Revolutions.Screens.ViewModels
 {
