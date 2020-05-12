@@ -85,7 +85,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
                 var revolt = RevoltManager.Instance.GetRevoltByParty(capturedHero.PartyBelongedTo.Party);
                 if (!RevolutionsSettings.Instance.RevoltsMinorFactionsMechanic && revolt.IsMinorFaction)
                 {
-                    Hero noble = KNTLibrary.BaseManagers.Faction.GetLordWithLeastFiefs(revolt.SettlementInfo.LoyalFaction).HeroObject;
+                    var noble = KNTLibrary.BaseManagers.Faction.GetLordWithLeastFiefs(revolt.SettlementInfo.LoyalFaction).HeroObject;
                     ChangeOwnerOfSettlementAction.ApplyBySiege(noble, noble, settlement);
                     Managers.Kingdom.RemoveAndDestroyKingdom(capturedHero.Clan.Kingdom);
                     Managers.Clan.RemoveAndDestroyClan(capturedHero.Clan);

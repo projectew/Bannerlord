@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Revolutions.Screens;
+using System;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameMenus;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.Localization;
-using Revolutions.Screens;
 
 namespace Revolutions.CampaignBehaviors
 {

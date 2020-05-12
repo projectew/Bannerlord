@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using KNTLibrary.Components.Settlements;
+using KNTLibrary.Helpers;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using KNTLibrary.Components.Settlements;
-using KNTLibrary.Helpers;
 using TaleWorlds.CampaignSystem;
 
 namespace KNTLibrary.Components.Banners
@@ -27,7 +27,7 @@ namespace KNTLibrary.Components.Banners
 
         public void AddBanners(string directoryPath)
         {
-            string[] files = Directory.GetFiles(directoryPath);
+            var files = Directory.GetFiles(directoryPath);
 
             foreach (var file in files)
             {
@@ -87,7 +87,7 @@ namespace KNTLibrary.Components.Banners
         public BaseBannerInfo GetBaseBannerBySettlement(Settlement settlement)
         {
             var settlementInfo = BaseManagers.Settlement.GetInfo(settlement);
-            if(settlementInfo == null)
+            if (settlementInfo == null)
             {
                 return null;
             }

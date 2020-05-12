@@ -1,7 +1,7 @@
-﻿using System;
-using TaleWorlds.CampaignSystem;
+﻿using Revolutions.Components.Base.Factions;
 using Revolutions.Components.Base.Settlements;
-using Revolutions.Components.Base.Factions;
+using System;
+using TaleWorlds.CampaignSystem;
 
 namespace Revolutions.Components.Revolts.CampaignBehaviors
 {

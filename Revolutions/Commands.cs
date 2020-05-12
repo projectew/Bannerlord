@@ -345,7 +345,7 @@ namespace Revolutions
             foreach (var clan in kingdom.Clans.Where(c => c.StringId != kingdom.Leader.StringId))
             {
                 var clanLeader = Managers.Character.GetInfo(clan.Leader.CharacterObject);
-                if(clanLeader == null)
+                if (clanLeader == null)
                 {
                     continue;
                 }

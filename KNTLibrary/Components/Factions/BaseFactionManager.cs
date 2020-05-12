@@ -106,7 +106,7 @@ namespace KNTLibrary.Components.Factions
 
             this.Infos.RemoveWhere(i => !Campaign.Current.Factions.ToList().Any(go => go.StringId == i.FactionId));
 
-            if(onlyRemoving)
+            if (onlyRemoving)
             {
                 return;
             }

@@ -3,7 +3,7 @@ using TaleWorlds.CampaignSystem;
 
 namespace KNTLibrary.Components.Clans
 {
-     [Serializable]
+    [Serializable]
     public class BaseClanInfo : IBaseComponent<BaseClanInfo>
     {
         #region IGameComponent<InfoType>

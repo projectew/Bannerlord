@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using TaleWorlds.CampaignSystem;
-using TaleWorlds.Core;
-using TaleWorlds.CampaignSystem.Actions;
-using TaleWorlds.Localization;
-using Helpers;
+﻿using Helpers;
 using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Factions;
 using Revolutions.Settings;
+using System.Collections.Generic;
+using System.Linq;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Actions;
+using TaleWorlds.Core;
+using TaleWorlds.Localization;
 
 namespace Revolutions.Components.Revolts
 {

@@ -1,17 +1,14 @@
-﻿using Revolutions.Components.Base.Characters;
-using Revolutions.Components.Base.Clans;
+﻿using KNTLibrary.Helpers;
+using Revolutions.Components.Base.Characters;
+using Revolutions.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
+using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
-using Revolutions.Settings;
-using TaleWorlds.Core;
-using KNTLibrary.Helpers;
-using KNTLibrary.Components.Banners;
-using Revolutions.Components.Base.Settlements;
 
 namespace Revolutions.Components.CivilWars.CampaignBehaviors
 {
@@ -167,12 +164,12 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 var plottingLeaderValor = plottingLeader.GetHeroTraits().Valor;
                 var plottingLeaderCalculating = plottingLeader.GetHeroTraits().Calculating;
 
-                float personalityTraits = plottingLeaderGenerosity + kingdomLeaderGenerosity + plottingLeaderMercy + kingdomLeaderMercy + 0f;
-                float personalityWeight = MathF.Pow(RevolutionsSettings.Instance.CivilWarsWarPersonalityMultiplier, -personalityTraits + 0f);
-                float troopWeight = (plottersTroopWeight + 0f) / (loyalTroopWeight + 0f);
-                float valorModifier = 1f + (plottingLeaderValor + 0f <= 0f ? 1f : plottingLeaderValor + 0f * 2f);
-                float clanCountModifier = (plottingClans.Count + 0f) / (loyalClans.Count + 0f);
-                float calculatingModifier = 1f + (plottingLeaderCalculating + 0f <= 0f ? 1f : plottingLeaderCalculating + 0f);
+                var personalityTraits = plottingLeaderGenerosity + kingdomLeaderGenerosity + plottingLeaderMercy + kingdomLeaderMercy + 0f;
+                var personalityWeight = MathF.Pow(RevolutionsSettings.Instance.CivilWarsWarPersonalityMultiplier, -personalityTraits + 0f);
+                var troopWeight = (plottersTroopWeight + 0f) / (loyalTroopWeight + 0f);
+                var valorModifier = 1f + (plottingLeaderValor + 0f <= 0f ? 1f : plottingLeaderValor + 0f * 2f);
+                var clanCountModifier = (plottingClans.Count + 0f) / (loyalClans.Count + 0f);
+                var calculatingModifier = 1f + (plottingLeaderCalculating + 0f <= 0f ? 1f : plottingLeaderCalculating + 0f);
 
                 var warChance = RevolutionsSettings.Instance.CivilWarsWarBaseChance * personalityWeight * (troopWeight * valorModifier) * MathF.Pow(clanCountModifier, calculatingModifier);
                 if (warChance > new Random().Next(0, 100))
@@ -233,10 +230,10 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
             var kingdomClanLeaders = Campaign.Current.Clans.Where(w => w.Kingdom?.StringId == clanLeader.Clan.Kingdom?.StringId && w.Kingdom.Leader.StringId != clanLeader.StringId).Select(s => s.Leader).ToList();
             var clanLeaderFriends = kingdomClanLeaders.Where(w => w.IsFriend(clanLeader) && Managers.Character.GetInfo(w.CharacterObject).PlotState == PlotState.IsPlotting).ToList();
 
-            float personalityTraits = kingdomLeaderHonor + clanLeaderHonor + 0f;
-            float personalityWeight = MathF.Pow(RevolutionsSettings.Instance.CivilWarsPlottingPersonalityMultiplier, -personalityTraits);
-            float friendModifier = clanLeaderFriends.Count + 0f <= 0 ? 1f : clanLeaderFriends.Count + 0f;
-            float friendWeight = MathF.Pow(RevolutionsSettings.Instance.CivilWarsPlottingBaseChance, friendModifier);
+            var personalityTraits = kingdomLeaderHonor + clanLeaderHonor + 0f;
+            var personalityWeight = MathF.Pow(RevolutionsSettings.Instance.CivilWarsPlottingPersonalityMultiplier, -personalityTraits);
+            var friendModifier = clanLeaderFriends.Count + 0f <= 0 ? 1f : clanLeaderFriends.Count + 0f;
+            var friendWeight = MathF.Pow(RevolutionsSettings.Instance.CivilWarsPlottingBaseChance, friendModifier);
 
             var plotChance = RevolutionsSettings.Instance.CivilWarsPlottingBaseChance * personalityWeight * friendWeight;
             return plotChance > new Random().Next(0, 100);

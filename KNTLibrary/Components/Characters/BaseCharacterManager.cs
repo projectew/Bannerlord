@@ -103,7 +103,7 @@ namespace KNTLibrary.Components.Characters
 
         public void UpdateInfos(bool onlyRemoving = false)
         {
-            if(this.Infos.Count == Campaign.Current.Characters.Count)
+            if (this.Infos.Count == Campaign.Current.Characters.Count)
             {
                 return;
             }

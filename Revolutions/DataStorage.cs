@@ -1,19 +1,19 @@
-﻿using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using HarmonyLib;
-using TaleWorlds.Core;
+﻿using HarmonyLib;
 using KNTLibrary.Components.Banners;
 using KNTLibrary.Helpers;
-using Revolutions.Components.Base.Settlements;
-using Revolutions.Components.Base.Parties;
-using Revolutions.Components.Base.Kingdoms;
-using Revolutions.Components.Base.Factions;
-using Revolutions.Components.Base.Clans;
 using Revolutions.Components.Base.Characters;
-using Revolutions.Components.Revolts;
+using Revolutions.Components.Base.Clans;
+using Revolutions.Components.Base.Factions;
+using Revolutions.Components.Base.Kingdoms;
+using Revolutions.Components.Base.Parties;
+using Revolutions.Components.Base.Settlements;
 using Revolutions.Components.CivilWars;
+using Revolutions.Components.Revolts;
 using Revolutions.Settings;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using TaleWorlds.Core;
 
 namespace Revolutions
 {
@@ -91,7 +91,7 @@ namespace Revolutions
         internal void SaveBaseData()
         {
             var saveDirectory = this.GetSaveDirectory();
-            if(string.IsNullOrEmpty(saveDirectory))
+            if (string.IsNullOrEmpty(saveDirectory))
             {
                 return;
             }
@@ -102,7 +102,7 @@ namespace Revolutions
             FileHelper.Save(Managers.Party.Infos, saveDirectory, "Parties");
             FileHelper.Save(Managers.Character.Infos, saveDirectory, "Characters");
             FileHelper.Save(Managers.Settlement.Infos, saveDirectory, "Settlements");
-			FileHelper.Save(Managers.Banner.Infos, saveDirectory, "Banners");
+            FileHelper.Save(Managers.Banner.Infos, saveDirectory, "Banners");
         }
 
         internal void SaveRevoltData()
@@ -130,7 +130,7 @@ namespace Revolutions
         private string GetSaveDirectory()
         {
             var activeSaveSlotName = AccessTools.Field(typeof(MBSaveLoad), "ActiveSaveSlotName")?.GetValue(null)?.ToString();
-            if(activeSaveSlotName == null)
+            if (activeSaveSlotName == null)
             {
                 InformationManager.DisplayMessage(new InformationMessage($"Revolutions.DataStorage: The SaveSlot does not exists yet. Please save again!", ColorHelper.Red));
                 return string.Empty;

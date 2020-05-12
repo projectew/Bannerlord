@@ -1,6 +1,6 @@
-﻿using System;
+﻿using KNTLibrary.Components.Characters;
+using System;
 using TaleWorlds.CampaignSystem;
-using KNTLibrary.Components.Characters;
 
 namespace Revolutions.Components.Base.Characters
 {

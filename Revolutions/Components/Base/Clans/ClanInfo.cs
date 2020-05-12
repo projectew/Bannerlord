@@ -1,6 +1,6 @@
-﻿using System;
+﻿using KNTLibrary.Components.Clans;
+using System;
 using TaleWorlds.CampaignSystem;
-using KNTLibrary.Components.Clans;
 
 namespace Revolutions.Components.Base.Clans
 {

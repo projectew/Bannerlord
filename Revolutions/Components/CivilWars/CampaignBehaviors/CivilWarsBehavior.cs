@@ -1,7 +1,7 @@
-﻿using System;
+﻿using KNTLibrary.Helpers;
+using System;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
-using KNTLibrary.Helpers;
 
 namespace Revolutions.Components.CivilWars.CampaignBehaviors
 {

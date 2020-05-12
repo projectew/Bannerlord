@@ -1,5 +1,5 @@
-﻿using TaleWorlds.CampaignSystem;
-using Revolutions.Settings;
+﻿using Revolutions.Settings;
+using TaleWorlds.CampaignSystem;
 
 namespace Revolutions.Components.Base.Factions
 {

@@ -3,7 +3,7 @@ using TaleWorlds.CampaignSystem;
 
 namespace KNTLibrary.Components.Kingdoms
 {
-    public static class BaseKingdomInfoExtension
+	public static class BaseKingdomInfoExtension
 	{
 		public static bool IsInsideTeritoryOf(this Kingdom kingdom, Kingdom kingdomToCheck)
 		{

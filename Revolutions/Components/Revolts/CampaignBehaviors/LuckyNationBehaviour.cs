@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Revolutions.Settings;
+using System;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
-using Revolutions.Settings;
 
 namespace Revolutions.Components.Revolts.CampaignBehaviors
 {

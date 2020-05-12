@@ -1,11 +1,11 @@
-﻿using System;
-using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.SandBox.GameComponents;
-using TaleWorlds.Localization;
-using TaleWorlds.Core;
-using KNTLibrary.Helpers;
+﻿using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Settlements;
 using Revolutions.Settings;
+using System;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.SandBox.GameComponents;
+using TaleWorlds.Core;
+using TaleWorlds.Localization;
 
 namespace Revolutions.Models
 {

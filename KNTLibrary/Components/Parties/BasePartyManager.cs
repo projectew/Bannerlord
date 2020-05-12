@@ -174,7 +174,7 @@ namespace KNTLibrary.Components.Parties
             var basicUnits = new TroopRoster();
 
             var basicTroop = leader?.Culture?.BasicTroop;
-            if(basicTroop == null)
+            if (basicTroop == null)
             {
                 return basicUnits;
             }
@@ -250,7 +250,7 @@ namespace KNTLibrary.Components.Parties
 
             foreach (var tier1 in eliteBasicTroop?.UpgradeTargets)
             {
-                if(tier1 == null)
+                if (tier1 == null)
                 {
                     continue;
                 }

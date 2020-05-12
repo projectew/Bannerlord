@@ -1,6 +1,6 @@
-﻿using MBOptionScreen.Settings;
-using MBOptionScreen.Attributes;
+﻿using MBOptionScreen.Attributes;
 using MBOptionScreen.Attributes.v2;
+using MBOptionScreen.Settings;
 
 namespace Revolutions.Settings
 {

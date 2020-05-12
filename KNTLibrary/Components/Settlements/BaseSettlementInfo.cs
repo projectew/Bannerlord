@@ -1,8 +1,8 @@
-﻿using System;
+﻿using KNTLibrary.Components.Factions;
+using System;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
-using KNTLibrary.Components.Factions;
 
 namespace KNTLibrary.Components.Settlements
 {

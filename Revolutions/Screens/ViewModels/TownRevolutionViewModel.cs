@@ -1,9 +1,9 @@
-﻿using TaleWorlds.Core;
+﻿using Revolutions.Components.Base.Factions;
+using Revolutions.Components.Base.Settlements;
+using TaleWorlds.Core;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
-using Revolutions.Components.Base.Factions;
-using Revolutions.Components.Base.Settlements;
 
 namespace Revolutions.Screens.ViewModels
 {
@@ -20,26 +20,20 @@ namespace Revolutions.Screens.ViewModels
         }
 
         [DataSourceProperty]
-        public string DoneDesc
-        {
-            get { return new TextObject("{=3fQwWiDZ}Done").ToString(); }
-        }
+        public string DoneDesc => new TextObject("{=3fQwWiDZ}Done").ToString();
 
         private ImageIdentifierVM _factionVisual;
 
         [DataSourceProperty]
         public ImageIdentifierVM FactionVisual
         {
-            get
-            {
-                return this._factionVisual;
-            }
+            get => this._factionVisual;
             set
             {
                 if (value != this._factionVisual)
                 {
                     this._factionVisual = value;
-                    OnPropertyChanged("FactionVisual");
+                    this.OnPropertyChanged("FactionVisual");
                 }
             }
         }

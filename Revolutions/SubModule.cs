@@ -1,13 +1,13 @@
-﻿using System;
-using TaleWorlds.CampaignSystem;
-using TaleWorlds.Core;
-using TaleWorlds.MountAndBlade;
-using TaleWorlds.Engine;
-using KNTLibrary.Helpers;
-using Revolutions.Components.Revolts.CampaignBehaviors;
+﻿using KNTLibrary.Helpers;
 using Revolutions.CampaignBehaviors;
 using Revolutions.Components.CivilWars.CampaignBehaviors;
+using Revolutions.Components.Revolts.CampaignBehaviors;
 using Revolutions.Settings;
+using System;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
+using TaleWorlds.Engine;
+using TaleWorlds.MountAndBlade;
 
 namespace Revolutions
 {

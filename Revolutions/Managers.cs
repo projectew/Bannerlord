@@ -1,18 +1,18 @@
-﻿using KNTLibrary.Components.Factions;
-using KNTLibrary.Components.Kingdoms;
+﻿using KNTLibrary.Components.Characters;
 using KNTLibrary.Components.Clans;
+using KNTLibrary.Components.Factions;
+using KNTLibrary.Components.Kingdoms;
 using KNTLibrary.Components.Parties;
-using KNTLibrary.Components.Characters;
 using KNTLibrary.Components.Settlements;
-using Revolutions.Components.Base.Settlements;
-using Revolutions.Components.Base.Parties;
-using Revolutions.Components.Base.Kingdoms;
-using Revolutions.Components.Base.Factions;
-using Revolutions.Components.Base.Clans;
-using Revolutions.Components.Base.Characters;
-using Revolutions.Components.Revolts;
-using Revolutions.Components.CivilWars;
 using Revolutions.Components.Base.Banner;
+using Revolutions.Components.Base.Characters;
+using Revolutions.Components.Base.Clans;
+using Revolutions.Components.Base.Factions;
+using Revolutions.Components.Base.Kingdoms;
+using Revolutions.Components.Base.Parties;
+using Revolutions.Components.Base.Settlements;
+using Revolutions.Components.CivilWars;
+using Revolutions.Components.Revolts;
 
 namespace Revolutions
 {

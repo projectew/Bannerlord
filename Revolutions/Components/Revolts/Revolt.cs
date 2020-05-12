@@ -1,8 +1,8 @@
-﻿using System;
-using TaleWorlds.CampaignSystem;
-using KNTLibrary.Components;
-using Revolutions.Components.Base.Settlements;
+﻿using KNTLibrary.Components;
 using Revolutions.Components.Base.Parties;
+using Revolutions.Components.Base.Settlements;
+using System;
+using TaleWorlds.CampaignSystem;
 
 namespace Revolutions.Components.Revolts
 {
