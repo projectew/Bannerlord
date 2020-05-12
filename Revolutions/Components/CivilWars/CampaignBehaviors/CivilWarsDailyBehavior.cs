@@ -27,7 +27,6 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
         private void DailyTickEvent()
         {
             var considerableClans = Campaign.Current.Clans.Where(c => !c.IsUnderMercenaryService && c.Kingdom != null && c.Leader.StringId != c.Kingdom.Leader.StringId);
-
             foreach (var kingdomWithClans in considerableClans.GroupBy(c => c.Kingdom.StringId, (key, clans) => new { KingdomId = key, Clans = clans.ToList() }))
             {
                 if (Managers.CivilWar.GetCivilWarByKingdomId(kingdomWithClans.KingdomId) != null)
@@ -41,10 +40,10 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                     continue;
                 }
 
-                #region Check PlotState
-
                 Hero clanLeader;
                 CharacterInfo clanLeaderInfo;
+
+                #region Check PlotState
 
                 foreach (var clan in kingdomWithClans.Clans)
                 {
@@ -211,12 +210,12 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                     Managers.CivilWar.CivilWars.Add(new CivilWar(kingdomInfo.Kingdom, kingdomWithClans.Clans));
                     kingdomInfo.HasCivilWar = true;
                 }
-            }
 
-            #endregion
+                #endregion
+            }
         }
 
-        private bool WillPlotting(Hero clanLeader)
+        internal bool WillPlotting(Hero clanLeader)
         {
             var kingdomLeader = clanLeader.Clan?.Kingdom?.Leader;
             if (kingdomLeader == null)

@@ -353,7 +353,7 @@ namespace Revolutions
                 clanLeaders.Add($"Name: {clanLeader.Character.Name} - PlottingState: {Enum.GetName(typeof(PlotState), clanLeader.PlotState)}");
             }
 
-            return $"Lucky Nations: {clanLeaders.Aggregate((i, j) => i + " | " + j)}";
+            return $"Lucky Nations: {clanLeaders.Aggregate((i, j) => i + Environment.NewLine + j)}";
         }
 
         #endregion
