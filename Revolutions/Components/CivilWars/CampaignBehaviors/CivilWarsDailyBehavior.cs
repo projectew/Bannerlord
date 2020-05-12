@@ -146,15 +146,14 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 var plottingLeaderValor = plottingLeader.GetHeroTraits().Valor;
                 var plottingLeaderCalculating = plottingLeader.GetHeroTraits().Calculating;
 
-                float personalityTraits = plottingLeaderGenerosity + kingdomLeaderGenerosity + plottingLeaderMercy + kingdomLeaderMercy;
-                float personalityWeight = MathF.Pow(RevolutionsSettings.Instance.CivilWarsWarPersonalityMultiplier, -personalityTraits);
-                float troopWeight = plottersTroopWeight / loyalTroopWeight;
-                float valorModifier = 1 + (plottingLeaderValor <= 0 ? 1 : plottingLeaderValor * 2);
-                float clanCountModifier = kingdomPlottingClans.Count / kingdomLoyalClans.Count;
-                float calculatingModifier = 1 + (plottingLeaderCalculating <= 0 ? 1 : plottingLeaderCalculating);
+                float personalityTraits = plottingLeaderGenerosity + kingdomLeaderGenerosity + plottingLeaderMercy + kingdomLeaderMercy + 0f;
+                float personalityWeight = MathF.Pow(RevolutionsSettings.Instance.CivilWarsWarPersonalityMultiplier, -personalityTraits + 0f);
+                float troopWeight = (plottersTroopWeight + 0f) / (loyalTroopWeight + 0f);
+                float valorModifier = 1f + (plottingLeaderValor + 0f <= 0f ? 1f : plottingLeaderValor + 0f * 2f);
+                float clanCountModifier = (kingdomPlottingClans.Count + 0f) / (kingdomLoyalClans.Count + 0f);
+                float calculatingModifier = 1f + (plottingLeaderCalculating + 0f <= 0f ? 1f : plottingLeaderCalculating + 0f);
 
                 var warChance = RevolutionsSettings.Instance.CivilWarsWarBaseChance * personalityWeight * (troopWeight * valorModifier) * MathF.Pow(clanCountModifier, calculatingModifier);
-
                 if (warChance > new Random().Next(0, 100))
                 {
                     var newKingdom = RevolutionsManagers.Kingdom.CreateKingdom(plottingLeader, new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), new TextObject($"Kingdom of {plottingLeader.Clan.Name}"));
@@ -187,11 +186,12 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
             var kingdomClanLeaders = Campaign.Current.Clans.Where(w => w.Kingdom?.StringId == clanLeader.Clan.Kingdom?.StringId).Select(s => s.Leader).ToList();
             var clanLeaderFriends = kingdomClanLeaders.Where(w => w.IsFriend(clanLeader)).ToList();
 
-            float personalityTraits = kingdomLeaderHonor + clanLeaderHonor;
+            float personalityTraits = kingdomLeaderHonor + clanLeaderHonor + 0f;
             float personalityWeight = MathF.Pow(RevolutionsSettings.Instance.CivilWarsPlottingPersonalityMultiplier, -personalityTraits);
-            float friendWeight = MathF.Pow(RevolutionsSettings.Instance.CivilWarsPlottingBaseChance, clanLeaderFriends.Count);
+            float friendWeight = MathF.Pow(RevolutionsSettings.Instance.CivilWarsPlottingBaseChance, clanLeaderFriends.Count + 0f);
 
-            return RevolutionsSettings.Instance.CivilWarsPlottingBaseChance * personalityWeight * friendWeight > new Random().Next(0, 100);
+            var plotChance = RevolutionsSettings.Instance.CivilWarsPlottingBaseChance * personalityWeight * friendWeight;
+            return plotChance > new Random().Next(0, 100);
         }
     }
 }
