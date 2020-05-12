@@ -44,6 +44,13 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                     continue;
                 }
 
+                var kingdomInfo = RevolutionsManagers.Kingdom.GetInfo(clan.Kingdom);
+                var civilWar = RevolutionsManagers.CivilWar.GetCivilWarByClan(clan);
+                if (kingdomInfo.HasCivilWar || civilWar != null)
+                {
+                    continue;
+                }
+
                 var clanLeaderInfo = RevolutionsManagers.Character.GetInfo(clanLeader.CharacterObject);
                 var clanInfo = RevolutionsManagers.Clan.GetInfo(clanLeader.Clan);
 
@@ -83,6 +90,25 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
             //Check clans who are willed to plot and set IsPlotting
             foreach (var clan in Campaign.Current.Clans)
             {
+                var clanLeader = clan.Leader;
+                if (clanLeader == null)
+                {
+                    continue;
+                }
+
+                var kingdomLeader = clan.Kingdom?.Leader;
+                if (kingdomLeader == null)
+                {
+                    continue;
+                }
+
+                var kingdomInfo = RevolutionsManagers.Kingdom.GetInfo(clan.Kingdom);
+                var civilWar = RevolutionsManagers.CivilWar.GetCivilWarByClan(clan);
+                if (kingdomInfo.HasCivilWar || civilWar != null)
+                {
+                    continue;
+                }
+
                 var clanLeaderInfo = RevolutionsManagers.Character.GetInfo(clan.Leader.CharacterObject);
                 if (clanLeaderInfo.PlotState != PlotState.WillPlotting)
                 {
