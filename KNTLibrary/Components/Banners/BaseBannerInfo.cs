@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Permissions;
 
 namespace KNTLibrary.Components.Banners
 {
@@ -9,14 +10,16 @@ namespace KNTLibrary.Components.Banners
         {
             
         }
-        
-        public BaseBannerInfo(string id, string bannerId)
-        {
-            Id = id;
-            BannerId = bannerId;
-        }
-        
-        public string Id { get; set; }
-        public string BannerId { get; set; }
+
+        public string Id { get; set; } = string.Empty;
+        public string ModName { get; set; } = string.Empty;
+        public string Culture { get; set; } = string.Empty;
+        public string Settlement { get; set; } = string.Empty;
+        public string Faction { get; set; } = string.Empty;
+        public string BannerId { get; set; } = string.Empty;
+        public string Kingdom { get; set; } = string.Empty;
+        public string Character { get; set; } = string.Empty;
+        public string Credit { get; set; } = string.Empty;
+        public bool Used { get; set; } = false;
     }
 }

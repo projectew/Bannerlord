@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using KNTLibrary.Components.Banners;
 using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Settlements;
 using Revolutions.Components.Base.Parties;
@@ -55,6 +56,9 @@ namespace Revolts
 
             RevolutionsManagers.Settlement.Infos = FileHelper.Load<List<SettlementInfo>>(directoryPath, "Settlements").ToHashSet();
             RevolutionsManagers.Settlement.CleanupDuplicatedInfos();
+
+            RevolutionsManagers.Banner.Infos = FileHelper.Load<List<BaseBannerInfo>>(RevolutionsManagers.Banner.Infos.ToList(), directoryPath, "Banners").ToHashSet();
+            RevolutionsManagers.Banner.CleanupDuplicatedInfos();
         }
 
         internal void LoadRevoltData()
@@ -81,6 +85,7 @@ namespace Revolts
             FileHelper.Save(RevolutionsManagers.Party.Infos, directoryPath, "Parties");
             FileHelper.Save(RevolutionsManagers.Character.Infos, directoryPath, "Characters");
             FileHelper.Save(RevolutionsManagers.Settlement.Infos, directoryPath, "Settlements");
+            FileHelper.Save(RevolutionsManagers.Banner.Infos, directoryPath, "Banners");
         }
 
         internal void SaveRevoltData()

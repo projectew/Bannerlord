@@ -210,7 +210,22 @@ namespace Revolutions.Components.Revolts
                 hero = RevolutionsManagers.Character.CreateRandomLeader(settlement.OwnerClan, settlementInfo);
                 RevolutionsManagers.Character.GetInfo(hero.CharacterObject).IsRevoltKingdomLeader = true;
                 RevolutionsManagers.Clan.CreateClan(hero, hero.Name, hero.Name);
-                RevolutionsManagers.Kingdom.CreateKingdom(hero, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"));
+
+                
+                BaseBannerInfo bannerInfo = RevolutionsManagers.Banner.Infos.FirstOrDefault(n =>
+                    !n.Used && n.Faction == settlementInfo.LoyalFaction.StringId);
+
+                if (bannerInfo != null)
+                {
+                    Banner banner = new Banner(bannerInfo.BannerId);
+                    bannerInfo.Used = true;
+                    RevolutionsManagers.Kingdom.CreateKingdom(hero, banner, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"));
+                }
+                else
+                {
+                    RevolutionsManagers.Kingdom.CreateKingdom(hero, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"));
+                }
+
 
                 RevolutionsManagers.Clan.GetInfo(hero.Clan).CanJoinOtherKingdoms = false;
             }

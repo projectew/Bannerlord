@@ -22,7 +22,7 @@ namespace Revolutions.CampaignBehaviors
 
             campaignGameStarter.AddBehavior(new GuiHandlersBehavior());
             campaignGameStarter.AddBehavior(new CleanupBehavior());
-            RevolutionsManagers.BannerManager.AddBanners(BasePath.Name + "Modules/Revolutions/ModuleData", "Banners");
+            RevolutionsManagers.Banner.AddBanners(BasePath.Name + "Modules/Revolutions/ModuleData/Banners");
         }
 
         public override void RegisterEvents()

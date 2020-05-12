@@ -56,5 +56,31 @@ namespace KNTLibrary.Helpers
                 return (T)Activator.CreateInstance(typeof(T));
             }
         }
+        
+        
+        public static T Load<T>(T data, string directoryPath, string fileName)
+        {
+            try
+            {
+                var filePath = Path.Combine(directoryPath, $"{fileName}.xml");
+                if (!File.Exists(filePath))
+                {
+                    FileHelper.Save<T>(data, directoryPath, fileName);
+                }
+
+                using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+                {
+                    var xmlSerializer = new XmlSerializer(typeof(T));
+                    return (T)xmlSerializer.Deserialize(fileStream);
+                }
+            }
+            catch (Exception exception)
+            {
+                InformationManager.DisplayMessage(new InformationMessage($"Revolutions: Could not load file '{fileName}'! Using default model.", ColorHelper.Red));
+                InformationManager.DisplayMessage(new InformationMessage(exception.ToString(), ColorHelper.Red));
+
+                return (T)Activator.CreateInstance(typeof(T));
+            }
+        }
     }
 }
