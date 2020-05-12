@@ -2,6 +2,7 @@
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
+using Revolutions.Settings;
 
 namespace Revolutions.Components.Revolts.CampaignBehaviors
 {
@@ -30,7 +31,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
         private void SetLuckyNations()
         {
-            if (!Settings.Instance.RevoltsLuckyNationMechanic)
+            if (!RevolutionsSettings.Instance.RevoltsLuckyNationMechanic)
             {
                 foreach (var info in RevolutionsManagers.Kingdom.Infos.Where(kingdomInfo => kingdomInfo.LuckyNation))
                 {
@@ -40,7 +41,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
                 return;
             }
 
-            if (Settings.Instance.RevoltsLuckyNationRandom)
+            if (RevolutionsSettings.Instance.RevoltsLuckyNationRandom)
             {
                 if (!RevolutionsManagers.Kingdom.Infos.Any(i => i.LuckyNation) && RevolutionsManagers.Kingdom.Infos.Count > 0)
                 {
@@ -48,7 +49,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
                 }
             }
 
-            if (Settings.Instance.RevoltsLuckyNationImperial)
+            if (RevolutionsSettings.Instance.RevoltsLuckyNationImperial)
             {
                 var imperialNations = RevolutionsManagers.Kingdom.Infos.Where(i => i.Kingdom.Culture.Name.ToString().ToLower().Contains("empire"));
                 if (!imperialNations.Any(i => i.LuckyNation) && imperialNations.Count() > 0)
@@ -57,7 +58,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
                 }
             }
 
-            if (Settings.Instance.RevoltsLuckyNationNonImperial)
+            if (RevolutionsSettings.Instance.RevoltsLuckyNationNonImperial)
             {
                 var nonImperialNations = RevolutionsManagers.Kingdom.Infos.Where(i => !i.Kingdom.Culture.Name.ToString().ToLower().Contains("empire"));
                 if (!nonImperialNations.Any(i => i.LuckyNation) && nonImperialNations.Count() > 0)

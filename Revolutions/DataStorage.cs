@@ -13,6 +13,7 @@ using Revolutions.Components.Base.Clans;
 using Revolutions.Components.Base.Characters;
 using Revolutions.Components.Revolts;
 using Revolutions.Components.CivilWars;
+using Revolutions.Settings;
 
 namespace Revolutions
 {
@@ -20,12 +21,12 @@ namespace Revolutions
     {
         internal void InitializeBaseData()
         {
-            RevolutionsManagers.Faction.DebugMode = Settings.Instance.DebugMode;
-            RevolutionsManagers.Kingdom.DebugMode = Settings.Instance.DebugMode;
-            RevolutionsManagers.Clan.DebugMode = Settings.Instance.DebugMode;
-            RevolutionsManagers.Party.DebugMode = Settings.Instance.DebugMode;
-            RevolutionsManagers.Character.DebugMode = Settings.Instance.DebugMode;
-            RevolutionsManagers.Settlement.DebugMode = Settings.Instance.DebugMode;
+            RevolutionsManagers.Faction.DebugMode = RevolutionsSettings.Instance.DebugMode;
+            RevolutionsManagers.Kingdom.DebugMode = RevolutionsSettings.Instance.DebugMode;
+            RevolutionsManagers.Clan.DebugMode = RevolutionsSettings.Instance.DebugMode;
+            RevolutionsManagers.Party.DebugMode = RevolutionsSettings.Instance.DebugMode;
+            RevolutionsManagers.Character.DebugMode = RevolutionsSettings.Instance.DebugMode;
+            RevolutionsManagers.Settlement.DebugMode = RevolutionsSettings.Instance.DebugMode;
 
             RevolutionsManagers.Kingdom.InitializeInfos();
             RevolutionsManagers.Faction.InitializeInfos();

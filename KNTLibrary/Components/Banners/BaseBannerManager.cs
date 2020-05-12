@@ -15,12 +15,12 @@ namespace KNTLibrary.Components.Banners
         }
 
         public static BaseBannerManager Instance { get; private set; }
-		
+
         #endregion
 
         public HashSet<BaseBannerInfo> Infos { get; set; } = new HashSet<BaseBannerInfo>();
-        
-        private HashSet<BaseBannerInfo> loadedInfos { get; } = new HashSet<BaseBannerInfo>();
+
+        private HashSet<BaseBannerInfo> _loadedInfos { get; } = new HashSet<BaseBannerInfo>();
 
 
         public void AddBanners(string directoryPath)
@@ -29,20 +29,21 @@ namespace KNTLibrary.Components.Banners
 
             foreach (var file in files)
             {
-                HashSet<BaseBannerInfo> info = FileHelper.Load<List<BaseBannerInfo>>(directoryPath, Path.GetFileNameWithoutExtension(file)).ToHashSet();
-                foreach (var banner in info)
+                var infos = FileHelper.Load<List<BaseBannerInfo>>(directoryPath, Path.GetFileNameWithoutExtension(file)).ToHashSet();
+                foreach (var info in infos)
                 {
-                    loadedInfos.Add(banner);
+                    this._loadedInfos.Add(info);
                 }
             }
         }
-        
+
         public void CleanupDuplicatedInfos()
         {
-            foreach (var loadedInfo in loadedInfos)
+            foreach (var info in this._loadedInfos)
             {
-                Infos.Add(loadedInfo);
+                this.Infos.Add(info);
             }
+
             this.Infos.Reverse();
             this.Infos = this.Infos.GroupBy(i => i.Id)
                 .Select(i => i.First())

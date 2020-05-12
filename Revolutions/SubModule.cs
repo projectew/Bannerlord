@@ -7,6 +7,7 @@ using KNTLibrary.Helpers;
 using Revolutions.Components.Revolts.CampaignBehaviors;
 using Revolutions.CampaignBehaviors;
 using Revolutions.Components.CivilWars.CampaignBehaviors;
+using Revolutions.Settings;
 
 namespace Revolutions
 {
@@ -44,19 +45,19 @@ namespace Revolutions
 
         private void AddBehaviours(CampaignGameStarter campaignGameStarter)
         {
-            if (Settings.Instance.EnableRevolts || Settings.Instance.EnableCivilWars)
+            if (RevolutionsSettings.Instance.EnableRevolts || RevolutionsSettings.Instance.EnableCivilWars)
             {
                 campaignGameStarter.AddModel(new Models.SettlementLoyaltyModel());
 
                 campaignGameStarter.AddBehavior(new RevolutionsBehavior(ref this._dataStorage, campaignGameStarter));
             }
 
-            if (Settings.Instance.EnableRevolts)
+            if (RevolutionsSettings.Instance.EnableRevolts)
             {
                 campaignGameStarter.AddBehavior(new RevoltBehavior(ref this._dataStorage, campaignGameStarter));
             }
 
-            if (Settings.Instance.EnableCivilWars)
+            if (RevolutionsSettings.Instance.EnableCivilWars)
             {
                 campaignGameStarter.AddBehavior(new CivilWarsBehavior(ref this._dataStorage, campaignGameStarter));
             }

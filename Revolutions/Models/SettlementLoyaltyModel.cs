@@ -5,6 +5,7 @@ using TaleWorlds.Localization;
 using TaleWorlds.Core;
 using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Settlements;
+using Revolutions.Settings;
 
 namespace Revolutions.Models
 {
@@ -29,9 +30,9 @@ namespace Revolutions.Models
 
                 if (settlementInfo.CurrentFaction?.Leader == Hero.MainHero)
                 {
-                    explainedNumber.Add(Settings.Instance.GeneralBasePlayerLoyalty, new TextObject("{=q2tbqP0z}Bannerlord Settlement"));
+                    explainedNumber.Add(RevolutionsSettings.Instance.GeneralBasePlayerLoyalty, new TextObject("{=q2tbqP0z}Bannerlord Settlement"));
 
-                    if (Settings.Instance.RevoltsOverextensionAffectsPlayer && Settings.Instance.RevoltsOverextensionMechanics)
+                    if (RevolutionsSettings.Instance.RevoltsOverextensionAffectsPlayer && RevolutionsSettings.Instance.RevoltsOverextensionMechanics)
                     {
                         this.Overextension(settlementInfo, ref explainedNumber);
                     }
@@ -40,7 +41,7 @@ namespace Revolutions.Models
                 {
                     this.BaseLoyalty(settlementInfo, ref explainedNumber);
 
-                    if (Settings.Instance.RevoltsOverextensionMechanics)
+                    if (RevolutionsSettings.Instance.RevoltsOverextensionMechanics)
                     {
                         this.Overextension(settlementInfo, ref explainedNumber);
                     }
@@ -53,7 +54,7 @@ namespace Revolutions.Models
                 InformationManager.DisplayMessage(new InformationMessage("Revolutions: Failed to calculate loyalty change! Using TaleWorld logic now.", ColorHelper.Red));
                 InformationManager.DisplayMessage(new InformationMessage($"Town: {town?.Name} | StringId: {town?.StringId}", ColorHelper.Red));
 
-                if (Settings.Instance.DebugMode)
+                if (RevolutionsSettings.Instance.DebugMode)
                 {
                     InformationManager.DisplayMessage(new InformationMessage($"Exception: {exception.Message}", ColorHelper.Red));
                     InformationManager.DisplayMessage(new InformationMessage($"StackTrace: {exception.StackTrace}", ColorHelper.Red));
@@ -72,7 +73,7 @@ namespace Revolutions.Models
                 return;
             }
 
-            if (Settings.Instance.RevoltsImperialLoyaltyMechanic)
+            if (RevolutionsSettings.Instance.RevoltsImperialLoyaltyMechanic)
             {
                 if (settlementInfo?.IsOfImperialCulture == true && settlementInfo?.IsCurrentFactionOfImperialCulture == true)
                 {
@@ -83,7 +84,7 @@ namespace Revolutions.Models
             var factionInfo = settlementInfo.CurrentFactionBaseInfo;
             var overExtension = factionInfo?.InitialTownsCount - factionInfo?.CurrentTownsCount;
 
-            explainedNumber.Add(overExtension.Value * Settings.Instance.RevoltsOverextensionMultiplier, new TextObject("{=YnRmNltF}Overextension"));
+            explainedNumber.Add(overExtension.Value * RevolutionsSettings.Instance.RevoltsOverextensionMultiplier, new TextObject("{=YnRmNltF}Overextension"));
         }
 
         private void BaseLoyalty(SettlementInfo settlementInfo, ref ExplainedNumber explainedNumber)
@@ -97,7 +98,7 @@ namespace Revolutions.Models
                 }
             }
 
-            if (Settings.Instance.RevoltsImperialLoyaltyMechanic)
+            if (RevolutionsSettings.Instance.RevoltsImperialLoyaltyMechanic)
             {
                 if (settlementInfo?.IsOfImperialCulture == true)
                 {

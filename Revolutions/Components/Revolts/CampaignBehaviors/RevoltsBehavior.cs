@@ -5,6 +5,7 @@ using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem.Actions;
 using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Settlements;
+using Revolutions.Settings;
 
 namespace Revolutions.Components.Revolts.CampaignBehaviors
 {
@@ -82,7 +83,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
             if (capturedHero != null && RevolutionsManagers.Character.GetInfo(capturedHero.CharacterObject).IsRevoltKingdomLeader)
             {
                 var revolt = RevoltManager.Instance.GetRevoltByParty(capturedHero.PartyBelongedTo.Party);
-                if (!Settings.Instance.RevoltsMinorFactionsMechanic && revolt.IsMinorFaction)
+                if (!RevolutionsSettings.Instance.RevoltsMinorFactionsMechanic && revolt.IsMinorFaction)
                 {
                     Hero noble = KNTLibrary.BaseManagers.Faction.GetLordWithLeastFiefs(revolt.SettlementInfo.LoyalFaction).HeroObject;
                     ChangeOwnerOfSettlementAction.ApplyBySiege(noble, noble, settlement);

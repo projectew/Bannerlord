@@ -66,7 +66,7 @@
   </ItemGroup>
   <!-- NuGet -->
   <ItemGroup>
-	<None Include="packages.config" />
+    <None Include="packages.config" />
     <Reference Include="0Harmony, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Lib.Harmony.2.0.1\lib\net48\0Harmony.dll</HintPath>
     </Reference>
@@ -129,8 +129,11 @@
     <Compile Include="RevolutionsManagers.cs" />
     <Compile Include="Screens\TownRevolutionsScreen.cs" />
     <Compile Include="Screens\ViewModels\TownRevolutionViewModel.cs" />
-    <Compile Include="Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\SettingsDescriptions.cs" />
+    <Compile Include="Settings\RevolutionsSettings.cs" />
+    <Compile Include="Settings\SettingsHeaders.cs" />
+    <Compile Include="Settings\SettingsNames.cs" />
     <Compile Include="SubModule.cs" />
     <Content Include="GUI\Brushes\ButtonBrush.xml" />
     <Content Include="GUI\Prefabs\TownRevoltScreen.xml" />

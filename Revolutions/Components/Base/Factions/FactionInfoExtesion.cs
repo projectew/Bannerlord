@@ -1,4 +1,5 @@
 ﻿using TaleWorlds.CampaignSystem;
+using Revolutions.Settings;
 
 namespace Revolutions.Components.Base.Factions
 {
@@ -32,7 +33,7 @@ namespace Revolutions.Components.Base.Factions
         {
             factionInfo.DaysSinceLastRevolt++;
 
-            if (factionInfo.DaysSinceLastRevolt > Settings.Instance.RevoltsGeneralCooldownTime)
+            if (factionInfo.DaysSinceLastRevolt > RevolutionsSettings.Instance.RevoltsGeneralCooldownTime)
             {
                 factionInfo.CanRevolt = true;
             }

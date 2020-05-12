@@ -1,4 +1,5 @@
 ﻿using TaleWorlds.CampaignSystem;
+using Revolutions.Settings;
 
 namespace Revolutions.Components.Base.Settlements
 {
@@ -15,7 +16,7 @@ namespace Revolutions.Components.Base.Settlements
         {
             settlementInfo.DaysOwnedByOwner++;
 
-            if (settlementInfo.LoyalFactionId != settlementInfo.CurrentFactionId && settlementInfo.DaysOwnedByOwner > Settings.Instance.GeneralDaysUntilLoyaltyChange)
+            if (settlementInfo.LoyalFactionId != settlementInfo.CurrentFactionId && settlementInfo.DaysOwnedByOwner > RevolutionsSettings.Instance.GeneralDaysUntilLoyaltyChange)
             {
                 settlementInfo.LoyalFactionId = settlementInfo.CurrentFactionId;
             }
