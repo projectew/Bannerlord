@@ -1,10 +1,9 @@
-﻿using Revolutions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
 
-namespace Revolts
+namespace Revolutions
 {
     public static class Commands
     {

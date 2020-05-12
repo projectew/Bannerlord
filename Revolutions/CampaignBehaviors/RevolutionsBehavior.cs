@@ -1,14 +1,8 @@
-﻿using HarmonyLib;
-using KNTLibrary.Helpers;
-using Revolts;
+﻿using KNTLibrary.Helpers;
 using System;
-using System.IO;
-using System.Threading;
-using KNTLibrary.Components.Banners;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
-using TaleWorlds.MountAndBlade;
 
 namespace Revolutions.CampaignBehaviors
 {
@@ -34,9 +28,6 @@ namespace Revolutions.CampaignBehaviors
         {
             try
             {
-                this.DataStorage.SaveId = AccessTools.Field(typeof(MBSaveLoad), "ActiveSaveSlotName").GetValue(null).ToString();
-                Thread.Sleep(1000);
-
                 if (dataStore.IsLoading)
                 {
                     this.DataStorage.LoadBaseData();
@@ -49,7 +40,7 @@ namespace Revolutions.CampaignBehaviors
             }
             catch (Exception exception)
             {
-                InformationManager.DisplayMessage(new InformationMessage($"Revolutions.Base: SyncData failed ({dataStore.IsLoading} | {dataStore.IsSaving} | {this.DataStorage.SaveId})!", ColorHelper.Red));
+                InformationManager.DisplayMessage(new InformationMessage($"Revolutions.Base.Data: SyncData failed (IsLoading: {dataStore.IsLoading} | IsSaving: {dataStore.IsSaving})!", ColorHelper.Red));
                 InformationManager.DisplayMessage(new InformationMessage(exception.ToString(), ColorHelper.Red));
             }
         }

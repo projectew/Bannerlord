@@ -19,6 +19,7 @@ namespace Revolutions
     public static class RevolutionsManagers
     {
         public static BaseBannerManager Banner { get; } = BaseBannerManager.Instance;
+
         public static BaseKingdomManager<KingdomInfo> Kingdom { get; } = BaseKingdomManager<KingdomInfo>.Instance;
 
         public static BaseFactionManager<FactionInfo> Faction { get; } = BaseFactionManager<FactionInfo>.Instance;

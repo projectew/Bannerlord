@@ -7,15 +7,21 @@ namespace KNTLibrary.Components.Banners
 {
     public class BaseBannerManager
     {
+        #region Singleton
+
         static BaseBannerManager()
         {
             BaseBannerManager.Instance = new BaseBannerManager();
         }
-        
+
         public static BaseBannerManager Instance { get; private set; }
+		
+        #endregion
+
         public HashSet<BaseBannerInfo> Infos { get; set; } = new HashSet<BaseBannerInfo>();
         
         private HashSet<BaseBannerInfo> loadedInfos { get; } = new HashSet<BaseBannerInfo>();
+
 
         public void AddBanners(string directoryPath)
         {

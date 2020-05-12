@@ -3,10 +3,8 @@ using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem.Actions;
-using HarmonyLib;
 using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Settlements;
-using Revolts;
 
 namespace Revolutions.Components.Revolts.CampaignBehaviors
 {
@@ -38,8 +36,6 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
         {
             try
             {
-                this.DataStorage.SaveId = AccessTools.Field(typeof(MBSaveLoad), "ActiveSaveSlotName").GetValue(null).ToString();
-
                 if (dataStore.IsLoading)
                 {
                     this.DataStorage.LoadRevoltData();
@@ -52,7 +48,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
             }
             catch (Exception exception)
             {
-                InformationManager.DisplayMessage(new InformationMessage($"Revolutions.Revolt: SyncData failed ({dataStore.IsLoading} | {dataStore.IsSaving} | {this.DataStorage.SaveId})!", ColorHelper.Red));
+                InformationManager.DisplayMessage(new InformationMessage($"Revolutions.Revolts.Data: SyncData failed (IsLoading: {dataStore.IsLoading} | IsSaving: {dataStore.IsSaving})!", ColorHelper.Red));
                 InformationManager.DisplayMessage(new InformationMessage(exception.ToString(), ColorHelper.Red));
             }
         }

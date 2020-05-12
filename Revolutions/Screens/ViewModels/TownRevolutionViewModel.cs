@@ -5,7 +5,7 @@ using TaleWorlds.Engine.Screens;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
-namespace Revolts.Screens.ViewModels
+namespace Revolutions.Screens.ViewModels
 {
     public class TownRevoltViewModel : ViewModel
     {
@@ -39,7 +39,7 @@ namespace Revolts.Screens.ViewModels
                 if (value != this._factionVisual)
                 {
                     this._factionVisual = value;
-                    base.OnPropertyChanged("FactionVisual");
+                    OnPropertyChanged("FactionVisual");
                 }
             }
         }

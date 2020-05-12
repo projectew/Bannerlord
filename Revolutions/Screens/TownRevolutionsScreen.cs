@@ -1,11 +1,11 @@
-﻿using Revolts.Screens.ViewModels;
-using Revolutions.Components.Base.Factions;
+﻿using Revolutions.Components.Base.Factions;
 using Revolutions.Components.Base.Settlements;
+using Revolutions.Screens.ViewModels;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.GauntletUI.Data;
 
-namespace Revolts.Screens
+namespace Revolutions.Screens
 {
     public class TownRevoltsScreen : ScreenBase
     {

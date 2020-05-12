@@ -5,7 +5,6 @@ using TaleWorlds.Localization;
 using TaleWorlds.Core;
 using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Settlements;
-using Revolts;
 
 namespace Revolutions.Models
 {
@@ -83,7 +82,7 @@ namespace Revolutions.Models
                 }
             }
 
-            var factionInfo = settlementInfo.CurrentFactionInfo;
+            var factionInfo = settlementInfo.CurrentFactionBaseInfo;
             var overExtension = factionInfo?.InitialTownsCount - factionInfo?.CurrentTownsCount;
 
             explainedNumber.Add(overExtension.Value * Settings.Instance.RevoltsOverextensionMultiplier, new TextObject("{=YnRmNltF}Overextension"));

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
+using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
 namespace Revolutions.Components.CivilWars.CampaignBehaviors
@@ -34,25 +35,24 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 var clanLeader = clan.Leader;
                 if (clanLeader == null)
                 {
-                    return;
+                    continue;
                 }
 
                 var kingdomLeader = clan.Kingdom?.Leader;
                 if (kingdomLeader == null)
                 {
-                    return;
+                    continue;
                 }
 
                 var clanLeaderInfo = RevolutionsManagers.Character.GetInfo(clanLeader.CharacterObject);
                 var clanInfo = RevolutionsManagers.Clan.GetInfo(clanLeader.Clan);
 
-                var clanLeadersOfKingdom = Campaign.Current.Clans.Where(w => w.Kingdom.StringId == clanLeader.Clan.Kingdom?.StringId).Select(s => s.Leader).ToList();
+                var clanLeadersOfKingdom = Campaign.Current.Clans.Where(w => w.Kingdom?.StringId == clanLeader.Clan.Kingdom?.StringId).Select(s => s.Leader).ToList();
                 var clanLeaderFriendsInsideKingdom = clanLeadersOfKingdom.Where(w => w.IsFriend(clanLeader)).ToList();
 
                 var relationBetweenClanLeaderAndKingdomLeader = clanLeader.GetRelation(kingdomLeader);
 
-                var relationshipStopPlottingTreshhold = 0; //Config
-                if (clanLeaderInfo.PlotState == PlotState.IsPlotting && relationBetweenClanLeaderAndKingdomLeader > relationshipStopPlottingTreshhold)
+                if (clanLeaderInfo.PlotState == PlotState.IsPlotting && relationBetweenClanLeaderAndKingdomLeader > Settings.Instance.CivilWarsLoyalRelationshipTreshold)
                 {
                     clanLeaderInfo.PlotState = PlotState.IsLoyal;
 
@@ -69,8 +69,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                     continue;
                 }
 
-                var relationshipStartPlottingTreshhold = -25; //Config
-                if (relationBetweenClanLeaderAndKingdomLeader > relationshipStartPlottingTreshhold)
+                if (relationBetweenClanLeaderAndKingdomLeader > Settings.Instance.CivilWarsPlottingRelationshipTreshold)
                 {
                     continue;
                 }
@@ -95,6 +94,12 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
             foreach (var kingdom in Campaign.Current.Kingdoms)
             {
+                var civilWar = RevolutionsManagers.CivilWar.GetCivilWarByKingdom(kingdom);
+                if (civilWar != null)
+                {
+                    continue;
+                }
+
                 var kingdomClans = Campaign.Current.Clans.Where(w => w.Kingdom?.StringId == kingdom.StringId).ToList();
                 var kingdomLoyalClans = new List<ClanInfo>();
                 var kingdomPlottingClans = new List<ClanInfo>();
@@ -113,7 +118,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                     }
                 }
 
-                if(kingdomPlottingClans.Count == 0)
+                if (kingdomPlottingClans.Count == 0)
                 {
                     continue;
                 }
@@ -145,15 +150,16 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 var plottingLeaderValor = plottingLeader.GetHeroTraits().Valor;
                 var plottingLeaderCalculating = plottingLeader.GetHeroTraits().Calculating;
 
-                var baseWarChance = 2; //Config MinValue 2 MaxValue 5
-                var personalityModifier = 1.15; //Config MaxValue 2
+                float personalityTraits = plottingLeaderGenerosity + kingdomLeaderGenerosity + plottingLeaderMercy + kingdomLeaderMercy;
+                float personalityWeight = MathF.Pow(Settings.Instance.CivilWarsWarPersonalityMultiplier, -personalityTraits);
+                float troopWeight = plottersTroopWeight / loyalTroopWeight;
+                float valorModifier = 1 + (plottingLeaderValor <= 0 ? 1 : plottingLeaderValor * 2);
+                float clanCountModifier = kingdomPlottingClans.Count / kingdomLoyalClans.Count;
+                float calculatingModifier = 1 + (plottingLeaderCalculating <= 0 ? 1 : plottingLeaderCalculating);
 
-                var warChance = baseWarChance * Math.Pow(personalityModifier, plottingLeaderGenerosity + kingdomLeaderGenerosity + plottingLeaderMercy + kingdomLeaderMercy)
-                    * (plottersTroopWeight / loyalTroopWeight * (1 + (plottingLeaderValor == 0 ? 1 : plottingLeaderValor * 2)))
-                    * (Math.Pow(kingdomPlottingClans.Count / kingdomLoyalClans.Count, 1 + plottingLeaderCalculating));
+                var warChance = Settings.Instance.CivilWarsWarBaseChance * personalityWeight * (troopWeight * valorModifier) * MathF.Pow(clanCountModifier, calculatingModifier);
 
-                var warResult = new Random().Next(0, 100) > warChance;
-                if(warResult)
+                if (warChance > new Random().Next(0, 100))
                 {
                     var newKingdom = RevolutionsManagers.Kingdom.CreateKingdom(plottingLeader, new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), new TextObject($"Kingdom of {plottingLeader.Clan.Name}"));
                     ChangeKingdomAction.ApplyByLeaveKingdom(plotLeader.Clan, false);
@@ -165,6 +171,8 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                     FactionManager.DeclareWar(newKingdom, kingdom);
                     Campaign.Current.FactionManager.RegisterCampaignWar(newKingdom, kingdom);
+
+                    RevolutionsManagers.CivilWar.CivilWars.Add(new CivilWar(kingdom, kingdomClans));
                 }
             }
         }
@@ -180,13 +188,14 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
             var kingdomLeaderHonor = kingdomLeader.GetHeroTraits().Honor;
             var clanLeaderHonor = clanLeader.GetHeroTraits().Honor;
 
-            var kingdomClanLeaders = Campaign.Current.Clans.Where(w => w.Kingdom.StringId == clanLeader.Clan.Kingdom?.StringId).Select(s => s.Leader).ToList();
+            var kingdomClanLeaders = Campaign.Current.Clans.Where(w => w.Kingdom?.StringId == clanLeader.Clan.Kingdom?.StringId).Select(s => s.Leader).ToList();
             var clanLeaderFriends = kingdomClanLeaders.Where(w => w.IsFriend(clanLeader)).ToList();
 
-            var basePlottingChance = 2; //Config MinValue 2 MaxValue 5
-            var baseFriendWeight = 1.04; //Config MaxValue 2
+            float personalityTraits = kingdomLeaderHonor + clanLeaderHonor;
+            float personalityWeight = MathF.Pow(Settings.Instance.CivilWarsPlottingPersonalityMultiplier, -personalityTraits);
+            float friendWeight = MathF.Pow(Settings.Instance.CivilWarsPlottingBaseChance, clanLeaderFriends.Count);
 
-            return new Random().Next(0, 100) > Math.Pow(basePlottingChance, -(kingdomLeaderHonor + clanLeaderHonor)) * Math.Pow(baseFriendWeight, clanLeaderFriends.Count);
+            return Settings.Instance.CivilWarsPlottingBaseChance * personalityWeight * friendWeight > new Random().Next(0, 100);
         }
     }
 }

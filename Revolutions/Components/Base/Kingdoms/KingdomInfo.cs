@@ -37,7 +37,11 @@ namespace Revolutions.Components.Base.Kingdoms
 
         #endregion
 
+        #region Normal Properties
 
+
+
+        #endregion
 
         #endregion
 

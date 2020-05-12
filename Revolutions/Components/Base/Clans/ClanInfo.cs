@@ -37,7 +37,11 @@ namespace Revolutions.Components.Base.Clans
 
         #endregion
 
+        #region Normal Properties
 
+
+
+        #endregion
 
         #endregion
 

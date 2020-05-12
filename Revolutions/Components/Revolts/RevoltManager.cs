@@ -5,10 +5,8 @@ using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Localization;
 using Helpers;
-using KNTLibrary.Components.Banners;
 using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Factions;
-using Revolts;
 
 namespace Revolutions.Components.Revolts
 {
@@ -98,7 +96,7 @@ namespace Revolutions.Components.Revolts
                     continue;
                 }
 
-                if (!settlementInfo.CurrentFactionInfoRevolts.CanRevolt || settlementInfo.HasRebellionEvent)
+                if (settlementInfo.CurrentFactionInfo?.CanRevolt == false || settlementInfo.HasRebellionEvent)
                 {
                     settlementInfo.RevoltProgress = 0;
                     continue;
@@ -125,7 +123,7 @@ namespace Revolutions.Components.Revolts
             information.SetTextVariable("SETTLEMENT", revolt.Settlement.Name.ToString());
             InformationManager.DisplayMessage(new InformationMessage(information.ToString(), ColorHelper.Yellow));
 
-            revolt.SettlementInfo.CurrentFactionInfoRevolts.CityRevoltionFailed(revolt.Settlement);
+            revolt.SettlementInfo.CurrentFactionInfo.CityRevoltionFailed(revolt.Settlement);
 
             if (revolt.IsMinorFaction)
             {
@@ -158,7 +156,7 @@ namespace Revolutions.Components.Revolts
             information.SetTextVariable("SETTLEMENT", revolt.Settlement.Name.ToString());
             InformationManager.DisplayMessage(new InformationMessage(information.ToString(), ColorHelper.Yellow));
 
-            revolt.SettlementInfo.CurrentFactionInfoRevolts.CityRevoltionSucceeded(revolt.Settlement);
+            revolt.SettlementInfo.CurrentFactionInfo.CityRevoltionSucceeded(revolt.Settlement);
 
             if (Settings.Instance.RevoltsImperialLoyaltyMechanic && revolt.SettlementInfo.IsCurrentFactionOfImperialCulture && !revolt.SettlementInfo.IsLoyalFactionOfImperialCulture)
             {

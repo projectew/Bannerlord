@@ -4,11 +4,14 @@ using KNTLibrary.Components.Clans;
 using KNTLibrary.Components.Parties;
 using KNTLibrary.Components.Characters;
 using KNTLibrary.Components.Settlements;
+using KNTLibrary.Components.Banners;
 
 namespace KNTLibrary
 {
     public static class BaseManagers
     {
+        public static BaseBannerManager Banner { get; } = BaseBannerManager.Instance;
+
         public static BaseFactionManager<BaseFactionInfo> Faction { get; } = BaseFactionManager<BaseFactionInfo>.Instance;
 
         public static BaseKingdomManager<BaseKingdomInfo> Kingdom { get; } = BaseKingdomManager<BaseKingdomInfo>.Instance;
