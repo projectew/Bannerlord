@@ -10,11 +10,9 @@ namespace Revolutions.Models
 {
     public class SettlementLoyaltyModel : DefaultSettlementLoyaltyModel
     {
-        private readonly DataStorage DataStorage;
 
-        public SettlementLoyaltyModel(ref DataStorage dataStorage)
+        public SettlementLoyaltyModel()
         {
-            this.DataStorage = dataStorage;
         }
 
         public override float CalculateLoyaltyChange(Town town, StatExplainer statExplainer = null)

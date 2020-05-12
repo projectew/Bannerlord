@@ -16,13 +16,6 @@ namespace Revolutions
 
         internal static string BaseSavePath => System.IO.Path.Combine(Utilities.GetConfigsPath(), "Revolutions", "Saves");
 
-        protected override void OnBeforeInitialModuleScreenSetAsRoot()
-        {
-            base.OnBeforeInitialModuleScreenSetAsRoot();
-
-            InformationManager.DisplayMessage(new InformationMessage("Revolutions: Loaded Mod.", ColorHelper.Green));
-        }
-
         protected override void OnGameStart(Game game, IGameStarter gameStarter)
         {
             base.OnGameStart(game, gameStarter);
@@ -53,7 +46,7 @@ namespace Revolutions
         {
             if (Settings.Instance.EnableRevolts || Settings.Instance.EnableCivilWars)
             {
-                campaignGameStarter.AddModel(new Models.SettlementLoyaltyModel(ref this._dataStorage));
+                campaignGameStarter.AddModel(new Models.SettlementLoyaltyModel());
 
                 campaignGameStarter.AddBehavior(new RevolutionsBehavior(ref this._dataStorage, campaignGameStarter));
             }

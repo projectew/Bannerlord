@@ -7,7 +7,7 @@ using Revolutions.Screens;
 
 namespace Revolutions.CampaignBehaviors
 {
-    public class GuiHandlersBehavior : CampaignBehaviorBase
+    internal class GuiHandlersBehavior : CampaignBehaviorBase
     {
         public override void RegisterEvents()
         {

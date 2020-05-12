@@ -16,24 +16,24 @@ using Revolutions.Components.CivilWars;
 
 namespace Revolutions
 {
-    public static class RevolutionsManagers
+    internal static class RevolutionsManagers
     {
-        public static BaseBannerManager Banner { get; } = BaseBannerManager.Instance;
+        internal static BaseBannerManager Banner { get; } = BaseBannerManager.Instance;
 
-        public static BaseKingdomManager<KingdomInfo> Kingdom { get; } = BaseKingdomManager<KingdomInfo>.Instance;
+        internal static BaseKingdomManager<KingdomInfo> Kingdom { get; } = BaseKingdomManager<KingdomInfo>.Instance;
 
-        public static BaseFactionManager<FactionInfo> Faction { get; } = BaseFactionManager<FactionInfo>.Instance;
+        internal static BaseFactionManager<FactionInfo> Faction { get; } = BaseFactionManager<FactionInfo>.Instance;
 
-        public static BaseClanManager<ClanInfo> Clan { get; } = BaseClanManager<ClanInfo>.Instance;
+        internal static BaseClanManager<ClanInfo> Clan { get; } = BaseClanManager<ClanInfo>.Instance;
 
-        public static BasePartyManager<PartyInfo> Party { get; } = BasePartyManager<PartyInfo>.Instance;
+        internal static BasePartyManager<PartyInfo> Party { get; } = BasePartyManager<PartyInfo>.Instance;
 
-        public static BaseCharacterManager<CharacterInfo> Character { get; } = BaseCharacterManager<CharacterInfo>.Instance;
+        internal static BaseCharacterManager<CharacterInfo> Character { get; } = BaseCharacterManager<CharacterInfo>.Instance;
 
-        public static BaseSettlementManager<SettlementInfo> Settlement { get; } = BaseSettlementManager<SettlementInfo>.Instance;
+        internal static BaseSettlementManager<SettlementInfo> Settlement { get; } = BaseSettlementManager<SettlementInfo>.Instance;
 
-        public static RevoltManager Revolt { get; } = RevoltManager.Instance;
+        internal static RevoltManager Revolt { get; } = RevoltManager.Instance;
 
-        public static CivilWarManager CivilWar { get; } = CivilWarManager.Instance;
+        internal static CivilWarManager CivilWar { get; } = CivilWarManager.Instance;
     }
 }

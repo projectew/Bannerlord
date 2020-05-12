@@ -13,7 +13,7 @@ using TaleWorlds.Library;
 
 namespace Revolutions.Components.Revolts
 {
-    public class RevoltManager
+    internal class RevoltManager
     {
         #region Singleton
 
@@ -24,43 +24,43 @@ namespace Revolutions.Components.Revolts
             Instance = new RevoltManager();
         }
 
-        public static RevoltManager Instance { get; private set; }
+        internal static RevoltManager Instance { get; private set; }
 
         #endregion
 
-        public HashSet<Revolt> Revolts = new HashSet<Revolt>();
+        internal HashSet<Revolt> Revolts = new HashSet<Revolt>();
 
-        public Revolt GetRevoltByPartyId(string id)
+        internal Revolt GetRevoltByPartyId(string id)
         {
             return this.Revolts.FirstOrDefault(r => r.PartyId == id);
         }
 
-        public Revolt GetRevoltByParty(PartyBase party)
+        internal Revolt GetRevoltByParty(PartyBase party)
         {
             return this.GetRevoltByPartyId(party.Id);
         }
 
-        public Revolt GetRevoltBySettlementId(string id)
+        internal Revolt GetRevoltBySettlementId(string id)
         {
             return this.Revolts.FirstOrDefault(r => r.SettlementId == id);
         }
 
-        public Revolt GetRevoltBySettlement(Settlement settlement)
+        internal Revolt GetRevoltBySettlement(Settlement settlement)
         {
             return this.GetRevoltBySettlementId(settlement.StringId);
         }
 
-        public List<Settlement> GetSettlements()
+        internal List<Settlement> GetSettlements()
         {
             return this.Revolts.Select(r => r.Settlement).ToList();
         }
 
-        public List<PartyBase> GetParties()
+        internal List<PartyBase> GetParties()
         {
             return this.Revolts.Select(r => r.Party).ToList();
         }
 
-        public void IncreaseDailyLoyaltyForSettlement()
+        internal void IncreaseDailyLoyaltyForSettlement()
         {
             foreach (var info in RevolutionsManagers.Settlement.Infos)
             {
@@ -83,7 +83,7 @@ namespace Revolutions.Components.Revolts
             }
         }
 
-        public void CheckRevoltProgress()
+        internal void CheckRevoltProgress()
         {
             foreach (var settlementInfo in RevolutionsManagers.Settlement.Infos)
             {
@@ -120,7 +120,7 @@ namespace Revolutions.Components.Revolts
             }
         }
 
-        public void EndFailedRevolt(Revolt revolt)
+        internal void EndFailedRevolt(Revolt revolt)
         {
             var information = new TextObject("{=dkpS074R}The revolt in {SETTLEMENT} has ended.");
             information.SetTextVariable("SETTLEMENT", revolt.Settlement.Name.ToString());
@@ -153,7 +153,7 @@ namespace Revolutions.Components.Revolts
             this.Revolts.Remove(revolt);
         }
 
-        public void EndSucceededRevolutin(Revolt revolt)
+        internal void EndSucceededRevolutin(Revolt revolt)
         {
             var information = new TextObject("{=dkpS074R}The revolt in {SETTLEMENT} has ended.");
             information.SetTextVariable("SETTLEMENT", revolt.Settlement.Name.ToString());
@@ -191,7 +191,7 @@ namespace Revolutions.Components.Revolts
             }
         }
 
-        public void StartRebellionEvent(Settlement settlement)
+        internal void StartRebellionEvent(Settlement settlement)
         {
             var information = new TextObject("{=dRoS0maD}{SETTLEMENT} is revolting!");
             information.SetTextVariable("SETTLEMENT", settlement.Name.ToString());
@@ -216,7 +216,7 @@ namespace Revolutions.Components.Revolts
 
                 if (bannerInfo != null)
                 {
-                    Banner banner = new Banner(bannerInfo.BannerId);
+                    var banner = new Banner(bannerInfo.BannerId);
                     bannerInfo.Used = true;
                     RevolutionsManagers.Kingdom.CreateKingdom(hero, banner, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"));
                 }
@@ -224,7 +224,6 @@ namespace Revolutions.Components.Revolts
                 {
                     RevolutionsManagers.Kingdom.CreateKingdom(hero, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"));
                 }
-
 
                 RevolutionsManagers.Clan.GetInfo(hero.Clan).CanJoinOtherKingdoms = false;
             }

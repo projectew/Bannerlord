@@ -2,9 +2,9 @@
 
 namespace Revolutions.Components.Base.Factions
 {
-    public static class FactionInfoExtesion
+    internal static class FactionInfoExtesion
     {
-        public static void CityRevoltionFailed(this FactionInfo factionInfo, Settlement settlement)
+        internal static void CityRevoltionFailed(this FactionInfo factionInfo, Settlement settlement)
         {
             factionInfo.CanRevolt = false;
             factionInfo.RevoltedSettlementId = settlement.StringId;
@@ -16,7 +16,7 @@ namespace Revolutions.Components.Base.Factions
             settlementInfo.RevoltProgress = 0;
         }
 
-        public static void CityRevoltionSucceeded(this FactionInfo factionInfo, Settlement settlement)
+        internal static void CityRevoltionSucceeded(this FactionInfo factionInfo, Settlement settlement)
         {
             factionInfo.CanRevolt = false;
             factionInfo.RevoltedSettlementId = settlement.StringId;
@@ -28,7 +28,7 @@ namespace Revolutions.Components.Base.Factions
             settlementInfo.RevoltProgress = 0;
         }
 
-        public static void DailyUpdate(this FactionInfo factionInfo)
+        internal static void DailyUpdate(this FactionInfo factionInfo)
         {
             factionInfo.DaysSinceLastRevolt++;
 

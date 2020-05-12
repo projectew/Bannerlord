@@ -5,11 +5,11 @@ using KNTLibrary.Helpers;
 
 namespace Revolutions.Components.CivilWars.CampaignBehaviors
 {
-    public class CivilWarsBehavior : CampaignBehaviorBase
+    internal class CivilWarsBehavior : CampaignBehaviorBase
     {
         private readonly DataStorage DataStorage;
 
-        public CivilWarsBehavior(ref DataStorage dataStorage, CampaignGameStarter campaignGameStarter)
+        internal CivilWarsBehavior(ref DataStorage dataStorage, CampaignGameStarter campaignGameStarter)
         {
             this.DataStorage = dataStorage;
 
@@ -19,11 +19,6 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
         public override void RegisterEvents()
         {
             CampaignEvents.MapEventEnded.AddNonSerializedListener(this, new Action<MapEvent>(this.MapEventEnded));
-        }
-
-        private void MapEventEnded(MapEvent mapEvent)
-        {
-
         }
 
         public override void SyncData(IDataStore dataStore)
@@ -46,6 +41,11 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 InformationManager.DisplayMessage(new InformationMessage($"Revolutions.CivilWars.Data: SyncData failed (IsLoading: {dataStore.IsLoading} | IsSaving: {dataStore.IsSaving})!", ColorHelper.Red));
                 InformationManager.DisplayMessage(new InformationMessage(exception.ToString(), ColorHelper.Red));
             }
+        }
+
+        private void MapEventEnded(MapEvent mapEvent)
+        {
+
         }
     }
 }

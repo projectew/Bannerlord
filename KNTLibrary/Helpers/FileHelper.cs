@@ -56,8 +56,7 @@ namespace KNTLibrary.Helpers
                 return (T)Activator.CreateInstance(typeof(T));
             }
         }
-        
-        
+
         public static T Load<T>(T data, string directoryPath, string fileName)
         {
             try

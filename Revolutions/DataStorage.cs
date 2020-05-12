@@ -1,6 +1,8 @@
 ﻿using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using HarmonyLib;
+using TaleWorlds.Core;
 using KNTLibrary.Components.Banners;
 using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Settlements;
@@ -11,12 +13,10 @@ using Revolutions.Components.Base.Clans;
 using Revolutions.Components.Base.Characters;
 using Revolutions.Components.Revolts;
 using Revolutions.Components.CivilWars;
-using HarmonyLib;
-using TaleWorlds.Core;
 
 namespace Revolutions
 {
-    public class DataStorage
+    internal class DataStorage
     {
         internal void InitializeBaseData()
         {
@@ -61,7 +61,7 @@ namespace Revolutions
             RevolutionsManagers.Settlement.Infos = FileHelper.Load<List<SettlementInfo>>(saveDirectory, "Settlements").ToHashSet();
             RevolutionsManagers.Settlement.CleanupDuplicatedInfos();
 
-            RevolutionsManagers.Banner.Infos = FileHelper.Load<List<BaseBannerInfo>>(RevolutionsManagers.Banner.Infos.ToList(), saveDirectory, "Banners").ToHashSet();
+            RevolutionsManagers.Banner.Infos = FileHelper.Load<List<BaseBannerInfo>>(saveDirectory, "Banners").ToHashSet();
             RevolutionsManagers.Banner.CleanupDuplicatedInfos();
         }
 
@@ -120,7 +120,7 @@ namespace Revolutions
 
         private string GetSaveDirectory()
         {
-            var activeSaveSlotName = AccessTools.Field(typeof(MBSaveLoad), "ActiveSaveSlotName").GetValue(null).ToString();
+            var activeSaveSlotName = AccessTools.Field(typeof(MBSaveLoad), "ActiveSaveSlotName")?.GetValue(null)?.ToString();
             if(activeSaveSlotName == null)
             {
                 InformationManager.DisplayMessage(new InformationMessage($"Revolutions.DataStorage: The SaveSlot does not exists yet. Please save again!", ColorHelper.Red));

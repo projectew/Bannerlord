@@ -5,7 +5,7 @@ using TaleWorlds.Core;
 
 namespace Revolutions.Components.Revolts.CampaignBehaviors
 {
-    public class LuckyNationBehaviour : CampaignBehaviorBase
+    internal class LuckyNationBehaviour : CampaignBehaviorBase
     {
         public override void RegisterEvents()
         {

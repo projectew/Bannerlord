@@ -6,11 +6,11 @@ using TaleWorlds.Library;
 
 namespace Revolutions.CampaignBehaviors
 {
-    public class RevolutionsBehavior : CampaignBehaviorBase
+    internal class RevolutionsBehavior : CampaignBehaviorBase
     {
         private readonly DataStorage DataStorage;
 
-        public RevolutionsBehavior(ref DataStorage dataStorage, CampaignGameStarter campaignGameStarter)
+        internal RevolutionsBehavior(ref DataStorage dataStorage, CampaignGameStarter campaignGameStarter)
         {
             this.DataStorage = dataStorage;
 
