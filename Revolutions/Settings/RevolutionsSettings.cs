@@ -123,31 +123,31 @@ namespace Revolutions.Settings
         public bool EnableCivilWars { get; set; } = true;
 
         [SettingPropertyGroup(groupName: SettingsHeaders.CivilWarsGeneral, order: 2, isMainToggle: false)]
-        [SettingPropertyInteger(displayName: "Positive Relationship Treshold", minValue: -100, maxValue: 100, Order = 1, HintText = "When relationship between the Lord and his King deteriorate above this threshold, he will stop willing to plot.", RequireRestart = false)]
-        public int CivilWarsPositiveRelationshipTreshold { get; set; } = 0;
+        [SettingPropertyInteger(displayName: "Positive Relationship Threshold", minValue: -100, maxValue: 100, Order = 1, HintText = "When relationship between the Lord and his King deteriorate above this threshold, he will stop willing to plot.", RequireRestart = false)]
+        public int CivilWarsPositiveRelationshipTreshold { get; set; } = -25;
 
         [SettingPropertyGroup(groupName: SettingsHeaders.CivilWarsGeneral, order: 2, isMainToggle: false)]
-        [SettingPropertyInteger(displayName: "Negative Relationship Treshold", minValue: -100, maxValue: 100, Order = 2, HintText = "When relationship between the Lord and his King deteriorate below this threshold, there is a chance he will start plotting to overthrow him.", RequireRestart = false)]
-        public int CivilWarsNegativeRelationshipTreshold { get; set; } = -25;
+        [SettingPropertyInteger(displayName: "Negative Relationship Threshold", minValue: -100, maxValue: 100, Order = 2, HintText = "When relationship between the Lord and his King deteriorate below this threshold, there is a chance he will start plotting to overthrow him.", RequireRestart = false)]
+        public int CivilWarsNegativeRelationshipTreshold { get; set; } = -50;
 
         [SettingPropertyGroup(groupName: SettingsHeaders.CivilWarsPlotting, order: 2, isMainToggle: false)]
         [SettingPropertyFloatingInteger(displayName: "Plotting Base Chance", minValue: 1f, maxValue: 100f, Order = 3, HintText = "Base chance to become a plotter before all other factors are taken into account.", RequireRestart = false)]
         public float CivilWarsPlottingBaseChance { get; set; } = 5f;
 
         [SettingPropertyGroup(groupName: SettingsHeaders.CivilWarsPlotting, order: 2, isMainToggle: false)]
-        [SettingPropertyFloatingInteger(displayName: "Plotting Friend Multiplier", minValue: 1f, maxValue: 25f, Order = 4, HintText = "Increases chance of becoming a Plotter based on whether a lord’s friends are also plotting.", RequireRestart = false)]
-        public float CivilWarsPlottingFriendMultiplier { get; set; } = 1.05f;
+        [SettingPropertyFloatingInteger(displayName: "Plotting Friend Multiplier", minValue: 1f, maxValue: 3f, Order = 4, HintText = "Increases chance of becoming a Plotter based on whether a lord’s friends are also plotting.", RequireRestart = false)]
+        public float CivilWarsPlottingFriendMultiplier { get; set; } = 1.5f;
 
         [SettingPropertyGroup(groupName: SettingsHeaders.CivilWarsPlotting, order: 2, isMainToggle: false)]
-        [SettingPropertyFloatingInteger(displayName: "Plotting Personality Multiplier", minValue: 1f, maxValue: 25f, Order = 5, HintText = "Increases chance of becoming a Plotter when the Lord and Vassal are dishonorable.", RequireRestart = false)]
+        [SettingPropertyFloatingInteger(displayName: "Plotting Personality Multiplier", minValue: 1f, maxValue: 3f, Order = 5, HintText = "Increases chance of becoming a Plotter when the Lord and Vassal are dishonorable.", RequireRestart = false)]
         public float CivilWarsPlottingPersonalityMultiplier { get; set; } = 1.15f;
 
         [SettingPropertyGroup(groupName: SettingsHeaders.CivilWarsWar, order: 2, isMainToggle: false)]
         [SettingPropertyFloatingInteger(displayName: "War Base Chance", minValue: 1f, maxValue: 100f, Order = 6, HintText = "Base chance for the Plot Leader to declare War on liege before all other factors are taken into account.", RequireRestart = false)]
-        public float CivilWarsWarBaseChance { get; set; } = 25f;
+        public float CivilWarsWarBaseChance { get; set; } = 15f;
 
         [SettingPropertyGroup(groupName: SettingsHeaders.CivilWarsWar, order: 2, isMainToggle: false)]
-        [SettingPropertyFloatingInteger(displayName: "War Personality Multiplier", minValue: 1f, maxValue: 25f, Order = 7, HintText = "Decreases chance of declaring a war when the Lord and Vassal are generosity and mercy.", RequireRestart = false)]
+        [SettingPropertyFloatingInteger(displayName: "War Personality Multiplier", minValue: 1f, maxValue: 3f, Order = 7, HintText = "Decreases chance of declaring a war when the Lord and Vassal are generosity and mercy.", RequireRestart = false)]
         public float CivilWarsWarPersonalityMultiplier { get; set; } = 1.15f;
 
         #endregion
