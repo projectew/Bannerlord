@@ -107,16 +107,24 @@ namespace Revolutions
 
         internal void SaveRevoltData()
         {
-            var directoryPath = Path.Combine(SubModule.BaseSavePath, this.GetSaveDirectory());
+            var saveDirectory = this.GetSaveDirectory();
+            if (string.IsNullOrEmpty(saveDirectory))
+            {
+                return;
+            }
 
-            FileHelper.Save(RevolutionsManagers.Revolt.Revolts, directoryPath, "Revolts");
+            FileHelper.Save(RevolutionsManagers.Revolt.Revolts, saveDirectory, "Revolts");
         }
 
         internal void SaveCivilWarData()
         {
-            var directoryPath = Path.Combine(SubModule.BaseSavePath, this.GetSaveDirectory());
+            var saveDirectory = this.GetSaveDirectory();
+            if (string.IsNullOrEmpty(saveDirectory))
+            {
+                return;
+            }
 
-            FileHelper.Save(RevolutionsManagers.CivilWar.CivilWars, directoryPath, "CivilWars");
+            FileHelper.Save(RevolutionsManagers.CivilWar.CivilWars, saveDirectory, "CivilWars");
         }
 
         private string GetSaveDirectory()
