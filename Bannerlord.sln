@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Revolutions_Civil_War_Magic.pdf = Revolutions_Civil_War_Magic.pdf
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalizationIdGenerator", "LocalizationIdGenerator\LocalizationIdGenerator.csproj", "{3903F792-CF66-4A00-BC65-B7966DDE12E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{BD535D95-FD82-4AE2-A1A7-B669D58FCE8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD535D95-FD82-4AE2-A1A7-B669D58FCE8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD535D95-FD82-4AE2-A1A7-B669D58FCE8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3903F792-CF66-4A00-BC65-B7966DDE12E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3903F792-CF66-4A00-BC65-B7966DDE12E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3903F792-CF66-4A00-BC65-B7966DDE12E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3903F792-CF66-4A00-BC65-B7966DDE12E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
