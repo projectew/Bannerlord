@@ -143,7 +143,7 @@ namespace Revolutions.Settings
 
         [SettingPropertyGroup(groupName: Groups.CivilWarsPlotting, order: 2, isMainToggle: false)]
         [SettingPropertyFloatingInteger(displayName: Names.CivilWarsPlottingBaseChance, minValue: 1f, maxValue: 100f, Order = 4, HintText = Descriptions.CivilWarsPlottingBaseChance, RequireRestart = false)]
-        public float CivilWarsPlottingBaseChance { get; set; } = 10f;
+        public float CivilWarsPlottingBaseChance { get; set; } = 5f;
 
         [SettingPropertyGroup(groupName: Groups.CivilWarsPlotting, order: 2, isMainToggle: false)]
         [SettingPropertyFloatingInteger(displayName: Names.CivilWarsPlottingFriendMultiplier, minValue: 1f, maxValue: 3f, Order = 5, HintText = Descriptions.CivilWarsPlottingFriendMultiplier, RequireRestart = false)]
@@ -159,7 +159,7 @@ namespace Revolutions.Settings
 
         [SettingPropertyGroup(groupName: Groups.CivilWarsWar, order: 2, isMainToggle: false)]
         [SettingPropertyFloatingInteger(displayName: Names.CivilWarsWarBaseChance, minValue: 1f, maxValue: 100f, Order = 6, HintText = Descriptions.CivilWarsWarBaseChance, RequireRestart = false)]
-        public float CivilWarsWarBaseChance { get; set; } = 5f;
+        public float CivilWarsWarBaseChance { get; set; } = 10f;
 
         [SettingPropertyGroup(groupName: Groups.CivilWarsWar, order: 2, isMainToggle: false)]
         [SettingPropertyFloatingInteger(displayName: Names.CivilWarsWarPersonalityMultiplier, minValue: 1f, maxValue: 3f, Order = 7, HintText = Descriptions.CivilWarsWarPersonalityMultiplier, RequireRestart = false)]
