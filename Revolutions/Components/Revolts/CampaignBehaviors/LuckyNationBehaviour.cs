@@ -31,6 +31,11 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
         private void SetLuckyNations()
         {
+            if(Managers.Kingdom.Infos.Count == 0)
+            {
+                return;
+            }
+
             if (!RevolutionsSettings.Instance.RevoltsLuckyNationMechanic)
             {
                 foreach (var info in Managers.Kingdom.Infos.Where(kingdomInfo => kingdomInfo.LuckyNation))
@@ -43,14 +48,11 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
             if (RevolutionsSettings.Instance.RevoltsLuckyNationRandom)
             {
-                if (!Managers.Kingdom.Infos.Any(i => i.LuckyNation) && Managers.Kingdom.Infos.Count > 0)
+                if (!Managers.Kingdom.Infos.Any(i => i.LuckyNation))
                 {
                     Managers.Kingdom.Infos.GetRandomElement().LuckyNation = true;
                 }
             }
-
-            var ks = Campaign.Current.Kingdoms;
-            var x = Managers.Kingdom.Infos.Where(w => w.Kingdom == null);
 
             if (RevolutionsSettings.Instance.RevoltsLuckyNationImperial)
             {

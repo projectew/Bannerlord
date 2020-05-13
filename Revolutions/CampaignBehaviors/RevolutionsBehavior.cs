@@ -21,7 +21,7 @@ namespace Revolutions.CampaignBehaviors
 
         public override void RegisterEvents()
         {
-            //CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.OnSessionLaunchedEvent));
+
         }
 
         public override void SyncData(IDataStore dataStore)
@@ -43,11 +43,6 @@ namespace Revolutions.CampaignBehaviors
                 InformationManager.DisplayMessage(new InformationMessage($"Revolutions.Base.Data: SyncData failed (IsLoading: {dataStore.IsLoading} | IsSaving: {dataStore.IsSaving})!", ColorHelper.Red));
                 InformationManager.DisplayMessage(new InformationMessage(exception.ToString(), ColorHelper.Red));
             }
-        }
-
-        private void OnSessionLaunchedEvent(CampaignGameStarter campaignGameStarter)
-        {
-            this.DataStorage.InitializeBaseData();
         }
     }
 }

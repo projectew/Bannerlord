@@ -29,7 +29,6 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
         {
             try
             {
-
                 if (dataStore.IsLoading)
                 {
                     this.DataStorage.LoadCivilWarData();

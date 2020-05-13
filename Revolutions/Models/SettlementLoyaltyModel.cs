@@ -80,6 +80,11 @@ namespace Revolutions.Models
             }
 
             var factionInfo = settlementInfo.CurrentFactionInfo;
+            if(factionInfo == null)
+            {
+                return;
+            }
+
             var overExtension = factionInfo.InitialTownsCount - factionInfo.CurrentTownsCount;
 
             explainedNumber.Add(overExtension * RevolutionsSettings.Instance.RevoltsOverextensionMultiplier, new TextObject("{=YnRmNltF}Overextension"));
@@ -89,7 +94,7 @@ namespace Revolutions.Models
         {
             if (settlementInfo.CurrentFaction.IsKingdomFaction)
             {
-                if (Managers.Kingdom.GetInfo(settlementInfo.Settlement.OwnerClan.Kingdom).LuckyNation)
+                if (Managers.Kingdom.GetInfo(settlementInfo.Settlement.OwnerClan.Kingdom)?.LuckyNation == true)
                 {
                     explainedNumber.Add(10, new TextObject("{=glCo42fD}Loyal Population)"));
                     return;
