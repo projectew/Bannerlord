@@ -30,15 +30,31 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
             var considerableClans = Campaign.Current.Clans.Where(c => !c.IsUnderMercenaryService && c.Kingdom != null && c.Leader.StringId != c.Kingdom.Leader.StringId);
             foreach (var kingdomWithClans in considerableClans.GroupBy(c => c.Kingdom.StringId, (key, clans) => new { KingdomId = key, Clans = clans.ToList() }))
             {
-                if (Managers.CivilWar.GetCivilWarByKingdomId(kingdomWithClans.KingdomId) != null)
+                var kingdomInfo = Managers.Kingdom.GetInfo(kingdomWithClans.KingdomId);
+
+                if (Managers.CivilWar.GetCivilWarByKingdomId(kingdomWithClans.KingdomId) != null || kingdomInfo.HasCivilWar)
                 {
+                    if(RevolutionsSettings.Instance.DebugMode)
+                    {
+                        InformationManager.DisplayMessage(new InformationMessage($"Revolutions.CivilWars: {kingdomInfo.Kingdom.Name} has already a running Civil War.", ColorHelper.Gray));
+                    }
+
                     continue;
                 }
 
-                var kingdomInfo = Managers.Kingdom.GetInfo(kingdomWithClans.KingdomId);
-                if (kingdomInfo.HasCivilWar || kingdomInfo.Kingdom.Clans.Count < 2)
+                if (kingdomInfo.Kingdom.Clans.Count < 2)
                 {
+                    if (RevolutionsSettings.Instance.DebugMode)
+                    {
+                        InformationManager.DisplayMessage(new InformationMessage($"Revolutions.CivilWars: {kingdomInfo.Kingdom.Name} has not enough clans.", ColorHelper.Gray));
+                    }
+
                     continue;
+                }
+
+                if (RevolutionsSettings.Instance.DebugMode)
+                {
+                    InformationManager.DisplayMessage(new InformationMessage($"Revolutions.CivilWars: {kingdomInfo.Kingdom.Name}", ColorHelper.Gray));
                 }
 
                 Hero clanLeader;
@@ -57,6 +73,11 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                     {
                         clanLeaderInfo.PlotState = PlotState.IsLoyal;
 
+                        if (RevolutionsSettings.Instance.DebugMode)
+                        {
+                            InformationManager.DisplayMessage(new InformationMessage($"Revolutions: {clanLeader.Name} ({clanLeader.Clan.Name}) is now loyal.", ColorHelper.Green));
+                        }
+
                         var clanLeaderPlottingFriends = kingdomWithClans.Clans.Select(go => go.Leader)
                                                                               .Where(go => go.IsFriend(clanLeader))
                                                                               .Select(go => Managers.Character.GetInfo(go.CharacterObject))
@@ -68,6 +89,11 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                             if (!this.WillPlotting(friend.Character.HeroObject))
                             {
                                 friend.PlotState = PlotState.IsLoyal;
+
+                                if (RevolutionsSettings.Instance.DebugMode)
+                                {
+                                    InformationManager.DisplayMessage(new InformationMessage($"Revolutions.CivilWars: Friend {friend.Character.Name} ({friend.Character.HeroObject.Clan.Name}) is now loyal.", ColorHelper.Gray));
+                                }
                             }
                         }
                     }
@@ -80,6 +106,18 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                     if (this.WillPlotting(clanLeader))
                     {
                         clanLeaderInfo.PlotState = PlotState.WillPlotting;
+
+                        if (RevolutionsSettings.Instance.DebugMode)
+                        {
+                            InformationManager.DisplayMessage(new InformationMessage($"Revolutions: {clanLeader.Name} ({clanLeader.Clan.Name}) will be plotting.", ColorHelper.Gray));
+                        }
+                    }
+                    else
+                    {
+                        if (RevolutionsSettings.Instance.DebugMode)
+                        {
+                            InformationManager.DisplayMessage(new InformationMessage($"Revolutions: {clanLeader.Name} ({clanLeader.Clan.Name}) will not be plotting.", ColorHelper.Gray));
+                        }
                     }
 
                     clanLeader = null;
@@ -101,6 +139,11 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                     }
 
                     clanLeaderInfo.PlotState = PlotState.IsPlotting;
+
+                    if (RevolutionsSettings.Instance.DebugMode)
+                    {
+                        InformationManager.DisplayMessage(new InformationMessage($"Revolutions.CivilWars: {clanLeader.Name} ({clanLeader.Clan.Name}) is plotting.", ColorHelper.Gray));
+                    }
 
                     clanLeader = null;
                     clanLeaderInfo = null;
@@ -130,6 +173,11 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                 if (plottingClans.Count == 0)
                 {
+                    if (RevolutionsSettings.Instance.DebugMode)
+                    {
+                        InformationManager.DisplayMessage(new InformationMessage($"Revolutions.CivilWars: There are no plotting clans.", ColorHelper.Gray));
+                    }
+
                     continue;
                 }
 
@@ -172,6 +220,12 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 var calculatingModifier = 1f + (plottingLeaderCalculating + 0f <= 0f ? 1f : plottingLeaderCalculating + 0f);
 
                 var warChance = RevolutionsSettings.Instance.CivilWarsWarBaseChance * personalityWeight * (troopWeight * valorModifier) * MathF.Pow(clanCountModifier, calculatingModifier);
+
+                if (RevolutionsSettings.Instance.DebugMode)
+                {
+                    InformationManager.DisplayMessage(new InformationMessage($"Revolutions.CivilWars: War Chance is {warChance}%.", ColorHelper.Gray));
+                }
+
                 if (warChance > new Random().Next(0, 100))
                 {
                     var settlementInfo = Managers.Settlement.GetInfo(plotLeadingClan.HomeSettlement);
@@ -269,6 +323,12 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
             var friendWeight = MathF.Pow(RevolutionsSettings.Instance.CivilWarsPlottingBaseChance, friendModifier);
 
             var plotChance = RevolutionsSettings.Instance.CivilWarsPlottingBaseChance * personalityWeight * friendWeight;
+
+            if (RevolutionsSettings.Instance.DebugMode)
+            {
+                InformationManager.DisplayMessage(new InformationMessage($"Revolutions.CivilWars: Plotting Chance is {plotChance}%.", ColorHelper.Gray));
+            }
+
             return plotChance > new Random().Next(0, 100);
         }
     }

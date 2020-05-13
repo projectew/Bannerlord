@@ -210,7 +210,7 @@ namespace Revolutions
 
         #region Revolts
 
-        [CommandLineFunctionality.CommandLineArgumentFunction("start_revolt", "revolts")]
+        [CommandLineFunctionality.CommandLineArgumentFunction("start", "revolts")]
         public static string StartRevolt(List<string> strings)
         {
             if (Campaign.Current == null)
@@ -220,7 +220,7 @@ namespace Revolutions
 
             if (strings.Count() < 1 || CampaignCheats.CheckHelp(strings))
             {
-                return "Format is \"revolts.start_Revolt [Settlement Name]\"";
+                return "Format is \"revolts.start [Settlement Name]\"";
             }
 
             var settlementName = strings.Aggregate((i, j) => i + " " + j);
@@ -244,7 +244,7 @@ namespace Revolutions
             return $"Started a Revolt in {settlement.Name}.";
         }
 
-        [CommandLineFunctionality.CommandLineArgumentFunction("end_revolt", "revolts")]
+        [CommandLineFunctionality.CommandLineArgumentFunction("end", "revolts")]
         public static string EndRevolt(List<string> strings)
         {
             if (Campaign.Current == null)
@@ -254,7 +254,7 @@ namespace Revolutions
 
             if (strings.Count() < 2 || !strings.Contains("-s") || !strings.Contains("-w") || CampaignCheats.CheckHelp(strings))
             {
-                return "Format is \"revolts.end_revolt -s [Settlement Name] -w [Win (true|false)]\"";
+                return "Format is \"revolts.end -s [Settlement Name] -w [Win (true|false)]\"";
             }
 
             var aggregatedString = strings.Aggregate((i, j) => i + " " + j);
@@ -312,7 +312,7 @@ namespace Revolutions
                 luckyNations.Add(info.Kingdom.Name.ToString());
             }
 
-            return $"Lucky Nations: {luckyNations.Aggregate((i, j) => i + ", " + j)}";
+            return $"{luckyNations.Aggregate((i, j) => i + Environment.NewLine + j)}";
         }
 
         #endregion
@@ -350,10 +350,10 @@ namespace Revolutions
                     continue;
                 }
 
-                clanLeaders.Add($"Name: {clanLeader.Character.Name} - PlottingState: {Enum.GetName(typeof(PlotState), clanLeader.PlotState)}");
+                clanLeaders.Add($"{clanLeader.Character.Name} | {Enum.GetName(typeof(PlotState), clanLeader.PlotState)}");
             }
 
-            return $"Lucky Nations: {clanLeaders.Aggregate((i, j) => i + Environment.NewLine + j)}";
+            return $"{clanLeaders.Aggregate((i, j) => i + Environment.NewLine + j)}";
         }
 
         #endregion
