@@ -2,6 +2,7 @@
 using Revolutions.Components.Base.Characters;
 using Revolutions.Settings;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
@@ -188,6 +189,37 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                     if (otherPlottingClans.Count() == 0)
                     {
                         InformationManager.DisplayMessage(new InformationMessage($"Seems like {plotLeadingClan.Leader.Name} of {plotLeadingClan.Name} will be on his own.", ColorHelper.Orange));
+                    }
+
+                    ChangeRelationAction.ApplyRelationChangeBetweenHeroes(plottingLeader, kingdomLeader, -(int)(RevolutionsSettings.Instance.CivilWarsRelationshipChange * (RevolutionsSettings.Instance.CivilWarsRelationshipChangeMultiplier * 2)), false);
+
+                    foreach (var clan1 in kingdomWithClans.Clans.Where(c1 => c1.StringId != plotLeadingClan.StringId))
+                    {
+                        var clanLeader1 = Managers.Character.GetInfo(clan1.Leader.CharacterObject);
+                        if (clanLeader1.PlotState == PlotState.IsLoyal)
+                        {
+                            ChangeRelationAction.ApplyRelationChangeBetweenHeroes(clan1.Leader, kingdomLeader, (int)(RevolutionsSettings.Instance.CivilWarsRelationshipChange * RevolutionsSettings.Instance.CivilWarsRelationshipChangeMultiplier), false);
+                            ChangeRelationAction.ApplyRelationChangeBetweenHeroes(clan1.Leader, plottingLeader, -(int)(RevolutionsSettings.Instance.CivilWarsRelationshipChange * RevolutionsSettings.Instance.CivilWarsRelationshipChangeMultiplier), false);
+                        }
+                        else if (clanLeader1.PlotState == PlotState.IsPlotting)
+                        {
+                            ChangeRelationAction.ApplyRelationChangeBetweenHeroes(clan1.Leader, plottingLeader, (int)(RevolutionsSettings.Instance.CivilWarsRelationshipChange * RevolutionsSettings.Instance.CivilWarsRelationshipChangeMultiplier), false);
+                            ChangeRelationAction.ApplyRelationChangeBetweenHeroes(clan1.Leader, kingdomLeader, -(int)(RevolutionsSettings.Instance.CivilWarsRelationshipChange * RevolutionsSettings.Instance.CivilWarsRelationshipChangeMultiplier), false);
+                        }
+
+                        foreach (var clan2 in kingdomWithClans.Clans.Where(c2 => c2.StringId != clan1.StringId && c2.StringId != plotLeadingClan.StringId))
+                        {
+                            var clanLeader2 = Managers.Character.GetInfo(clan2.Leader.CharacterObject);
+
+                            if (clanLeader1.PlotState == clanLeader2.PlotState)
+                            {
+                                ChangeRelationAction.ApplyRelationChangeBetweenHeroes(clan1.Leader, clan2.Leader, RevolutionsSettings.Instance.CivilWarsRelationshipChange, false);
+                            }
+                            else
+                            {
+                                ChangeRelationAction.ApplyRelationChangeBetweenHeroes(clan1.Leader, clan2.Leader, -RevolutionsSettings.Instance.CivilWarsRelationshipChange, false);
+                            }
+                        }
                     }
 
                     foreach (var plottingClan in otherPlottingClans)

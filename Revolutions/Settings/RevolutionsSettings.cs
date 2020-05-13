@@ -164,6 +164,14 @@ namespace Revolutions.Settings
         [SettingPropertyFloatingInteger(displayName: "War Personality Multiplier", minValue: 1f, maxValue: 3f, Order = 7, HintText = "Decreases chance of declaring a war when the Lord and Vassal are generosity and mercy.", RequireRestart = false)]
         public float CivilWarsWarPersonalityMultiplier { get; set; } = 1.15f;
 
+        [SettingPropertyGroup(groupName: SettingsHeaders.CivilWarsGeneral, order: 2, isMainToggle: false)]
+        [SettingPropertyInteger(displayName: "Relationship Change", minValue: 0, maxValue: 25, Order = 8, HintText = "TODO", RequireRestart = false)]
+        public int CivilWarsRelationshipChange { get; set; } = 10;
+
+        [SettingPropertyGroup(groupName: SettingsHeaders.CivilWarsGeneral, order: 2, isMainToggle: false)]
+        [SettingPropertyFloatingInteger(displayName: "Relationship Change Multiplier", minValue: 1f, maxValue: 3f, Order = 8, HintText = "TODO", RequireRestart = false)]
+        public float CivilWarsRelationshipChangeMultiplier { get; set; } = 1.5f;
+
         #endregion
 
         #endregion
