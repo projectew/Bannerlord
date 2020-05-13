@@ -1,6 +1,9 @@
-﻿using KNTLibrary.Helpers;
+﻿using Helpers;
+using KNTLibrary.Helpers;
 using System;
+using System.Linq;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Core;
 
 namespace Revolutions.Components.CivilWars.CampaignBehaviors
@@ -49,9 +52,43 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
         }
 
-        private void ClanChangedKingdom(Clan arg1, Kingdom arg2, Kingdom arg3, bool arg4, bool arg5)
+        private void ClanChangedKingdom(Clan clan, Kingdom oldKingdom, Kingdom newKingdom, bool byRebellion, bool showNotification)
         {
-            //throw new NotImplementedException();
+            var kingdomInfo = Managers.Kingdom.GetInfo(oldKingdom);
+            if(kingdomInfo == null || !kingdomInfo.IsCivilWarKingdom)
+            {
+                return;
+            }
+
+            var clans = oldKingdom.Clans.Where(go => !go.IsUnderMercenaryService && !go.IsClanTypeMercenary);
+            if(clans.Count() > 0)
+            {
+                return;
+            }
+
+            foreach (var currentClan in oldKingdom.Clans.ToList())
+            {
+                foreach (Kingdom kingdomAll in Kingdom.All)
+                {
+                    if (oldKingdom == kingdomAll || !kingdomAll.IsAtWarWith(oldKingdom))
+                    {
+                        FactionHelper.FinishAllRelatedHostileActionsOfFactionToFaction(currentClan, oldKingdom);
+                        FactionHelper.FinishAllRelatedHostileActionsOfFactionToFaction(oldKingdom, currentClan);
+                    }
+                }
+
+                foreach (Clan clanAll in Clan.All)
+                {
+                    if (clanAll != currentClan && clanAll.Kingdom == null && !oldKingdom.IsAtWarWith(clanAll))
+                    {
+                        FactionHelper.FinishAllRelatedHostileActions(currentClan, clanAll);
+                    }
+                }
+
+                clan.ClanLeaveKingdom(false);
+            }
+
+            Managers.Kingdom.RemoveAndDestroyKingdom(oldKingdom);
         }
     }
 }
