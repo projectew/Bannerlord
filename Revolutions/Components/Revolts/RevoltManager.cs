@@ -129,19 +129,8 @@ namespace Revolutions.Components.Revolts
 
             if (revolt.IsMinorFaction)
             {
-                var kingdom = revolt.Party.Owner.Clan.Kingdom;
-                var mapFaction = kingdom.MapFaction;
-                foreach (var faction in Campaign.Current.Factions.Where(go => go.IsAtWarWith(mapFaction)))
-                {
-                    if (kingdom.MapFaction.IsAtWarWith(faction))
-                    {
-                        FactionHelper.FinishAllRelatedHostileActionsOfFactionToFaction(faction, mapFaction);
-                        FactionHelper.FinishAllRelatedHostileActionsOfFactionToFaction(mapFaction, faction);
-                    }
-                }
-
+                Managers.Kingdom.DestroyKingdom(revolt.Party.Owner.Clan.Kingdom);
                 KillCharacterAction.ApplyByExecution(revolt.Party.Owner, revolt.Settlement.OwnerClan?.Kingdom.Leader ?? revolt.Settlement.OwnerClan.Leader);
-                Managers.Kingdom.RemoveAndDestroyKingdom(kingdom);
             }
 
             if (revolt.Party?.MobileParty != null)
@@ -240,7 +229,7 @@ namespace Revolutions.Components.Revolts
                 mobileParty.ChangePartyLeader(mobileParty.Party.Owner.CharacterObject, false);
             }
 
-            DeclareWarAction.Apply(settlement.MapFaction, leader.Clan.Kingdom);
+            DeclareWarAction.Apply(leader.Clan.Kingdom, settlement.MapFaction);
 
             mobileParty.Ai.SetDoNotMakeNewDecisions(true);
             SetPartyAiAction.GetActionForBesiegingSettlement(mobileParty, settlement);

@@ -87,8 +87,8 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
                 {
                     var noble = KNTLibrary.BaseManagers.Faction.GetLordWithLeastFiefs(revolt.SettlementInfo.LoyalFaction).HeroObject;
                     ChangeOwnerOfSettlementAction.ApplyBySiege(noble, noble, settlement);
-                    Managers.Kingdom.RemoveAndDestroyKingdom(capturedHero.Clan.Kingdom);
-                    Managers.Clan.RemoveAndDestroyClan(capturedHero.Clan);
+                    Managers.Kingdom.DestroyKingdom(capturedHero.Clan.Kingdom);
+                    Managers.Clan.DestroyClan(capturedHero.Clan);
                     capturedHero.PartyBelongedTo.RemoveParty();
                     RevoltManager.Instance.Revolts.Remove(revolt);
                 }
@@ -102,7 +102,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
                 foreach (var clan in kingdom.Clans)
                 {
                     Managers.Character.RemoveAndDestroyCharacter(clan.Leader.CharacterObject);
-                    Managers.Clan.RemoveAndDestroyClan(clan);
+                    Managers.Clan.DestroyClan(clan);
                 }
             }
 
@@ -119,7 +119,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
             if (clan.Kingdom.Clans.Where(go => go.StringId != clan.StringId).Count() == 0)
             {
-                Managers.Kingdom.RemoveAndDestroyKingdom(clan.Kingdom);
+                Managers.Kingdom.DestroyKingdom(clan.Kingdom);
             }
 
             Managers.Clan.RemoveClan(clan);

@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using Helpers;
 using KNTLibrary.Helpers;
 using System;
 using System.Collections.Generic;
@@ -171,13 +172,22 @@ namespace KNTLibrary.Components.Kingdoms
                 return null;
             });
 
+            foreach (var enemyFaction in Campaign.Current.Factions.Where(go => go.IsAtWarWith(kingdom)))
+            {
+                if (kingdom.IsAtWarWith(enemyFaction))
+                {
+                    FactionHelper.FinishAllRelatedHostileActionsOfFactionToFaction(enemyFaction, kingdom);
+                    FactionHelper.FinishAllRelatedHostileActionsOfFactionToFaction(kingdom, enemyFaction);
+                }
+            }
+
             this.RemoveInfo(kingdom.StringId);
         }
 
-        public void RemoveAndDestroyKingdom(Kingdom kingdom)
+        public void DestroyKingdom(Kingdom kingdom)
         {
-            this.RemoveKingdom(kingdom);
             DestroyKingdomAction.Apply(kingdom);
+            this.RemoveKingdom(kingdom);
         }
 
         public Kingdom CreateKingdom(Hero leader, TextObject name, TextObject informalName, Banner banner = null, bool showNotification = true)

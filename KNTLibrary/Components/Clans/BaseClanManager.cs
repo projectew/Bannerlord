@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using Helpers;
 using KNTLibrary.Helpers;
 using System;
 using System.Collections.Generic;
@@ -170,13 +171,22 @@ namespace KNTLibrary.Components.Clans
                 return null;
             });
 
+            foreach (var enemyFaction in Campaign.Current.Factions.Where(go => go.IsAtWarWith(clan)))
+            {
+                if (clan.IsAtWarWith(enemyFaction))
+                {
+                    FactionHelper.FinishAllRelatedHostileActionsOfFactionToFaction(enemyFaction, clan);
+                    FactionHelper.FinishAllRelatedHostileActionsOfFactionToFaction(clan, enemyFaction);
+                }
+            }
+
             this.RemoveInfo(clan.StringId);
         }
 
-        public void RemoveAndDestroyClan(Clan clan)
+        public void DestroyClan(Clan clan)
         {
-            this.RemoveClan(clan);
             DestroyClanAction.Apply(clan);
+            this.RemoveClan(clan);
         }
     }
 }

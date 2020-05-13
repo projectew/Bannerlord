@@ -230,14 +230,16 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                     if (RevolutionsSettings.Instance.CivilWarsKeepExistingWars)
                     {
-                        var existingEnemyKingdoms = FactionManager.GetEnemyKingdoms(kingdomInfo.Kingdom).ToList();
-                        foreach (var enemyKingdom in existingEnemyKingdoms)
+                        foreach (var enemyFaction in Campaign.Current.Factions.Where(go => go.IsAtWarWith(plotKingdom)))
                         {
-                            DeclareWarAction.Apply(plotKingdom, enemyKingdom);
+                            if (plotKingdom.IsAtWarWith(enemyFaction))
+                            {
+                                DeclareWarAction.Apply(plotKingdom, enemyFaction);
+                            }
                         }
                     }
 
-                    DeclareWarAction.Apply(kingdomInfo.Kingdom, plotKingdom);
+                    DeclareWarAction.Apply(plotKingdom, kingdomInfo.Kingdom);
 
                     Managers.CivilWar.CivilWars.Add(new CivilWar(kingdomInfo.Kingdom, kingdomWithClans.Clans));
                     kingdomInfo.HasCivilWar = true;

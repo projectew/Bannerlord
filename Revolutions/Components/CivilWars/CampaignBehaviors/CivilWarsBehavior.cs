@@ -73,27 +73,19 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
             foreach (var currentClan in oldKingdom.Clans.ToList())
             {
-                foreach (Kingdom kingdomAll in Kingdom.All)
+                foreach (var enemyFaction in Campaign.Current.Factions.Where(go => go.IsAtWarWith(currentClan)))
                 {
-                    if (oldKingdom == kingdomAll || !kingdomAll.IsAtWarWith(oldKingdom))
+                    if (clan.IsAtWarWith(enemyFaction))
                     {
-                        FactionHelper.FinishAllRelatedHostileActionsOfFactionToFaction(currentClan, oldKingdom);
-                        FactionHelper.FinishAllRelatedHostileActionsOfFactionToFaction(oldKingdom, currentClan);
-                    }
-                }
-
-                foreach (Clan clanAll in Clan.All)
-                {
-                    if (clanAll != currentClan && clanAll.Kingdom == null && !oldKingdom.IsAtWarWith(clanAll))
-                    {
-                        FactionHelper.FinishAllRelatedHostileActions(currentClan, clanAll);
+                        FactionHelper.FinishAllRelatedHostileActionsOfFactionToFaction(enemyFaction, currentClan);
+                        FactionHelper.FinishAllRelatedHostileActionsOfFactionToFaction(currentClan, enemyFaction);
                     }
                 }
 
                 clan.ClanLeaveKingdom(false);
             }
 
-            Managers.Kingdom.RemoveAndDestroyKingdom(oldKingdom);
+            Managers.Kingdom.DestroyKingdom(oldKingdom);
         }
     }
 }
