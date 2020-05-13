@@ -48,7 +48,7 @@ namespace KNTLibrary.Components.Kingdoms
 
         public InfoType GetInfo(Kingdom gameObject)
         {
-            var infos = this.Infos.Where(i => i.KingdomId == gameObject.StringId);
+            var infos = this.Infos.ToList().Where(i => i.KingdomId == gameObject.StringId);
             if (this.DebugMode && infos.Count() > 1)
             {
                 InformationManager.DisplayMessage(new InformationMessage("Revolutions: Multiple Kingdoms with same Id. Using first one.", ColorHelper.Orange));

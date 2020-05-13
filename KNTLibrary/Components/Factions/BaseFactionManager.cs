@@ -43,7 +43,7 @@ namespace KNTLibrary.Components.Factions
 
         public InfoType GetInfo(IFaction gameObject)
         {
-            var infos = this.Infos.Where(i => i.FactionId == gameObject.StringId);
+            var infos = this.Infos.ToList().Where(i => i.FactionId == gameObject.StringId);
             if (this.DebugMode && infos.Count() > 1)
             {
                 InformationManager.DisplayMessage(new InformationMessage("Revolutions: Multiple Factions with same Id. Using first one.", ColorHelper.Orange));

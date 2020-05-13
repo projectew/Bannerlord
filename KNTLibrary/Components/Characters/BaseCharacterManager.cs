@@ -47,7 +47,7 @@ namespace KNTLibrary.Components.Characters
 
         public InfoType GetInfo(CharacterObject gameObject)
         {
-            var infos = this.Infos.Where(i => i.CharacterId == gameObject.StringId);
+            var infos = this.Infos.ToList().Where(i => i.CharacterId == gameObject.StringId);
             if (this.DebugMode && infos.Count() > 1)
             {
                 InformationManager.DisplayMessage(new InformationMessage("Revolutions: Multiple Characters with same Id. Using first one.", ColorHelper.Orange));

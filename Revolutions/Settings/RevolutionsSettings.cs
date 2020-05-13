@@ -35,7 +35,7 @@ namespace Revolutions.Settings
         #region Revolts
 
         [SettingPropertyGroup(groupName: SettingsHeaders.Revolts, order: 1, isMainToggle: true)]
-        [SettingPropertyBool(displayName: "Revolts", Order = 0, HintText = "Enables/Disables Revolts.", RequireRestart = false)]
+        [SettingPropertyBool(displayName: "Revolts", Order = 0, HintText = "Enables/Disables Revolts.", RequireRestart = true)]
         public bool EnableRevolts { get; set; } = true;
 
         #region General
@@ -119,7 +119,7 @@ namespace Revolutions.Settings
         #region Civil Wars
 
         [SettingPropertyGroup(groupName: SettingsHeaders.CivilWars, order: 2, isMainToggle: true)]
-        [SettingPropertyBool(displayName: "Civil Wars", Order = 0, HintText = "Enables/Disables Civil Wars.", RequireRestart = false)]
+        [SettingPropertyBool(displayName: "Civil Wars", Order = 0, HintText = "Enables/Disables Civil Wars.", RequireRestart = true)]
         public bool EnableCivilWars { get; set; } = true;
 
         #region General

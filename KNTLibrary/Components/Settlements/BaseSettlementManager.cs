@@ -43,7 +43,7 @@ namespace KNTLibrary.Components.Settlements
 
         public InfoType GetInfo(Settlement gameObject)
         {
-            var infos = this.Infos.Where(i => i.SettlementId == gameObject.StringId);
+            var infos = this.Infos.ToList().Where(i => i.SettlementId == gameObject.StringId);
             if (this.DebugMode && infos.Count() > 1)
             {
                 InformationManager.DisplayMessage(new InformationMessage("Revolutions: Multiple Settlements with same Id. Using first one.", ColorHelper.Orange));

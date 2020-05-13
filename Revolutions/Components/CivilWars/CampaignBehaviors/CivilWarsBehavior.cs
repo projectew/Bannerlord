@@ -54,6 +54,11 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
         private void ClanChangedKingdom(Clan clan, Kingdom oldKingdom, Kingdom newKingdom, bool byRebellion, bool showNotification)
         {
+            if(oldKingdom == null)
+            {
+                return;
+            }
+
             var kingdomInfo = Managers.Kingdom.GetInfo(oldKingdom);
             if(kingdomInfo == null || !kingdomInfo.IsCivilWarKingdom)
             {

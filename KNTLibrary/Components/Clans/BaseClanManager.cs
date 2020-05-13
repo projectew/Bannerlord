@@ -48,7 +48,7 @@ namespace KNTLibrary.Components.Clans
 
         public InfoType GetInfo(Clan gameObject)
         {
-            var infos = this.Infos.Where(i => i.ClanId == gameObject.StringId);
+            var infos = this.Infos.ToList().Where(i => i.ClanId == gameObject.StringId);
             if (this.DebugMode && infos.Count() > 1)
             {
                 InformationManager.DisplayMessage(new InformationMessage("Revolutions: Multiple Clans with same Id. Using first one.", ColorHelper.Orange));

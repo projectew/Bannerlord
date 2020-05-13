@@ -49,6 +49,9 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
                 }
             }
 
+            var ks = Campaign.Current.Kingdoms;
+            var x = Managers.Kingdom.Infos.Where(w => w.Kingdom == null);
+
             if (RevolutionsSettings.Instance.RevoltsLuckyNationImperial)
             {
                 var imperialNations = Managers.Kingdom.Infos.Where(i => i.Kingdom.Culture.Name.ToString().ToLower().Contains("empire"));

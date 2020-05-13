@@ -2,6 +2,7 @@
 using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Factions;
 using Revolutions.Settings;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
@@ -140,7 +141,7 @@ namespace Revolutions.Components.Revolts
                 }
 
                 KillCharacterAction.ApplyByExecution(revolt.Party.Owner, revolt.Settlement.OwnerClan?.Kingdom.Leader ?? revolt.Settlement.OwnerClan.Leader);
-                Managers.Kingdom.RemoveKingdom(kingdom);
+                Managers.Kingdom.RemoveAndDestroyKingdom(kingdom);
             }
 
             if (revolt.Party?.MobileParty != null)
@@ -169,22 +170,15 @@ namespace Revolutions.Components.Revolts
                 ChangeOwnerOfSettlementAction.ApplyBySiege(revolt.Party.LeaderHero, revolt.Party.LeaderHero, revolt.Settlement);
                 revolt.Party.LeaderHero.Clan.AddRenown(RevolutionsSettings.Instance.RevoltsMinorFactionsRenownGainOnWin);
 
-                var companion = Managers.Character.CreateRandomLeader(revolt.Party.LeaderHero.Clan, revolt.SettlementInfo);
-                Managers.Character.GetInfo(companion.CharacterObject);
-
-                var companionClan = Managers.Clan.CreateClan(companion, companion.Name, companion.Name);
-                Managers.Clan.GetInfo(companionClan).IsRevoltClan = true;
-
-                var mobileParty = Managers.Party.CreateMobileParty(companion, revolt.Settlement.GatePosition, revolt.Settlement, true, true);
-                var amountOfEliteTroops = (RevolutionsSettings.Instance.RevoltsGeneralBaseArmy + (int)(revolt.Settlement.Prosperity * RevolutionsSettings.Instance.RevoltsGeneralArmyProsperityMulitplier)) / 2;
-                mobileParty.MemberRoster.Add(Managers.Party.GenerateEliteTroopRoster(mobileParty.LeaderHero, amountOfEliteTroops));
-
-                ChangeKingdomAction.ApplyByJoinToKingdom(companion.Clan, revolt.Party.LeaderHero.Clan.Kingdom, true);
+                var amountOfBasicTroops = (RevolutionsSettings.Instance.RevoltsGeneralBaseArmy + (int)(revolt.Settlement.Prosperity * RevolutionsSettings.Instance.RevoltsGeneralArmyProsperityMulitplier)) / 3;
+                var eliteUnits = new TroopRoster();
+                eliteUnits.AddToCounts(revolt.Party.Leader.Culture.RangedEliteMilitiaTroop, amountOfBasicTroops);
+                eliteUnits.AddToCounts(revolt.Party.Leader.Culture.MeleeEliteMilitiaTroop, amountOfBasicTroops * 2);
+                revolt.Party.MobileParty.MemberRoster.Add(eliteUnits);
 
                 revolt.Party.MobileParty.Ai.SetDoNotMakeNewDecisions(false);
-                mobileParty.Ai.SetDoNotMakeNewDecisions(false);
 
-                SetPartyAiAction.GetActionForPatrollingAroundSettlement(mobileParty, revolt.Settlement);
+                SetPartyAiAction.GetActionForPatrollingAroundSettlement(revolt.Party.MobileParty, revolt.Settlement);
 
                 this.Revolts.Remove(revolt);
             }
@@ -225,8 +219,11 @@ namespace Revolutions.Components.Revolts
 
             var mobileParty = Managers.Party.CreateMobileParty(leader, settlement.GatePosition, settlement, !atWarWithLoyalFaction, true);
 
-            var amountOfBasicTroops = RevolutionsSettings.Instance.RevoltsGeneralBaseArmy + (int)(settlement.Prosperity * RevolutionsSettings.Instance.RevoltsGeneralArmyProsperityMulitplier);
-            mobileParty.MemberRoster.Add(Managers.Party.GenerateBasicTroopRoster(leader, amountOfBasicTroops, withTier4: false));
+            var amountOfBasicTroops = (RevolutionsSettings.Instance.RevoltsGeneralBaseArmy + (int)(settlement.Prosperity * RevolutionsSettings.Instance.RevoltsGeneralArmyProsperityMulitplier)) / 3;
+            var basicUnits = new TroopRoster();
+            basicUnits.AddToCounts(leader.Culture.RangedMilitiaTroop, amountOfBasicTroops);
+            basicUnits.AddToCounts(leader.Culture.MeleeMilitiaTroop, amountOfBasicTroops * 2);
+            mobileParty.MemberRoster.Add(basicUnits);
 
             if (settlement.MilitaParty != null && settlement.MilitaParty.CurrentSettlement == settlement && settlement.MilitaParty.MapEvent == null)
             {
@@ -243,7 +240,7 @@ namespace Revolutions.Components.Revolts
                 mobileParty.ChangePartyLeader(mobileParty.Party.Owner.CharacterObject, false);
             }
 
-            DeclareWarAction.Apply(settlement.OwnerClan.Kingdom, leader.Clan.Kingdom);
+            DeclareWarAction.Apply(settlement.MapFaction, leader.Clan.Kingdom);
 
             mobileParty.Ai.SetDoNotMakeNewDecisions(true);
             SetPartyAiAction.GetActionForBesiegingSettlement(mobileParty, settlement);

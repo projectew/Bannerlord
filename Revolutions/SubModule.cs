@@ -47,8 +47,7 @@ namespace Revolutions
         {
             if (RevolutionsSettings.Instance.EnableRevolts || RevolutionsSettings.Instance.EnableCivilWars)
             {
-                campaignGameStarter.AddModel(new Models.SettlementLoyaltyModel());
-
+                this._dataStorage.InitializeBaseData();
                 campaignGameStarter.AddBehavior(new RevolutionsBehavior(ref this._dataStorage, campaignGameStarter));
             }
 
@@ -60,6 +59,11 @@ namespace Revolutions
             if (RevolutionsSettings.Instance.EnableCivilWars)
             {
                 campaignGameStarter.AddBehavior(new CivilWarsBehavior(ref this._dataStorage, campaignGameStarter));
+            }
+
+            if (RevolutionsSettings.Instance.EnableRevolts || RevolutionsSettings.Instance.EnableCivilWars)
+            {
+                campaignGameStarter.AddModel(new Models.SettlementLoyaltyModel());
             }
         }
     }
