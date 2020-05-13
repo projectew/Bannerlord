@@ -5,74 +5,113 @@
   </tags>
   <strings>
     <!-- Settings -->
-    <!-- Header -->
-    <string id="" text="General" />
-    <string id="" text="Imperial Loyalty" />
-    <string id="" text="Overextension" />
-    <string id="" text="Minor Factions" />
-    <!-- Settings General -->
-    <string id="" text="Revolt Cooldown" />
-    <string id="" text="The time before another revolt can arise in the same city." />
-    <string id="" text="Base Loyalty" />
-    <string id="" text="The base loyalty of cities to the player." />
-    <string id="" text="Loyalty Change" />
-    <string id="" text="Days until the city's loyalty to the new owner changes." />
-    <string id="" text="Loyalty Increase" />
-    <string id="" text="The amount by which loyalty increases when the owner is in town over night." />
-    <string id="" text="Minimum Obediance" />
-    <string id="" text="Minimal loyalty is required for the city's obedience to the owner." />
-    <string id="" text="Base Army Size" />
-    <string id="" text="The base size of the revolting army, which gets spawned." />
-    <string id="" text="Army Prosperity Multiplier" />
-    <string id="" text="This multiplier gets multiplied by the towns prosperity to add the amount to the base army size." />
+    <!-- Categories -->
+    <string id="CA1wmHiH" text="General" />
+    <string id="lPn18Ln6" text="Revolts" />
+    <string id="h3rLrMgo" text="Civil Wars" />
+    <string id="RblChrft" text="Miscellaneous" />
+    <!-- Groups -->
     <!-- Revolts -->
-    <!-- Revolts: General -->
-    <!-- Revolts: Imperial Loyalty -->
-    <!-- Revolts: Overextension -->
-    <!-- Revolts: Minor Factions -->
-    <!-- Revolts: Lucky Nation -->
+    <string id="Ii5uvnHE" text="Imperial Loyalty" />
+    <string id="DzPgQgHY" text="Overextension" />
+    <string id="L3FIrWzB" text="Minor Factions" />
+    <string id="FgE33u5N" text="Lucky Nation" />
     <!-- Civil Wars -->
-    <!-- Civil Wars: General -->
-    <string id="" text="Revolts" />
-    <string id="" text="Enables/Disables Revolts.." />
+    <string id="rKBq9sWY" text="Plotting" />
+    <string id="UMKZuaF7" text="War" />
+    <!-- Names -->
+    <!-- General -->
+    <string id="38qkSLV6" text="Base Loyalty" />
+    <string id="CXXaQ4dT" text="Loyalty Change" />
+    <string id="nfS1777S" text="Loyalty Increase" />
+    <string id="PctZXPPi" text="Minimum Obedience" />
+    <!-- Revolts -->
+    <!-- General -->
+    <string id="N1b4PO5d" text="Revolt Cooldown" />
+    <string id="Rkj5mite" text="Base Size" />
+    <string id="Hm4xvTm9" text="Prosperity Multiplier" />
     <!-- Imperial Loyalty -->
-    <string id="" text="Enables/Disables the mechanic for the empire loyalty." />
-    <string id="" text="Renown Loss" />
-    <string id="" text="The amount of renown a imperial faction will loose after a failed revolt." />
+    <string id="LkHZfc2k" text="Renown Loss" />
     <!-- Overextension -->
-    <string id="" text="Enables/Disables the mechanics for overextension." />
-    <string id="" text="Affects Player" />
-    <string id="" text="Does the overextension mechanism affect the player." />
-    <string id="" text="Multiplier" />
-    <string id="" text="A multiplier to calculate overextension. This affects the city's loyalty to the owner." />
+    <string id="MjnkKSFz" text="Affects Player" />
+    <string id="ixsZaAny" text="Multiplier" />
     <!-- Minor Factions -->
-    <string id="" text="Enables/Disables the mechanics for forming minor factions." />
-    <string id="" text="Renown Gain" />
-    <string id="" text="The amount of renown a minor faction will get after a successful revolt." />
-    <!-- Lucky Nations -->
-    <string id="" text="Lucky Nations" />
-    <string id="" text="Enables/Disables the mechanics for lucky nations." />
-    <string id="" text="Random Lucky Nation" />
-    <string id="" text="Enables/Disables a random lucky nation from all possible kingdoms." />
-    <string id="" text="Imperial Lucky Nation" />
-    <string id="" text="Guarantees an Imperial lucky nation." />
-    <string id="" text="Non-Imperial Lucky Nation" />
-    <string id="" text="Guarantees a Non-Imperial lucky nation." />
-    <string id="" text="Loyal population" />
+    <string id="vAyloRN9" text="Renown Gain" />
+    <!-- Lucky Nation -->
+    <string id="IHx6f80s" text="Random" />
+    <string id="yqVZOUHt" text="Imperial" />
+    <string id="PcDF5MgS" text="Non-Imperial" />
     <!-- Civil Wars -->
-    <string id="" text="Civil Wars" />
-    <string id="" text="Enables/Disables the mechanics for Civil Wars." />
-    <!-- Miscellaneous-->
-    <string id="" text="Miscellaneous" />
-    <string id="" text="Debug Mode" />
-    <string id="" text="Enables/Disables the output of detailed information." />
+    <!-- General -->
+    <string id="4QTdpuYM" text="Keep Existing Wars" />
+    <string id="BXvsAnGs" text="Positive Relationship Threshold" />
+    <string id="6L9ICPku" text="Negative Relationship Threshold" />
+    <!-- Plotting -->
+    <string id="pvutEJmX" text="Base Chance" />
+    <string id="cX5LL4IZ" text="Friend Multiplier" />
+    <string id="8XeLpbZc" text="Personality Multiplier" />
+    <!-- War -->
+    <string id="QMpl6Q8n" text="Base Chance" />
+    <string id="juoYox1E" text="Personality Multiplier" />
+    <string id="KusLlLhC" text="Relationship Change" />
+    <string id="xFnZ1fss" text="Relationship Change Multiplier" />
+    <!-- Miscellaneous -->
+    <!-- DebugMode -->
+    <string id="ypVY8KVV" text="Debug Mode" />
+    <!-- Descriptions -->
+    <!-- General -->
+    <string id="XLMyVNzj" text="The base loyalty of cities to the owner." />
+    <string id="rD2UgIHi" text="Days until the city's loyalty to the new owner changes." />
+    <string id="97WepaH0" text="The amount by which loyalty increases when the owner is in town." />
+    <string id="xxvyiZ31" text="Needed loyalty which is required for the city's obedience to the owner." />
+    <!-- Revolts -->
+    <string id="XgDjEUh5" text="Enables/Disables Revolts." />
+    <!-- General -->
+    <string id="6YaMmHjg" text="The time before another revolt can arise in the same faction." />
+    <string id="YPLgcVBr" text="The base size of the revolting army, which gets spawned." />
+    <string id="ErxSyXbf" text="This multiplier gets multiplied by the towns prosperity to add the amount to the base army size." />
+    <!-- Imperial Loyalty -->
+    <string id="eTxuxdut" text="Enables/Disables the mechanics for Imperial Loyalty." />
+    <string id="8Py6iVGm" text="The amount of renown a imperial clan will loose after a revolt against them had success." />
+    <!-- Overextension -->
+    <string id="aktFvWrc" text="Enables/Disables the mechanics for Overextension." />
+    <string id="bzcvlOkc" text="Does the mechanic affects the player as well." />
+    <string id="0tFsxz7g" text="A multiplier to calculate with." />
+    <!-- Minor Factions -->
+    <string id="viKJpnX7" text="Enables/Disables the mechanics for Minor Factions." />
+    <string id="oimmeOva" text="The amount of renown a minor faction will get after they successful revolted." />
+    <!-- Lucky Nation -->
+    <string id="xiDVtZlJ" text="Enables/Disables the Revolts mechanics for Lucky Nation." />
+    <string id="mLaEWxas" text="A random lucky nation from all possible kingdoms." />
+    <string id="V3bJdu4A" text="Guarantees an Imperial lucky nation." />
+    <string id="3gOiyj6Z" text="Guarantees a  Non-Imperial lucky nation." />
+    <!-- Civil Wars -->
+    <string id="AWgtsKpI" text="Enables/Disables Civil Wars." />
+    <!-- General -->
+    <string id="h0qu9eTf" text="Civil War factions inherit the wars of their origin kingdom." />
+    <string id="Z5BHX5SQ" text="When relationship between the Lord and his King deteriorate above this threshold, he will stop willing to plot." />
+    <string id="xbvpfSoO" text="When relationship between the Lord and his King deteriorate below this threshold, there is a chance he will start plotting to overthrow him." />
+    <!-- Plotting -->
+    <string id="WJnJ6OqO" text="Base chance to become a plotter before all other factors are taken into account." />
+    <string id="2engz0Rc" text="Increases chance of becoming a Plotter based on whether a lord’s friends are also plotting." />
+    <string id="B7f17Deb" text="Increases chance of becoming a Plotter when the Lord and Vassal are dishonorable." />
+    <!-- War -->
+    <string id="2niRfWx2" text="Base chance for the Plot Leader to declare War on liege before all other factors are taken into account." />
+    <string id="ZPSeEboV" text="Decreases chance of declaring a war when the Lord and Vassal are generosity and mercy." />
+    <string id="saF5Rr3J" text="The amount by which relations will change (positive and negative) between lords based upon the Civil War faction they choose to be a part of." />
+    <string id="1DRZeNBE" text="Multiplier for relations change between lords and faction leaders." />
+    <!-- Miscellaneous -->
+    <!-- DebugMode -->
+    <string id="O0WtFLpL" text="Enables/Disables the output of detailed information." />
 
+    <!-- Game Texts-->
+    <!-- Lucky Nation-->
+    <string id="" text="Loyal Population" />
     <!-- Loyalty Model -->
     <string id="" text="Seeing you spend time at {SETTLEMENT}, your subjects feel more loyal to you." />
     <string id="" text="{SETTLEMENT} is revolting!" />
     <string id="" text="Town Loyalty" />
     <string id="" text="Revoltary Mob" />
-
     <!-- Town Menu -->
     <string id="3fBkqk4u" text="The people of {SETTLEMENT} seem to be content." />
     <string id="dRoS0zTD" text="Flames of Revolt are slowly stirring in {SETTLEMENT}." />
@@ -84,15 +123,13 @@
     <string id="HWiDqN8d"	text="Some talk of raising banners of their homeland." />
     <string id="q2tbH41e" text="The people of this town had revolted recently and don't wish to spill blood again." />
     <string id="6m7Ss8fW" text="After hearing of blood spilled in {SETTLEMENT} citizens are afraid of revolting." />
-
     <!-- Loyalty State -->
     <string id="YnRmNltF" text="Overextension" />
     <string id="3fQwNP5z" text="Imperial Loyalty" />
     <string id="7LzQNP0z" text="Foreign Rule" />
     <string id="qNWmNN8d" text="Imperial Aversion" />
     <string id="q2tbqP0z" text="Bannerlord Settlement" />
-
-    <!-- Misc -->
+    <!-- GUI Buttons -->
     <string id="3fQwWiDZ" text="Done" />
   </strings>
 </base>

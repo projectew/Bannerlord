@@ -30,7 +30,7 @@ namespace Revolutions.Models
 
                 if (settlementInfo.CurrentFaction.Leader == Hero.MainHero)
                 {
-                    explainedNumber.Add(RevolutionsSettings.Instance.GeneralBasePlayerLoyalty, new TextObject("{=q2tbqP0z}Bannerlord Settlement"));
+                    explainedNumber.Add(RevolutionsSettings.Instance.GeneralBaseLoyalty, new TextObject("{=q2tbqP0z}Bannerlord Settlement"));
 
                     if (RevolutionsSettings.Instance.RevoltsOverextensionAffectsPlayer && RevolutionsSettings.Instance.RevoltsOverextensionMechanics)
                     {

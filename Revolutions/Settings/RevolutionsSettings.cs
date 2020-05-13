@@ -1,6 +1,7 @@
 ﻿using MBOptionScreen.Attributes;
 using MBOptionScreen.Attributes.v2;
 using MBOptionScreen.Settings;
+using Revolutions.Localization.Settings;
 
 namespace Revolutions.Settings
 {
@@ -14,102 +15,102 @@ namespace Revolutions.Settings
 
         #region General
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.General, order: 0, isMainToggle: false)]
-        [SettingPropertyFloatingInteger(displayName: "Base Player Loyalty", minValue: 0f, maxValue: 100f, Order = 0, HintText = "The base loyalty of cities to the player.", RequireRestart = false)]
-        public float GeneralBasePlayerLoyalty { get; set; } = 5.0f;
+        [SettingPropertyGroup(groupName: Categories.General, order: 0, isMainToggle: false)]
+        [SettingPropertyFloatingInteger(displayName: Names.GeneralBaseLoyalty, minValue: 0f, maxValue: 100f, Order = 0, HintText = Descriptions.GeneralBasePlayerLoyalty, RequireRestart = false)]
+        public float GeneralBaseLoyalty { get; set; } = 5.0f;
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.General, order: 0, isMainToggle: false)]
-        [SettingPropertyInteger(displayName: "Loyalty Change", minValue: 0, maxValue: 365, Order = 1, HintText = "Days until the city's loyalty to the new owner changes.", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Categories.General, order: 0, isMainToggle: false)]
+        [SettingPropertyInteger(displayName: Names.GeneralDaysUntilLoyaltyChange, minValue: 0, maxValue: 365, Order = 1, HintText = Descriptions.GeneralDaysUntilLoyaltyChange, RequireRestart = false)]
         public int GeneralDaysUntilLoyaltyChange { get; set; } = 90;
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.General, order: 0, isMainToggle: false)]
-        [SettingPropertyInteger(displayName: "Loyalty Increase", minValue: 0, maxValue: 100, Order = 2, HintText = "The amount by which loyalty increases when the owner is in town.", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Categories.General, order: 0, isMainToggle: false)]
+        [SettingPropertyInteger(displayName: Names.GeneralPlayerInTownLoyaltyIncrease, minValue: 0, maxValue: 100, Order = 2, HintText = Descriptions.GeneralPlayerInTownLoyaltyIncrease, RequireRestart = false)]
         public int GeneralPlayerInTownLoyaltyIncrease { get; set; } = 5;
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.General, order: 0, isMainToggle: false)]
-        [SettingPropertyInteger(displayName: "Minimum Obedience", minValue: 0, maxValue: 250, Order = 3, HintText = "Minimal loyalty is required for the city's obedience to the owner.", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Categories.General, order: 0, isMainToggle: false)]
+        [SettingPropertyInteger(displayName: Names.GeneralMinimumObedienceLoyalty, minValue: 0, maxValue: 250, Order = 3, HintText = Descriptions.GeneralMinimumObedienceLoyalty, RequireRestart = false)]
         public int GeneralMinimumObedienceLoyalty { get; set; } = 25;
 
         #endregion
 
         #region Revolts
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.Revolts, order: 1, isMainToggle: true)]
-        [SettingPropertyBool(displayName: "Revolts", Order = 0, HintText = "Enables/Disables Revolts.", RequireRestart = true)]
+        [SettingPropertyGroup(groupName: Categories.Revolts, order: 1, isMainToggle: true)]
+        [SettingPropertyBool(displayName: Categories.Revolts, Order = 0, HintText = Descriptions.EnableRevolts, RequireRestart = true)]
         public bool EnableRevolts { get; set; } = true;
 
         #region General
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.RevoltsGeneral, order: 1, isMainToggle: false)]
-        [SettingPropertyFloatingInteger(displayName: "Revolt Cooldown", minValue: 0f, maxValue: 250f, Order = 1, HintText = "The time before another revolt can arise in the same faction.", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Groups.RevoltsGeneral, order: 1, isMainToggle: false)]
+        [SettingPropertyFloatingInteger(displayName: Names.RevoltsGeneralCooldownTime, minValue: 0f, maxValue: 250f, Order = 1, HintText = Descriptions.RevoltsGeneralCooldownTime, RequireRestart = false)]
         public float RevoltsGeneralCooldownTime { get; set; } = 30.0f;
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.RevoltsGeneral, order: 1, isMainToggle: false)]
-        [SettingPropertyInteger(displayName: "Base Army", minValue: 0, maxValue: 1000, Order = 2, HintText = "The base size of the revolting army, which gets spawned.", RequireRestart = false)]
-        public int RevoltsGeneralBaseArmy { get; set; } = 100;
+        [SettingPropertyGroup(groupName: Groups.RevoltsGeneral, order: 1, isMainToggle: false)]
+        [SettingPropertyInteger(displayName: Names.RevoltsGeneralBaseSize, minValue: 0, maxValue: 1000, Order = 2, HintText = Descriptions.RevoltsGeneralBaseSize, RequireRestart = false)]
+        public int RevoltsGeneralBaseSize { get; set; } = 100;
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.RevoltsGeneral, order: 1, isMainToggle: false)]
-        [SettingPropertyFloatingInteger(displayName: "Army Prosperity Multiplier", minValue: 0f, maxValue: 100f, Order = 3, HintText = "This multiplier gets multiplied by the towns prosperity to add the amount to the base army size.", RequireRestart = false)]
-        public float RevoltsGeneralArmyProsperityMulitplier { get; set; } = 0.1f;
+        [SettingPropertyGroup(groupName: Groups.RevoltsGeneral, order: 1, isMainToggle: false)]
+        [SettingPropertyFloatingInteger(displayName: Names.RevoltsGeneralProsperityMulitplier, minValue: 0f, maxValue: 100f, Order = 3, HintText = Descriptions.RevoltsGeneralProsperityMulitplier, RequireRestart = false)]
+        public float RevoltsGeneralProsperityMulitplier { get; set; } = 0.1f;
 
         #endregion
 
         #region Imperial Loyalty
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.RevoltsImperialLoyalty, order: 1, isMainToggle: true)]
-        [SettingPropertyBool(displayName: "Imperial Loyalty", Order = 4, HintText = "Enables/Disables the mechanic for Imperial Loyalty.", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Groups.RevoltsImperialLoyalty, order: 1, isMainToggle: true)]
+        [SettingPropertyBool(displayName: Groups.RevoltsImperialLoyalty, Order = 4, HintText = Descriptions.RevoltsImperialLoyaltyMechanic, RequireRestart = false)]
         public bool RevoltsImperialLoyaltyMechanic { get; set; } = true;
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.RevoltsImperialLoyalty, order: 1, isMainToggle: false)]
-        [SettingPropertyInteger(displayName: "Renown Loss", minValue: 0, maxValue: 1000, Order = 5, HintText = "The amount of renown a imperial clan will loose after a revolt against them had success.", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Groups.RevoltsImperialLoyalty, order: 1, isMainToggle: false)]
+        [SettingPropertyInteger(displayName: Names.RevoltsImperialRenownLoss, minValue: 0, maxValue: 1000, Order = 5, HintText = Descriptions.RevoltsImperialRenownLoss, RequireRestart = false)]
         public int RevoltsImperialRenownLoss { get; set; } = 50;
 
         #endregion
 
         #region Overextension
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.RevoltsOverextension, order: 1, isMainToggle: true)]
-        [SettingPropertyBool(displayName: "Overextension", Order = 6, HintText = "Enables/Disables the mechanics for Overextension.", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Groups.RevoltsOverextension, order: 1, isMainToggle: true)]
+        [SettingPropertyBool(displayName: Groups.RevoltsOverextension, Order = 6, HintText = Descriptions.RevoltsOverextensionMechanics, RequireRestart = false)]
         public bool RevoltsOverextensionMechanics { get; set; } = true;
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.RevoltsOverextension, order: 1, isMainToggle: false)]
-        [SettingPropertyBool(displayName: "Affects Player", Order = 7, HintText = "Does the mechanic affects the player as well.", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Groups.RevoltsOverextension, order: 1, isMainToggle: false)]
+        [SettingPropertyBool(displayName: Names.RevoltsOverextensionAffectsPlayer, Order = 7, HintText = Descriptions.RevoltsOverextensionAffectsPlayer, RequireRestart = false)]
         public bool RevoltsOverextensionAffectsPlayer { get; set; } = true;
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.RevoltsOverextension, order: 1, isMainToggle: false)]
-        [SettingPropertyFloatingInteger(displayName: "Multiplier", minValue: 0f, maxValue: 10f, Order = 8, HintText = "A multiplier to calculate with.", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Groups.RevoltsOverextension, order: 1, isMainToggle: false)]
+        [SettingPropertyFloatingInteger(displayName: Names.RevoltsOverextensionMultiplier, minValue: 0f, maxValue: 10f, Order = 8, HintText = Descriptions.RevoltsOverextensionMultiplier, RequireRestart = false)]
         public float RevoltsOverextensionMultiplier { get; set; } = 2.0f;
 
         #endregion
 
         #region Minor Factions
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.RevoltsMinorFactions, order: 1, isMainToggle: true)]
-        [SettingPropertyBool(displayName: "Minor Factions", Order = 9, HintText = "Enables/Disables the mechanics Minor Factions.", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Groups.RevoltsMinorFactions, order: 1, isMainToggle: true)]
+        [SettingPropertyBool(displayName: Groups.RevoltsMinorFactions, Order = 9, HintText = Descriptions.RevoltsMinorFactionsMechanic, RequireRestart = false)]
         public bool RevoltsMinorFactionsMechanic { get; set; } = true;
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.RevoltsMinorFactions, order: 1, isMainToggle: false)]
-        [SettingPropertyInteger(displayName: "Renown Gain", minValue: 0, maxValue: 1000, Order = 10, HintText = "The amount of renown a minor faction will get after they successful revolted.", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Groups.RevoltsMinorFactions, order: 1, isMainToggle: false)]
+        [SettingPropertyInteger(displayName: Names.RevoltsMinorFactionsRenownGainOnWin, minValue: 0, maxValue: 1000, Order = 10, HintText = Descriptions.RevoltsMinorFactionsRenownGainOnWin, RequireRestart = false)]
         public int RevoltsMinorFactionsRenownGainOnWin { get; set; } = 350;
 
         #endregion
 
         #region Lucky Nation
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.RevoltsLuckyNation, order: 1, isMainToggle: true)]
-        [SettingPropertyBool(displayName: "Lucky Nation", Order = 11, HintText = "Enables/Disables the Revolts mechanics for lucky nation.", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Groups.RevoltsLuckyNation, order: 1, isMainToggle: true)]
+        [SettingPropertyBool(displayName: Groups.RevoltsLuckyNation, Order = 11, HintText = Descriptions.RevoltsLuckyNationMechanic, RequireRestart = false)]
         public bool RevoltsLuckyNationMechanic { get; set; } = true;
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.RevoltsLuckyNation, order: 1)]
-        [SettingPropertyBool(displayName: "Random", Order = 12, HintText = "A random lucky nation from all possible kingdoms.", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Groups.RevoltsLuckyNation, order: 1)]
+        [SettingPropertyBool(displayName: Names.RevoltsLuckyNationRandom, Order = 12, HintText = Descriptions.RevoltsLuckyNationRandom, RequireRestart = false)]
         public bool RevoltsLuckyNationRandom { get; set; } = true;
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.RevoltsLuckyNation, order: 1, isMainToggle: false)]
-        [SettingPropertyBool(displayName: "Imperial", Order = 13, HintText = "Guarantees an Imperial lucky nation.", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Groups.RevoltsLuckyNation, order: 1, isMainToggle: false)]
+        [SettingPropertyBool(displayName: Names.RevoltsLuckyNationImperial, Order = 13, HintText = Descriptions.RevoltsLuckyNationImperial, RequireRestart = false)]
         public bool RevoltsLuckyNationImperial { get; set; } = true;
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.RevoltsLuckyNation, order: 1, isMainToggle: false)]
-        [SettingPropertyBool(displayName: "Non-Imperial", Order = 14, HintText = "Guarantees a  Non-Imperial lucky nation.", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Groups.RevoltsLuckyNation, order: 1, isMainToggle: false)]
+        [SettingPropertyBool(displayName: Names.RevoltsLuckyNationNonImperial, Order = 14, HintText = Descriptions.RevoltsLuckyNationNonImperial, RequireRestart = false)]
         public bool RevoltsLuckyNationNonImperial { get; set; } = true;
 
         #endregion
@@ -118,58 +119,58 @@ namespace Revolutions.Settings
 
         #region Civil Wars
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.CivilWars, order: 2, isMainToggle: true)]
-        [SettingPropertyBool(displayName: "Civil Wars", Order = 0, HintText = "Enables/Disables Civil Wars.", RequireRestart = true)]
+        [SettingPropertyGroup(groupName: Categories.CivilWars, order: 2, isMainToggle: true)]
+        [SettingPropertyBool(displayName: Categories.CivilWars, Order = 0, HintText = Descriptions.EnableCivilWars, RequireRestart = true)]
         public bool EnableCivilWars { get; set; } = true;
 
         #region General
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.CivilWarsGeneral, order: 2, isMainToggle: false)]
-        [SettingPropertyBool(displayName: "Keep Existing Wars", Order = 1, HintText = "When relationship between the Lord and his King deteriorate above this threshold, he will stop willing to plot.", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Groups.CivilWarsGeneral, order: 2, isMainToggle: false)]
+        [SettingPropertyBool(displayName: Names.CivilWarsKeepExistingWars, Order = 1, HintText = Descriptions.CivilWarsKeepExistingWars, RequireRestart = false)]
         public bool CivilWarsKeepExistingWars { get; set; } = true;
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.CivilWarsGeneral, order: 2, isMainToggle: false)]
-        [SettingPropertyInteger(displayName: "Positive Relationship Threshold", minValue: -100, maxValue: 100, Order = 2, HintText = "When relationship between the Lord and his King deteriorate above this threshold, he will stop willing to plot.", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Groups.CivilWarsGeneral, order: 2, isMainToggle: false)]
+        [SettingPropertyInteger(displayName: Names.CivilWarsPositiveRelationshipTreshold, minValue: -100, maxValue: 100, Order = 2, HintText = Descriptions.CivilWarsPositiveRelationshipTreshold, RequireRestart = false)]
         public int CivilWarsPositiveRelationshipTreshold { get; set; } = 10;
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.CivilWarsGeneral, order: 2, isMainToggle: false)]
-        [SettingPropertyInteger(displayName: "Negative Relationship Threshold", minValue: -100, maxValue: 100, Order = 3, HintText = "When relationship between the Lord and his King deteriorate below this threshold, there is a chance he will start plotting to overthrow him.", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Groups.CivilWarsGeneral, order: 2, isMainToggle: false)]
+        [SettingPropertyInteger(displayName: Names.CivilWarsNegativeRelationshipTreshold, minValue: -100, maxValue: 100, Order = 3, HintText = Descriptions.CivilWarsNegativeRelationshipTreshold, RequireRestart = false)]
         public int CivilWarsNegativeRelationshipTreshold { get; set; } = -10;
 
         #endregion
 
         #region Plotting
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.CivilWarsPlotting, order: 2, isMainToggle: false)]
-        [SettingPropertyFloatingInteger(displayName: "Plotting Base Chance", minValue: 1f, maxValue: 100f, Order = 4, HintText = "Base chance to become a plotter before all other factors are taken into account.", RequireRestart = false)]
-        public float CivilWarsPlottingBaseChance { get; set; } = 2f;
+        [SettingPropertyGroup(groupName: Groups.CivilWarsPlotting, order: 2, isMainToggle: false)]
+        [SettingPropertyFloatingInteger(displayName: Names.CivilWarsPlottingBaseChance, minValue: 1f, maxValue: 100f, Order = 4, HintText = Descriptions.CivilWarsPlottingBaseChance, RequireRestart = false)]
+        public float CivilWarsPlottingBaseChance { get; set; } = 10f;
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.CivilWarsPlotting, order: 2, isMainToggle: false)]
-        [SettingPropertyFloatingInteger(displayName: "Plotting Friend Multiplier", minValue: 1f, maxValue: 3f, Order = 5, HintText = "Increases chance of becoming a Plotter based on whether a lord’s friends are also plotting.", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Groups.CivilWarsPlotting, order: 2, isMainToggle: false)]
+        [SettingPropertyFloatingInteger(displayName: Names.CivilWarsPlottingFriendMultiplier, minValue: 1f, maxValue: 3f, Order = 5, HintText = Descriptions.CivilWarsPlottingFriendMultiplier, RequireRestart = false)]
         public float CivilWarsPlottingFriendMultiplier { get; set; } = 2f;
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.CivilWarsPlotting, order: 2, isMainToggle: false)]
-        [SettingPropertyFloatingInteger(displayName: "Plotting Personality Multiplier", minValue: 1f, maxValue: 3f, Order = 6, HintText = "Increases chance of becoming a Plotter when the Lord and Vassal are dishonorable.", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Groups.CivilWarsPlotting, order: 2, isMainToggle: false)]
+        [SettingPropertyFloatingInteger(displayName: Names.CivilWarsPlottingPersonalityMultiplier, minValue: 1f, maxValue: 3f, Order = 6, HintText = Descriptions.CivilWarsPlottingPersonalityMultiplier, RequireRestart = false)]
         public float CivilWarsPlottingPersonalityMultiplier { get; set; } = 1.15f;
 
         #endregion
 
         #region War
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.CivilWarsWar, order: 2, isMainToggle: false)]
-        [SettingPropertyFloatingInteger(displayName: "War Base Chance", minValue: 1f, maxValue: 100f, Order = 6, HintText = "Base chance for the Plot Leader to declare War on liege before all other factors are taken into account.", RequireRestart = false)]
-        public float CivilWarsWarBaseChance { get; set; } = 2.5f;
+        [SettingPropertyGroup(groupName: Groups.CivilWarsWar, order: 2, isMainToggle: false)]
+        [SettingPropertyFloatingInteger(displayName: Names.CivilWarsWarBaseChance, minValue: 1f, maxValue: 100f, Order = 6, HintText = Descriptions.CivilWarsWarBaseChance, RequireRestart = false)]
+        public float CivilWarsWarBaseChance { get; set; } = 5f;
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.CivilWarsWar, order: 2, isMainToggle: false)]
-        [SettingPropertyFloatingInteger(displayName: "War Personality Multiplier", minValue: 1f, maxValue: 3f, Order = 7, HintText = "Decreases chance of declaring a war when the Lord and Vassal are generosity and mercy.", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Groups.CivilWarsWar, order: 2, isMainToggle: false)]
+        [SettingPropertyFloatingInteger(displayName: Names.CivilWarsWarPersonalityMultiplier, minValue: 1f, maxValue: 3f, Order = 7, HintText = Descriptions.CivilWarsWarPersonalityMultiplier, RequireRestart = false)]
         public float CivilWarsWarPersonalityMultiplier { get; set; } = 1.15f;
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.CivilWarsGeneral, order: 2, isMainToggle: false)]
-        [SettingPropertyInteger(displayName: "Relationship Change", minValue: 0, maxValue: 25, Order = 8, HintText = "TODO", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Groups.CivilWarsGeneral, order: 2, isMainToggle: false)]
+        [SettingPropertyInteger(displayName: Names.CivilWarsRelationshipChange, minValue: 0, maxValue: 25, Order = 8, HintText = Descriptions.CivilWarsRelationshipChange, RequireRestart = false)]
         public int CivilWarsRelationshipChange { get; set; } = 10;
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.CivilWarsGeneral, order: 2, isMainToggle: false)]
-        [SettingPropertyFloatingInteger(displayName: "Relationship Change Multiplier", minValue: 1f, maxValue: 3f, Order = 8, HintText = "TODO", RequireRestart = false)]
+        [SettingPropertyGroup(groupName: Groups.CivilWarsGeneral, order: 2, isMainToggle: false)]
+        [SettingPropertyFloatingInteger(displayName: Names.CivilWarsRelationshipChangeMultiplier, minValue: 1f, maxValue: 3f, Order = 8, HintText = Descriptions.CivilWarsRelationshipChangeMultiplier, RequireRestart = false)]
         public float CivilWarsRelationshipChangeMultiplier { get; set; } = 1.5f;
 
         #endregion
@@ -178,8 +179,8 @@ namespace Revolutions.Settings
 
         #region Miscellaneous
 
-        [SettingPropertyGroup(groupName: SettingsHeaders.Miscellaneous, order: 99, isMainToggle: false)]
-        [SettingPropertyBool(displayName: "Debug Mode", Order = 0, HintText = "Enables/Disables the output of detailed information.", RequireRestart = true)]
+        [SettingPropertyGroup(groupName: Categories.Miscellaneous, order: 99, isMainToggle: false)]
+        [SettingPropertyBool(displayName: Names.DebugMode, Order = 0, HintText = Descriptions.DebugMode, RequireRestart = true)]
         public bool DebugMode { get; set; } = false;
 
         #endregion

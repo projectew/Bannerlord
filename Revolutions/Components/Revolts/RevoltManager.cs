@@ -159,7 +159,7 @@ namespace Revolutions.Components.Revolts
                 ChangeOwnerOfSettlementAction.ApplyBySiege(revolt.Party.LeaderHero, revolt.Party.LeaderHero, revolt.Settlement);
                 revolt.Party.LeaderHero.Clan.AddRenown(RevolutionsSettings.Instance.RevoltsMinorFactionsRenownGainOnWin);
 
-                var amountOfBasicTroops = (RevolutionsSettings.Instance.RevoltsGeneralBaseArmy + (int)(revolt.Settlement.Prosperity * RevolutionsSettings.Instance.RevoltsGeneralArmyProsperityMulitplier)) / 3;
+                var amountOfBasicTroops = (RevolutionsSettings.Instance.RevoltsGeneralBaseSize + (int)(revolt.Settlement.Prosperity * RevolutionsSettings.Instance.RevoltsGeneralProsperityMulitplier)) / 3;
                 var eliteUnits = new TroopRoster();
                 eliteUnits.AddToCounts(revolt.Party.Leader.Culture.RangedEliteMilitiaTroop, amountOfBasicTroops);
                 eliteUnits.AddToCounts(revolt.Party.Leader.Culture.MeleeEliteMilitiaTroop, amountOfBasicTroops * 2);
@@ -208,7 +208,7 @@ namespace Revolutions.Components.Revolts
 
             var mobileParty = Managers.Party.CreateMobileParty(leader, settlement.GatePosition, settlement, !atWarWithLoyalFaction, true);
 
-            var amountOfBasicTroops = (RevolutionsSettings.Instance.RevoltsGeneralBaseArmy + (int)(settlement.Prosperity * RevolutionsSettings.Instance.RevoltsGeneralArmyProsperityMulitplier)) / 3;
+            var amountOfBasicTroops = (RevolutionsSettings.Instance.RevoltsGeneralBaseSize + (int)(settlement.Prosperity * RevolutionsSettings.Instance.RevoltsGeneralProsperityMulitplier)) / 3;
             var basicUnits = new TroopRoster();
             basicUnits.AddToCounts(leader.Culture.RangedMilitiaTroop, amountOfBasicTroops);
             basicUnits.AddToCounts(leader.Culture.MeleeMilitiaTroop, amountOfBasicTroops * 2);
