@@ -232,7 +232,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                 if (warChance > new Random().Next(0, 100))
                 {
-                    InformationManager.AddSystemNotification("A Civil War started in {kingdomInfo.Kingdom.Name}! It's lead by the mighty {plotLeadingClan.Leader.Name} of {plotLeadingClan.Name}.");
+                    InformationManager.AddSystemNotification($"A Civil War started in {kingdomInfo.Kingdom.Name}! It's lead by the mighty {plotLeadingClan.Leader.Name} of {plotLeadingClan.Name}.");
 
                     Managers.Character.GetInfo(plottingLeader.CharacterObject).IsCivilWarKingdomLeader = true;
 

@@ -174,6 +174,7 @@ namespace Revolutions.Components.Revolts
             try
             {
                 InformationManager.AddNotice(new SettlementRebellionMapNotification(settlement, information));
+                InformationManager.AddSystemNotification(information.ToString());
             }
             catch (Exception)
             {
@@ -210,6 +211,7 @@ namespace Revolutions.Components.Revolts
             }
 
             var mobileParty = Managers.Party.CreateMobileParty(leader, settlement.GatePosition, settlement, !atWarWithLoyalFaction, true);
+            mobileParty.Party.Visuals.SetMapIconAsDirty();
 
             var amountOfTroops = (RevolutionsSettings.Instance.RevoltsGeneralBaseSize + (int)(settlement.Prosperity * RevolutionsSettings.Instance.RevoltsGeneralProsperityMulitplier)) / 3;
             var basicUnits = new TroopRoster();
