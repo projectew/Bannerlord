@@ -27,7 +27,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
         private void DailyTickEvent()
         {
-            var considerableClans = Campaign.Current.Clans.Where(c => !c.IsUnderMercenaryService && c.Kingdom != null && c.Leader.StringId != c.Kingdom.Leader.StringId);
+            var considerableClans = Campaign.Current.Clans.Where(c => c.IsMapFaction && c.Leader.StringId != c.Kingdom.Leader.StringId && !c.IsBanditFaction && !c.IsClanTypeMercenary && !c.IsEliminated && !c.IsMafia && !c.IsMinorFaction && !c.IsNomad && !c.IsOutlaw && !c.IsRebelFaction && !c.IsSect && !c.IsUnderMercenaryService);
             foreach (var kingdomWithClans in considerableClans.GroupBy(c => c.Kingdom.StringId, (key, clans) => new { KingdomId = key, Clans = clans.ToList() }))
             {
                 var kingdomInfo = Managers.Kingdom.GetInfo(kingdomWithClans.KingdomId);
@@ -54,7 +54,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                 if (RevolutionsSettings.Instance.DebugMode)
                 {
-                    InformationManager.DisplayMessage(new InformationMessage($"Revolutions.CivilWars: {kingdomInfo.Kingdom.Name}", ColorHelper.Gray));
+                    InformationManager.DisplayMessage(new InformationMessage($"Revolutions.CivilWars: {kingdomInfo.Kingdom.Name} ({kingdomWithClans.Clans.Count} Clans)", ColorHelper.Gray));
                 }
 
                 Hero clanLeader;
@@ -64,6 +64,11 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                 foreach (var clan in kingdomWithClans.Clans)
                 {
+                    if (RevolutionsSettings.Instance.DebugMode)
+                    {
+                        InformationManager.DisplayMessage(new InformationMessage($"Revolutions.CivilWars: {clan.Name} ({clan.Leader})", ColorHelper.Gray));
+                    }
+
                     clanLeader = clan.Leader;
                     clanLeaderInfo = Managers.Character.GetInfo(clanLeader.CharacterObject);
 
@@ -75,7 +80,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                         if (RevolutionsSettings.Instance.DebugMode)
                         {
-                            InformationManager.DisplayMessage(new InformationMessage($"Revolutions: {clanLeader.Name} ({clanLeader.Clan.Name}) is now loyal.", ColorHelper.Green));
+                            InformationManager.DisplayMessage(new InformationMessage($"Revolutions: Is now loyal.", ColorHelper.Green));
                         }
 
                         var clanLeaderPlottingFriends = kingdomWithClans.Clans.Select(go => go.Leader)
@@ -228,6 +233,10 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                 if (warChance > new Random().Next(0, 100))
                 {
+                    InformationManager.AddSystemNotification("A Civil War started in {kingdomInfo.Kingdom.Name}! It's lead by the mighty {plotLeadingClan.Leader.Name} of {plotLeadingClan.Name}.");
+
+                    Managers.Character.GetInfo(plottingLeader.CharacterObject).IsCivilWarKingdomLeader = true;
+
                     var settlementInfo = Managers.Settlement.GetInfo(plotLeadingClan.HomeSettlement);
                     var bannerInfo = Managers.Banner.GetRevolutionsBannerBySettlementInfo(settlementInfo);
                     if (bannerInfo != null)
@@ -236,8 +245,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                     }
 
                     var plotKingdom = Managers.Kingdom.CreateKingdom(plotLeadingClan.Leader, new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), bannerInfo != null ? new Banner(bannerInfo.BannerId) : null, false);
-
-                    InformationManager.DisplayMessage(new InformationMessage($"A Civil War started in {kingdomInfo.Kingdom.Name}! It's lead by the mighty {plotLeadingClan.Leader.Name} of {plotLeadingClan.Name}.", ColorHelper.RoyalRed));
+                    Managers.Kingdom.GetInfo(plotKingdom).IsCivilWarKingdom = true;
 
                     var otherPlottingClans = plottingClans.Where(go => go.StringId != plotLeadingClan.StringId);
                     if (otherPlottingClans.Count() == 0)
@@ -278,22 +286,19 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                     foreach (var plottingClan in otherPlottingClans)
                     {
-                        InformationManager.DisplayMessage(new InformationMessage($"{plottingClan.Leader.Name} of {plottingClan.Name} will be with the plotting leader!", ColorHelper.Orange));
+                        InformationManager.DisplayMessage(new InformationMessage($"{plottingClan.Leader.Name} of {plottingClan.Name} will be with the conspiracy leader!", ColorHelper.Orange));
                         ChangeKingdomAction.ApplyByJoinToKingdom(plottingClan, plotKingdom, false);
                     }
 
+                    DeclareWarAction.Apply(plotKingdom, kingdomInfo.Kingdom);
+
                     if (RevolutionsSettings.Instance.CivilWarsKeepExistingWars)
                     {
-                        foreach (var enemyFaction in Campaign.Current.Factions.Where(go => go.IsAtWarWith(plotKingdom)))
+                        foreach (var enemyFaction in FactionManager.GetEnemyFactions(kingdomInfo.Kingdom))
                         {
-                            if (plotKingdom.IsAtWarWith(enemyFaction))
-                            {
-                                DeclareWarAction.Apply(plotKingdom, enemyFaction);
-                            }
+                            DeclareWarAction.Apply(plotKingdom, enemyFaction);
                         }
                     }
-
-                    DeclareWarAction.Apply(plotKingdom, kingdomInfo.Kingdom);
 
                     Managers.CivilWar.CivilWars.Add(new CivilWar(kingdomInfo.Kingdom, kingdomWithClans.Clans));
                     kingdomInfo.HasCivilWar = true;

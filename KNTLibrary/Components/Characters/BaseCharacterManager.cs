@@ -152,7 +152,7 @@ namespace KNTLibrary.Components.Characters
                 characterTemplate.SetSkillValue(skill, templateBase.GetSkillValue(skill));
             }
 
-            hero = HeroCreator.CreateSpecialHero(characterTemplate, settlementInfo.Settlement, clan, null, -1);
+            hero = HeroCreator.CreateSpecialHero(characterTemplate, settlementInfo.Settlement, null, null, -1);
             hero.ChangeState(Hero.CharacterStates.NotSpawned);
             hero.IsNoble = true;
             hero.IsMinorFactionHero = false;

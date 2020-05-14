@@ -171,15 +171,6 @@ namespace KNTLibrary.Components.Clans
                 return null;
             });
 
-            foreach (var enemyFaction in Campaign.Current.Factions.Where(go => go.IsAtWarWith(clan)))
-            {
-                if (clan.IsAtWarWith(enemyFaction))
-                {
-                    FactionHelper.FinishAllRelatedHostileActionsOfFactionToFaction(enemyFaction, clan);
-                    FactionHelper.FinishAllRelatedHostileActionsOfFactionToFaction(clan, enemyFaction);
-                }
-            }
-
             this.RemoveInfo(clan.StringId);
         }
 

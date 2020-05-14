@@ -12,29 +12,17 @@ namespace Revolutions.CampaignBehaviors
         public override void RegisterEvents()
         {
             CampaignEvents.TickEvent.AddNonSerializedListener(this, new Action<float>(this.TickEvent));
-
             CampaignEvents.DailyTickEvent.AddNonSerializedListener(this, new Action(this.DailyTickEvent));
-            CampaignEvents.OnPartyRemovedEvent.AddNonSerializedListener(this, new Action<PartyBase>(this.PartyRemovedEvent));
-            CampaignEvents.MobilePartyDestroyed.AddNonSerializedListener(this, new Action<MobileParty, PartyBase>(this.MobilePartyDestroyed));
+
             CampaignEvents.KingdomDestroyedEvent.AddNonSerializedListener(this, new Action<Kingdom>(this.KingdomDestroyedEvent));
-            CampaignEvents.OnClanDestroyedEvent.AddNonSerializedListener(this, new Action<Clan>(this.ClanDestroyedEvent));
+            CampaignEvents.OnClanDestroyedEvent.AddNonSerializedListener(this, new Action<Clan>(this.OnClanDestroyedEvent));
+            CampaignEvents.MobilePartyDestroyed.AddNonSerializedListener(this, new Action<MobileParty, PartyBase>(this.MobilePartyDestroyed));
+            CampaignEvents.OnPartyRemovedEvent.AddNonSerializedListener(this, new Action<PartyBase>(this.OnPartyRemovedEvent));
         }
 
         public override void SyncData(IDataStore dataStore)
         {
 
-        }
-
-        private void DailyTickEvent()
-        {
-            Managers.Faction.CleanupDuplicatedInfos();
-            Managers.Kingdom.CleanupDuplicatedInfos();
-            Managers.Clan.CleanupDuplicatedInfos();
-            Managers.Party.CleanupDuplicatedInfos();
-            Managers.Character.CleanupDuplicatedInfos();
-            Managers.Settlement.CleanupDuplicatedInfos();
-
-            Managers.Party.UpdateInfos();
         }
 
         private void TickEvent(float dt)
@@ -64,24 +52,52 @@ namespace Revolutions.CampaignBehaviors
             }
         }
 
-        private void PartyRemovedEvent(PartyBase party)
+        private void DailyTickEvent()
         {
-            Managers.Party.RemoveInfo(party.Id);
-        }
+            Managers.Faction.CleanupDuplicatedInfos();
+            Managers.Kingdom.CleanupDuplicatedInfos();
+            Managers.Clan.CleanupDuplicatedInfos();
+            Managers.Party.CleanupDuplicatedInfos();
+            Managers.Character.CleanupDuplicatedInfos();
+            Managers.Settlement.CleanupDuplicatedInfos();
 
-        private void MobilePartyDestroyed(MobileParty mobileParty, PartyBase party)
-        {
-            Managers.Party.RemoveInfo(mobileParty.Party.Id);
+            Managers.Party.UpdateInfos();
         }
 
         private void KingdomDestroyedEvent(Kingdom kingdom)
         {
-            Managers.Kingdom.RemoveInfo(kingdom.StringId);
+            var kingdomInfo = Managers.Kingdom.GetInfo(kingdom);
+            if (kingdomInfo != null && kingdomInfo.IsCustomKingdom)
+            {
+                Managers.Kingdom.RemoveKingdom(kingdom);
+            }
         }
 
-        private void ClanDestroyedEvent(Clan clan)
+        private void OnClanDestroyedEvent(Clan clan)
         {
-            Managers.Clan.RemoveInfo(clan.StringId);
+            var clanInfo = Managers.Clan.GetInfo(clan);
+            if (clanInfo != null && clanInfo.IsCustomClan)
+            {
+                Managers.Clan.RemoveClan(clan);
+            }
+        }
+
+        private void MobilePartyDestroyed(MobileParty mobileParty, PartyBase party)
+        {
+            var partyInfo = Managers.Party.GetInfo(party);
+            if (partyInfo != null && partyInfo.IsCustomParty)
+            {
+                Managers.Party.RemoveInfo(mobileParty.Party.Id);
+            }
+        }
+
+        private void OnPartyRemovedEvent(PartyBase party)
+        {
+            var partyInfo = Managers.Party.GetInfo(party);
+            if (partyInfo != null && partyInfo.IsCustomParty)
+            {
+                Managers.Party.RemoveInfo(party.Id);
+            }
         }
     }
 }

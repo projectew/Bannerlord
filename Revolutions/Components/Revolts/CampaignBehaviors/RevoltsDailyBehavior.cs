@@ -18,7 +18,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
         }
 
         private void DailyTickEvent()
-        {
+         {
             Managers.Revolt.IncreaseDailyLoyaltyForSettlement();
             Managers.Revolt.CheckRevoltProgress();
             this.DailyUpdates();

@@ -51,6 +51,8 @@ namespace Revolutions.Components.Base.Clans
 
         public bool IsRevoltClan { get; set; } = false;
 
+        public bool IsCivilWarClan { get; set; } = false;
+
         #endregion
     }
 }

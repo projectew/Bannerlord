@@ -164,22 +164,13 @@ namespace KNTLibrary.Components.Kingdoms
         {
             this.ModifyKingdomList(kingdoms =>
             {
-                if (kingdoms.RemoveAll(k => k == kingdom) > 0)
+                if (kingdoms.RemoveAll(go => go == kingdom) > 0)
                 {
                     return kingdoms;
                 }
 
                 return null;
             });
-
-            foreach (var enemyFaction in Campaign.Current.Factions.Where(go => go.IsAtWarWith(kingdom)))
-            {
-                if (kingdom.IsAtWarWith(enemyFaction))
-                {
-                    FactionHelper.FinishAllRelatedHostileActionsOfFactionToFaction(enemyFaction, kingdom);
-                    FactionHelper.FinishAllRelatedHostileActionsOfFactionToFaction(kingdom, enemyFaction);
-                }
-            }
 
             this.RemoveInfo(kingdom.StringId);
         }

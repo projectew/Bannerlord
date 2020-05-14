@@ -4,7 +4,10 @@ using Revolutions.Components.CivilWars.CampaignBehaviors;
 using Revolutions.Components.Revolts.CampaignBehaviors;
 using Revolutions.Settings;
 using System;
+using System.Linq;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.MapNotificationTypes;
+using TaleWorlds.CampaignSystem.ViewModelCollection.Map;
 using TaleWorlds.Core;
 using TaleWorlds.Engine;
 using TaleWorlds.MountAndBlade;
@@ -39,7 +42,10 @@ namespace Revolutions
             catch (Exception exception)
             {
                 InformationManager.DisplayMessage(new InformationMessage("Revolutions: Failed to initialize!", ColorHelper.Red));
-                InformationManager.DisplayMessage(new InformationMessage(exception.ToString(), ColorHelper.Red));
+                if(RevolutionsSettings.Instance.DebugMode)
+                {
+                    InformationManager.DisplayMessage(new InformationMessage(exception.ToString(), ColorHelper.Red));
+                }
             }
         }
 

@@ -41,7 +41,10 @@ namespace Revolutions.CampaignBehaviors
             catch (Exception exception)
             {
                 InformationManager.DisplayMessage(new InformationMessage($"Revolutions.Base.Data: SyncData failed (IsLoading: {dataStore.IsLoading} | IsSaving: {dataStore.IsSaving})!", ColorHelper.Red));
-                InformationManager.DisplayMessage(new InformationMessage(exception.ToString(), ColorHelper.Red));
+                if (RevolutionsSettings.Instance.DebugMode)
+                {
+                    InformationManager.DisplayMessage(new InformationMessage(exception.ToString(), ColorHelper.Red));
+                }
             }
         }
     }

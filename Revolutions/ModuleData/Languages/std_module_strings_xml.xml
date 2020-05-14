@@ -110,6 +110,7 @@
     <!-- Loyalty Model -->
     <string id="PqkwszGz" text="Seeing you spend time at {SETTLEMENT}. Your subjects feel more loyal to you." />
     <string id="dRoS0maD" text="{SETTLEMENT} is revolting!" />
+    <string id="dRoS0maD" text="The revolt in {SETTLEMENT} has ended." />
     <string id="Ts1iVN8d" text="Town Loyalty" />
     <string id="q2t1Ss8d" text="Revolt Mob" />
     <!-- Town Menu -->
