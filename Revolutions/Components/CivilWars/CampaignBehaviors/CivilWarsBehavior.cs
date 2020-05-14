@@ -1,5 +1,6 @@
 ﻿using Helpers;
 using KNTLibrary.Helpers;
+using Revolutions.Settings;
 using System;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
