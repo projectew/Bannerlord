@@ -106,12 +106,12 @@
 
     <!-- Game Texts-->
     <!-- Lucky Nation-->
-    <string id="" text="Loyal Population" />
+    <string id="glCo42fD" text="Loyal Population" />
     <!-- Loyalty Model -->
-    <string id="" text="Seeing you spend time at {SETTLEMENT}, your subjects feel more loyal to you." />
-    <string id="" text="{SETTLEMENT} is revolting!" />
-    <string id="" text="Town Loyalty" />
-    <string id="" text="Revoltary Mob" />
+    <string id="PqkwszGz" text="Seeing you spend time at {SETTLEMENT}. Your subjects feel more loyal to you." />
+    <string id="dRoS0maD" text="{SETTLEMENT} is revolting!" />
+    <string id="Ts1iVN8d" text="Town Loyalty" />
+    <string id="q2t1Ss8d" text="Revolt Mob" />
     <!-- Town Menu -->
     <string id="3fBkqk4u" text="The people of {SETTLEMENT} seem to be content." />
     <string id="dRoS0zTD" text="Flames of Revolt are slowly stirring in {SETTLEMENT}." />
