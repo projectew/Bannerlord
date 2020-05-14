@@ -27,7 +27,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
         private void DailyTickEvent()
         {
-            var considerableClans = Campaign.Current.Clans.Where(c => c.IsMapFaction && c.Leader.StringId != c.Kingdom.Leader.StringId && !c.IsBanditFaction && !c.IsClanTypeMercenary && !c.IsEliminated && !c.IsMafia && !c.IsMinorFaction && !c.IsNomad && !c.IsOutlaw && !c.IsRebelFaction && !c.IsSect && !c.IsUnderMercenaryService);
+            var considerableClans = Campaign.Current.Clans.Where(c => c.Kingdom != null && c.Leader.StringId != c.Kingdom.Leader.StringId && !c.IsBanditFaction && !c.IsClanTypeMercenary && !c.IsEliminated && !c.IsMafia && !c.IsMinorFaction && !c.IsNomad && !c.IsOutlaw && !c.IsRebelFaction && !c.IsSect && !c.IsUnderMercenaryService);
             foreach (var kingdomWithClans in considerableClans.GroupBy(c => c.Kingdom.StringId, (key, clans) => new { KingdomId = key, Clans = clans.ToList() }))
             {
                 var kingdomInfo = Managers.Kingdom.GetInfo(kingdomWithClans.KingdomId);
