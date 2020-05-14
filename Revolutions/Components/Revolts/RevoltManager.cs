@@ -1,6 +1,4 @@
-﻿using Helpers;
-using KNTLibrary.Helpers;
-using Revolutions.Components.Base.Factions;
+﻿using Revolutions.Components.Base.Factions;
 using Revolutions.Settings;
 using System;
 using System.Collections.Generic;
@@ -10,6 +8,7 @@ using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.CampaignSystem.MapNotificationTypes;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
+using TaleWorlds.MountAndBlade.GauntletUI.Widgets.Multiplayer.Lobby;
 
 namespace Revolutions.Components.Revolts
 {
@@ -195,16 +194,18 @@ namespace Revolutions.Components.Revolts
                 leader = Managers.Character.CreateRandomLeader(settlementInfo.LoyalFaction?.Leader?.Clan ?? settlement.OwnerClan, settlementInfo);
                 Managers.Character.GetInfo(leader.CharacterObject).IsRevoltKingdomLeader = true;
 
-                Managers.Clan.CreateClan(leader, leader.Name, leader.Name);
-                Managers.Clan.GetInfo(leader.Clan).IsRevoltClan = true;
-
                 var bannerInfo = Managers.Banner.GetRevolutionsBannerBySettlementInfo(settlementInfo);
                 if (bannerInfo != null)
                 {
                     bannerInfo.Used = true;
                 }
+                var banner = bannerInfo != null ? new Banner(bannerInfo.BannerId) : null;
 
-                Managers.Kingdom.CreateKingdom(leader, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"), bannerInfo != null ? new Banner(bannerInfo.BannerId) : null, false);
+                Managers.Clan.CreateClan(leader, null, null, banner);
+                Managers.Clan.GetInfo(leader.Clan).IsRevoltClan = true;
+
+
+                Managers.Kingdom.CreateKingdom(leader, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"), banner, false);
                 Managers.Kingdom.GetInfo(leader.Clan.Kingdom).IsRevoltKingdom = true;
             }
 

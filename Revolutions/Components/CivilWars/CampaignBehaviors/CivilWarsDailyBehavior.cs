@@ -2,7 +2,6 @@
 using Revolutions.Components.Base.Characters;
 using Revolutions.Settings;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;

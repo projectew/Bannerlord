@@ -1,5 +1,4 @@
 ﻿using HarmonyLib;
-using Helpers;
 using KNTLibrary.Helpers;
 using System;
 using System.Collections.Generic;
@@ -134,16 +133,17 @@ namespace KNTLibrary.Components.Clans
 
         #endregion
 
-        public Clan CreateClan(Hero leader, TextObject name, TextObject informalName)
+        public Clan CreateClan(Hero leader, TextObject name = null, TextObject informalName = null, Banner banner = null)
         {
             var clanName = NameGenerator.Current.GenerateClanName(leader.Culture, leader.HomeSettlement);
 
             var clan = MBObjectManager.Instance.CreateObject<Clan>();
             clan.Culture = leader.Culture;
-            clan.AddRenown(900, false);
             clan.SetLeader(leader);
             leader.Clan = clan;
-            clan.InitializeClan(clanName, clanName, leader.Culture, Banner.CreateRandomClanBanner(leader.StringId.GetDeterministicHashCode()));
+            clan.InitializeClan(name ?? clanName, informalName ?? clanName, leader.Culture, banner ?? Banner.CreateRandomClanBanner(leader.StringId.GetDeterministicHashCode()));
+            clan.AddRenown(900, false);
+
 
             this.GetInfo(clan).IsCustomClan = true;
             return clan;
