@@ -6,130 +6,130 @@
   <strings>
     <!-- Settings -->
     <!-- Categories -->
-    <string id="CA1wmHiH" text="General" />
-    <string id="lPn18Ln6" text="Revolts" />
-    <string id="h3rLrMgo" text="Civil Wars" />
-    <string id="RblChrft" text="Miscellaneous" />
+    <string id="CA1wmHiH" text="Allgemein" />
+    <string id="lPn18Ln6" text="Aufstände" />
+    <string id="h3rLrMgo" text="Bürgerkriege" />
+    <string id="RblChrft" text="Sonstiges" />
     <!-- Groups -->
     <!-- Revolts -->
-    <string id="Ii5uvnHE" text="Imperial Loyalty" />
-    <string id="DzPgQgHY" text="Overextension" />
-    <string id="L3FIrWzB" text="Minor Factions" />
-    <string id="FgE33u5N" text="Lucky Nation" />
+    <string id="Ii5uvnHE" text="Imperiale Treue" />
+    <string id="DzPgQgHY" text="Überdehnung" />
+    <string id="L3FIrWzB" text="Unabhängige Fraktion" />
+    <string id="FgE33u5N" text="Glücksnation" />
     <!-- Civil Wars -->
-    <string id="rKBq9sWY" text="Plotting" />
-    <string id="UMKZuaF7" text="War" />
+    <string id="rKBq9sWY" text="Verschwörung" />
+    <string id="UMKZuaF7" text="Krieg" />
     <!-- Names -->
     <!-- General -->
-    <string id="38qkSLV6" text="Base Loyalty" />
-    <string id="CXXaQ4dT" text="Loyalty Change" />
-    <string id="nfS1777S" text="Loyalty Increase" />
-    <string id="PctZXPPi" text="Minimum Obedience" />
+    <string id="38qkSLV6" text="Grundlegende Loyalität" />
+    <string id="CXXaQ4dT" text="Änderung der Treue" />
+    <string id="nfS1777S" text="Erhöhung der Treue" />
+    <string id="PctZXPPi" text="Minimaler Gehorsam" />
     <!-- Revolts -->
     <!-- General -->
-    <string id="N1b4PO5d" text="Revolt Cooldown" />
-    <string id="Rkj5mite" text="Base Size" />
-    <string id="Hm4xvTm9" text="Prosperity Multiplier" />
+    <string id="N1b4PO5d" text="Abklingzeit Revolte" />
+    <string id="Rkj5mite" text="Grundgröße" />
+    <string id="Hm4xvTm9" text="Wohlstandsmultiplikator" />
     <!-- Imperial Loyalty -->
-    <string id="LkHZfc2k" text="Renown Loss" />
+    <string id="LkHZfc2k" text="Ansehensverlust" />
     <!-- Overextension -->
-    <string id="MjnkKSFz" text="Affects Player" />
-    <string id="ixsZaAny" text="Multiplier" />
+    <string id="MjnkKSFz" text="Beeinflusst Spieler" />
+    <string id="ixsZaAny" text="Multiplikator" />
     <!-- Minor Factions -->
-    <string id="vAyloRN9" text="Renown Gain" />
+    <string id="vAyloRN9" text="Ansehenserhöhung" />
     <!-- Lucky Nation -->
-    <string id="IHx6f80s" text="Random" />
+    <string id="IHx6f80s" text="Zufällig" />
     <string id="yqVZOUHt" text="Imperial" />
-    <string id="PcDF5MgS" text="Non-Imperial" />
+    <string id="PcDF5MgS" text="Nicht-Imperial" />
     <!-- Civil Wars -->
     <!-- General -->
-    <string id="4QTdpuYM" text="Keep Existing Wars" />
-    <string id="BXvsAnGs" text="Positive Relationship Threshold" />
-    <string id="6L9ICPku" text="Negative Relationship Threshold" />
-    <!-- Plotting -->
-    <string id="pvutEJmX" text="Base Chance" />
-    <string id="cX5LL4IZ" text="Friend Multiplier" />
-    <string id="8XeLpbZc" text="Personality Multiplier" />
+    <string id="4QTdpuYM" text="Bestehende Kriege behalten" />
+    <string id="BXvsAnGs" text="Positive Beziehungsschwelle" />
+    <string id="6L9ICPku" text="Negative Beziehungsschwelle" />
+    <!-- Conspiracy -->
+    <string id="pvutEJmX" text="Grundchance" />
+    <string id="cX5LL4IZ" text="Freund Multiplikator" />
+    <string id="8XeLpbZc" text="Persönlichkeitsmultiplikator" />
     <!-- War -->
-    <string id="QMpl6Q8n" text="Base Chance" />
-    <string id="juoYox1E" text="Personality Multiplier" />
-    <string id="KusLlLhC" text="Relationship Change" />
-    <string id="xFnZ1fss" text="Relationship Change Multiplier" />
+    <string id="QMpl6Q8n" text="Grundchance" />
+    <string id="juoYox1E" text="Persönlichkeitsmultiplikator" />
+    <string id="KusLlLhC" text="Beziehungsänderung" />
+    <string id="xFnZ1fss" text="Multiplikator für Beziehungsänderungen" />
     <!-- Miscellaneous -->
     <!-- DebugMode -->
-    <string id="ypVY8KVV" text="Debug Mode" />
+    <string id="ypVY8KVV" text="Debug-Modus" />
     <!-- Descriptions -->
     <!-- General -->
-    <string id="XLMyVNzj" text="The base loyalty of cities to the owner." />
-    <string id="rD2UgIHi" text="Days until the city's loyalty to the new owner changes." />
-    <string id="97WepaH0" text="The amount by which loyalty increases when the owner is in town." />
-    <string id="xxvyiZ31" text="Needed loyalty which is required for the city's obedience to the owner." />
+    <string id="XLMyVNzj" text="Die grundlegende Loyalität der Städte zum Eigentümer." />
+    <string id="rD2UgIHi" text="Tage, bis sich die Loyalität der Stadt gegenüber dem neuen Eigentümer ändert." />
+    <string id="97WepaH0" text="Der Betrag, um den sich die Loyalität der Stadt zum Eigentümer erhöht, wenn der Eigentümer in der Stadt ist." />
+    <string id="xxvyiZ31" text="Benötigte Loyalität, die für den Gehorsam der Stadt gegenüber dem Eigentümer erforderlich ist." />
     <!-- Revolts -->
-    <string id="XgDjEUh5" text="Enables/Disables Revolts." />
+    <string id="XgDjEUh5" text="Aktiviert/Deaktiviert Aufstände." />
     <!-- General -->
-    <string id="6YaMmHjg" text="The time before another revolt can arise in the same faction." />
-    <string id="YPLgcVBr" text="The base size of the revolting army, which gets spawned." />
-    <string id="ErxSyXbf" text="This multiplier gets multiplied by the towns prosperity to add the amount to the base army size." />
+    <string id="6YaMmHjg" text="Die Zeit bis ein erneuter Aufstand im selben Königreich entstehen kann." />
+    <string id="YPLgcVBr" text="Die Grundgröße der aufständischen Armee." />
+    <string id="ErxSyXbf" text="Dieser Multiplikator wird mit dem Wohlstand der Städte multipliziert. Das Ergebnis wird zur Grundgröße der aufständischen Armee hinzugefügt." />
     <!-- Imperial Loyalty -->
-    <string id="eTxuxdut" text="Enables/Disables the mechanics for Imperial Loyalty." />
-    <string id="8Py6iVGm" text="The amount of renown a imperial clan will loose after a revolt against them had success." />
+    <string id="eTxuxdut" text="Aktiviert/Deaktiviert die Mechanik für Imperiale Loyalität." />
+    <string id="8Py6iVGm" text="Die Menge an Ansehen, welche ein imperialer Clan nach einem erfolgreichen Aufstand verliert." />
     <!-- Overextension -->
-    <string id="aktFvWrc" text="Enables/Disables the mechanics for Overextension." />
-    <string id="bzcvlOkc" text="Does the mechanic affects the player as well." />
-    <string id="0tFsxz7g" text="A multiplier to calculate with." />
+    <string id="aktFvWrc" text="Aktiviert/Deaktiviert die Mechanik für Überdehnung." />
+    <string id="bzcvlOkc" text="Beeinflusst die Mechanik auch den Spieler." />
+    <string id="0tFsxz7g" text="Ein Multiplikator, welcher mit der Differenz der initialen und aktuellen Anzahl an Städten eines Königreichs multipliziert wird." />
     <!-- Minor Factions -->
-    <string id="viKJpnX7" text="Enables/Disables the mechanics for Minor Factions." />
-    <string id="oimmeOva" text="The amount of renown a minor faction will get after they successful revolted." />
+    <string id="viKJpnX7" text="Aktiviert/Deaktiviert die Mechanik für Unabhängige Fraktionen." />
+    <string id="oimmeOva" text="Die Menge an Ansehen, welche eine unabhängige Fraktion nach einem erfolgreichen Aufstand gewinnt." />
     <!-- Lucky Nation -->
-    <string id="xiDVtZlJ" text="Enables/Disables the Revolts mechanics for Lucky Nation." />
-    <string id="mLaEWxas" text="A random lucky nation from all possible kingdoms." />
-    <string id="V3bJdu4A" text="Guarantees an Imperial lucky nation." />
-    <string id="3gOiyj6Z" text="Guarantees a  Non-Imperial lucky nation." />
+    <string id="xiDVtZlJ" text="Aktiviert/Deaktiviert die Mechanik für Glückliche Nation." />
+    <string id="mLaEWxas" text="Eine zufällige Glücksnation aus allen möglichen Königreichen." />
+    <string id="V3bJdu4A" text="Garantiert eine imperiale Glücksnation." />
+    <string id="3gOiyj6Z" text="Garantiert eine nicht-imperiale Glücksnation." />
     <!-- Civil Wars -->
-    <string id="AWgtsKpI" text="Enables/Disables Civil Wars." />
+    <string id="AWgtsKpI" text="Aktiviert/Deaktiviert Bürgerkriege." />
     <!-- General -->
-    <string id="h0qu9eTf" text="Civil War factions inherit the wars of their origin kingdom." />
-    <string id="Z5BHX5SQ" text="When relationship between the Lord and his King deteriorate above this threshold, he will stop willing to plot." />
-    <string id="xbvpfSoO" text="When relationship between the Lord and his King deteriorate below this threshold, there is a chance he will start plotting to overthrow him." />
-    <!-- Plotting -->
-    <string id="WJnJ6OqO" text="Base chance to become a plotter before all other factors are taken into account." />
-    <string id="2engz0Rc" text="Increases chance of becoming a Plotter based on whether a lord’s friends are also plotting." />
-    <string id="B7f17Deb" text="Increases chance of becoming a Plotter when the Lord and Vassal are dishonorable." />
+    <string id="h0qu9eTf" text="Bürgerkriegsfraktionen erben die Kriege ihres Herkunftskönigreichs." />
+    <string id="Z5BHX5SQ" text="Beziehungsschwelle über der Vasallen ihrem Lehnsherrn gegenüber bedingungslos loyal sind." />
+    <string id="xbvpfSoO" text="Beziehungsschwelle unterhalb derer Vasallen eine Verschwörung gegen ihren Lehnsherrn in Betracht ziehen." />
+    <!-- Conspiracy -->
+    <string id="WJnJ6OqO" text="Grundlegende Chance ein Verschwörer zu werden, bevor alle anderen Faktoren berücksichtigt werden." />
+    <string id="2engz0Rc" text="Erhöht die Chance für Vasallen Verschwörer zu werden, basierend darauf, ob auch ihre Freunde sich verschwören möchten." />
+    <string id="B7f17Deb" text="Erhöht die Chance für Vasallen Verschwörer zu werden, wenn sowohl ihr Lehnsherrn wie auch sie selbst unehrenhaft sind." />
     <!-- War -->
-    <string id="2niRfWx2" text="Base chance for the Plot Leader to declare War on liege before all other factors are taken into account." />
-    <string id="ZPSeEboV" text="Decreases chance of declaring a war when the Lord and Vassal are generosity and mercy." />
-    <string id="saF5Rr3J" text="The amount by which relations will change (positive and negative) between lords based upon the Civil War faction they choose to be a part of." />
-    <string id="1DRZeNBE" text="Multiplier for relations change between lords and faction leaders." />
+    <string id="2niRfWx2" text="Grundchance für Verschwörungsführer ihrem Lehnsherrn den Krieg zu erklären, bevor alle anderen Faktoren berücksichtigt werden." />
+    <string id="ZPSeEboV" text="Decreases chance of declaring a war based on liege and Vassal generosity and mercy." />
+    <string id="saF5Rr3J" text="Der Betrag um den sich die Beziehungen zwischen Lords (positiv und negativ) verändern, basierend auf der Bürgerkriegsfraktion der sie angehören." />
+    <string id="1DRZeNBE" text="Multiplikator für Beziehungswechsel zwischen Lords und Fraktionsführern." />
     <!-- Miscellaneous -->
     <!-- DebugMode -->
-    <string id="O0WtFLpL" text="Enables/Disables the output of detailed information." />
+    <string id="O0WtFLpL" text="Aktiviert/Deaktiviert die Ausgabe von detaillierten Informationen." />
 
     <!-- Game Texts-->
     <!-- Lucky Nations -->
     <string id="glCo42fD" text="Loyale Bevölkerung" />
     <!-- Loyalty Model -->
-    <string id="PqkwszGz" text="Durch das Verbringen von Zeit in {SETTLEMENT}, fühlen sich die Bevölkerung loyaler Ihnen gegenüber." />
-    <string id="dRoS0maD" text="{SETTLEMENT} revolviert!" />
-    <string id="dkpS074R" text="Die Revolte in {SETTLEMENT} wurde beendet." />
-    <string id="Ts1iVN8d" text="Stadttreue" />
-    <string id="q2t1Ss8d" text="Revoltärer Mob" />
+    <string id="PqkwszGz" text="Durch das Verbringen von Zeit in {SETTLEMENT} fühlt sich die Bevölkerung Ihnen gegenüber loyaler." />
+    <string id="dRoS0maD" text="In {SETTLEMENT} ist ein Aufstand ausgebrochen!" />
+    <string id="dkpS074R" text="Der Aufstand in {SETTLEMENT} wurde beendet." />
+    <string id="Ts1iVN8d" text="Loyalität der Stadt" />
+    <string id="q2t1Ss8d" text="Aufständische Armee" />
     <!-- Town Menu -->
     <string id="3fBkqk4u" text="Die Bevölkerung von {SETTLEMENT} scheint zufrieden zu sein." />
-    <string id="dRoS0zTD" text="Flammen der Revolt rühren sich langsam in {SETTLEMENT}." />
-    <string id="MYu8szGz" text="Die Bevölkerung ist {FACTION} treu." />
-    <string id="q2tbSs8d" text="Der aktuelle Revoltefortschritt ist {PROGRESS}%." />
+    <string id="dRoS0zTD" text="Unruhen machen sich in {SETTLEMENT} bemerkbar." />
+    <string id="MYu8szGz" text="Die Bevölkerung ist {FACTION} gegenüber loyal." />
+    <string id="q2tbSs8d" text="Aufstandsfortschritt: {PROGRESS}%" />
     <string id="zQNPQz3q" text="Die Bevölkerung ist mit der aktuellen Regelung zufrieden." />
-    <string id="qZS0ma0z"	text="Viele lassen sich durch Geschichten von Revolten im Königreich inspirieren." />
-    <string id="7LzQWiDZ"	text="Viele sind von den Ereignissen bei {SETTLEMENT} inspiriert." />
-    <string id="HWiDqN8d"	text="Einige reden davon das Banner ihrer Heimat zu hissen." />
-    <string id="q2tbH41e" text="Die Menschen in dieser Stadt haben erst kürzlich revolviert und möchten kein weiteres Blut mehr vergießen." />
-    <string id="6m7Ss8fW" text="Nach dem Hören von Blutvergießen in {SETTLEMENT} haben die Bürger Angst vor Aufruhr." />
+    <string id="qZS0ma0z" text="Viele lassen sich durch Geschichten von Aufständen im Königreich inspirieren." />
+    <string id="7LzQWiDZ" text="Viele sind von den Ereignissen bei {SETTLEMENT} inspiriert." />
+    <string id="HWiDqN8d" text="Einige reden davon das Banner ihrer Heimat zu hissen." />
+    <string id="q2tbH41e" text="Die Menschen in dieser Stadt haben erst kürzlich einen Aufstand veranstaltet und möchten daher kein weiteres Blut vergießen." />
+    <string id="6m7Ss8fW" text="Nach dem Hören von Blutvergießen in {SETTLEMENT} haben die Bürger Angst vor Aufruhr und Aufständen." />
     <!-- Loyalty State -->
     <string id="YnRmNltF" text="Überdehnung" />
-    <string id="3fQwNP5z" text="Kaiserliche Loyalität" />
-    <string id="7LzQNP0z" text="Ausländische Regel" />
-    <string id="qNWmNN8d" text="Kaiserliche Abneigung" />
-    <string id="q2tbqP0z" text="Bannerlord Siedlung" />
+    <string id="3fQwNP5z" text="Imperiale Loyalität" />
+    <string id="7LzQNP0z" text="Ausländische Regelung" />
+    <string id="qNWmNN8d" text="Imperiale Abneigung" />
+    <string id="q2tbqP0z" text="Spielersiedlung" />
     <!-- GUI Buttons -->
     <string id="3fQwWiDZ" text="Erledigt" />
   </strings>

@@ -14,10 +14,10 @@
     <!-- Revolts -->
     <string id="Ii5uvnHE" text="Imperial Loyalty" />
     <string id="DzPgQgHY" text="Overextension" />
-    <string id="L3FIrWzB" text="Minor Factions" />
+    <string id="L3FIrWzB" text="Independent Factions" />
     <string id="FgE33u5N" text="Lucky Nation" />
     <!-- Civil Wars -->
-    <string id="rKBq9sWY" text="Plotting" />
+    <string id="rKBq9sWY" text="Conspiracy" />
     <string id="UMKZuaF7" text="War" />
     <!-- Names -->
     <!-- General -->
@@ -46,7 +46,7 @@
     <string id="4QTdpuYM" text="Keep Existing Wars" />
     <string id="BXvsAnGs" text="Positive Relationship Threshold" />
     <string id="6L9ICPku" text="Negative Relationship Threshold" />
-    <!-- Plotting -->
+    <!-- Conspiracy -->
     <string id="pvutEJmX" text="Base Chance" />
     <string id="cX5LL4IZ" text="Friend Multiplier" />
     <string id="8XeLpbZc" text="Personality Multiplier" />
@@ -62,24 +62,24 @@
     <!-- General -->
     <string id="XLMyVNzj" text="The base loyalty of cities to the owner." />
     <string id="rD2UgIHi" text="Days until the city's loyalty to the new owner changes." />
-    <string id="97WepaH0" text="The amount by which loyalty increases when the owner is in town." />
+    <string id="97WepaH0" text="The amount by which the city's loyalty to the owner increases when the owner is in the city." />
     <string id="xxvyiZ31" text="Needed loyalty which is required for the city's obedience to the owner." />
     <!-- Revolts -->
     <string id="XgDjEUh5" text="Enables/Disables Revolts." />
     <!-- General -->
-    <string id="6YaMmHjg" text="The time before another revolt can arise in the same faction." />
-    <string id="YPLgcVBr" text="The base size of the revolting army, which gets spawned." />
-    <string id="ErxSyXbf" text="This multiplier gets multiplied by the towns prosperity to add the amount to the base army size." />
+    <string id="6YaMmHjg" text="The time until another revolt can arise in the same kingdom." />
+    <string id="YPLgcVBr" text="The base size of the revolt army." />
+    <string id="ErxSyXbf" text="This multiplier is multiplied by the prosperity of the cities. The result is added to the base size of the revolt army." />
     <!-- Imperial Loyalty -->
     <string id="eTxuxdut" text="Enables/Disables the mechanics for Imperial Loyalty." />
-    <string id="8Py6iVGm" text="The amount of renown a imperial clan will loose after a revolt against them had success." />
+    <string id="8Py6iVGm" text="The amount of renown an imperial clan loses after a successful revolt." />
     <!-- Overextension -->
     <string id="aktFvWrc" text="Enables/Disables the mechanics for Overextension." />
     <string id="bzcvlOkc" text="Does the mechanic affects the player as well." />
-    <string id="0tFsxz7g" text="A multiplier to calculate with." />
+    <string id="0tFsxz7g" text="A multiplier that is multiplied by the difference between the initial and current number of cities in a kingdom." />
     <!-- Minor Factions -->
-    <string id="viKJpnX7" text="Enables/Disables the mechanics for Minor Factions." />
-    <string id="oimmeOva" text="The amount of renown a minor faction will get after they successful revolted." />
+    <string id="viKJpnX7" text="Enables/Disables the mechanics for Independent Factions." />
+    <string id="oimmeOva" text="The amount of renown an independent faction gains after a successful revolt." />
     <!-- Lucky Nation -->
     <string id="xiDVtZlJ" text="Enables/Disables the Revolts mechanics for Lucky Nation." />
     <string id="mLaEWxas" text="A random lucky nation from all possible kingdoms." />
@@ -88,17 +88,17 @@
     <!-- Civil Wars -->
     <string id="AWgtsKpI" text="Enables/Disables Civil Wars." />
     <!-- General -->
-    <string id="h0qu9eTf" text="Civil War factions inherit the wars of their origin kingdom." />
-    <string id="Z5BHX5SQ" text="When relationship between the Lord and his King deteriorate above this threshold, he will stop willing to plot." />
-    <string id="xbvpfSoO" text="When relationship between the Lord and his King deteriorate below this threshold, there is a chance he will start plotting to overthrow him." />
-    <!-- Plotting -->
-    <string id="WJnJ6OqO" text="Base chance to become a plotter before all other factors are taken into account." />
-    <string id="2engz0Rc" text="Increases chance of becoming a Plotter based on whether a lord’s friends are also plotting." />
-    <string id="B7f17Deb" text="Increases chance of becoming a Plotter when the Lord and Vassal are dishonorable." />
+    <string id="h0qu9eTf" text="Civil War kingdoms inherit the wars of their original kingdom." />
+    <string id="Z5BHX5SQ" text="Relationship threshold above which vassals are unconditionally loyal to their liege lord." />
+    <string id="xbvpfSoO" text="Relationship threshold below which vassals consider a conspiracy against their liege lord." />
+    <!-- Conspiracy -->
+    <string id="WJnJ6OqO" text="Basic chance to become a conspirator before taking all other factors into account." />
+    <string id="2engz0Rc" text="Increases the chance for vassals to become conspirators based on whether their friends want to conspire as well." />
+    <string id="B7f17Deb" text="Increases the chance for vassals to become conspirators if both their liege lord and themselves are dishonorable." />
     <!-- War -->
-    <string id="2niRfWx2" text="Base chance for the Plot Leader to declare War on liege before all other factors are taken into account." />
-    <string id="ZPSeEboV" text="Decreases chance of declaring a war when the Lord and Vassal are generosity and mercy." />
-    <string id="saF5Rr3J" text="The amount by which relations will change (positive and negative) between lords based upon the Civil War faction they choose to be a part of." />
+    <string id="2niRfWx2" text="Base chance for conspiracy leaders to declare war on their liege lord before all other factors are taken into account." />
+    <string id="ZPSeEboV" text="Decreases chance of declaring a war based on liege and Vassal generosity and mercy." />
+    <string id="saF5Rr3J" text="The amount by which relationships between Lords (positive and negative) change based on the civil war faction to which they belong." />
     <string id="1DRZeNBE" text="Multiplier for relations change between lords and faction leaders." />
     <!-- Miscellaneous -->
     <!-- DebugMode -->
@@ -118,9 +118,9 @@
     <string id="MYu8szGz" text="Population is loyal to the {FACTION}." />
     <string id="q2tbSs8d" text="Current revolt progress is {PROGRESS}%." />
     <string id="zQNPQz3q" text="People are content with the current rule." />
-    <string id="qZS0ma0z"	text="Many are inspired by tales of revolts in the kingdom." />
-    <string id="7LzQWiDZ"	text="Many are inspired by events at {SETTLEMENT}." />
-    <string id="HWiDqN8d"	text="Some talk of raising banners of their homeland." />
+    <string id="qZS0ma0z" text="Many are inspired by tales of revolts in the kingdom." />
+    <string id="7LzQWiDZ" text="Many are inspired by events at {SETTLEMENT}." />
+    <string id="HWiDqN8d" text="Some talk of raising banners of their homeland." />
     <string id="q2tbH41e" text="The people of this town had revolted recently and don't wish to spill blood again." />
     <string id="6m7Ss8fW" text="After hearing of blood spilled in {SETTLEMENT} citizens are afraid of revolting." />
     <!-- Loyalty State -->
