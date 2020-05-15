@@ -1,4 +1,5 @@
-﻿using KNTLibrary.Helpers;
+﻿using Helpers;
+using KNTLibrary.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
+using TaleWorlds.ObjectSystem;
 
 namespace KNTLibrary.Components.Parties
 {
@@ -131,38 +133,31 @@ namespace KNTLibrary.Components.Parties
 
         #endregion
 
-        public MobileParty CreateMobileParty(Hero leader, Vec2 spawnPosition, Settlement homeSettlement, bool addLeaderToRoster, bool addInitialFood = true)
+        public MobileParty CreateMobileParty(Hero leader, TextObject name, Vec2 spawnPosition, Settlement homeSettlement, bool addLeaderToRoster, bool addInitialFood = true)
         {
-            var mobileParty = MobileParty.Create("revolt_mob");
-            mobileParty.Initialize();
-
-            var memberRoster = new TroopRoster
-            {
-                IsPrisonRoster = false
-            };
-            var prisonerRoster = new TroopRoster
-            {
-                IsPrisonRoster = true
-            };
-
-            mobileParty.Party.Owner = leader;
-            mobileParty.SetAsMainParty();
+            var mobileParty = MBObjectManager.Instance.CreateObject<MobileParty>(leader.CharacterObject.StringId + "_" + leader.NumberOfCreatedParties);
+            ++leader.NumberOfCreatedParties;
 
             if (addLeaderToRoster)
             {
-                mobileParty.MemberRoster.AddToCounts(leader.CharacterObject, 1, false, 0, 0, true, -1);
+                mobileParty.AddElementToMemberRoster(leader.CharacterObject, 1, true);
             }
 
-            mobileParty.InitializeMobileParty(new TextObject(leader.CharacterObject.GetName().ToString(), null), memberRoster, prisonerRoster, spawnPosition, 0.0f, 0.0f);
+            name = name ?? MobilePartyHelper.GeneratePartyName(leader.CharacterObject);
+            mobileParty.InitializeMobileParty(name, leader.Clan.DefaultPartyTemplate, spawnPosition, 0.0f, 0.0f, MobileParty.PartyTypeEnum.Lord, -1);
+            mobileParty.Party.Owner = leader;
+            mobileParty.IsLordParty = true;
+            mobileParty.Party.Visuals.SetMapIconAsDirty();
+            mobileParty.Aggressiveness = (float)(0.899999976158142 + 0.100000001490116 * leader.GetTraitLevel(DefaultTraits.Valor) - 0.0500000007450581 * leader.GetTraitLevel(DefaultTraits.Mercy));
+            mobileParty.HomeSettlement = homeSettlement;
+            mobileParty.Quartermaster = leader;
+            CampaignEventDispatcher.Instance.OnPartyVisibilityChanged(mobileParty.Party);
 
             if (addInitialFood)
             {
                 var foodItem = Campaign.Current.Items.Where(item => item.IsFood).GetRandomElement();
                 mobileParty.ItemRoster.AddToCounts(foodItem, new Random().Next(100, 300));
             }
-
-            mobileParty.HomeSettlement = homeSettlement;
-            mobileParty.Quartermaster = leader;
 
             this.GetInfo(mobileParty.Party).IsCustomParty = true;
             return mobileParty;

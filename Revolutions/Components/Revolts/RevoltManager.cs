@@ -210,8 +210,7 @@ namespace Revolutions.Components.Revolts
                 Managers.Kingdom.GetInfo(leader.Clan.Kingdom).IsRevoltKingdom = true;
             }
 
-            var mobileParty = Managers.Party.CreateMobileParty(leader, settlement.GatePosition, settlement, !atWarWithLoyalFaction, true);
-            mobileParty.Party.Visuals.SetMapIconAsDirty();
+            var mobileParty = Managers.Party.CreateMobileParty(leader, null, settlement.GatePosition, settlement, !atWarWithLoyalFaction, true);
 
             var amountOfTroops = (RevolutionsSettings.Instance.RevoltsGeneralBaseSize + (int)(settlement.Prosperity * RevolutionsSettings.Instance.RevoltsGeneralProsperityMulitplier)) / 3;
             var basicUnits = new TroopRoster();
@@ -236,9 +235,9 @@ namespace Revolutions.Components.Revolts
 
             DeclareWarAction.Apply(leader.MapFaction, settlement.MapFaction);
 
-            //mobileParty.Ai.SetDoNotMakeNewDecisions(true);
-            //SetPartyAiAction.GetActionForBesiegingSettlement(mobileParty, settlement);
-            StartBattleAction.Apply(mobileParty.Party, settlement.Party);
+            mobileParty.Ai.SetDoNotMakeNewDecisions(true);
+            SetPartyAiAction.GetActionForBesiegingSettlement(mobileParty, settlement);
+            //StartBattleAction.Apply(mobileParty.Party, settlement.Party);
 
             this.Revolts.Add(new Revolt(mobileParty.Party.Id, settlement, !atWarWithLoyalFaction));
             settlementInfo.HasRebellionEvent = true;

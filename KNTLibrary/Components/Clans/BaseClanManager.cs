@@ -133,7 +133,7 @@ namespace KNTLibrary.Components.Clans
 
         #endregion
 
-        public Clan CreateClan(Hero leader, TextObject name = null, TextObject informalName = null, Banner banner = null)
+        public Clan CreateClan(Hero leader, TextObject name, TextObject informalName, Banner banner = null)
         {
             var clanName = NameGenerator.Current.GenerateClanName(leader.Culture, leader.HomeSettlement);
 
