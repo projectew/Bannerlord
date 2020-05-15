@@ -8,7 +8,6 @@ using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.CampaignSystem.MapNotificationTypes;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
-using TaleWorlds.MountAndBlade.GauntletUI.Widgets.Multiplayer.Lobby;
 
 namespace Revolutions.Components.Revolts
 {
@@ -130,11 +129,10 @@ namespace Revolutions.Components.Revolts
             if (revolt.IsMinorFaction)
             {
                 Managers.Kingdom.DestroyKingdom(revolt.Party.Owner.Clan.Kingdom);
+                KillCharacterAction.ApplyByExecution(revolt.Party.Owner, revolt.Settlement.OwnerClan?.Kingdom?.Leader ?? revolt.Settlement.OwnerClan.Leader, true);
             }
-            else
-            {
-                DestroyPartyAction.Apply(revolt.SettlementInfo.Garrision, revolt.Party.MobileParty);
-            }
+
+            DestroyPartyAction.Apply(revolt.SettlementInfo.Garrision, revolt.Party.MobileParty);
 
             this.Revolts.Remove(revolt);
         }

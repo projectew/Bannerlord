@@ -85,6 +85,13 @@
   </ItemGroup>
   <!-- Mod Resource Files -->
   <ItemGroup>
+    <Content Include="Images\Loyalty_Change.PNG" />
+    <Content Include="Images\Menu_Town.PNG" />
+    <Content Include="Images\Options_CivilWars_I.PNG" />
+    <Content Include="Images\Options_CivilWars_II.PNG" />
+    <Content Include="Images\Options_General.PNG" />
+    <Content Include="Images\Options_Revolts_I.PNG" />
+    <Content Include="Images\Options_Revolts_II.PNG" />
     <Content Include="ModuleData\Banners\Vlandia.xml" />
     <Content Include="SubModule.xml" />
     <Content Include="ModuleData\Languages\std_module_strings_xml.xml" />
@@ -93,7 +100,6 @@
     <Content Include="ModuleData\Banners\Empire.xml" />
     <Content Include="ModuleData\Banners\Khuzait.xml" />
     <Content Include="ModuleData\Banners\Sturgia.xml" />
-    <Content Include="Images\Logo.png" />
   </ItemGroup>
   <!-- Mod Programming Files -->
   <ItemGroup>
