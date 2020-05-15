@@ -236,8 +236,9 @@ namespace Revolutions.Components.Revolts
 
             DeclareWarAction.Apply(leader.MapFaction, settlement.MapFaction);
 
-            mobileParty.Ai.SetDoNotMakeNewDecisions(true);
-            SetPartyAiAction.GetActionForBesiegingSettlement(mobileParty, settlement);
+            //mobileParty.Ai.SetDoNotMakeNewDecisions(true);
+            //SetPartyAiAction.GetActionForBesiegingSettlement(mobileParty, settlement);
+            StartBattleAction.Apply(mobileParty.Party, settlement.Party);
 
             this.Revolts.Add(new Revolt(mobileParty.Party.Id, settlement, !atWarWithLoyalFaction));
             settlementInfo.HasRebellionEvent = true;

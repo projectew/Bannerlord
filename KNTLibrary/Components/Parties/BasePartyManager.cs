@@ -6,7 +6,6 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
-using TaleWorlds.ObjectSystem;
 
 namespace KNTLibrary.Components.Parties
 {
@@ -134,7 +133,7 @@ namespace KNTLibrary.Components.Parties
 
         public MobileParty CreateMobileParty(Hero leader, Vec2 spawnPosition, Settlement homeSettlement, bool addLeaderToRoster, bool addInitialFood = true)
         {
-            var mobileParty = MBObjectManager.Instance.CreateObject<MobileParty>();
+            var mobileParty = MobileParty.Create("revolt_mob");
             mobileParty.Initialize();
 
             var memberRoster = new TroopRoster
