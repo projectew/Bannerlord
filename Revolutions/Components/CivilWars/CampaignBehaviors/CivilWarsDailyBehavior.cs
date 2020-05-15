@@ -185,7 +185,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                     continue;
                 }
 
-                var loyalTroopWeight = 0f;
+                var loyalTroopWeight = kingdomInfo.Kingdom.RulingClan.TotalStrength;
                 foreach (var loyalClan in loyalClans)
                 {
                     loyalTroopWeight += loyalClan.TotalStrength;
@@ -220,7 +220,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 float personalityWeight = MathF.Pow(RevolutionsSettings.Instance.CivilWarsWarPersonalityMultiplier, -personalityTraits);
                 float troopWeight = plottersTroopWeight / loyalTroopWeight;
                 float valorModifier = 1 + (plottingLeaderValor <= 0 ? 1 : plottingLeaderValor * 2);
-                float clanCountModifier = plottingClans.Count / loyalClans.Count;
+                float clanCountModifier = plottingClans.Count / (loyalClans.Count + 1);
                 float calculatingModifier = 1 + (plottingLeaderCalculating <= 0 ? 1 : plottingLeaderCalculating);
 
                 var warChance = RevolutionsSettings.Instance.CivilWarsWarBaseChance * personalityWeight * (troopWeight * valorModifier) * MathF.Pow(clanCountModifier, calculatingModifier);
