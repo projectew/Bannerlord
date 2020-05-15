@@ -200,16 +200,12 @@ namespace Revolutions.Components.Revolts
                 Managers.Character.GetInfo(leader.CharacterObject).IsRevoltKingdomLeader = true;
 
                 var bannerInfo = Managers.Banner.GetRevolutionsBannerBySettlementInfo(settlementInfo);
-                if (bannerInfo != null)
-                {
-                    bannerInfo.Used = true;
-                }
                 var banner = bannerInfo != null ? new Banner(bannerInfo.BannerId) : null;
 
-                Managers.Clan.CreateClan(leader, null, null, banner);
+                var clan = Managers.Clan.CreateClan(leader, null, null, banner);
                 Managers.Clan.GetInfo(leader.Clan).IsRevoltClan = true;
 
-                Managers.Kingdom.CreateKingdom(leader, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"), banner, false);
+                Managers.Kingdom.CreateKingdom(leader, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"), banner ?? clan.Banner, false);
                 Managers.Kingdom.GetInfo(leader.Clan.Kingdom).IsRevoltKingdom = true;
             }
 

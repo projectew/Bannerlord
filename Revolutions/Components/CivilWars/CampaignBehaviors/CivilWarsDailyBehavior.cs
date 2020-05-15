@@ -238,12 +238,8 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                     var settlementInfo = Managers.Settlement.GetInfo(plotLeadingClan.HomeSettlement);
                     var bannerInfo = Managers.Banner.GetRevolutionsBannerBySettlementInfo(settlementInfo);
-                    if (bannerInfo != null)
-                    {
-                        bannerInfo.Used = true;
-                    }
 
-                    var plotKingdom = Managers.Kingdom.CreateKingdom(plotLeadingClan.Leader, new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), bannerInfo != null ? new Banner(bannerInfo.BannerId) : null, false);
+                    var plotKingdom = Managers.Kingdom.CreateKingdom(plotLeadingClan.Leader, new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), bannerInfo != null ? new Banner(bannerInfo.BannerId) : plotLeadingClan.Banner, false);
                     Managers.Kingdom.GetInfo(plotKingdom).IsCivilWarKingdom = true;
 
                     var otherPlottingClans = plottingClans.Where(go => go.StringId != plotLeadingClan.StringId);

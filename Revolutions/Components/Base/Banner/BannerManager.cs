@@ -22,7 +22,7 @@ namespace Revolutions.Components.Base.Banner
 
         public BaseBannerInfo GetRevolutionsBannerBySettlementInfo(SettlementInfo settlementInfo)
         {
-            List<BaseBannerInfo> availableBannerInfos = new List<BaseBannerInfo>();
+            var availableBannerInfos = new List<BaseBannerInfo>();
             BaseBannerInfo bannerInfo = null;
 
             foreach (var info in this.Infos)
@@ -37,13 +37,13 @@ namespace Revolutions.Components.Base.Banner
                     availableBannerInfos.Add(info);
                     break;
                 }
-                
+
                 if (info.Faction == settlementInfo.LoyalFaction.StringId)
                 {
                     availableBannerInfos.Add(info);
                     break;
                 }
-                
+
                 if (info.Culture == settlementInfo.Settlement.Culture.StringId)
                 {
                     availableBannerInfos.Add(info);
@@ -53,9 +53,14 @@ namespace Revolutions.Components.Base.Banner
 
             if (availableBannerInfos.Count() > 0)
             {
-                return availableBannerInfos.GetRandomElement();
+                bannerInfo = availableBannerInfos.GetRandomElement();
             }
-            
+
+            if(bannerInfo != null)
+            {
+                bannerInfo.Used = true;
+            }
+
             return bannerInfo;
         }
 
