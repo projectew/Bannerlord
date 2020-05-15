@@ -153,7 +153,6 @@ namespace KNTLibrary.Components.Characters
             }
 
             hero = HeroCreator.CreateSpecialHero(characterTemplate, settlementInfo.Settlement, null, null, -1);
-            hero.ChangeState(Hero.CharacterStates.NotSpawned);
             hero.IsNoble = true;
             hero.IsMinorFactionHero = false;
             hero.ChangeState(Hero.CharacterStates.Active);

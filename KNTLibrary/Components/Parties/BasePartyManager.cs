@@ -144,13 +144,12 @@ namespace KNTLibrary.Components.Parties
             }
 
             name = name ?? MobilePartyHelper.GeneratePartyName(leader.CharacterObject);
-            mobileParty.InitializeMobileParty(name, leader.Clan.DefaultPartyTemplate, spawnPosition, 0.0f, 0.0f, MobileParty.PartyTypeEnum.Lord, -1);
+            mobileParty.InitializeMobileParty(name, leader.Clan.DefaultPartyTemplate, spawnPosition, 5.0f, 0.0f, MobileParty.PartyTypeEnum.Lord, 0);
             mobileParty.Party.Owner = leader;
             mobileParty.IsLordParty = true;
-            mobileParty.Party.Visuals.SetMapIconAsDirty();
-            mobileParty.Aggressiveness = (float)(0.899999976158142 + 0.100000001490116 * leader.GetTraitLevel(DefaultTraits.Valor) - 0.0500000007450581 * leader.GetTraitLevel(DefaultTraits.Mercy));
             mobileParty.HomeSettlement = homeSettlement;
             mobileParty.Quartermaster = leader;
+            mobileParty.Party.Visuals.SetMapIconAsDirty();
 
             if (addInitialFood)
             {
