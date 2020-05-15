@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
+using TaleWorlds.CampaignSystem.MapNotificationTypes;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
@@ -232,8 +233,6 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                 if (warChance > new Random().Next(0, 100))
                 {
-                    InformationManager.AddSystemNotification($"A Civil War started in {kingdomInfo.Kingdom.Name}! It's lead by the mighty {plotLeadingClan.Leader.Name} of {plotLeadingClan.Name}.");
-
                     Managers.Character.GetInfo(plottingLeader.CharacterObject).IsCivilWarKingdomLeader = true;
 
                     var settlementInfo = Managers.Settlement.GetInfo(plotLeadingClan.HomeSettlement);
@@ -241,12 +240,6 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                     var plotKingdom = Managers.Kingdom.CreateKingdom(plotLeadingClan.Leader, new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), bannerInfo != null ? new Banner(bannerInfo.BannerId) : plotLeadingClan.Banner, false);
                     Managers.Kingdom.GetInfo(plotKingdom).IsCivilWarKingdom = true;
-
-                    var otherPlottingClans = plottingClans.Where(go => go.StringId != plotLeadingClan.StringId);
-                    if (otherPlottingClans.Count() == 0)
-                    {
-                        InformationManager.DisplayMessage(new InformationMessage($"Seems like {plotLeadingClan.Leader.Name} of {plotLeadingClan.Name} will be on his own.", ColorHelper.Orange));
-                    }
 
                     ChangeRelationAction.ApplyRelationChangeBetweenHeroes(plottingLeader, kingdomLeader, -(int)(RevolutionsSettings.Instance.CivilWarsRelationshipChange * (RevolutionsSettings.Instance.CivilWarsRelationshipChangeMultiplier * 2)), false);
 
@@ -277,6 +270,22 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                                 ChangeRelationAction.ApplyRelationChangeBetweenHeroes(clan1.Leader, clan2.Leader, -RevolutionsSettings.Instance.CivilWarsRelationshipChange, false);
                             }
                         }
+                    }
+
+                    try
+                    {
+                        InformationManager.AddNotice(new WarMapNotification(plotKingdom, kingdomInfo.Kingdom, new TextObject($"Civil War: {kingdomInfo.Kingdom.Name} vs. {plotKingdom.Name}")));
+                        InformationManager.AddQuickInformation(new TextObject($"A Civil War has broken out in {kingdomInfo.Kingdom.Name}! It's lead by the mighty {plotLeadingClan.Leader.Name} of {plotLeadingClan.Name}."));
+                    }
+                    catch (Exception)
+                    {
+                        InformationManager.AddQuickInformation(new TextObject($"A Civil War has broken out in {kingdomInfo.Kingdom.Name}! It's lead by the mighty {plotLeadingClan.Leader.Name} of {plotLeadingClan.Name}."));
+                    }
+
+                    var otherPlottingClans = plottingClans.Where(go => go.StringId != plotLeadingClan.StringId);
+                    if (otherPlottingClans.Count() == 0)
+                    {
+                        InformationManager.DisplayMessage(new InformationMessage($"Seems like {plotLeadingClan.Leader.Name} of {plotLeadingClan.Name} will be on his own.", ColorHelper.Orange));
                     }
 
                     foreach (var plottingClan in otherPlottingClans)

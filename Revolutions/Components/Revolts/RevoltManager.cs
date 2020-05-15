@@ -123,7 +123,7 @@ namespace Revolutions.Components.Revolts
         {
             var information = new TextObject("{=dkpS074R}The revolt in {SETTLEMENT} has ended.");
             information.SetTextVariable("SETTLEMENT", revolt.Settlement.Name.ToString());
-            InformationManager.AddSystemNotification(information.ToString());
+            InformationManager.AddQuickInformation(information);
 
             revolt.SettlementInfo.CurrentFactionInfo.CityRevoltionFailed(revolt.Settlement);
 
@@ -143,7 +143,7 @@ namespace Revolutions.Components.Revolts
         {
             var information = new TextObject("{=dkpS074R}The revolt in {SETTLEMENT} has ended.");
             information.SetTextVariable("SETTLEMENT", revolt.Settlement.Name.ToString());
-            InformationManager.AddSystemNotification(information.ToString());
+            InformationManager.AddQuickInformation(information);
 
             revolt.SettlementInfo.CurrentFactionInfo.CityRevoltionSucceeded(revolt.Settlement);
 
@@ -178,11 +178,11 @@ namespace Revolutions.Components.Revolts
             try
             {
                 InformationManager.AddNotice(new SettlementRebellionMapNotification(settlement, information));
-                InformationManager.AddSystemNotification(information.ToString());
+                InformationManager.AddQuickInformation(information);
             }
             catch (Exception)
             {
-                InformationManager.AddSystemNotification(information.ToString());
+                InformationManager.AddQuickInformation(information);
             }
 
             var settlementInfo = Managers.Settlement.GetInfo(settlement);
