@@ -135,8 +135,7 @@ namespace KNTLibrary.Components.Kingdoms
 
         public void ModifyKingdomList(Func<List<Kingdom>, List<Kingdom>> modificator)
         {
-            var kingdoms = new List<Kingdom>(Campaign.Current.Kingdoms.ToList());
-            kingdoms = modificator(kingdoms);
+            var kingdoms = modificator(Campaign.Current.Kingdoms.ToList());
             if (kingdoms != null)
             {
                 AccessTools.Field(Campaign.Current.GetType(), "_kingdoms").SetValue(Campaign.Current, new MBReadOnlyList<Kingdom>(kingdoms));
@@ -163,7 +162,7 @@ namespace KNTLibrary.Components.Kingdoms
         {
             this.ModifyKingdomList(kingdoms =>
             {
-                if (kingdoms.RemoveAll(go => go == kingdom) > 0)
+                if (kingdoms.RemoveAll(go => go.StringId == kingdom.StringId) > 0)
                 {
                     return kingdoms;
                 }

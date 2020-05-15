@@ -138,12 +138,9 @@ namespace KNTLibrary.Components.Clans
             var clanName = NameGenerator.Current.GenerateClanName(leader.Culture, leader.HomeSettlement);
 
             var clan = MBObjectManager.Instance.CreateObject<Clan>();
-            clan.Culture = leader.Culture;
-            clan.SetLeader(leader);
-            leader.Clan = clan;
             clan.InitializeClan(name ?? clanName, informalName ?? clanName, leader.Culture, banner ?? Banner.CreateRandomClanBanner(leader.StringId.GetDeterministicHashCode()));
-            clan.AddRenown(900, false);
-
+            clan.SetLeader(leader);
+            clan.AddRenown(1000, false);
 
             this.GetInfo(clan).IsCustomClan = true;
             return clan;
@@ -151,8 +148,7 @@ namespace KNTLibrary.Components.Clans
 
         public void ModifyClanList(Func<List<Clan>, List<Clan>> modificator)
         {
-            var clans = new List<Clan>(Campaign.Current.Clans.ToList());
-            clans = modificator(clans);
+            var clans = modificator(Campaign.Current.Clans.ToList());
             if (clans != null)
             {
                 AccessTools.Field(Campaign.Current.GetType(), "_clans").SetValue(Campaign.Current, new MBReadOnlyList<Clan>(clans));
@@ -163,7 +159,7 @@ namespace KNTLibrary.Components.Clans
         {
             this.ModifyClanList(gos =>
             {
-                if (gos.RemoveAll(go => go == clan) > 0)
+                if (gos.RemoveAll(go => go.StringId == clan.StringId) > 0)
                 {
                     return gos;
                 }

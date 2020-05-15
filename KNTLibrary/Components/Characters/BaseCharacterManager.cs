@@ -139,7 +139,7 @@ namespace KNTLibrary.Components.Characters
 
             var templateBase = clan.Leader.CharacterObject;
 
-            var characterTemplate = CharacterObject.Templates.Where(go => go.Culture == settlementInfo.InitialCulture && (go.Occupation == Occupation.Lord || go.Occupation == Occupation.Lady)).GetRandomElement();
+            var characterTemplate = CharacterObject.Templates.Where(go => go.Culture == clan.Culture && (go.Occupation == Occupation.Lord || go.Occupation == Occupation.Lady)).GetRandomElement();
             characterTemplate.InitializeEquipmentsOnLoad(templateBase.AllEquipments.ToList());
 
             foreach (var attribute in CharacterAttributes.All)
@@ -156,7 +156,6 @@ namespace KNTLibrary.Components.Characters
             hero.ChangeState(Hero.CharacterStates.NotSpawned);
             hero.IsNoble = true;
             hero.IsMinorFactionHero = false;
-
             hero.ChangeState(Hero.CharacterStates.Active);
 
             this.GetInfo(hero.CharacterObject).IsCustomCharater = true;
@@ -165,8 +164,7 @@ namespace KNTLibrary.Components.Characters
 
         public void ModifyCharacterList(Func<List<CharacterObject>, List<CharacterObject>> modificator)
         {
-            var characters = new List<CharacterObject>(Campaign.Current.Characters.ToList());
-            characters = modificator(characters);
+            var characters = modificator(Campaign.Current.Characters.ToList());
             if (characters != null)
             {
                 AccessTools.Field(Campaign.Current.GetType(), "_characters").SetValue(Campaign.Current, new MBReadOnlyList<CharacterObject>(characters));
@@ -177,7 +175,7 @@ namespace KNTLibrary.Components.Characters
         {
             this.ModifyCharacterList(gos =>
             {
-                if (gos.RemoveAll(go => go == character) > 0)
+                if (gos.RemoveAll(go => go.StringId == character.StringId) > 0)
                 {
                     return gos;
                 }
@@ -188,10 +186,10 @@ namespace KNTLibrary.Components.Characters
             this.RemoveInfo(character.StringId);
         }
 
-        public void RemoveAndDestroyCharacter(CharacterObject character)
+        public void DestroyCharacter(CharacterObject character)
         {
-            this.RemoveCharacter(character);
             KillCharacterAction.ApplyByRemove(character.HeroObject);
+            this.RemoveCharacter(character);
         }
     }
 }
