@@ -1,4 +1,5 @@
 ﻿using System;
+using Revolutions.Components.Base.Parties;
 using TaleWorlds.CampaignSystem;
 
 namespace Revolutions.CampaignBehaviors
@@ -84,7 +85,21 @@ namespace Revolutions.CampaignBehaviors
 
         private void MobilePartyDestroyed(MobileParty mobileParty, PartyBase party)
         {
-            var partyInfo = Managers.Party.GetInfo(party);
+            PartyInfo partyInfo = null;
+            if (party != null)
+            {
+                partyInfo = Managers.Party.GetInfo(party);
+            }
+            else if (mobileParty.Party != null)
+            {
+                partyInfo = Managers.Party.GetInfo(mobileParty.Party);
+            }
+            else
+            {
+                return;
+            }
+            
+            
             if (partyInfo != null && partyInfo.IsCustomParty)
             {
                 Managers.Party.RemoveInfo(mobileParty.Party.Id);
