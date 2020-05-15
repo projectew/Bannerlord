@@ -103,7 +103,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 clan.ClanLeaveKingdom(false);
             }
 
-            DestroyKingdomAction.Apply(oldKingdom);
+            Managers.Kingdom.DestroyKingdom(oldKingdom);
         }
     }
 }

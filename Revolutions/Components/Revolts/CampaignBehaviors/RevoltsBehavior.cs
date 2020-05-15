@@ -1,4 +1,5 @@
-﻿using KNTLibrary.Helpers;
+﻿using KNTLibrary;
+using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Settlements;
 using Revolutions.Settings;
 using System;
@@ -82,14 +83,14 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
             var settlementInfo = Managers.Settlement.GetInfo(settlement);
             settlementInfo.UpdateOwnerRevolt(newOwner.MapFaction);
 
-            if (capturedHero != null && Managers.Character.GetInfo(capturedHero.CharacterObject)?.IsRevoltKingdomLeader == true)
+            if (capturedHero?.PartyBelongedTo?.Party != null)
             {
                 var revolt = RevoltManager.Instance.GetRevoltByParty(capturedHero.PartyBelongedTo.Party);
-                if (!RevolutionsSettings.Instance.RevoltsMinorFactionsMechanic && revolt.IsMinorFaction)
+                if (revolt != null && !RevolutionsSettings.Instance.RevoltsMinorFactionsMechanic && revolt.IsMinorFaction)
                 {
-                    var noble = KNTLibrary.BaseManagers.Faction.GetLordWithLeastFiefs(revolt.SettlementInfo.LoyalFaction).HeroObject;
-                    ChangeOwnerOfSettlementAction.ApplyByRevolt(noble, settlement);
-                    DestroyKingdomAction.Apply(capturedHero.Clan.Kingdom);
+                    var loyalFactionOwner = BaseManagers.Faction.GetLordWithLeastFiefs(revolt.SettlementInfo.LoyalFaction).HeroObject;
+                    ChangeOwnerOfSettlementAction.ApplyByRevolt(loyalFactionOwner, settlement);
+                    Managers.Kingdom.DestroyKingdom(capturedHero.Clan.Kingdom);
                     RevoltManager.Instance.Revolts.Remove(revolt);
                 }
             }

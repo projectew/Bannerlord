@@ -142,6 +142,8 @@ namespace KNTLibrary.Components.Clans
             clan.SetLeader(leader);
             clan.AddRenown(1000, false);
 
+            leader.Clan = clan;
+
             this.GetInfo(clan).IsCustomClan = true;
             return clan;
         }

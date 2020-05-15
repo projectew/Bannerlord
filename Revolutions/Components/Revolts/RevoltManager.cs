@@ -129,7 +129,11 @@ namespace Revolutions.Components.Revolts
 
             if (revolt.IsMinorFaction)
             {
-                DestroyKingdomAction.Apply(revolt.Party.Owner.Clan.Kingdom);
+                Managers.Kingdom.DestroyKingdom(revolt.Party.Owner.Clan.Kingdom);
+            }
+            else
+            {
+                DestroyPartyAction.Apply(revolt.SettlementInfo.Garrision, revolt.Party.MobileParty);
             }
 
             this.Revolts.Remove(revolt);
@@ -202,10 +206,9 @@ namespace Revolutions.Components.Revolts
                 }
                 var banner = bannerInfo != null ? new Banner(bannerInfo.BannerId) : null;
 
-                var createdClan = Managers.Clan.CreateClan(leader, null, null, banner);
-                leader.Clan = createdClan;
+                Managers.Clan.CreateClan(leader, null, null, banner);
                 Managers.Clan.GetInfo(leader.Clan).IsRevoltClan = true;
-                
+
                 Managers.Kingdom.CreateKingdom(leader, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"), banner, false);
                 Managers.Kingdom.GetInfo(leader.Clan.Kingdom).IsRevoltKingdom = true;
             }
@@ -237,7 +240,7 @@ namespace Revolutions.Components.Revolts
 
             mobileParty.Ai.SetDoNotMakeNewDecisions(true);
             SetPartyAiAction.GetActionForBesiegingSettlement(mobileParty, settlement);
-            //StartBattleAction.Apply(mobileParty.Party, settlement.Party);
+
             this.Revolts.Add(new Revolt(mobileParty.Party.Id, settlement, !atWarWithLoyalFaction));
             settlementInfo.HasRebellionEvent = true;
         }
