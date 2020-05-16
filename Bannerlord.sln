@@ -8,13 +8,17 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revolutions", "Revolutions\Revolutions.csproj", "{BD535D95-FD82-4AE2-A1A7-B669D58FCE8E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8BF0224A-9312-4145-8514-54961CC1AA64}"
-	ProjectSection(SolutionItems) = preProject
-		Revolutions_Civil_War_Magic.pdf = Revolutions_Civil_War_Magic.pdf
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalizationIdGenerator", "LocalizationIdGenerator\LocalizationIdGenerator.csproj", "{3903F792-CF66-4A00-BC65-B7966DDE12E1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revolutions.German", "Revolutions.German\Revolutions.German.csproj", "{590B718C-7565-4EE4-83B9-FE37A18BB8DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Civil Wars", "Civil Wars", "{CFBA4B2E-F0F6-4F3D-9341-343CB33B90BC}"
+	ProjectSection(SolutionItems) = preProject
+		Solution Items\Civil Wars\Revolutions Civil War Magic.docx = Solution Items\Civil Wars\Revolutions Civil War Magic.docx
+		Solution Items\Civil Wars\Revolutions Civil War Magic.jpg = Solution Items\Civil Wars\Revolutions Civil War Magic.jpg
+		Solution Items\Civil Wars\Revolutions Civil War Magic.pdf = Solution Items\Civil Wars\Revolutions Civil War Magic.pdf
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +45,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CFBA4B2E-F0F6-4F3D-9341-343CB33B90BC} = {8BF0224A-9312-4145-8514-54961CC1AA64}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F3BA057-C57C-40C0-B2A8-6DFFB941AD81}
