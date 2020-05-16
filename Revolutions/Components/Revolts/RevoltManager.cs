@@ -132,7 +132,10 @@ namespace Revolutions.Components.Revolts
                 KillCharacterAction.ApplyByExecution(revolt.Party.Owner, revolt.Settlement.OwnerClan?.Kingdom?.Leader ?? revolt.Settlement.OwnerClan.Leader, true);
             }
 
-            DestroyPartyAction.Apply(revolt.SettlementInfo.Garrision, revolt.Party.MobileParty);
+            if(revolt.Party?.MobileParty != null)
+            {
+                DestroyPartyAction.Apply(revolt.SettlementInfo.Garrision, revolt.Party.MobileParty);
+            }
 
             this.Revolts.Remove(revolt);
         }
