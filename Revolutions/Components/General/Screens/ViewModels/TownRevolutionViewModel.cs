@@ -77,7 +77,7 @@ namespace Revolutions.Components.General.Screens.ViewModels
         {
             get
             {
-                var textObject = new TextObject("{=q2tbSs8d}Current revolt progress is {PROGRESS}%.");
+                var textObject = new TextObject("{=q2tbSs8d}Current revolt progress is {PROGRESS}%");
                 textObject.SetTextVariable("PROGRESS", this.SettlementInfo.RevoltProgress);
 
                 return textObject.ToString();

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using TaleWorlds.CampaignSystem;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.Localization;
 

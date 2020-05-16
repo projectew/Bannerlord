@@ -1,6 +1,5 @@
 ﻿using System;
 using KNTLibrary.Components.Events;
-using SandBox.Quests.QuestBehaviors;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.InputSystem;
