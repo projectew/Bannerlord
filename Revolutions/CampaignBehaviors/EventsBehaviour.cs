@@ -30,18 +30,12 @@ namespace Revolutions.CampaignBehaviors
 
                 TextObject description = new TextObject("{=gkeDF4f0}This is a test event. It's here so that you can understand how to call them, add descriptions and options. I'm making this a bit long so that we can ensure text fits properly, and users get enough space for a bit of creative writing. Hopefully it works ok, because it's my first test, and I need something to raise my mood.");
                 Event newEvent = new Event(1, description);
-                
+
                 MyOption myOption = new MyOption();
                 myOption.Information = new TextObject("{=GdwerF78}Player likes turtles!");
                 myOption.Id = "TurtlesOption";
                 myOption.Text = new TextObject("{=glEji4Fc}I like turtles");
-                newEvent.AddOption(myOption);          
-                
-                MyOption myOptionTwo = new MyOption();
-                myOptionTwo.Information = new TextObject("{=GdwerF79}Player does not like turtles!");
-                myOptionTwo.Id = "TurtlesOption2";
-                myOptionTwo.Text = new TextObject("{=glEji6Fc}I don't like turtles");
-                newEvent.AddOption(myOptionTwo);                
+                newEvent.AddOption(myOption);
 
                 newEvent.Call();
             }
@@ -51,15 +45,15 @@ namespace Revolutions.CampaignBehaviors
         public class MyOption : Option
         {
             public TextObject Information;
-            
+
             public MyOption() : base()
             {
 
             }
-            
+
             public MyOption(string id, TextObject text) : base(id, text)
             {
-                
+
             }
 
             public override void Result()

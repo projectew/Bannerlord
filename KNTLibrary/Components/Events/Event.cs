@@ -25,7 +25,7 @@ namespace KNTLibrary.Components.Events
         {
             Options.Add(new Option(id, text));
         }
-        
+
         public void AddOption(Option option)
         {
             Options.Add(option);
@@ -47,13 +47,13 @@ namespace KNTLibrary.Components.Events
             Id = id;
             Text = text;
         }
-        
+
         public string Id;
         public TextObject Text;
 
         public virtual void Result()
         {
-            
+
         }
     }
 }

@@ -7,7 +7,7 @@ using TaleWorlds.CampaignSystem.SandBox.GameComponents;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
 
-namespace Revolutions.Models
+namespace Revolutions.Components.General.Models
 {
     public class SettlementLoyaltyModel : DefaultSettlementLoyaltyModel
     {
@@ -80,7 +80,7 @@ namespace Revolutions.Models
             }
 
             var factionInfo = settlementInfo.CurrentFactionInfo;
-            if(factionInfo == null)
+            if (factionInfo == null)
             {
                 return;
             }

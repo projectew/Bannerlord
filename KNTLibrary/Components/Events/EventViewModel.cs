@@ -18,16 +18,16 @@ namespace KNTLibrary.Components.Events
             _options = options;
             _description = description;
         }
-        
+
         [DataSourceProperty]
         public string Description => _description.ToString();
-        
+
         [DataSourceProperty]
         public string OptionOneText => _options[0].Text.ToString();
-        
+
         [DataSourceProperty]
         public string OptionTwoText => _options[1].Text.ToString();
-        
+
         private void ExitMenu()
         {
             Game.Current.GameStateManager.ActiveStateDisabledByUser = false;
@@ -46,11 +46,11 @@ namespace KNTLibrary.Components.Events
             _options[0].Result();
             ExitMenu();
         }
-        
+
         private void OptionTwoTrigger()
         {
-         _options[1].Result();
-         ExitMenu();
+            _options[1].Result();
+            ExitMenu();
         }
     }
 }

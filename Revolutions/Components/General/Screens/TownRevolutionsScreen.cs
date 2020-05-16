@@ -1,11 +1,11 @@
 ﻿using Revolutions.Components.Base.Factions;
 using Revolutions.Components.Base.Settlements;
-using Revolutions.Screens.ViewModels;
+using Revolutions.Components.General.Screens.ViewModels;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.GauntletUI.Data;
 
-namespace Revolutions.Screens
+namespace Revolutions.Components.General.Screens
 {
     public class TownRevoltsScreen : ScreenBase
     {
@@ -56,12 +56,12 @@ namespace Revolutions.Screens
 
             _ = this._gauntletLayer.Input;
         }
-        
+
         protected override void OnDeactivate()
         {
-            this.RemoveLayer((ScreenLayer) this._gauntletLayer);
+            this.RemoveLayer(this._gauntletLayer);
             this._gauntletLayer.IsFocusLayer = false;
-            ScreenManager.TryLoseFocus((ScreenLayer) this._gauntletLayer);
+            ScreenManager.TryLoseFocus(this._gauntletLayer);
             base.OnDeactivate();
         }
     }

@@ -1,5 +1,4 @@
-﻿using Revolutions.Screens;
-using System;
+﻿using System;
 using KNTLibrary.Components.Events;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameMenus;
@@ -8,6 +7,7 @@ using TaleWorlds.Engine.Screens;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Localization;
 using TaleWorlds.Network;
+using Revolutions.Components.General.Screens;
 
 namespace Revolutions.CampaignBehaviors
 {

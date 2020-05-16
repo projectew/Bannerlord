@@ -31,7 +31,7 @@ namespace KNTLibrary.Components.Events
         {
             _options = options;
             _description = description;
-            
+
             if (options.Count() == 1)
             {
                 _movieName = "OneOptionEvent";
@@ -68,9 +68,9 @@ namespace KNTLibrary.Components.Events
 
         protected override void OnDeactivate()
         {
-            this.RemoveLayer((ScreenLayer) this._gauntletLayer);
+            this.RemoveLayer((ScreenLayer)this._gauntletLayer);
             this._gauntletLayer.IsFocusLayer = false;
-            ScreenManager.TryLoseFocus((ScreenLayer) this._gauntletLayer);
+            ScreenManager.TryLoseFocus((ScreenLayer)this._gauntletLayer);
             base.OnDeactivate();
         }
     }

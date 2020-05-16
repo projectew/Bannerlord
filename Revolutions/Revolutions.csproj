@@ -87,6 +87,17 @@
   <ItemGroup>
     <Content Include="GUI\Prefabs\OneOptionEvent.xml" />
     <Content Include="GUI\Prefabs\TwoOptionEvent.xml" />
+    <Content Include="GUI\RevolutionsSpriteData.xml" />
+    <Content Include="GUI\SpriteParts\barren_landscape.png" />
+    <Content Include="GUI\SpriteParts\farmed_land.png" />
+    <Content Include="GUI\SpriteParts\farm_icon.png" />
+    <Content Include="GUI\SpriteParts\mapbar_icon_coins2.png" />
+    <Content Include="GUI\SpriteParts\mapbar_icon_finances.png" />
+    <Content Include="GUI\SpriteParts\mapbar_left_canvas_7slots.png" />
+    <Content Include="GUI\SpriteParts\mapbar_left_frame_7slots.png" />
+    <Content Include="GUI\SpriteParts\mapbar_left_frame_silhouette_7slots.png" />
+    <Content Include="GUI\SpriteSheets\entrepreneur-ui-1.png" />
+    <Content Include="GUI\SpriteSheets\entrepreneur-ui-1.txt" />
     <Content Include="Images\Loyalty_Change.PNG" />
     <Content Include="Images\Menu_Town.PNG" />
     <Content Include="Images\Options_CivilWars_I.PNG" />
@@ -137,10 +148,10 @@
     <Compile Include="Components\Revolts\CampaignBehaviors\RevoltsDailyBehavior.cs" />
     <Compile Include="Localization\GameTexts.cs" />
     <Compile Include="Localization\Settings\Categories.cs" />
-    <Compile Include="Models\SettlementLoyaltyModel.cs" />
+    <Compile Include="Components\General\Models\SettlementLoyaltyModel.cs" />
     <Compile Include="Managers.cs" />
-    <Compile Include="Screens\TownRevolutionsScreen.cs" />
-    <Compile Include="Screens\ViewModels\TownRevolutionViewModel.cs" />
+    <Compile Include="Components\General\Screens\TownRevolutionsScreen.cs" />
+    <Compile Include="Components\General\Screens\ViewModels\TownRevolutionViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Localization\Settings\Descriptions.cs" />
     <Compile Include="Settings\RevolutionsSettings.cs" />
