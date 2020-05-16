@@ -3,9 +3,11 @@ using System;
 using KNTLibrary.Components.Events;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameMenus;
+using TaleWorlds.Core;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Localization;
+using TaleWorlds.Network;
 
 namespace Revolutions.CampaignBehaviors
 {
@@ -15,6 +17,7 @@ namespace Revolutions.CampaignBehaviors
         {
             CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.OnSessionLaunched));
             CampaignEvents.TickEvent.AddNonSerializedListener(this, new Action<float>(this.Tick));
+            
         }
 
         public override void SyncData(IDataStore dataStore)
@@ -31,6 +34,10 @@ namespace Revolutions.CampaignBehaviors
         {
             if (Input.IsKeyReleased(InputKey.Home))
             {
+                Campaign.Current.TimeControlMode = CampaignTimeControlMode.Stop;
+                Campaign.Current.SetTimeSpeed(0);
+                Game.Current.GameStateManager.ActiveStateDisabledByUser = true;
+
                 Event newEvent = new Event(1, new TextObject("hello"));
                 newEvent.AddOption(1, new TextObject("Ok"));
                 newEvent.Call();

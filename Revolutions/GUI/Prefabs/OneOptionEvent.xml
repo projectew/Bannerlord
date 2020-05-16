@@ -4,15 +4,7 @@
         <VisualDefinition
                 Name="BottomMenu"
                 DelayOnBegin="0.2"
-                TransitionDuration="0.4">
-            <VisualState
-                    PositionYOffset="0"
-                    State="Default" />
-        </VisualDefinition>
-        <VisualDefinition
-                Name="OptionsMenu"
-                DelayOnBegin="0.2"
-                TransitionDuration="0.4">
+                TransitionDuration="0.9">
             <VisualState
                     PositionYOffset="0"
                     State="Default" />
@@ -20,27 +12,38 @@
     </VisualDefinitions>
     <Window>
         <Widget
-                WidthSizePolicy="StretchToParent"
-                HeightSizePolicy="StretchToParent"
-                Brush="Frame1Brush">
+                DoNotAcceptEvents="true"
+                WidthSizePolicy="Fixed"
+                HeightSizePolicy="Fixed"
+                SuggestedHeight="700"
+                SuggestedWidth="1200"
+                MarginTop="50"
+                HorizontalAlignment="Center"
+                Brush="Recruitment.Frame">
             <Children>
-                <Widget
-                        DoNotAcceptEvents="true"
+                <TextWidget
+                        MarginTop="200"
+                        MarginLeft="50"
+                        MarginRight="50"
+                        WidthSizePolicy="StretchToParent"
+                        HeightSizePolicy="StretchToParent"
+                        Brush="Popup.Button.Text"
+                        Text="@Description"
+                />
+                <ButtonWidget
+                        DoNotPassEventsToChildren="true"
                         WidthSizePolicy="Fixed"
                         HeightSizePolicy="Fixed"
-                        SuggestedHeight="700"
-                        SuggestedWidth="1200"
-                        MarginTop="50"
+                        SuggestedWidth="1000"
+                        SuggestedHeight="80"
+                        MarginTop="600"
                         HorizontalAlignment="Center"
-                        Brush="Recruitment.Frame">
-                </Widget>
-                <!--Close Screen Button// Parameter.DoneButtonAction="ExecuteClose"-->
-                <Standard.DialogCloseButtons
-                        VisualDefinition="BottomMenu"
-                        Parameter.DoneButtonAction="ExitMenu"
-                        PositionYOffset="100"
-                        Parameter.DoneButtonText="@DoneDesc"
-                        Parameter.ShowCancel="false" />
+                        Brush="Recruitment.Frame"
+                        Command.Click="ExitMenu">
+                    <Children>
+                        <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Popup.Button.Text" Text="@OptionText" />
+                    </Children>
+                </ButtonWidget>
             </Children>
         </Widget>
     </Window>

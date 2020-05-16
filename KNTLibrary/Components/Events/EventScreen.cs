@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using SandBox.Quests.QuestBehaviors;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.GauntletUI.Data;
@@ -63,6 +64,14 @@ namespace KNTLibrary.Components.Events
             base.OnFrameTick(dt);
 
             _ = this._gauntletLayer.Input;
+        }
+
+        protected override void OnDeactivate()
+        {
+            this.RemoveLayer((ScreenLayer) this._gauntletLayer);
+            this._gauntletLayer.IsFocusLayer = false;
+            ScreenManager.TryLoseFocus((ScreenLayer) this._gauntletLayer);
+            base.OnDeactivate();
         }
     }
 }

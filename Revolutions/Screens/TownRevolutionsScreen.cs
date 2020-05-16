@@ -56,5 +56,13 @@ namespace Revolutions.Screens
 
             _ = this._gauntletLayer.Input;
         }
+        
+        protected override void OnDeactivate()
+        {
+            this.RemoveLayer((ScreenLayer) this._gauntletLayer);
+            this._gauntletLayer.IsFocusLayer = false;
+            ScreenManager.TryLoseFocus((ScreenLayer) this._gauntletLayer);
+            base.OnDeactivate();
+        }
     }
 }

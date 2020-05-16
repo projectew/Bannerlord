@@ -17,11 +17,17 @@ namespace KNTLibrary.Components.Events
         {
             _options = options;
             _description = description;
-            //Data init here here
         }
+        
+        [DataSourceProperty]
+        public string Description => _description.ToString();
+        
+        [DataSourceProperty]
+        public string OptionOneText => _options[0].Text.ToString();
         
         private void ExitMenu()
         {
+            Game.Current.GameStateManager.ActiveStateDisabledByUser = false;
             ScreenManager.PopScreen();
         }
 
