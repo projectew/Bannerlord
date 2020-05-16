@@ -86,6 +86,8 @@
     <Compile Include="Components\Characters\BaseCharacterManager.cs" />
     <Compile Include="Components\Clans\BaseClanInfo.cs" />
     <Compile Include="Components\Clans\BaseClanManager.cs" />
+    <Compile Include="Components\Plots\PlotScreen.cs" />
+    <Compile Include="Components\Plots\PlotViewModel.cs" />
     <Compile Include="Helpers\ColorHelper.cs" />
     <Compile Include="Components\Factions\BaseFactionInfo.cs" />
     <Compile Include="Components\Factions\BaseFactionManager.cs" />
