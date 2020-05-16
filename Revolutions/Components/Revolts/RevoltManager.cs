@@ -143,8 +143,6 @@ namespace Revolutions.Components.Revolts
             information.SetTextVariable("SETTLEMENT", revolt.Settlement.Name.ToString());
             InformationManager.AddQuickInformation(information);
 
-            revolt.SettlementInfo.CurrentFactionInfo.CityRevoltionSucceeded(revolt.Settlement);
-
             if (RevolutionsSettings.Instance.RevoltsImperialLoyaltyMechanic && revolt.SettlementInfo.IsCurrentFactionOfImperialCulture && !revolt.SettlementInfo.IsLoyalFactionOfImperialCulture)
             {
                 revolt.Settlement.OwnerClan.AddRenown(-RevolutionsSettings.Instance.RevoltsImperialRenownLoss);
@@ -153,6 +151,7 @@ namespace Revolutions.Components.Revolts
             if (RevolutionsSettings.Instance.RevoltsMinorFactionsMechanic && revolt.IsMinorFaction)
             {
                 ChangeOwnerOfSettlementAction.ApplyByRevolt(revolt.Party.LeaderHero, revolt.Settlement);
+                revolt.SettlementInfo.CurrentFactionInfo.CityRevoltionSucceeded(revolt.Settlement);
                 revolt.Party.LeaderHero.Clan.AddRenown(RevolutionsSettings.Instance.RevoltsMinorFactionsRenownGainOnWin);
 
                 var amountOTroops = (RevolutionsSettings.Instance.RevoltsGeneralBaseSize + (int)(revolt.Settlement.Prosperity * RevolutionsSettings.Instance.RevoltsGeneralProsperityMulitplier)) / 3;

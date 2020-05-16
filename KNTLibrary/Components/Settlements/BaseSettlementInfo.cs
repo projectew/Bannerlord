@@ -73,9 +73,9 @@ namespace KNTLibrary.Components.Settlements
 
         public BaseFactionInfo InitialFactionBaseInfo => BaseManagers.Faction.GetInfo(this.InitialFactionId);
 
-        public IFaction CurrentFaction => this.Settlement.MapFaction;
+        public IFaction CurrentFaction => BaseManagers.Faction.GetGameObject(this.CurrentFactionId);
 
-        public BaseFactionInfo CurrentFactionBaseInfo => BaseManagers.Faction.GetInfo(this.Settlement.MapFaction);
+        public BaseFactionInfo CurrentFactionBaseInfo => BaseManagers.Faction.GetInfo(this.CurrentFactionId);
 
         public IFaction PreviousFaction => BaseManagers.Faction.GetGameObject(this.PreviousFactionId);
 

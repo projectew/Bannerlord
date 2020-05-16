@@ -34,7 +34,7 @@ namespace Revolutions.CampaignBehaviors
             }, (args) =>
             {
                 var settlementInfo = Managers.Settlement.GetInfo(Settlement.CurrentSettlement);
-                ScreenManager.PushScreen(new TownRevoltsScreen(settlementInfo, settlementInfo.CurrentFactionInfo));
+                ScreenManager.PushScreen(new TownRevoltsScreen(settlementInfo));
             }, false, 4);
         }
     }
