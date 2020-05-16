@@ -11,6 +11,7 @@ using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Library;
 using TaleWorlds.TwoDimension;
 using TaleWorlds.MountAndBlade;
+using Revolutions.Components.Events;
 
 namespace Revolutions
 {
@@ -24,17 +25,17 @@ namespace Revolutions
         {
             base.OnSubModuleLoad();
 
-            ResourceDepot uiResourceDepot = UIResourceManager.UIResourceDepot;
-            TwoDimensionEngineResourceContext resourceContext = UIResourceManager.ResourceContext;
-            SpriteData spriteData1 = UIResourceManager.SpriteData;
-            SpriteData spriteData2 = new SpriteData("RevolutionsSpriteData");
+            var uiResourceDepot = UIResourceManager.UIResourceDepot;
+            var resourceContext = UIResourceManager.ResourceContext;
+            var spriteData1 = UIResourceManager.SpriteData;
+            var spriteData2 = new SpriteData("RevolutionsSpriteData");
             spriteData2.Load(uiResourceDepot);
-            TaleWorlds.TwoDimension.Texture texture = new TaleWorlds.TwoDimension.Texture(new EngineTexture(TaleWorlds.Engine.Texture.CreateTextureFromPath("../../Modules/Revolutions/GUI/SpriteSheets/", "revolutions-ui-1.png")));
+            var texture = new TaleWorlds.TwoDimension.Texture(new EngineTexture(TaleWorlds.Engine.Texture.CreateTextureFromPath("../../Modules/Revolutions/GUI/SpriteSheets/", "revolutions-ui-1.png")));
             spriteData1.SpriteCategories.Add("revolutions_events", spriteData2.SpriteCategories["revolutions_events"]);
             spriteData1.SpriteNames.Add("Revolutions.PlottingLords", (Sprite)new SpriteGeneric("Revolutions.PlottingLords", spriteData2.SpritePartNames["Revolutions.PlottingLords"]));
             spriteData1.SpriteNames.Add("Revolutions.Whatever", (Sprite)new SpriteGeneric("Revolutions.Whatever", spriteData2.SpritePartNames["Revolutions.Whatever"]));
 
-            SpriteCategory spriteCategory = spriteData1.SpriteCategories["revolutions_events"];
+            var spriteCategory = spriteData1.SpriteCategories["revolutions_events"];
             spriteCategory.SpriteSheets.Add(texture);
             spriteCategory.Load(resourceContext, uiResourceDepot);
             UIResourceManager.BrushFactory.Initialize();
@@ -73,7 +74,7 @@ namespace Revolutions
         {
             campaignGameStarter.AddModel(new Components.General.Models.SettlementLoyaltyModel());
             campaignGameStarter.AddBehavior(new RevolutionsBehavior(ref this._dataStorage, campaignGameStarter));
-            campaignGameStarter.AddBehavior(new EventsBehaviour());
+            campaignGameStarter.AddBehavior(new TestEventBehavior());
 
             if (RevolutionsSettings.Instance.EnableRevolts)
             {

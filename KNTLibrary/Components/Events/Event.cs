@@ -1,60 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
 using TaleWorlds.Engine.Screens;
-using TaleWorlds.Localization;
 
 namespace KNTLibrary.Components.Events
 {
     [Serializable]
     public class Event
     {
-        public Event() { }
+        public string Id { get; }
 
-        public Event(int id, TextObject description, string sprite)
+        public string Description { get; }
+
+        public string Sprite { get; }
+
+        public List<EventOption> Options { get; }
+
+        public Event()
         {
-            Id = id;
-            Description = description;
-            Sprite = sprite;
         }
 
-        public readonly int Id;
-        public readonly TextObject Description;
-        public readonly List<Option> Options = new List<Option>();
-        public readonly string Sprite;
-
-        public void AddOption(string id, TextObject text)
+        public Event(string id, string description, string sprite, List<EventOption> options = null)
         {
-            Options.Add(new Option(id, text));
+            this.Id = id;
+            this.Description = description;
+            this.Sprite = sprite;
+            this.Options = options ?? new List<EventOption>();
         }
 
-        public void AddOption(Option option)
+        public void AddOption(string id, string text)
         {
-            Options.Add(option);
+            this.Options.Add(new EventOption(id, text));
         }
 
-        public void Call()
+        public void AddOption(EventOption option)
         {
-            ScreenManager.PushScreen(new EventScreen(Options, Description, Sprite));
-        }
-    }
-
-    [Serializable]
-    public class Option
-    {
-        public Option() { }
-
-        public Option(string id, TextObject text)
-        {
-            Id = id;
-            Text = text;
+            this.Options.Add(option);
         }
 
-        public string Id;
-        public TextObject Text;
-
-        public virtual void Result()
+        public void Invoke()
         {
-
+            ScreenManager.PushScreen(new EventScreen(this.Description, this.Sprite, this.Options));
         }
     }
 }

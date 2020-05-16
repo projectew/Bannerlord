@@ -218,8 +218,8 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 var plottingLeaderCalculating = plottingLeader.GetHeroTraits().Calculating;
 
                 float personalityTraits = plottingLeaderGenerosity + kingdomLeaderGenerosity + plottingLeaderMercy + kingdomLeaderMercy;
-                float personalityWeight = MathF.Pow(RevolutionsSettings.Instance.CivilWarsWarPersonalityMultiplier, -personalityTraits);
-                float troopWeight = plottersTroopWeight / loyalTroopWeight;
+                var personalityWeight = MathF.Pow(RevolutionsSettings.Instance.CivilWarsWarPersonalityMultiplier, -personalityTraits);
+                var troopWeight = plottersTroopWeight / loyalTroopWeight;
                 float valorModifier = 1 + (plottingLeaderValor <= 0 ? 1 : plottingLeaderValor * 2);
                 float clanCountModifier = plottingClans.Count / (loyalClans.Count + 1);
                 float calculatingModifier = 1 + (plottingLeaderCalculating <= 0 ? 1 : plottingLeaderCalculating);
@@ -327,11 +327,11 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
             var clanLeaderFriends = kingdomClanLeaders.Where(w => w.IsFriend(clanLeader) && Managers.Character.GetInfo(w.CharacterObject).PlotState == PlotState.IsPlotting).ToList();
 
             float personalityTraits = kingdomLeaderHonor + clanLeaderHonor;
-            float personalityWeight = MathF.Pow(RevolutionsSettings.Instance.CivilWarsPlottingPersonalityMultiplier, -personalityTraits);
+            var personalityWeight = MathF.Pow(RevolutionsSettings.Instance.CivilWarsPlottingPersonalityMultiplier, -personalityTraits);
             float friendModifier = clanLeaderFriends.Count <= 0 ? 1 : clanLeaderFriends.Count;
-            float friendWeight = MathF.Pow(RevolutionsSettings.Instance.CivilWarsPlottingFriendMultiplier, friendModifier);
+            var friendWeight = MathF.Pow(RevolutionsSettings.Instance.CivilWarsPlottingFriendMultiplier, friendModifier);
 
-            float plotChance = RevolutionsSettings.Instance.CivilWarsPlottingBaseChance * personalityWeight * friendWeight;
+            var plotChance = RevolutionsSettings.Instance.CivilWarsPlottingBaseChance * personalityWeight * friendWeight;
 
             if (RevolutionsSettings.Instance.DebugMode)
             {

@@ -2,44 +2,32 @@
 using System.Linq;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Engine.Screens;
-using TaleWorlds.GauntletUI.Data;
-using TaleWorlds.Localization;
 
 namespace KNTLibrary.Components.Events
 {
     public class EventScreen : ScreenBase
     {
+        private readonly string _movieName;
         private EventViewModel _dataSource;
         private GauntletLayer _gauntletLayer;
-        private GauntletMovie _movie;
 
-        private string _movieName;
-        private string _sprite;
-        private List<Option> _options;
-        private TextObject _description;
+        private readonly string _description;
+        private readonly string _sprite;
+        private readonly List<EventOption> _options;
 
-        protected override void OnFinalize()
+        public EventScreen(string description, string sprite, List<EventOption> options)
         {
-            base.OnFinalize();
-
-            this._gauntletLayer = null;
-            this._dataSource = null;
-            this._movie = null;
-        }
-
-        public EventScreen(List<Option> options, TextObject description, string sprite)
-        {
-            _options = options;
-            _description = description;
-            _sprite = sprite;
+            this._description = description;
+            this._sprite = sprite;
+            this._options = options;
 
             if (options.Count() == 1)
             {
-                _movieName = "OneOptionEvent";
+                this._movieName = "OneOptionEvent";
             }
             else if (options.Count() == 2)
             {
-                _movieName = "TwoOptionEvent";
+                this._movieName = "TwoOptionEvent";
             }
         }
 
@@ -47,32 +35,32 @@ namespace KNTLibrary.Components.Events
         {
             base.OnInitialize();
 
-            this._dataSource = new EventViewModel(this._options, this._description, this._sprite);
+            this._dataSource = new EventViewModel(this._description, this._sprite, this._options);
             this._gauntletLayer = new GauntletLayer(100)
             {
                 IsFocusLayer = true
             };
-
             this.AddLayer(this._gauntletLayer);
             this._gauntletLayer.InputRestrictions.SetInputRestrictions();
             ScreenManager.TrySetFocus(this._gauntletLayer);
-
-            this._movie = this._gauntletLayer.LoadMovie(_movieName, this._dataSource);
+            this._gauntletLayer.LoadMovie(this._movieName, this._dataSource);
         }
 
-        protected override void OnFrameTick(float dt)
+        protected override void OnFinalize()
         {
-            base.OnFrameTick(dt);
+            base.OnFinalize();
 
-            _ = this._gauntletLayer.Input;
+            this._gauntletLayer = null;
+            this._dataSource = null;
         }
 
         protected override void OnDeactivate()
         {
-            this.RemoveLayer((ScreenLayer)this._gauntletLayer);
-            this._gauntletLayer.IsFocusLayer = false;
-            ScreenManager.TryLoseFocus((ScreenLayer)this._gauntletLayer);
             base.OnDeactivate();
+
+            this.RemoveLayer(this._gauntletLayer);
+            this._gauntletLayer.IsFocusLayer = false;
+            ScreenManager.TryLoseFocus(this._gauntletLayer);
         }
     }
 }

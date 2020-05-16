@@ -12,7 +12,7 @@ namespace LocalizationIdGenerator
         public static void Main(string[] args)
         {
             var randomIds = new List<string>();
-            for (int i = 0; i < 100; i++)
+            for (var i = 0; i < 100; i++)
             {
                 randomIds.Add(Program.GetRandomString());
             }

@@ -1,6 +1,5 @@
 ﻿using KNTLibrary;
 using KNTLibrary.Helpers;
-using Revolutions.Components.Base.Factions;
 using Revolutions.Components.Base.Settlements;
 using Revolutions.Settings;
 using System;

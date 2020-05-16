@@ -135,7 +135,7 @@ namespace Revolutions.Components.General.Screens.ViewModels
             }
         }
 
-        private void ExitTownPropertyMenu()
+        private void ExitMenu()
         {
             ScreenManager.PopScreen();
         }

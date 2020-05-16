@@ -88,7 +88,7 @@
     <Content Include="GUI\Prefabs\OneOptionEvent.xml" />
     <Content Include="GUI\Prefabs\TwoOptionEvent.xml" />
     <Content Include="GUI\RevolutionsSpriteData.xml" />
-    <Content Include="GUI\SpriteSheets\revolutions-ui-1.png" />
+    <Content Include="GUI\SpriteSheets\revolutions_events.png" />
     <Content Include="Images\Loyalty_Change.PNG" />
     <Content Include="Images\Menu_Town.PNG" />
     <Content Include="Images\Options_CivilWars_I.PNG" />
@@ -108,7 +108,8 @@
   <!-- Mod Programming Files -->
   <ItemGroup>
     <Compile Include="CampaignBehaviors\CleanupBehavior.cs" />
-    <Compile Include="CampaignBehaviors\EventsBehaviour.cs" />
+    <Compile Include="Components\Events\Test\TestEventOption.cs" />
+    <Compile Include="Components\Events\Test\TestEventBehavior.cs" />
     <Compile Include="CampaignBehaviors\GuiHandlersBehavior.cs" />
     <Compile Include="CampaignBehaviors\RevolutionsBehavior.cs" />
     <Compile Include="Components\Base\Banner\BannerInfoExtensions.cs" />
@@ -152,9 +153,7 @@
     <Content Include="GUI\Brushes\ButtonBrush.xml" />
     <Content Include="GUI\Prefabs\TownRevoltScreen.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="GUI\SpriteParts" />
-  </ItemGroup>
+  <ItemGroup />
   <!-- Post-Build -->
   <PropertyGroup>
     <PostBuildEvent>xcopy /d /y /i "$(MSBuildProjectDirectory)\SubModule.xml" "$(SolutionDir)\..\Revolutions\"

@@ -8,32 +8,42 @@ namespace KNTLibrary.Components.Events
 {
     public class EventViewModel : ViewModel
     {
-        private List<Option> _options;
+        private readonly EventOption _optionOne;
 
-        private TextObject _description;
+        private readonly EventOption _optionTwo;
 
-        private string _sprite;
-        //data goes here
-
-        public EventViewModel(List<Option> options, TextObject description, string sprite)
+        public EventViewModel(string description, string sprite, List<EventOption> options)
         {
-            _options = options;
-            _description = description;
-            _sprite = sprite;
+            this._optionOne = options[0];
+            this._optionTwo = options[1];
+            this.Description = description.ToString();
+            this.Sprite = sprite;
         }
 
         [DataSourceProperty]
-        public string Description => _description.ToString();
+        public string Description { get; }
 
         [DataSourceProperty]
-        public string OptionOneText => _options[0].Text.ToString();
+        public string Sprite { get; }
 
         [DataSourceProperty]
-        public string OptionTwoText => _options[1].Text.ToString();
+        public string OptionOneText => new TextObject(this._optionOne.Text).ToString();
 
-        [DataSourceProperty] 
-        public string Sprite => _sprite;
-        
+        [DataSourceProperty]
+        public string OptionTwoText => new TextObject(this._optionTwo.Text).ToString();
+
+        private void InvokeOptionOne()
+        {
+            this._optionOne.Invoke();
+            this.ExitMenu();
+        }
+
+        private void InvokeOptionTwo()
+        {
+            this._optionTwo.Invoke();
+            this.ExitMenu();
+        }
+
         private void ExitMenu()
         {
             Game.Current.GameStateManager.ActiveStateDisabledByUser = false;
@@ -46,18 +56,6 @@ namespace KNTLibrary.Components.Events
             this.OnPropertyChanged("OptionOneText");
             this.OnPropertyChanged("OptionTwoText");
             this.OnPropertyChanged("Sprite");
-        }
-
-        private void OptionOneTrigger()
-        {
-            _options[0].Result();
-            ExitMenu();
-        }
-
-        private void OptionTwoTrigger()
-        {
-            _options[1].Result();
-            ExitMenu();
         }
     }
 }
