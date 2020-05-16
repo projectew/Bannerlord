@@ -37,6 +37,13 @@
                                 <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Popup.Button.Text" Text="@OptionOneText" />
                             </Children>
                         </ButtonWidget>
+                        <ButtonWidget
+                                DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="1000" SuggestedHeight="80"
+                                MarginTop="600" HorizontalAlignment="Center" Brush="Recruitment.Frame" Command.Click="OptionTwoTrigger">
+                            <Children>
+                                <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Popup.Button.Text" Text="@OptionTwoText" />
+                            </Children>
+                        </ButtonWidget>
                     </Children>
                 </TextWidget>
             </Children>

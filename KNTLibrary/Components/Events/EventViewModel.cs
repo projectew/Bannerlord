@@ -25,6 +25,9 @@ namespace KNTLibrary.Components.Events
         [DataSourceProperty]
         public string OptionOneText => _options[0].Text.ToString();
         
+        [DataSourceProperty]
+        public string OptionTwoText => _options[1].Text.ToString();
+        
         private void ExitMenu()
         {
             Game.Current.GameStateManager.ActiveStateDisabledByUser = false;
@@ -35,12 +38,19 @@ namespace KNTLibrary.Components.Events
         {
             this.OnPropertyChanged("Description");
             this.OnPropertyChanged("OptionOneText");
+            this.OnPropertyChanged("OptionTwoText");
         }
 
         private void OptionOneTrigger()
         {
             _options[0].Result();
             ExitMenu();
+        }
+        
+        private void OptionTwoTrigger()
+        {
+         _options[1].Result();
+         ExitMenu();
         }
     }
 }
