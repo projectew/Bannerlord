@@ -93,13 +93,11 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
                     {
                         var previousFactionOwner = BaseManagers.Faction.GetLordWithLeastFiefs(revolt.SettlementInfo.PreviousFaction).HeroObject;
                         ChangeOwnerOfSettlementAction.ApplyByRevolt(previousFactionOwner, settlement);
-                        Managers.Faction.GetInfo(previousFactionOwner.MapFaction).CityRevoltionSucceeded(revolt.Settlement);
                     }
                     else
                     {
                         var loyalFactionOwner = BaseManagers.Faction.GetLordWithLeastFiefs(revolt.SettlementInfo.LoyalFaction).HeroObject;
                         ChangeOwnerOfSettlementAction.ApplyByRevolt(loyalFactionOwner, settlement);
-                        Managers.Faction.GetInfo(loyalFactionOwner.MapFaction).CityRevoltionSucceeded(revolt.Settlement);
                     }
 
                     Managers.Kingdom.DestroyKingdom(capturedHero.Clan.Kingdom);

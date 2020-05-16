@@ -86,47 +86,50 @@ namespace Revolutions.Components.General.Screens.ViewModels
         {
             get
             {
-                if (this.SettlementInfo.CurrentFaction.StringId == this.SettlementInfo.LoyalFaction.StringId)
+                var currentSettlementId = this.SettlementInfo.SettlementId;
+                var currentFactionInfo = this.SettlementInfo.CurrentFactionInfo;
+                var previousFactionInfo = this.SettlementInfo.PreviousFactionInfo;
+
+                if (currentFactionInfo.FactionId == this.SettlementInfo.LoyalFaction.StringId)
                 {
-                    var textObject = new TextObject("{=zQNPQz3q}People are content with the current rule.");
-                    return textObject.ToString();
+                    return $"{new TextObject("{=zQNPQz3q}People are content with the current rule.")}";
                 }
 
-                if (this.SettlementInfo.CurrentFactionInfo.CanRevolt)
+                var revoltedInPreviousFaction = previousFactionInfo.RevoltedSettlementId == currentSettlementId;
+
+                if (currentFactionInfo.CanRevolt)
                 {
                     var inspiration = new TextObject("");
-                    if (this.SettlementInfo.CurrentFactionInfo.SuccessfullyRevolted)
+
+                    if (currentFactionInfo.SuccessfullyRevolted || (revoltedInPreviousFaction && previousFactionInfo.SuccessfullyRevolted))
                     {
-                        if (this.SettlementInfo.CurrentFactionInfo.RevoltedSettlement == null)
+                        if (currentFactionInfo.RevoltedSettlementId == currentSettlementId || revoltedInPreviousFaction)
                         {
                             inspiration = new TextObject("{=qZS0ma0z}Many are inspired by tales of revolts in the kingdom.");
                         }
                         else
                         {
                             inspiration = new TextObject("{=7LzQWiDZ}Many are inspired by events at {SETTLEMENT}.");
-                            inspiration.SetTextVariable("SETTLEMENT", this.SettlementInfo.CurrentFactionInfo.RevoltedSettlement.Name);
+                            inspiration.SetTextVariable("SETTLEMENT", currentFactionInfo.RevoltedSettlement.Name);
                         }
                     }
 
-                    var baseText = new TextObject("{=HWiDqN8d}Some talk of raising banners of their homeland.");
-                    return baseText.ToString() + " " + inspiration.ToString();
+                    return $"{new TextObject("{=HWiDqN8d}Some talk of raising banners of their homeland.")} {inspiration}";
                 }
                 else
                 {
-                    if (this.SettlementInfo.CurrentFactionInfo.RevoltedSettlement == null)
+                    if (currentFactionInfo.RevoltedSettlementId == currentSettlementId || revoltedInPreviousFaction)
+                    {
+                        return $"{new TextObject("{=q2tbH41e}The people of this town had revolted recently and don't wish to spill blood again.")}";
+                    }
+
+                    if (currentFactionInfo.RevoltedSettlement == null)
                     {
                         return string.Empty;
                     }
 
-                    if (this.SettlementInfo.CurrentFactionInfo.RevoltedSettlementId == this.SettlementInfo.Settlement.StringId)
-                    {
-                        var option = new TextObject("{=q2tbH41e}The people of this town had revolted recently, and don't wish to spill blood again.");
-                        return option.ToString();
-                    }
-
                     var textObject = new TextObject("{=6m7Ss8fW}After hearing of blood spilled in {SETTLEMENT} citizens are afraid of revolting.");
                     textObject.SetTextVariable("SETTLEMENT", this.SettlementInfo.CurrentFactionInfo.RevoltedSettlement.Name);
-
                     return textObject.ToString();
                 }
             }
