@@ -85,6 +85,7 @@
   </ItemGroup>
   <!-- Mod Resource Files -->
   <ItemGroup>
+    <Content Include="GUI\Prefabs\OneOptionEvent.xml" />
     <Content Include="Images\Loyalty_Change.PNG" />
     <Content Include="Images\Menu_Town.PNG" />
     <Content Include="Images\Options_CivilWars_I.PNG" />
@@ -151,7 +152,7 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy /d /y /i "$(MSBuildProjectDirectory)\SubModule.xml" "$(SolutionDir)\..\Revolutions\"
 xcopy /d /y /i "$(MSBuildProjectDirectory)\GUI\Brushes\ButtonBrush.xml" "$(SolutionDir)\..\Revolutions\GUI\Brushes\"
-xcopy /d /y /i "$(MSBuildProjectDirectory)\GUI\Prefabs\TownRevoltScreen.xml" "$(SolutionDir)\..\Revolutions\GUI\Prefabs\"
+xcopy /d /y /i "$(MSBuildProjectDirectory)\GUI\Prefabs" "$(SolutionDir)\..\Revolutions\GUI\Prefabs\"
 xcopy /d /y /i "$(MSBuildProjectDirectory)\ModuleData\Languages\std_module_strings_xml.xml" "$(SolutionDir)\..\Revolutions\ModuleData\Languages\"
 xcopy /d /y /i "$(MSBuildProjectDirectory)\ModuleData\Banners" "$(SolutionDir)\..\Revolutions\ModuleData\Banners\"</PostBuildEvent>
   </PropertyGroup>

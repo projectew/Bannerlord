@@ -1,8 +1,10 @@
 ﻿using Revolutions.Screens;
 using System;
+using KNTLibrary.Components.Events;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameMenus;
 using TaleWorlds.Engine.Screens;
+using TaleWorlds.InputSystem;
 using TaleWorlds.Localization;
 
 namespace Revolutions.CampaignBehaviors
@@ -12,6 +14,7 @@ namespace Revolutions.CampaignBehaviors
         public override void RegisterEvents()
         {
             CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.OnSessionLaunched));
+            CampaignEvents.TickEvent.AddNonSerializedListener(this, new Action<float>(this.Tick));
         }
 
         public override void SyncData(IDataStore dataStore)
@@ -22,6 +25,16 @@ namespace Revolutions.CampaignBehaviors
         private void OnSessionLaunched(CampaignGameStarter obj)
         {
             this.CreateLoyaltyMenu(obj);
+        }
+
+        private void Tick(float dt)
+        {
+            if (Input.IsKeyReleased(InputKey.Home))
+            {
+                Event newEvent = new Event(1, new TextObject("hello"));
+                newEvent.AddOption(1, new TextObject("Ok"));
+                newEvent.Call();
+            }
         }
 
         private void CreateLoyaltyMenu(CampaignGameStarter obj)

@@ -76,6 +76,9 @@
     <Compile Include="Components\Banners\BaseBannerManager.cs" />
     <Compile Include="Components\Characters\BaseCharacterInfoExtension.cs" />
     <Compile Include="Components\Clans\BaseClanInfoExtension.cs" />
+    <Compile Include="Components\Events\Event.cs" />
+    <Compile Include="Components\Events\EventScreen.cs" />
+    <Compile Include="Components\Events\EventViewModel.cs" />
     <Compile Include="Components\IBaseComponent.cs" />
     <Compile Include="Components\Kingdoms\BaseKingdomInfo.cs" />
     <Compile Include="Components\Characters\BaseCharacterInfo.cs" />
