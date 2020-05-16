@@ -21,7 +21,26 @@
                 HorizontalAlignment="Center"
                 Brush="Recruitment.Frame">
             <Children>
-              <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="176" SuggestedHeight="300" HorizontalAlignment="Center" VerticalAlignment="Center" Sprite="Entrepreneur.WorkingField" IsDisabled="true"/>
+                <TextWidget
+                        MarginTop="0"
+                        MarginLeft="50"
+                        MarginRight="50"
+                        WidthSizePolicy="StretchToParent"
+                        HeightSizePolicy="StretchToParent"
+                        Brush="Popup.Button.Text"
+                        Text="@Description">
+                    <Children>
+                        <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="900" SuggestedHeight="300" MarginTop="-500"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Sprite="@Sprite" IsDisabled="true"/>
+                        <ButtonWidget
+                                DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="1000" SuggestedHeight="80"
+                                MarginTop="700" HorizontalAlignment="Center" Brush="Recruitment.Frame" Command.Click="OptionOneTrigger">
+                            <Children>
+                                <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Popup.Button.Text" Text="@OptionOneText" />
+                            </Children>
+                        </ButtonWidget>
+                    </Children>
+                </TextWidget>
             </Children>
         </Widget>
     </Window>

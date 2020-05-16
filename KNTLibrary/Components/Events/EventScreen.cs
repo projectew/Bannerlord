@@ -15,6 +15,7 @@ namespace KNTLibrary.Components.Events
         private GauntletMovie _movie;
 
         private string _movieName;
+        private string _sprite;
         private List<Option> _options;
         private TextObject _description;
 
@@ -27,10 +28,11 @@ namespace KNTLibrary.Components.Events
             this._movie = null;
         }
 
-        public EventScreen(List<Option> options, TextObject description)
+        public EventScreen(List<Option> options, TextObject description, string sprite)
         {
             _options = options;
             _description = description;
+            _sprite = sprite;
 
             if (options.Count() == 1)
             {
@@ -46,7 +48,7 @@ namespace KNTLibrary.Components.Events
         {
             base.OnInitialize();
 
-            this._dataSource = new EventViewModel(this._options, this._description);
+            this._dataSource = new EventViewModel(this._options, this._description, this._sprite);
             this._gauntletLayer = new GauntletLayer(100)
             {
                 IsFocusLayer = true

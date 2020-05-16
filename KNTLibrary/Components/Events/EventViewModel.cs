@@ -11,12 +11,15 @@ namespace KNTLibrary.Components.Events
         private List<Option> _options;
 
         private TextObject _description;
+
+        private string _sprite;
         //data goes here
 
-        public EventViewModel(List<Option> options, TextObject description)
+        public EventViewModel(List<Option> options, TextObject description, string sprite)
         {
             _options = options;
             _description = description;
+            _sprite = sprite;
         }
 
         [DataSourceProperty]
@@ -28,6 +31,9 @@ namespace KNTLibrary.Components.Events
         [DataSourceProperty]
         public string OptionTwoText => _options[1].Text.ToString();
 
+        [DataSourceProperty] 
+        public string Sprite => _sprite;
+        
         private void ExitMenu()
         {
             Game.Current.GameStateManager.ActiveStateDisabledByUser = false;
@@ -39,6 +45,7 @@ namespace KNTLibrary.Components.Events
             this.OnPropertyChanged("Description");
             this.OnPropertyChanged("OptionOneText");
             this.OnPropertyChanged("OptionTwoText");
+            this.OnPropertyChanged("Sprite");
         }
 
         private void OptionOneTrigger()

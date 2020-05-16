@@ -88,16 +88,7 @@
     <Content Include="GUI\Prefabs\OneOptionEvent.xml" />
     <Content Include="GUI\Prefabs\TwoOptionEvent.xml" />
     <Content Include="GUI\RevolutionsSpriteData.xml" />
-    <Content Include="GUI\SpriteParts\barren_landscape.png" />
-    <Content Include="GUI\SpriteParts\farmed_land.png" />
-    <Content Include="GUI\SpriteParts\farm_icon.png" />
-    <Content Include="GUI\SpriteParts\mapbar_icon_coins2.png" />
-    <Content Include="GUI\SpriteParts\mapbar_icon_finances.png" />
-    <Content Include="GUI\SpriteParts\mapbar_left_canvas_7slots.png" />
-    <Content Include="GUI\SpriteParts\mapbar_left_frame_7slots.png" />
-    <Content Include="GUI\SpriteParts\mapbar_left_frame_silhouette_7slots.png" />
-    <Content Include="GUI\SpriteSheets\entrepreneur-ui-1.png" />
-    <Content Include="GUI\SpriteSheets\entrepreneur-ui-1.txt" />
+    <Content Include="GUI\SpriteSheets\revolutions-ui-1.png" />
     <Content Include="Images\Loyalty_Change.PNG" />
     <Content Include="Images\Menu_Town.PNG" />
     <Content Include="Images\Options_CivilWars_I.PNG" />
@@ -161,11 +152,13 @@
     <Content Include="GUI\Brushes\ButtonBrush.xml" />
     <Content Include="GUI\Prefabs\TownRevoltScreen.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GUI\SpriteParts" />
+  </ItemGroup>
   <!-- Post-Build -->
   <PropertyGroup>
     <PostBuildEvent>xcopy /d /y /i "$(MSBuildProjectDirectory)\SubModule.xml" "$(SolutionDir)\..\Revolutions\"
-xcopy /d /y /i "$(MSBuildProjectDirectory)\GUI\Brushes\ButtonBrush.xml" "$(SolutionDir)\..\Revolutions\GUI\Brushes\"
-xcopy /d /y /i "$(MSBuildProjectDirectory)\GUI\Prefabs" "$(SolutionDir)\..\Revolutions\GUI\Prefabs\"
+xcopy /d /y /i /e "$(MSBuildProjectDirectory)\GUI" "$(SolutionDir)\..\Revolutions\GUI\"
 xcopy /d /y /i "$(MSBuildProjectDirectory)\ModuleData\Languages\std_module_strings_xml.xml" "$(SolutionDir)\..\Revolutions\ModuleData\Languages\"
 xcopy /d /y /i "$(MSBuildProjectDirectory)\ModuleData\Banners" "$(SolutionDir)\..\Revolutions\ModuleData\Banners\"</PostBuildEvent>
   </PropertyGroup>

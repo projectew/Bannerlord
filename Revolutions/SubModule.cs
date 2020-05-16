@@ -29,19 +29,12 @@ namespace Revolutions
             SpriteData spriteData1 = UIResourceManager.SpriteData;
             SpriteData spriteData2 = new SpriteData("RevolutionsSpriteData");
             spriteData2.Load(uiResourceDepot);
-            TaleWorlds.TwoDimension.Texture texture = new TaleWorlds.TwoDimension.Texture(new EngineTexture(TaleWorlds.Engine.Texture.CreateTextureFromPath("../../Modules/Revolutions/GUI/SpriteSheets/", "entrepreneur-ui-1.png")));
-            spriteData1.SpriteCategories.Add("entrepreneur_icons", spriteData2.SpriteCategories["entrepreneur_icons"]);
-            spriteData1.SpritePartNames.Add("FinancesIcon", spriteData2.SpritePartNames["FinancesIcon"]);
-            spriteData1.SpriteNames.Add("FinancesIcon", (Sprite)new SpriteGeneric("FinancesIcon", spriteData2.SpritePartNames["FinancesIcon"]));
-            spriteData1.SpritePartNames.Add("MapbarLeftFrame", spriteData2.SpritePartNames["MapbarLeftFrame"]);
-            spriteData1.SpriteNames.Add("MapbarLeftFrame", (Sprite)new SpriteGeneric("MapbarLeftFrame", spriteData2.SpritePartNames["MapbarLeftFrame"]));
-            spriteData1.SpritePartNames.Add("Entrepreneur.EmptyField", spriteData2.SpritePartNames["Entrepreneur.EmptyField"]);
-            spriteData1.SpriteNames.Add("Entrepreneur.EmptyField", (Sprite)new SpriteGeneric("Entrepreneur.EmptyField", spriteData2.SpritePartNames["Entrepreneur.EmptyField"]));
-            spriteData1.SpritePartNames.Add("Entrepreneur.WorkingField", spriteData2.SpritePartNames["Entrepreneur.WorkingField"]);
-            spriteData1.SpriteNames.Add("Entrepreneur.WorkingField", (Sprite)new SpriteGeneric("Entrepreneur.WorkingField", spriteData2.SpritePartNames["Entrepreneur.WorkingField"]));
-            spriteData1.SpritePartNames.Add("Entrepreneur.VillagePropertyIcon", spriteData2.SpritePartNames["Entrepreneur.VillagePropertyIcon"]);
-            spriteData1.SpriteNames.Add("Entrepreneur.VillagePropertyIcon", (Sprite)new SpriteGeneric("Entrepreneur.VillagePropertyIcon", spriteData2.SpritePartNames["Entrepreneur.VillagePropertyIcon"]));
-            SpriteCategory spriteCategory = spriteData1.SpriteCategories["entrepreneur_icons"];
+            TaleWorlds.TwoDimension.Texture texture = new TaleWorlds.TwoDimension.Texture(new EngineTexture(TaleWorlds.Engine.Texture.CreateTextureFromPath("../../Modules/Revolutions/GUI/SpriteSheets/", "revolutions-ui-1.png")));
+            spriteData1.SpriteCategories.Add("revolutions_events", spriteData2.SpriteCategories["revolutions_events"]);
+            spriteData1.SpriteNames.Add("Revolutions.PlottingLords", (Sprite)new SpriteGeneric("Revolutions.PlottingLords", spriteData2.SpritePartNames["Revolutions.PlottingLords"]));
+            spriteData1.SpriteNames.Add("Revolutions.Whatever", (Sprite)new SpriteGeneric("Revolutions.Whatever", spriteData2.SpritePartNames["Revolutions.Whatever"]));
+
+            SpriteCategory spriteCategory = spriteData1.SpriteCategories["revolutions_events"];
             spriteCategory.SpriteSheets.Add(texture);
             spriteCategory.Load(resourceContext, uiResourceDepot);
             UIResourceManager.BrushFactory.Initialize();

@@ -11,15 +11,17 @@ namespace KNTLibrary.Components.Events
     {
         public Event() { }
 
-        public Event(int id, TextObject description)
+        public Event(int id, TextObject description, string sprite)
         {
             Id = id;
             Description = description;
+            Sprite = sprite;
         }
 
         public readonly int Id;
         public readonly TextObject Description;
         public readonly List<Option> Options = new List<Option>();
+        public readonly string Sprite;
 
         public void AddOption(string id, TextObject text)
         {
@@ -33,7 +35,7 @@ namespace KNTLibrary.Components.Events
 
         public void Call()
         {
-            ScreenManager.PushScreen(new EventScreen(Options, Description));
+            ScreenManager.PushScreen(new EventScreen(Options, Description, Sprite));
         }
     }
 
