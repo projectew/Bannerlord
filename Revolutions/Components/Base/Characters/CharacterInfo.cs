@@ -59,8 +59,10 @@ namespace Revolutions.Components.Base.Characters
     [Serializable]
     public enum PlotState
     {
-        IsLoyal = 0,
-        WillPlotting = 1,
-        IsPlotting = 2
+        NotAsked = 0,
+        IsLoyal = 1,
+        WillPlotting = 2,
+        IsPlotting = 3,
+        Considering = 4
     }
 }

@@ -29,6 +29,10 @@ namespace KNTLibrary.Components.Events
             {
                 this._movieName = "TwoOptionEvent";
             }
+            else if (options.Count() == 3)
+            {
+                this._movieName = "ThreeOptionEvent";
+            }
         }
 
         protected override void OnInitialize()
