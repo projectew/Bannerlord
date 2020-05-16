@@ -1,42 +1,26 @@
-﻿using Revolutions.Components.Base.Factions;
-using Revolutions.Components.Base.Settlements;
+﻿using Revolutions.Components.Base.Settlements;
 using Revolutions.Components.General.Screens.ViewModels;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Engine.Screens;
-using TaleWorlds.GauntletUI.Data;
 
 namespace Revolutions.Components.General.Screens
 {
     public class TownRevoltsScreen : ScreenBase
     {
         private readonly SettlementInfo _settlementInfo;
-        private readonly FactionInfo _factionInfo;
         private TownRevoltViewModel _dataSource;
         private GauntletLayer _gauntletLayer;
-        private GauntletMovie _movie;
 
-        private bool _firstRender;
-
-        protected override void OnFinalize()
-        {
-            base.OnFinalize();
-
-            this._gauntletLayer = null;
-            this._dataSource = null;
-            this._movie = null;
-        }
-
-        public TownRevoltsScreen(SettlementInfo settlementInfo, FactionInfo factionInfo)
+        public TownRevoltsScreen(SettlementInfo settlementInfo)
         {
             this._settlementInfo = settlementInfo;
-            this._factionInfo = factionInfo;
         }
 
         protected override void OnInitialize()
         {
             base.OnInitialize();
 
-            this._dataSource = new TownRevoltViewModel(this._settlementInfo, this._factionInfo);
+            this._dataSource = new TownRevoltViewModel(this._settlementInfo);
             this._gauntletLayer = new GauntletLayer(100)
             {
                 IsFocusLayer = true
@@ -45,24 +29,24 @@ namespace Revolutions.Components.General.Screens
             this.AddLayer(this._gauntletLayer);
             this._gauntletLayer.InputRestrictions.SetInputRestrictions();
             ScreenManager.TrySetFocus(this._gauntletLayer);
-
-            this._movie = this._gauntletLayer.LoadMovie("TownRevoltScreen", this._dataSource);
-            this._firstRender = true;
+            this._gauntletLayer.LoadMovie("TownRevoltScreen", this._dataSource);
         }
 
-        protected override void OnFrameTick(float dt)
+        protected override void OnFinalize()
         {
-            base.OnFrameTick(dt);
+            base.OnFinalize();
 
-            _ = this._gauntletLayer.Input;
+            this._gauntletLayer = null;
+            this._dataSource = null;
         }
 
         protected override void OnDeactivate()
         {
+            base.OnDeactivate();
+
             this.RemoveLayer(this._gauntletLayer);
             this._gauntletLayer.IsFocusLayer = false;
             ScreenManager.TryLoseFocus(this._gauntletLayer);
-            base.OnDeactivate();
         }
     }
 }

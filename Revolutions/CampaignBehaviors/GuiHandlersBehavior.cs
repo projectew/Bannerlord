@@ -1,12 +1,8 @@
 ﻿using System;
-using KNTLibrary.Components.Events;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameMenus;
-using TaleWorlds.Core;
 using TaleWorlds.Engine.Screens;
-using TaleWorlds.InputSystem;
 using TaleWorlds.Localization;
-using TaleWorlds.Network;
 using Revolutions.Components.General.Screens;
 
 namespace Revolutions.CampaignBehaviors
@@ -16,7 +12,6 @@ namespace Revolutions.CampaignBehaviors
         public override void RegisterEvents()
         {
             CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.OnSessionLaunched));
-            
         }
 
         public override void SyncData(IDataStore dataStore)
@@ -39,7 +34,7 @@ namespace Revolutions.CampaignBehaviors
             }, (args) =>
             {
                 var settlementInfo = Managers.Settlement.GetInfo(Settlement.CurrentSettlement);
-                ScreenManager.PushScreen(new TownRevoltsScreen(settlementInfo, settlementInfo.CurrentFactionInfo));
+                ScreenManager.PushScreen(new TownRevoltsScreen(settlementInfo));
             }, false, 4);
         }
     }
