@@ -105,6 +105,7 @@
   <!-- Mod Programming Files -->
   <ItemGroup>
     <Compile Include="CampaignBehaviors\CleanupBehavior.cs" />
+    <Compile Include="CampaignBehaviors\EventsBehaviour.cs" />
     <Compile Include="CampaignBehaviors\GuiHandlersBehavior.cs" />
     <Compile Include="CampaignBehaviors\RevolutionsBehavior.cs" />
     <Compile Include="Components\Base\Banner\BannerInfoExtensions.cs" />

@@ -33,7 +33,14 @@ namespace KNTLibrary.Components.Events
 
         private void RefreshProperties()
         {
+            this.OnPropertyChanged("Description");
+            this.OnPropertyChanged("OptionOneText");
+        }
 
+        private void OptionOneTrigger()
+        {
+            _options[0].Result();
+            ExitMenu();
         }
     }
 }

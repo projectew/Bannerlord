@@ -63,6 +63,8 @@ namespace Revolutions
             {
                 campaignGameStarter.AddBehavior(new CivilWarsBehavior(ref this._dataStorage, campaignGameStarter));
             }
+            
+            campaignGameStarter.AddBehavior(new EventsBehaviour());
         }
     }
 }

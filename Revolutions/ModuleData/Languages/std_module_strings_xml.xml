@@ -132,5 +132,10 @@
     <string id="q2tbqP0z" text="Bannerlord Settlement" />
     <!-- GUI Buttons -->
     <string id="3fQwWiDZ" text="Done" />
+
+      <!-- Events -->
+      <string id="gkeDF4f0" text="This is a test event. It's here so that you can understand how to call them, add descriptions and options. I'm making this a bit long so that we can ensure text fits properly, and users get enough space for a bit of creative writing. Hopefully it works ok, because it's my first test, and I need something to raise my mood." />
+      <string id="glEji4Fc" text="I like turtles" />
+      <string id="GdwerF78" text="Player likes turtles!" />
   </strings>
 </base>

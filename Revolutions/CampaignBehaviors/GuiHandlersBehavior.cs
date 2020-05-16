@@ -16,7 +16,6 @@ namespace Revolutions.CampaignBehaviors
         public override void RegisterEvents()
         {
             CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.OnSessionLaunched));
-            CampaignEvents.TickEvent.AddNonSerializedListener(this, new Action<float>(this.Tick));
             
         }
 
@@ -28,20 +27,6 @@ namespace Revolutions.CampaignBehaviors
         private void OnSessionLaunched(CampaignGameStarter obj)
         {
             this.CreateLoyaltyMenu(obj);
-        }
-
-        private void Tick(float dt)
-        {
-            if (Input.IsKeyReleased(InputKey.Home))
-            {
-                Campaign.Current.TimeControlMode = CampaignTimeControlMode.Stop;
-                Campaign.Current.SetTimeSpeed(0);
-                Game.Current.GameStateManager.ActiveStateDisabledByUser = true;
-
-                Event newEvent = new Event(1, new TextObject("hello"));
-                newEvent.AddOption(1, new TextObject("Ok"));
-                newEvent.Call();
-            }
         }
 
         private void CreateLoyaltyMenu(CampaignGameStarter obj)
