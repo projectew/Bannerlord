@@ -1,0 +1,37 @@
+﻿<Prefab>
+    <Variables></Variables>
+    <VisualDefinitions>
+        <VisualDefinition
+                Name="BottomMenu"
+                DelayOnBegin="0.2"
+                TransitionDuration="0.4">
+            <VisualState
+                    PositionYOffset="0"
+                    State="Default" />
+        </VisualDefinition>
+        <VisualDefinition
+                Name="OptionsMenu"
+                DelayOnBegin="0.2"
+                TransitionDuration="0.4">
+            <VisualState
+                    PositionYOffset="0"
+                    State="Default" />
+        </VisualDefinition>
+    </VisualDefinitions>
+    <Window>
+        <Widget
+                WidthSizePolicy="StretchToParent"
+                HeightSizePolicy="StretchToParent"
+                Brush="Frame1Brush">
+            <Children>
+                <!--Close Screen Button// Parameter.DoneButtonAction="ExecuteClose"-->
+                <Standard.DialogCloseButtons
+                        VisualDefinition="BottomMenu"
+                        Parameter.DoneButtonAction="ExitMenu"
+                        PositionYOffset="100"
+                        Parameter.DoneButtonText="@DoneDesc"
+                        Parameter.ShowCancel="false" />
+            </Children>
+        </Widget>
+    </Window>
+</Prefab>

@@ -12,10 +12,13 @@ namespace KNTLibrary.Components.Events
 
         private readonly EventOption _optionTwo;
 
+        private readonly EventOption _optionThree;
+
         public EventViewModel(string description, string sprite, List<EventOption> options)
         {
             this._optionOne = options[0];
             this._optionTwo = options[1];
+            this._optionThree = options[2];
             this.Description = description.ToString();
             this.Sprite = sprite;
         }
@@ -31,6 +34,9 @@ namespace KNTLibrary.Components.Events
 
         [DataSourceProperty]
         public string OptionTwoText => new TextObject(this._optionTwo.Text).ToString();
+        
+        [DataSourceProperty]
+        public string OptionThreeText => new TextObject(this._optionThree.Text).ToString();
 
         private void InvokeOptionOne()
         {
@@ -41,6 +47,12 @@ namespace KNTLibrary.Components.Events
         private void InvokeOptionTwo()
         {
             this._optionTwo.Invoke();
+            this.ExitMenu();
+        }
+        
+        private void InvokeOptionThree()
+        {
+            this._optionThree.Invoke();
             this.ExitMenu();
         }
 
@@ -55,6 +67,7 @@ namespace KNTLibrary.Components.Events
             this.OnPropertyChanged("Description");
             this.OnPropertyChanged("OptionOneText");
             this.OnPropertyChanged("OptionTwoText");
+            this.OnPropertyChanged("OptionThreeText");
             this.OnPropertyChanged("Sprite");
         }
     }

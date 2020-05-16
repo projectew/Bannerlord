@@ -4,7 +4,7 @@ using TaleWorlds.Engine.Screens;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
-namespace Revolutions.Components.General.Screens.ViewModels
+namespace Revolutions.Components.General.Screens.TownRevolution
 {
     public class TownRevoltViewModel : ViewModel
     {
@@ -101,7 +101,7 @@ namespace Revolutions.Components.General.Screens.ViewModels
                 {
                     var inspiration = new TextObject("");
 
-                    if (currentFactionInfo.SuccessfullyRevolted || (revoltedInPreviousFaction && previousFactionInfo.SuccessfullyRevolted))
+                    if (currentFactionInfo.SuccessfullyRevolted || revoltedInPreviousFaction && previousFactionInfo.SuccessfullyRevolted)
                     {
                         if (currentFactionInfo.RevoltedSettlementId == currentSettlementId || revoltedInPreviousFaction)
                         {
