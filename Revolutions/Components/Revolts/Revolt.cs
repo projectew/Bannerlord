@@ -7,20 +7,20 @@ using TaleWorlds.CampaignSystem;
 namespace Revolutions.Components.Revolts
 {
     [Serializable]
-    public class Revolt : IBaseComponent<Revolt>
+    public class Revolt : IBaseInfoType, IBaseComponent<Revolt>
     {
         #region IGameComponent<InfoType>
 
         public bool Equals(Revolt other)
         {
-            return this.PartyId == other.PartyId && this.SettlementId == other.SettlementId;
+            return this.Id == other.Id;
         }
 
         public override bool Equals(object other)
         {
-            if (other is Revolt Revolt)
+            if (other is Revolt info)
             {
-                return this.PartyId == Revolt.PartyId && this.SettlementId == Revolt.SettlementId;
+                return this.Id == info.Id;
             }
 
             return false;
@@ -28,7 +28,7 @@ namespace Revolutions.Components.Revolts
 
         public override int GetHashCode()
         {
-            return (this.PartyId, this.SettlementId).GetHashCode();
+            return this.Id.GetHashCode();
         }
 
         #endregion
@@ -40,12 +40,15 @@ namespace Revolutions.Components.Revolts
 
         public Revolt(string partyId, Settlement settlement, bool isMinorFaction)
         {
+            this.Id = $"p_{partyId}__s_";
             this.PartyId = partyId;
             this.SettlementId = settlement.StringId;
             this.IsMinorFaction = isMinorFaction;
         }
 
         #region Reference Properties
+
+        public string Id { get; set; }
 
         public string PartyId { get; set; }
 

@@ -47,13 +47,13 @@ namespace KNTLibrary.Components.Characters
 
         public InfoType GetInfo(CharacterObject gameObject)
         {
-            var infos = this.Infos.ToList().Where(i => i.CharacterId == gameObject.StringId);
+            var infos = this.Infos.ToList().Where(i => i.Id == gameObject.StringId);
             if (this.DebugMode && infos.Count() > 1)
             {
                 InformationManager.DisplayMessage(new InformationMessage("Revolutions: Multiple Characters with same Id. Using first one.", ColorHelper.Orange));
                 foreach (var duplicatedInfo in infos)
                 {
-                    InformationManager.DisplayMessage(new InformationMessage($"Name: {duplicatedInfo.Character.Name} | StringId: {duplicatedInfo.CharacterId}", ColorHelper.Orange));
+                    InformationManager.DisplayMessage(new InformationMessage($"Name: {duplicatedInfo.Character.Name} | StringId: {duplicatedInfo.Id}", ColorHelper.Orange));
                 }
             }
 
@@ -82,13 +82,13 @@ namespace KNTLibrary.Components.Characters
 
         public void RemoveInfo(string id)
         {
-            var info = this.Infos.FirstOrDefault(i => i.CharacterId == id);
+            var info = this.Infos.FirstOrDefault(i => i.Id == id);
             if (id == null)
             {
                 return;
             }
 
-            this.Infos.RemoveWhere(i => i.CharacterId == id);
+            this.Infos.RemoveWhere(i => i.Id == id);
         }
 
         public CharacterObject GetGameObject(string id)
@@ -98,7 +98,7 @@ namespace KNTLibrary.Components.Characters
 
         public CharacterObject GetGameObject(InfoType info)
         {
-            return this.GetGameObject(info.CharacterId);
+            return this.GetGameObject(info.Id);
         }
 
         public void UpdateInfos(bool onlyRemoving = false)
@@ -108,14 +108,14 @@ namespace KNTLibrary.Components.Characters
                 return;
             }
 
-            this.Infos.RemoveWhere(i => !Campaign.Current.Characters.Any(go => go.StringId == i.CharacterId));
+            this.Infos.RemoveWhere(i => !Campaign.Current.Characters.Any(go => go.StringId == i.Id));
 
             if (onlyRemoving)
             {
                 return;
             }
 
-            foreach (var gameObject in Campaign.Current.Characters.Where(go => !this.Infos.Any(i => i.CharacterId == go.StringId)))
+            foreach (var gameObject in Campaign.Current.Characters.Where(go => !this.Infos.Any(i => i.Id == go.StringId)))
             {
                 this.GetInfo(gameObject);
             }
@@ -124,7 +124,7 @@ namespace KNTLibrary.Components.Characters
         public void CleanupDuplicatedInfos()
         {
             this.Infos.Reverse();
-            this.Infos = this.Infos.GroupBy(i => i.CharacterId)
+            this.Infos = this.Infos.GroupBy(i => i.Id)
                                    .Select(i => i.First())
                                    .ToHashSet();
             this.Infos.Reverse();

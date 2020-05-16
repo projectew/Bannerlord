@@ -5,20 +5,20 @@ using TaleWorlds.CampaignSystem;
 namespace KNTLibrary.Components.Factions
 {
     [Serializable]
-    public class BaseFactionInfo : IBaseComponent<BaseFactionInfo>
+    public class BaseFactionInfo : IBaseInfoType, IBaseComponent<BaseFactionInfo>
     {
         #region IGameComponent<InfoType>
 
         public bool Equals(BaseFactionInfo other)
         {
-            return this.FactionId == other.FactionId;
+            return this.Id == other.Id;
         }
 
         public override bool Equals(object other)
         {
-            if (other is BaseFactionInfo factionInfo)
+            if (other is BaseFactionInfo info)
             {
-                return this.FactionId == factionInfo.FactionId;
+                return this.Id == info.Id;
             }
 
             return false;
@@ -26,7 +26,7 @@ namespace KNTLibrary.Components.Factions
 
         public override int GetHashCode()
         {
-            return this.FactionId.GetHashCode();
+            return this.Id.GetHashCode();
         }
 
         #endregion
@@ -38,14 +38,14 @@ namespace KNTLibrary.Components.Factions
 
         public BaseFactionInfo(IFaction faction)
         {
-            this.FactionId = faction.StringId;
+            this.Id = faction.StringId;
             this.InitialTownsCount = this.CurrentTownsCount;
         }
 
 
         #region Reference Properties
 
-        public string FactionId { get; set; }
+        public string Id { get; set; }
 
         #endregion
 
@@ -53,7 +53,7 @@ namespace KNTLibrary.Components.Factions
 
         #region Reference Properties
 
-        public IFaction Faction => BaseManagers.Faction.GetGameObject(this.FactionId);
+        public IFaction Faction => BaseManagers.Faction.GetGameObject(this.Id);
 
         #endregion
 

@@ -4,20 +4,20 @@ using TaleWorlds.CampaignSystem;
 namespace KNTLibrary.Components.Kingdoms
 {
     [Serializable]
-    public class BaseKingdomInfo : IBaseComponent<BaseKingdomInfo>
+    public class BaseKingdomInfo : IBaseInfoType, IBaseComponent<BaseKingdomInfo>
     {
         #region IGameComponent<InfoType>
 
         public bool Equals(BaseKingdomInfo other)
         {
-            return this.KingdomId == other.KingdomId;
+            return this.Id == other.Id;
         }
 
         public override bool Equals(object other)
         {
-            if (other is BaseKingdomInfo kingdomInfo)
+            if (other is BaseKingdomInfo info)
             {
-                return this.KingdomId == kingdomInfo.KingdomId;
+                return this.Id == info.Id;
             }
 
             return false;
@@ -25,7 +25,7 @@ namespace KNTLibrary.Components.Kingdoms
 
         public override int GetHashCode()
         {
-            return this.KingdomId.GetHashCode();
+            return this.Id.GetHashCode();
         }
 
         #endregion
@@ -37,12 +37,12 @@ namespace KNTLibrary.Components.Kingdoms
 
         public BaseKingdomInfo(Kingdom kingdom)
         {
-            this.KingdomId = kingdom.StringId;
+            this.Id = kingdom.StringId;
         }
 
         #region Reference Properties
 
-        public string KingdomId { get; set; }
+        public string Id { get; set; }
 
         #endregion
 
@@ -50,7 +50,7 @@ namespace KNTLibrary.Components.Kingdoms
 
         #region Reference Properties
 
-        public Kingdom Kingdom => BaseManagers.Kingdom.GetGameObject(this.KingdomId);
+        public Kingdom Kingdom => BaseManagers.Kingdom.GetGameObject(this.Id);
 
         #endregion
 

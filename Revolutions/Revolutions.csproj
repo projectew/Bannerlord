@@ -113,6 +113,9 @@
     <Compile Include="Components\CivilWars\Events\Plotting\PlottingEventOptionOne.cs" />
     <Compile Include="Components\CivilWars\Events\Plotting\PlottingEventOptionThree.cs" />
     <Compile Include="Components\CivilWars\Events\Plotting\PlottingEventOptionTwo.cs" />
+    <Compile Include="Components\CivilWars\Events\War\WarEvent.cs" />
+    <Compile Include="Components\CivilWars\Events\War\WarEventOptionOne.cs" />
+    <Compile Include="Components\CivilWars\Events\War\WarEventOptionTwo.cs" />
     <Compile Include="Components\Events\Test\TestEventOption.cs" />
     <Compile Include="Components\Events\Test\TestEventBehavior.cs" />
     <Compile Include="CampaignBehaviors\GuiHandlersBehavior.cs" />
@@ -158,10 +161,7 @@
     <Content Include="GUI\Brushes\ButtonBrush.xml" />
     <Content Include="GUI\Prefabs\TownRevoltScreen.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Components\CivilWars\Events\JoinWar\" />
-    <Folder Include="Components\CivilWars\Events\StartPlot\" />
-  </ItemGroup>
+  <ItemGroup />
   <!-- Post-Build -->
   <PropertyGroup>
     <PostBuildEvent>xcopy /d /y /i "$(MSBuildProjectDirectory)\SubModule.xml" "$(SolutionDir)\..\Revolutions\"

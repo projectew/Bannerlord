@@ -1,5 +1,7 @@
 ﻿using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Characters;
+using Revolutions.Components.CivilWars.Events.Plotting;
+using Revolutions.Components.CivilWars.Events.War;
 using Revolutions.Settings;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,8 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 {
     internal class CivilWarsDailyBehavior : CampaignBehaviorBase
     {
+        private int _daysSinceConsider = 7;
+
         public override void RegisterEvents()
         {
             CampaignEvents.DailyTickEvent.AddNonSerializedListener(this, new Action(this.DailyTickEvent));
@@ -34,7 +38,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                 if (Managers.CivilWar.GetCivilWarByKingdomId(kingdomWithClans.KingdomId) != null || kingdomInfo.HasCivilWar)
                 {
-                    if(RevolutionsSettings.Instance.DebugMode)
+                    if (RevolutionsSettings.Instance.DebugMode)
                     {
                         InformationManager.DisplayMessage(new InformationMessage($"Revolutions.CivilWars: {kingdomInfo.Kingdom.Name} has already a running Civil War.", ColorHelper.Gray));
                     }
@@ -64,6 +68,11 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                 foreach (var clan in kingdomWithClans.Clans)
                 {
+                    if (clan.Leader.StringId == Hero.MainHero.StringId)
+                    {
+                        continue;
+                    }
+
                     if (RevolutionsSettings.Instance.DebugMode)
                     {
                         InformationManager.DisplayMessage(new InformationMessage($"Revolutions.CivilWars: {clan.Name} ({clan.Leader})", ColorHelper.Gray));
@@ -84,7 +93,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                         }
 
                         var clanLeaderPlottingFriends = kingdomWithClans.Clans.Select(go => go.Leader)
-                                                                              .Where(go => go.IsFriend(clanLeader))
+                                                                              .Where(go => go.IsFriend(clanLeader) && go.StringId != Hero.MainHero.StringId)
                                                                               .Select(go => Managers.Character.GetInfo(go.CharacterObject))
                                                                               .Where(info => info.PlotState == PlotState.IsPlotting)
                                                                               .ToList();
@@ -155,6 +164,20 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 }
 
                 #endregion
+
+                if (kingdomInfo.Id == Hero.MainHero.Clan.Kingdom?.StringId)
+                {
+                    if (this._daysSinceConsider >= RevolutionsSettings.Instance.CivilWarsPlottingConsiderTime)
+                    {
+                        var plottingEvent = new PlottingEvent();
+                        plottingEvent.Invoke();
+                        this._daysSinceConsider = 0;
+                    }
+                    else
+                    {
+                        this._daysSinceConsider++;
+                    }
+                }
 
                 #region Check War
 
@@ -233,6 +256,36 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                 if (warChance > new Random().Next(0, 100))
                 {
+                    var warEvent = new WarEvent();
+                    warEvent.Invoke();
+
+                    loyalClans.Clear();
+                    plottingClans.Clear();
+                    foreach (var clan in kingdomWithClans.Clans)
+                    {
+                        clanLeader = clan.Leader;
+                        clanLeaderInfo = Managers.Character.GetInfo(clanLeader.CharacterObject);
+
+                        if (clanLeaderInfo.PlotState == PlotState.IsLoyal)
+                        {
+                            loyalClans.Add(clan);
+                        }
+                        else if (clanLeaderInfo.PlotState == PlotState.IsPlotting)
+                        {
+                            plottingClans.Add(clan);
+                        }
+                    }
+
+                    if (plottingClans.Count == 0)
+                    {
+                        if (RevolutionsSettings.Instance.DebugMode)
+                        {
+                            InformationManager.DisplayMessage(new InformationMessage($"Revolutions.CivilWars: There are no plotting clans.", ColorHelper.Gray));
+                        }
+
+                        continue;
+                    }
+
                     Managers.Character.GetInfo(plottingLeader.CharacterObject).IsCivilWarKingdomLeader = true;
 
                     var settlementInfo = Managers.Settlement.GetInfo(plotLeadingClan.HomeSettlement);

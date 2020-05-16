@@ -80,6 +80,8 @@
 
         internal const string CivilWarsNegativeRelationshipTreshold = "{=xbvpfSoO}When relationship between the Lord and his King deteriorate below this threshold, there is a chance he will start plotting to overthrow him.";
 
+        internal const string CivilWarsPlottingConsiderTime = "{=h7qICnX7}Time in days before player will be asked again to join the plot or not.";
+
         #endregion
 
         #region Plotting

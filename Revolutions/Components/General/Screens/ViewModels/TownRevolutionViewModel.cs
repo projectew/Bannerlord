@@ -86,11 +86,11 @@ namespace Revolutions.Components.General.Screens.ViewModels
         {
             get
             {
-                var currentSettlementId = this.SettlementInfo.SettlementId;
+                var currentSettlementId = this.SettlementInfo.Id;
                 var currentFactionInfo = this.SettlementInfo.CurrentFactionInfo;
                 var previousFactionInfo = this.SettlementInfo.PreviousFactionInfo;
 
-                if (currentFactionInfo.FactionId == this.SettlementInfo.LoyalFaction.StringId)
+                if (currentFactionInfo.Id == this.SettlementInfo.LoyalFaction.StringId)
                 {
                     return $"{new TextObject("{=zQNPQz3q}People are content with the current rule.")}";
                 }

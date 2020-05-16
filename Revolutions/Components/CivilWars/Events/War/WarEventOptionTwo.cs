@@ -2,16 +2,16 @@
 using Revolutions.Components.Base.Characters;
 using TaleWorlds.CampaignSystem;
 
-namespace Revolutions.Components.CivilWars.Events.Plotting
+namespace Revolutions.Components.CivilWars.Events.War
 {
-    internal class PlottingEventOptionThree : EventOption
+    internal class WarEventOptionTwo : EventOption
     {
-        public PlottingEventOptionThree() : base()
+        public WarEventOptionTwo() : base()
         {
 
         }
 
-        public PlottingEventOptionThree(string id, string text) : base(id, text)
+        public WarEventOptionTwo(string id, string text) : base(id, text)
         {
 
         }

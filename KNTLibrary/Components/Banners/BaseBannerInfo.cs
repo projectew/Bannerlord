@@ -3,7 +3,7 @@
 namespace KNTLibrary.Components.Banners
 {
     [Serializable]
-    public class BaseBannerInfo
+    public class BaseBannerInfo : IBaseInfoType
     {
         public BaseBannerInfo()
         {

@@ -46,6 +46,7 @@
     <string id="4QTdpuYM" text="Bestehende Kriege behalten" />
     <string id="BXvsAnGs" text="Positive Beziehungsschwelle" />
     <string id="6L9ICPku" text="Negative Beziehungsschwelle" />
+    <string id="fss6f80s" text="Überdenkungszeit für Verschwörungen" />
     <!-- Conspiracy -->
     <string id="pvutEJmX" text="Grundchance" />
     <string id="cX5LL4IZ" text="Freund Multiplikator" />
@@ -91,6 +92,7 @@
     <string id="h0qu9eTf" text="Bürgerkriegsfraktionen erben die Kriege ihres Herkunftskönigreichs." />
     <string id="Z5BHX5SQ" text="Beziehungsschwelle über der Vasallen ihrem Lehnsherrn gegenüber bedingungslos loyal sind." />
     <string id="xbvpfSoO" text="Beziehungsschwelle unterhalb derer Vasallen eine Verschwörung gegen ihren Lehnsherrn in Betracht ziehen." />
+    <string id="h7qICnX7" text="Zeit in Tagen bevor Du erneut nach einer Verschwörung gefragt wirst." />
     <!-- Conspiracy -->
     <string id="WJnJ6OqO" text="Grundlegende Chance ein Verschwörer zu werden, bevor alle anderen Faktoren berücksichtigt werden." />
     <string id="2engz0Rc" text="Erhöht die Chance für Vasallen Verschwörer zu werden, basierend darauf, ob auch ihre Freunde sich verschwören möchten." />

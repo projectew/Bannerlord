@@ -47,13 +47,13 @@ namespace KNTLibrary.Components.Parties
 
         public InfoType GetInfo(PartyBase gameObject)
         {
-            var infos = this.Infos.ToList().Where(i => i.PartyId == gameObject.Id);
+            var infos = this.Infos.ToList().Where(i => i.Id == gameObject.Id);
             if (this.DebugMode && infos.Count() > 1)
             {
                 InformationManager.DisplayMessage(new InformationMessage("Revolutions: Multiple Parties with same Id. Using first one.", ColorHelper.Orange));
                 foreach (var duplicatedInfo in infos)
                 {
-                    InformationManager.DisplayMessage(new InformationMessage($"Name: {duplicatedInfo.Party.Name} | StringId: {duplicatedInfo.PartyId}", ColorHelper.Orange));
+                    InformationManager.DisplayMessage(new InformationMessage($"Name: {duplicatedInfo.Party.Name} | StringId: {duplicatedInfo.Id}", ColorHelper.Orange));
                 }
             }
 
@@ -83,13 +83,13 @@ namespace KNTLibrary.Components.Parties
 
         public void RemoveInfo(string id)
         {
-            var info = this.Infos.FirstOrDefault(i => i.PartyId == id);
+            var info = this.Infos.FirstOrDefault(i => i.Id == id);
             if (id == null)
             {
                 return;
             }
 
-            this.Infos.RemoveWhere(i => i.PartyId == id);
+            this.Infos.RemoveWhere(i => i.Id == id);
         }
 
         public PartyBase GetGameObject(string id)
@@ -99,7 +99,7 @@ namespace KNTLibrary.Components.Parties
 
         public PartyBase GetGameObject(InfoType info)
         {
-            return this.GetGameObject(info.PartyId);
+            return this.GetGameObject(info.Id);
         }
 
         public void UpdateInfos(bool onlyRemoving = false)
@@ -109,14 +109,14 @@ namespace KNTLibrary.Components.Parties
                 return;
             }
 
-            this.Infos.RemoveWhere(i => !Campaign.Current.Parties.Any(go => go.Id == i.PartyId));
+            this.Infos.RemoveWhere(i => !Campaign.Current.Parties.Any(go => go.Id == i.Id));
 
             if (onlyRemoving)
             {
                 return;
             }
 
-            foreach (var gameObject in Campaign.Current.Parties.Where(go => !this.Infos.Any(i => i.PartyId == go.Id)))
+            foreach (var gameObject in Campaign.Current.Parties.Where(go => !this.Infos.Any(i => i.Id == go.Id)))
             {
                 this.GetInfo(gameObject);
             }
@@ -125,7 +125,7 @@ namespace KNTLibrary.Components.Parties
         public void CleanupDuplicatedInfos()
         {
             this.Infos.Reverse();
-            this.Infos = this.Infos.GroupBy(i => i.PartyId)
+            this.Infos = this.Infos.GroupBy(i => i.Id)
                                    .Select(i => i.First())
                                    .ToHashSet();
             this.Infos.Reverse();

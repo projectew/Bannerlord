@@ -4,20 +4,25 @@ using TaleWorlds.CampaignSystem;
 namespace KNTLibrary.Components.Characters
 {
     [Serializable]
-    public class BaseCharacterInfo : IBaseComponent<BaseCharacterInfo>
+    public class BaseCharacterInfo : IBaseInfoType, IBaseComponent<IBaseInfoType>
     {
         #region IGameComponent<InfoType>
 
         public bool Equals(BaseCharacterInfo other)
         {
-            return this.CharacterId == other.CharacterId;
+            return this.Id == other.Id;
+        }
+
+        bool IEquatable<IBaseInfoType>.Equals(IBaseInfoType other)
+        {
+            return this.Id == other.Id;
         }
 
         public override bool Equals(object other)
         {
-            if (other is BaseCharacterInfo characterInfo)
+            if (other is BaseCharacterInfo info)
             {
-                return this.CharacterId == characterInfo.CharacterId;
+                return this.Id == info.Id;
             }
 
             return false;
@@ -25,7 +30,7 @@ namespace KNTLibrary.Components.Characters
 
         public override int GetHashCode()
         {
-            return this.CharacterId.GetHashCode();
+            return this.Id.GetHashCode();
         }
 
         #endregion
@@ -37,12 +42,12 @@ namespace KNTLibrary.Components.Characters
 
         public BaseCharacterInfo(CharacterObject character)
         {
-            this.CharacterId = character.StringId;
+            this.Id = character.StringId;
         }
 
         #region Reference Properties
 
-        public string CharacterId { get; set; }
+        public string Id { get; set; }
 
         #endregion
 
@@ -50,7 +55,7 @@ namespace KNTLibrary.Components.Characters
 
         #region Reference Properties
 
-        public CharacterObject Character => BaseManagers.Character.GetGameObject(this.CharacterId);
+        public CharacterObject Character => BaseManagers.Character.GetGameObject(this.Id);
 
         #endregion
 

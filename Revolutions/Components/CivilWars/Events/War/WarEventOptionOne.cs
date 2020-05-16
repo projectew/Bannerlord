@@ -2,7 +2,7 @@
 using Revolutions.Components.Base.Characters;
 using TaleWorlds.CampaignSystem;
 
-namespace Revolutions.Components.CivilWars.Events.Plotting
+namespace Revolutions.Components.CivilWars.Events.War
 {
     internal class WarEventOptionOne : EventOption
     {

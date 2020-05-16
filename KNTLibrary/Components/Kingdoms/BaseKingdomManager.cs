@@ -48,13 +48,13 @@ namespace KNTLibrary.Components.Kingdoms
 
         public InfoType GetInfo(Kingdom gameObject)
         {
-            var infos = this.Infos.ToList().Where(i => i.KingdomId == gameObject.StringId);
+            var infos = this.Infos.ToList().Where(i => i.Id == gameObject.StringId);
             if (this.DebugMode && infos.Count() > 1)
             {
                 InformationManager.DisplayMessage(new InformationMessage("Revolutions: Multiple Kingdoms with same Id. Using first one.", ColorHelper.Orange));
                 foreach (var duplicatedInfo in infos)
                 {
-                    InformationManager.DisplayMessage(new InformationMessage($"Name: {duplicatedInfo.Kingdom.Name} | StringId: {duplicatedInfo.KingdomId}", ColorHelper.Orange));
+                    InformationManager.DisplayMessage(new InformationMessage($"Name: {duplicatedInfo.Kingdom.Name} | StringId: {duplicatedInfo.Id}", ColorHelper.Orange));
                 }
             }
 
@@ -83,13 +83,13 @@ namespace KNTLibrary.Components.Kingdoms
 
         public void RemoveInfo(string id)
         {
-            var info = this.Infos.FirstOrDefault(i => i.KingdomId == id);
+            var info = this.Infos.FirstOrDefault(i => i.Id == id);
             if (id == null)
             {
                 return;
             }
 
-            this.Infos.RemoveWhere(i => i.KingdomId == id);
+            this.Infos.RemoveWhere(i => i.Id == id);
         }
 
         public Kingdom GetGameObject(string id)
@@ -99,7 +99,7 @@ namespace KNTLibrary.Components.Kingdoms
 
         public Kingdom GetGameObject(InfoType info)
         {
-            return this.GetGameObject(info.KingdomId);
+            return this.GetGameObject(info.Id);
         }
 
         public void UpdateInfos(bool onlyRemoving = false)
@@ -109,14 +109,14 @@ namespace KNTLibrary.Components.Kingdoms
                 return;
             }
 
-            this.Infos.RemoveWhere(i => !Campaign.Current.Kingdoms.Any(go => go.StringId == i.KingdomId));
+            this.Infos.RemoveWhere(i => !Campaign.Current.Kingdoms.Any(go => go.StringId == i.Id));
 
             if (onlyRemoving)
             {
                 return;
             }
 
-            foreach (var gameObject in Campaign.Current.Kingdoms.Where(go => !this.Infos.Any(i => i.KingdomId == go.StringId)))
+            foreach (var gameObject in Campaign.Current.Kingdoms.Where(go => !this.Infos.Any(i => i.Id == go.StringId)))
             {
                 this.GetInfo(gameObject);
             }
@@ -125,7 +125,7 @@ namespace KNTLibrary.Components.Kingdoms
         public void CleanupDuplicatedInfos()
         {
             this.Infos.Reverse();
-            this.Infos = this.Infos.GroupBy(i => i.KingdomId)
+            this.Infos = this.Infos.GroupBy(i => i.Id)
                                    .Select(i => i.First())
                                    .ToHashSet();
             this.Infos.Reverse();

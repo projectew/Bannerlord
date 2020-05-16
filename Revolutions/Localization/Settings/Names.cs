@@ -68,6 +68,8 @@
 
         internal const string CivilWarsNegativeRelationshipTreshold = "{=6L9ICPku}Negative Relationship Threshold";
 
+        internal const string CivilWarsPlottingConsiderTime = "{=fss6f80s}Plotting Consider Time";
+
         #endregion
 
         #region Plotting

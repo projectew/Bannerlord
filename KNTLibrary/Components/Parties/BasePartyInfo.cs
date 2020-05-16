@@ -4,20 +4,20 @@ using TaleWorlds.CampaignSystem;
 namespace KNTLibrary.Components.Parties
 {
     [Serializable]
-    public class BasePartyInfo : IBaseComponent<BasePartyInfo>
+    public class BasePartyInfo : IBaseInfoType, IBaseComponent<BasePartyInfo>
     {
         #region IGameComponent<InfoType>
 
         public bool Equals(BasePartyInfo other)
         {
-            return this.PartyId == other.PartyId;
+            return this.Id == other.Id;
         }
 
         public override bool Equals(object other)
         {
-            if (other is BasePartyInfo partyInfo)
+            if (other is BasePartyInfo info)
             {
-                return this.PartyId == partyInfo.PartyId;
+                return this.Id == info.Id;
             }
 
             return false;
@@ -25,7 +25,7 @@ namespace KNTLibrary.Components.Parties
 
         public override int GetHashCode()
         {
-            return this.PartyId.GetHashCode();
+            return this.Id.GetHashCode();
         }
 
         #endregion
@@ -37,12 +37,12 @@ namespace KNTLibrary.Components.Parties
 
         public BasePartyInfo(PartyBase party)
         {
-            this.PartyId = party.Id;
+            this.Id = party.Id;
         }
 
         #region Reference Properties
 
-        public string PartyId { get; set; }
+        public string Id { get; set; }
 
         #endregion
 
@@ -50,7 +50,7 @@ namespace KNTLibrary.Components.Parties
 
         #region Reference Properties
 
-        public PartyBase Party => BaseManagers.Party.GetGameObject(this.PartyId);
+        public PartyBase Party => BaseManagers.Party.GetGameObject(this.Id);
 
         #endregion
 

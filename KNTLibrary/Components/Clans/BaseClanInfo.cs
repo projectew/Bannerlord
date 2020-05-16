@@ -4,20 +4,20 @@ using TaleWorlds.CampaignSystem;
 namespace KNTLibrary.Components.Clans
 {
     [Serializable]
-    public class BaseClanInfo : IBaseComponent<BaseClanInfo>
+    public class BaseClanInfo : IBaseInfoType, IBaseComponent<BaseClanInfo>
     {
         #region IGameComponent<InfoType>
 
         public bool Equals(BaseClanInfo other)
         {
-            return this.ClanId == other.ClanId;
+            return this.Id == other.Id;
         }
 
         public override bool Equals(object other)
         {
-            if (other is BaseClanInfo clanInfo)
+            if (other is BaseClanInfo info)
             {
-                return this.ClanId == clanInfo.ClanId;
+                return this.Id == info.Id;
             }
 
             return false;
@@ -25,7 +25,7 @@ namespace KNTLibrary.Components.Clans
 
         public override int GetHashCode()
         {
-            return this.ClanId.GetHashCode();
+            return this.Id.GetHashCode();
         }
 
         #endregion
@@ -37,12 +37,12 @@ namespace KNTLibrary.Components.Clans
 
         public BaseClanInfo(Clan clan)
         {
-            this.ClanId = clan.StringId;
+            this.Id = clan.StringId;
         }
 
         #region Reference Properties
 
-        public string ClanId { get; set; }
+        public string Id { get; set; }
 
         #endregion
 
@@ -50,7 +50,7 @@ namespace KNTLibrary.Components.Clans
 
         #region Reference Properties Objects
 
-        public Clan Clan => BaseManagers.Clan.GetGameObject(this.ClanId);
+        public Clan Clan => BaseManagers.Clan.GetGameObject(this.Id);
 
         #endregion
 

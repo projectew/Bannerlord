@@ -43,13 +43,13 @@ namespace KNTLibrary.Components.Factions
 
         public InfoType GetInfo(IFaction gameObject)
         {
-            var infos = this.Infos.ToList().Where(i => i.FactionId == gameObject.StringId);
+            var infos = this.Infos.ToList().Where(i => i.Id == gameObject.StringId);
             if (this.DebugMode && infos.Count() > 1)
             {
                 InformationManager.DisplayMessage(new InformationMessage("Revolutions: Multiple Factions with same Id. Using first one.", ColorHelper.Orange));
                 foreach (var duplicatedInfo in infos)
                 {
-                    InformationManager.DisplayMessage(new InformationMessage($"Name: {duplicatedInfo.Faction.Name} | StringId: {duplicatedInfo.FactionId}", ColorHelper.Orange));
+                    InformationManager.DisplayMessage(new InformationMessage($"Name: {duplicatedInfo.Faction.Name} | StringId: {duplicatedInfo.Id}", ColorHelper.Orange));
                 }
             }
 
@@ -78,13 +78,13 @@ namespace KNTLibrary.Components.Factions
 
         public void RemoveInfo(string id)
         {
-            var info = this.Infos.FirstOrDefault(i => i.FactionId == id);
+            var info = this.Infos.FirstOrDefault(i => i.Id == id);
             if (id == null)
             {
                 return;
             }
 
-            this.Infos.RemoveWhere(i => i.FactionId == id);
+            this.Infos.RemoveWhere(i => i.Id == id);
         }
 
         public IFaction GetGameObject(string id)
@@ -94,7 +94,7 @@ namespace KNTLibrary.Components.Factions
 
         public IFaction GetGameObject(InfoType info)
         {
-            return this.GetGameObject(info.FactionId);
+            return this.GetGameObject(info.Id);
         }
 
         public void UpdateInfos(bool onlyRemoving = false)
@@ -104,14 +104,14 @@ namespace KNTLibrary.Components.Factions
                 return;
             }
 
-            this.Infos.RemoveWhere(i => !Campaign.Current.Factions.ToList().Any(go => go.StringId == i.FactionId));
+            this.Infos.RemoveWhere(i => !Campaign.Current.Factions.ToList().Any(go => go.StringId == i.Id));
 
             if (onlyRemoving)
             {
                 return;
             }
 
-            foreach (var faction in Campaign.Current.Factions.Where(go => !this.Infos.Any(i => i.FactionId == go.StringId)))
+            foreach (var faction in Campaign.Current.Factions.Where(go => !this.Infos.Any(i => i.Id == go.StringId)))
             {
                 this.GetInfo(faction);
             }
@@ -120,7 +120,7 @@ namespace KNTLibrary.Components.Factions
         public void CleanupDuplicatedInfos()
         {
             this.Infos.Reverse();
-            this.Infos = this.Infos.GroupBy(i => i.FactionId)
+            this.Infos = this.Infos.GroupBy(i => i.Id)
                                    .Select(i => i.First())
                                    .ToHashSet();
             this.Infos.Reverse();

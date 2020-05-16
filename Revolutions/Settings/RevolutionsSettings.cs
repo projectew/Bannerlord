@@ -137,6 +137,10 @@ namespace Revolutions.Settings
         [SettingPropertyInteger(displayName: Names.CivilWarsNegativeRelationshipTreshold, minValue: -100, maxValue: 100, Order = 3, HintText = Descriptions.CivilWarsNegativeRelationshipTreshold, RequireRestart = false)]
         public int CivilWarsNegativeRelationshipTreshold { get; set; } = -10;
 
+        [SettingPropertyGroup(groupName: Groups.CivilWarsGeneral, order: 2, isMainToggle: false)]
+        [SettingPropertyInteger(displayName: Names.CivilWarsPlottingConsiderTime, minValue: 1, maxValue: 365, Order = 4, HintText = Descriptions.CivilWarsPlottingConsiderTime, RequireRestart = false)]
+        public int CivilWarsPlottingConsiderTime { get; set; } = 7;
+
         #endregion
 
         #region Plotting

@@ -46,6 +46,7 @@
     <string id="4QTdpuYM" text="Keep Existing Wars" />
     <string id="BXvsAnGs" text="Positive Relationship Threshold" />
     <string id="6L9ICPku" text="Negative Relationship Threshold" />
+    <string id="fss6f80s" text="Plotting Consider Time" />
     <!-- Conspiracy -->
     <string id="pvutEJmX" text="Base Chance" />
     <string id="cX5LL4IZ" text="Friend Multiplier" />
@@ -91,6 +92,7 @@
     <string id="h0qu9eTf" text="Civil War kingdoms inherit the wars of their original kingdom." />
     <string id="Z5BHX5SQ" text="Relationship threshold above which vassals are unconditionally loyal to their liege lord." />
     <string id="xbvpfSoO" text="Relationship threshold below which vassals consider a conspiracy against their liege lord." />
+    <string id="h7qICnX7" text="Time in days before player will be asked again to join the plot or not." />
     <!-- Conspiracy -->
     <string id="WJnJ6OqO" text="Basic chance to become a conspirator before taking all other factors into account." />
     <string id="2engz0Rc" text="Increases the chance for vassals to become conspirators based on whether their friends want to conspire as well." />

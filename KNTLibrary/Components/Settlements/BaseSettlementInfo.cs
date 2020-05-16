@@ -7,20 +7,20 @@ using TaleWorlds.Core;
 namespace KNTLibrary.Components.Settlements
 {
     [Serializable]
-    public class BaseSettlementInfo : IBaseComponent<BaseSettlementInfo>
+    public class BaseSettlementInfo : IBaseInfoType, IBaseComponent<BaseSettlementInfo>
     {
         #region IGameComponent<InfoType>
 
         public bool Equals(BaseSettlementInfo other)
         {
-            return this.SettlementId == other.SettlementId;
+            return this.Id == other.Id;
         }
 
         public override bool Equals(object other)
         {
-            if (other is BaseSettlementInfo settlementInfo)
+            if (other is BaseSettlementInfo info)
             {
-                return this.SettlementId == settlementInfo.SettlementId;
+                return this.Id == info.Id;
             }
 
             return false;
@@ -28,7 +28,7 @@ namespace KNTLibrary.Components.Settlements
 
         public override int GetHashCode()
         {
-            return this.SettlementId.GetHashCode();
+            return this.Id.GetHashCode();
         }
 
         #endregion
@@ -40,7 +40,7 @@ namespace KNTLibrary.Components.Settlements
 
         public BaseSettlementInfo(Settlement settlement)
         {
-            this.SettlementId = settlement.StringId;
+            this.Id = settlement.StringId;
             this.InitialCultureId = settlement.Culture.StringId;
             this.InitialFactionId = settlement.MapFaction.StringId;
             this.CurrentFactionId = settlement.MapFaction.StringId;
@@ -49,7 +49,7 @@ namespace KNTLibrary.Components.Settlements
 
         #region Reference Properties
 
-        public string SettlementId { get; set; }
+        public string Id { get; set; }
 
         public string InitialCultureId { get; set; }
 
@@ -65,7 +65,7 @@ namespace KNTLibrary.Components.Settlements
 
         #region Reference Properties
 
-        public Settlement Settlement => BaseManagers.Settlement.GetGameObject(this.SettlementId);
+        public Settlement Settlement => BaseManagers.Settlement.GetGameObject(this.Id);
 
         public CultureObject InitialCulture => Game.Current.ObjectManager.GetObject<CultureObject>(this.InitialCultureId);
 

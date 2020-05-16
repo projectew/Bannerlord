@@ -8,20 +8,20 @@ using TaleWorlds.CampaignSystem;
 namespace Revolutions.Components.CivilWars
 {
     [Serializable]
-    public class CivilWar : IBaseComponent<CivilWar>
+    public class CivilWar : IBaseInfoType, IBaseComponent<CivilWar>
     {
         #region IGameComponent<InfoType>
 
         public bool Equals(CivilWar other)
         {
-            return this.KingdomId == other.KingdomId;
+            return this.Id == other.Id;
         }
 
         public override bool Equals(object other)
         {
-            if (other is CivilWar civilWar)
+            if (other is CivilWar info)
             {
-                return this.KingdomId == civilWar.KingdomId;
+                return this.Id == info.Id;
             }
 
             return false;
@@ -29,7 +29,7 @@ namespace Revolutions.Components.CivilWars
 
         public override int GetHashCode()
         {
-            return this.KingdomId.GetHashCode();
+            return this.Id.GetHashCode();
         }
 
         #endregion
@@ -41,11 +41,14 @@ namespace Revolutions.Components.CivilWars
 
         public CivilWar(Kingdom kingdom, List<Clan> clans)
         {
+            this.Id = kingdom.StringId;
             this.KingdomId = kingdom.StringId;
             this.ClanIds = clans.Select(go => go.StringId).ToList();
         }
 
         #region Reference Properties
+
+        public string Id { get; set; }
 
         public string KingdomId { get; set; }
 
