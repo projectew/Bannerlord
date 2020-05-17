@@ -4,14 +4,14 @@ using TaleWorlds.CampaignSystem;
 
 namespace Revolutions.Components.CivilWars.Events.Plotting
 {
-    internal class PlottingEventOptionThree : EventOption
+    internal class PlottingEventOptionUndecided : EventOption
     {
-        public PlottingEventOptionThree() : base()
+        public PlottingEventOptionUndecided() : base()
         {
 
         }
 
-        public PlottingEventOptionThree(string id, string text) : base(id, text)
+        public PlottingEventOptionUndecided(string id, string text) : base(id, text)
         {
 
         }

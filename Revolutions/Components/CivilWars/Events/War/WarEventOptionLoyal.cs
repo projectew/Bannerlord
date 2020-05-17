@@ -2,18 +2,20 @@
 using Revolutions.Components.Base.Characters;
 using TaleWorlds.CampaignSystem;
 
-namespace Revolutions.Components.CivilWars.Events.Plotting
+namespace Revolutions.Components.CivilWars.Events.War
 {
-    internal class PlottingEventOptionOne : EventOption
+    internal class WarEventOptionLoyal : EventOption
     {
-        public PlottingEventOptionOne() : base()
+        private Kingdom _plotKingdom = null;
+        
+        public WarEventOptionLoyal() : base()
         {
 
         }
 
-        public PlottingEventOptionOne(string id, string text) : base(id, text)
+        public WarEventOptionLoyal(string id, string text) : base(id, text)
         {
-
+            
         }
 
         public override void Invoke()

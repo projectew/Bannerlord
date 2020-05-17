@@ -6,6 +6,7 @@ using Revolutions.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using KNTLibrary.Components.Events;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.CampaignSystem.MapNotificationTypes;
@@ -258,12 +259,11 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                 if (warChance > new Random().Next(0, 100))
                 {
-                    if (kingdomInfo.Id == Hero.MainHero.Clan.Kingdom?.StringId)
+                    if (kingdomInfo.Id == Hero.MainHero.Clan.Kingdom?.StringId && EventManager.Instance.InEvent)
                     {
-                        var warEvent = new WarEvent(); 
-                        warEvent.Invoke();
+                        continue;;
                     }
-
+                    
                     loyalClans.Clear();
                     plottingClans.Clear();
                     foreach (var clan in kingdomWithClans.Clans)
@@ -353,7 +353,12 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                     }
 
                     DeclareWarAction.Apply(plotKingdom, kingdomInfo.Kingdom);
-
+                    
+                    if (kingdomInfo.Id == Hero.MainHero.Clan.Kingdom?.StringId)
+                    {
+                        var warEvent = new WarEvent(plotKingdom); 
+                    }
+                    
                     if (RevolutionsSettings.Instance.CivilWarsKeepExistingWars)
                     {
                         foreach (var enemyFaction in FactionManager.GetEnemyFactions(kingdomInfo.Kingdom).ToList())

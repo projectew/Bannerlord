@@ -112,12 +112,12 @@
     <Compile Include="CampaignBehaviors\CleanupBehavior.cs" />
     <Compile Include="Components\CivilWars\Plots\CivilWarsPlotInfo.cs" />
     <Compile Include="Components\CivilWars\Events\Plotting\PlottingEvent.cs" />
-    <Compile Include="Components\CivilWars\Events\Plotting\PlottingEventOptionOne.cs" />
-    <Compile Include="Components\CivilWars\Events\Plotting\PlottingEventOptionThree.cs" />
-    <Compile Include="Components\CivilWars\Events\Plotting\PlottingEventOptionTwo.cs" />
+    <Compile Include="Components\CivilWars\Events\Plotting\PlottingEventOptionPlotter.cs" />
+    <Compile Include="Components\CivilWars\Events\Plotting\PlottingEventOptionUndecided.cs" />
+    <Compile Include="Components\CivilWars\Events\Plotting\PlottingEventOptionLoyal.cs" />
     <Compile Include="Components\CivilWars\Events\War\WarEvent.cs" />
-    <Compile Include="Components\CivilWars\Events\War\WarEventOptionOne.cs" />
-    <Compile Include="Components\CivilWars\Events\War\WarEventOptionTwo.cs" />
+    <Compile Include="Components\CivilWars\Events\War\WarEventOptionPlotter.cs" />
+    <Compile Include="Components\CivilWars\Events\War\WarEventOptionLoyal.cs" />
     <Compile Include="CampaignBehaviors\GuiHandlersBehavior.cs" />
     <Compile Include="CampaignBehaviors\RevolutionsBehavior.cs" />
     <Compile Include="Components\Base\Banner\BannerInfoExtensions.cs" />
