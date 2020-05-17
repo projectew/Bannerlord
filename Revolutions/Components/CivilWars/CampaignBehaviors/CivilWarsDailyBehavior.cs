@@ -173,7 +173,6 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                         Managers.Character.GetInfo(Hero.MainHero.CharacterObject).DecisionMade == DecisionMade.No)
                     {
                         var plottingEvent = new PlottingEvent();
-                        plottingEvent.Invoke();
                         this._daysSinceConsider = 0;
                     }
                     else

@@ -4,7 +4,7 @@ namespace Revolutions.Components.CivilWars.Events.War
 {
     internal class WarEvent : Event
     {
-        public WarEvent() : base()
+        internal WarEvent() : base()
         {
             Id = "revolutions_civilwars_war";
             Description = "The plotters will declare war on the king. Do you want to take part or stay with you king?";
