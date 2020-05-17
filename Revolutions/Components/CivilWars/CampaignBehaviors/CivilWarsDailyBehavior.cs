@@ -166,8 +166,13 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                 #endregion
 
-                if (kingdomInfo.Id == Hero.MainHero.Clan.Kingdom?.StringId)
+                if (kingdomInfo.Id == Hero.MainHero.Clan.Kingdom?.StringId && kingdomInfo.Kingdom.Leader != Hero.MainHero)
                 {
+                    if (EventManager.Instance.InEvent)
+                    {
+                        continue;
+                    }
+                    
                     if (this._daysSinceConsider >= RevolutionsSettings.Instance.CivilWarsPlottingConsiderTime && 
                         (Managers.Character.GetInfo(Hero.MainHero.CharacterObject).PlotState == PlotState.Considering ||
                         Managers.Character.GetInfo(Hero.MainHero.CharacterObject).PlotState == PlotState.IsLoyal) &&
@@ -356,7 +361,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                     
                     if (kingdomInfo.Id == Hero.MainHero.Clan.Kingdom?.StringId)
                     {
-                        var warEvent = new WarEvent(plotKingdom); 
+                        var warEvent = new WarEvent(plotKingdom, kingdomInfo.Kingdom); 
                     }
                     
                     if (RevolutionsSettings.Instance.CivilWarsKeepExistingWars)
