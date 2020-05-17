@@ -10,9 +10,13 @@ using Revolutions.Components.Base.Settlements;
 using Revolutions.Components.CivilWars;
 using Revolutions.Components.Revolts;
 using Revolutions.Settings;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.SandBox;
 using TaleWorlds.Core;
 
 namespace Revolutions
@@ -112,14 +116,33 @@ namespace Revolutions
 
         private string GetSaveDirectory()
         {
+            //MBSaveLoad.AutoSaveCurrentGame(this.GetSaveMetaData());
             var activeSaveSlotName = AccessTools.Field(typeof(MBSaveLoad), "ActiveSaveSlotName")?.GetValue(null)?.ToString();
             if (activeSaveSlotName == null)
             {
-                InformationManager.DisplayMessage(new InformationMessage($"Revolutions.DataStorage: The SaveSlot does not exists yet. Please save again!", ColorHelper.Red));
+                InformationManager.DisplayMessage(new InformationMessage($"Revolutions.DataStorage: Please save again!", ColorHelper.Red));
                 return string.Empty;
             }
 
             return Path.Combine(SubModule.BaseSavePath, activeSaveSlotName);
+        }
+
+        private CampaignSaveMetaDataArgs GetSaveMetaData()
+        {
+            return new CampaignSaveMetaDataArgs(((IEnumerable<string>)SandBoxManager.Instance.ModuleManager.ModuleNames).ToArray(), new KeyValuePair<string, string>[11]
+            {
+                new KeyValuePair<string, string>("MainHeroLevel", Hero.MainHero.Level.ToString(CultureInfo.InvariantCulture)),
+                new KeyValuePair<string, string>("MainPartyFood", Campaign.Current.MainParty.Food.ToString(CultureInfo.InvariantCulture)),
+                new KeyValuePair<string, string>("MainHeroGold", Hero.MainHero.Gold.ToString(CultureInfo.InvariantCulture)),
+                new KeyValuePair<string, string>("ClanInfluence", Clan.PlayerClan.Influence.ToString( CultureInfo.InvariantCulture)),
+                new KeyValuePair<string, string>("ClanFiefs", Clan.PlayerClan.Settlements.Count().ToString(CultureInfo.InvariantCulture)),
+                new KeyValuePair<string, string>("MainPartyHealthyMemberCount", Campaign.Current.MainParty.MemberRoster.TotalHealthyCount.ToString(CultureInfo.InvariantCulture)),
+                new KeyValuePair<string, string>("MainPartyPrisonerMemberCount", Campaign.Current.MainParty.PrisonRoster.Count.ToString(CultureInfo.InvariantCulture)),
+                new KeyValuePair<string, string>("MainPartyWoundedMemberCount", Campaign.Current.MainParty.MemberRoster.TotalWounded.ToString(CultureInfo.InvariantCulture)),
+                new KeyValuePair<string, string>("CharacterName", Hero.MainHero.Name?.ToString()),
+                new KeyValuePair<string, string>("DayLong", Campaign.Current.CampaignStartTime.ElapsedDaysUntilNow.ToString(CultureInfo.InvariantCulture)),
+                new KeyValuePair<string, string>("ClanBannerCode", Clan.PlayerClan.Banner.Serialize())
+            });
         }
     }
 }

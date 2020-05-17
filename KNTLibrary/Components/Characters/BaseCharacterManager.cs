@@ -144,17 +144,25 @@ namespace KNTLibrary.Components.Characters
 
             foreach (var attribute in CharacterAttributes.All)
             {
-                characterTemplate.SetAttributeValue(attribute.AttributeEnum, templateBase.GetAttributeValue(attribute.AttributeEnum));
+                characterTemplate.SetAttributeValue(attribute.AttributeEnum, 255);
             }
 
             foreach (var skill in SkillObject.All)
             {
-                characterTemplate.SetSkillValue(skill, templateBase.GetSkillValue(skill));
+                characterTemplate.SetSkillValue(skill, 255);
             }
+
+            characterTemplate.SetSkillValue(SkillObject.GetSkill(13), 1000);
 
             hero = HeroCreator.CreateSpecialHero(characterTemplate, settlementInfo.Settlement, null, null, -1);
             hero.IsNoble = true;
             hero.IsMinorFactionHero = false;
+
+            foreach (var perk in PerkObject.All)
+            {
+                hero.SetPerkValue(perk, true);
+            }
+
             hero.ChangeState(Hero.CharacterStates.Active);
 
             this.GetInfo(hero.CharacterObject).IsCustomCharater = true;
