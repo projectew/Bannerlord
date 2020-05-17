@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Revolutions.Components.CivilWars.Plots;
+using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 
@@ -20,6 +21,8 @@ namespace Revolutions.Components.CivilWars
         #endregion
 
         internal HashSet<CivilWar> CivilWars = new HashSet<CivilWar>();
+
+        internal HashSet<CivilWarsPlotInfo> Plots = new HashSet<CivilWarsPlotInfo>();
 
         internal CivilWar GetCivilWarByKingdomId(string id)
         {

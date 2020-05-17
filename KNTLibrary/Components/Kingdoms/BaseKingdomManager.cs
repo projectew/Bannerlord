@@ -191,6 +191,9 @@ namespace KNTLibrary.Components.Kingdoms
             AccessTools.Property(typeof(Kingdom), "AlternativeColor2").SetValue(kingdom, leader.Clan.Color2);
             AccessTools.Property(typeof(Kingdom), "LabelColor").SetValue(kingdom, ColorHelper.Black.ToUnsignedInteger());
 
+            kingdom.AddPolicy(DefaultPolicies.RoyalGuard);
+            kingdom.AddPolicy(DefaultPolicies.NobleRetinues);
+
             this.AddKingdom(kingdom);
             return kingdom;
         }

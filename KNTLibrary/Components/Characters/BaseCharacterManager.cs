@@ -142,19 +142,26 @@ namespace KNTLibrary.Components.Characters
             var characterTemplate = CharacterObject.Templates.Where(go => go.Culture == clan.Culture && (go.Occupation == Occupation.Lord || go.Occupation == Occupation.Lady)).GetRandomElement();
             characterTemplate.InitializeEquipmentsOnLoad(templateBase.AllEquipments.ToList());
 
+            hero = HeroCreator.CreateSpecialHero(characterTemplate, settlementInfo.Settlement, null, null, -1);
+            hero.IsNoble = true;
+            hero.IsMinorFactionHero = false;
+
             foreach (var attribute in CharacterAttributes.All)
             {
-                characterTemplate.SetAttributeValue(attribute.AttributeEnum, templateBase.GetAttributeValue(attribute.AttributeEnum));
+                hero.SetAttributeValue(attribute.AttributeEnum, characterTemplate.GetAttributeValue(attribute.AttributeEnum));
             }
 
             foreach (var skill in SkillObject.All)
             {
-                characterTemplate.SetSkillValue(skill, templateBase.GetSkillValue(skill));
+                hero.SetSkillValue(skill, characterTemplate.GetSkillValue(skill));
             }
 
-            hero = HeroCreator.CreateSpecialHero(characterTemplate, settlementInfo.Settlement, null, null, -1);
-            hero.IsNoble = true;
-            hero.IsMinorFactionHero = false;
+            foreach (var perk in PerkObject.All)
+            {
+                hero.SetPerkValue(perk, characterTemplate.GetPerkValue(perk));
+            }
+
+
             hero.ChangeState(Hero.CharacterStates.Active);
 
             this.GetInfo(hero.CharacterObject).IsCustomCharater = true;
