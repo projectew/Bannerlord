@@ -71,7 +71,7 @@ namespace Revolutions.Components.Revolts
                         if (info.Settlement.OwnerClan.StringId == Hero.MainHero.Clan.StringId)
                         {
                             var textObject = new TextObject("{=PqkwszGz}Seeing you spend time at {SETTLEMENT}, your subjects feel more loyal to you.");
-                            textObject.SetTextVariable("SETTLEMENT", info.Settlement.Name.ToString());
+                            textObject.SetTextVariable("SETTLEMENT", info.Settlement.Name);
                             InformationManager.DisplayMessage(new InformationMessage(textObject.ToString()));
                         }
 
@@ -121,7 +121,7 @@ namespace Revolutions.Components.Revolts
         internal void EndFailedRevolt(Revolt revolt)
         {
             var information = new TextObject("{=dkpS074R}The revolt in {SETTLEMENT} has ended.");
-            information.SetTextVariable("SETTLEMENT", revolt.Settlement.Name.ToString());
+            information.SetTextVariable("SETTLEMENT", revolt.Settlement.Name);
             InformationManager.AddQuickInformation(information);
 
             revolt.SettlementInfo.CurrentFactionInfo.CityRevoltionFailed(revolt.Settlement);
@@ -143,7 +143,7 @@ namespace Revolutions.Components.Revolts
         internal void EndSucceededRevolut(Revolt revolt)
         {
             var information = new TextObject("{=dkpS074R}The revolt in {SETTLEMENT} has ended.");
-            information.SetTextVariable("SETTLEMENT", revolt.Settlement.Name.ToString());
+            information.SetTextVariable("SETTLEMENT", revolt.Settlement.Name);
             InformationManager.AddQuickInformation(information);
 
             revolt.SettlementInfo.CurrentFactionInfo.CityRevoltionSucceeded(revolt.Settlement);
@@ -175,7 +175,7 @@ namespace Revolutions.Components.Revolts
         internal void StartRebellionEvent(Settlement settlement)
         {
             var information = new TextObject("{=dRoS0maD}{SETTLEMENT} is revolting!");
-            information.SetTextVariable("SETTLEMENT", settlement.Name.ToString());
+            information.SetTextVariable("SETTLEMENT", settlement.Name);
             try
             {
                 InformationManager.AddNotice(new SettlementRebellionMapNotification(settlement, information));
