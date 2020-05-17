@@ -19,23 +19,6 @@ namespace Revolutions
 {
     internal class DataStorage
     {
-        internal void InitializeBaseData()
-        {
-            Managers.Faction.DebugMode = RevolutionsSettings.Instance.DebugMode;
-            Managers.Kingdom.DebugMode = RevolutionsSettings.Instance.DebugMode;
-            Managers.Clan.DebugMode = RevolutionsSettings.Instance.DebugMode;
-            Managers.Party.DebugMode = RevolutionsSettings.Instance.DebugMode;
-            Managers.Character.DebugMode = RevolutionsSettings.Instance.DebugMode;
-            Managers.Settlement.DebugMode = RevolutionsSettings.Instance.DebugMode;
-
-            Managers.Kingdom.InitializeInfos();
-            Managers.Faction.InitializeInfos();
-            Managers.Clan.InitializeInfos();
-            Managers.Party.InitializeInfos();
-            Managers.Character.InitializeInfos();
-            Managers.Settlement.InitializeInfos();
-        }
-
         internal void LoadBaseData()
         {
             var saveDirectory = this.GetSaveDirectory();
