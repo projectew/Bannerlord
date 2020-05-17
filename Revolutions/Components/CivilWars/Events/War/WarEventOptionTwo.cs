@@ -19,6 +19,7 @@ namespace Revolutions.Components.CivilWars.Events.War
         public override void Invoke()
         {
             Managers.Character.GetInfo(Hero.MainHero.CharacterObject).PlotState = PlotState.Considering;
+            Managers.Character.GetInfo(Hero.MainHero.CharacterObject).DecisionMade = DecisionMade.Yes;
         }
     }
 }

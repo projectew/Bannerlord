@@ -19,6 +19,7 @@ namespace Revolutions.Components.CivilWars.Events.Plotting
         public override void Invoke()
         {
             Managers.Character.GetInfo(Hero.MainHero.CharacterObject).PlotState = PlotState.IsPlotting;
+            Managers.Character.GetInfo(Hero.MainHero.CharacterObject).DecisionMade = DecisionMade.Yes;
         }
     }
 }

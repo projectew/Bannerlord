@@ -6,16 +6,15 @@ namespace Revolutions.Components.CivilWars.Events.Plotting
     {
         public PlottingEvent() : base()
         {
-            var id = "revolutions_civilwars_plotting";
-            var description = "Some one tells you that members of your kingdom are starting a plot. Do you want to take part?";
-            var sprite = "Revolutions.PlottingLords";
-            var plottingEvent = new Event(id, description, sprite);
+            Id = "revolutions_civilwars_plotting";
+            Description = "Some one tells you that members of your kingdom are starting a plot. Do you want to take part?";
+            Sprite = "Revolutions.PlottingLords";
             var optionOne = new PlottingEventOptionOne("OptionOne", "You're right, I'll be with you! (Join Plotters)");
             var optionTwo = new PlottingEventOptionTwo("OptionTwo", "How dare you? For the king! (Join Loyals)");
             var optionThree = new PlottingEventOptionThree("OptionThree", "I need more time to consider this. (Wait 7 days until decide)");
-            plottingEvent.AddOption(optionOne);
-            plottingEvent.AddOption(optionTwo);
-            plottingEvent.AddOption(optionThree);
+            this.AddOption(optionOne);
+            this.AddOption(optionTwo);
+            this.AddOption(optionThree);
         }
     }
 }

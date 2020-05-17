@@ -167,7 +167,10 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                 if (kingdomInfo.Id == Hero.MainHero.Clan.Kingdom?.StringId)
                 {
-                    if (this._daysSinceConsider >= RevolutionsSettings.Instance.CivilWarsPlottingConsiderTime)
+                    if (this._daysSinceConsider >= RevolutionsSettings.Instance.CivilWarsPlottingConsiderTime && 
+                        (Managers.Character.GetInfo(Hero.MainHero.CharacterObject).PlotState == PlotState.Considering ||
+                        Managers.Character.GetInfo(Hero.MainHero.CharacterObject).PlotState == PlotState.IsLoyal) &&
+                        Managers.Character.GetInfo(Hero.MainHero.CharacterObject).DecisionMade == DecisionMade.No)
                     {
                         var plottingEvent = new PlottingEvent();
                         plottingEvent.Invoke();
@@ -256,8 +259,11 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                 if (warChance > new Random().Next(0, 100))
                 {
-                    var warEvent = new WarEvent();
-                    warEvent.Invoke();
+                    if (kingdomInfo.Id == Hero.MainHero.Clan.Kingdom?.StringId)
+                    {
+                        var warEvent = new WarEvent(); 
+                        warEvent.Invoke();
+                    }
 
                     loyalClans.Clear();
                     plottingClans.Clear();
@@ -351,9 +357,13 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                     if (RevolutionsSettings.Instance.CivilWarsKeepExistingWars)
                     {
-                        foreach (var enemyFaction in FactionManager.GetEnemyFactions(kingdomInfo.Kingdom))
+                        foreach (var enemyFaction in FactionManager.GetEnemyFactions(kingdomInfo.Kingdom).ToList())
                         {
-                            DeclareWarAction.Apply(plotKingdom, enemyFaction);
+                            //for some reason sometimes kingdoms are considered to be at war with themselves
+                            if (!enemyFaction.Equals(plotKingdom))
+                            {
+                                DeclareWarAction.Apply(plotKingdom, enemyFaction);
+                            }
                         }
                     }
 

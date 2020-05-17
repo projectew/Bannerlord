@@ -6,14 +6,13 @@ namespace Revolutions.Components.CivilWars.Events.War
     {
         public WarEvent() : base()
         {
-            var id = "revolutions_civilwars_plotting";
-            var description = "The plotters will declare war on the king. Do you want to take part or stay with you king?";
-            var sprite = "Revolutions.PlottingLords";
-            var warEvent = new Event(id, description, sprite);
+            Id = "revolutions_civilwars_war";
+            Description = "The plotters will declare war on the king. Do you want to take part or stay with you king?";
+            Sprite = "Revolutions.PlottingLords";
             var optionOne = new WarEventOptionOne("OptionOne", "You're right, I'll be with you! (Join Plotters)");
             var optionTwo = new WarEventOptionTwo("OptionTwo", "How dare you? For the king! (Join Loyals)");
-            warEvent.AddOption(optionOne);
-            warEvent.AddOption(optionTwo);
+            this.AddOption(optionOne);
+            this.AddOption(optionTwo);
         }
     }
 }

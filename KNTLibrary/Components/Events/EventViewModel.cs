@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TaleWorlds.Core;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.Library;
@@ -14,13 +15,24 @@ namespace KNTLibrary.Components.Events
 
         private readonly EventOption _optionThree;
 
-        public EventViewModel(string description, string sprite, List<EventOption> options)
+        private readonly Event _event;
+
+        public EventViewModel(string description, string sprite, List<EventOption> options, Event eventobj)
         {
             this._optionOne = options[0];
-            this._optionTwo = options[1];
-            this._optionThree = options[2];
+            if (options.Count() > 1)
+            {
+                this._optionTwo = options[1];
+            }
+
+            if (options.Count() > 2)
+            {
+                this._optionThree = options[2];    
+            }
+            
             this.Description = description.ToString();
             this.Sprite = sprite;
+            this._event = eventobj;
         }
 
         [DataSourceProperty]
@@ -58,6 +70,7 @@ namespace KNTLibrary.Components.Events
 
         private void ExitMenu()
         {
+            EventManager.Instance.EndEvent(_event);
             Game.Current.GameStateManager.ActiveStateDisabledByUser = false;
             ScreenManager.PopScreen();
         }

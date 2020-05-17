@@ -14,12 +14,14 @@ namespace KNTLibrary.Components.Events
         private readonly string _description;
         private readonly string _sprite;
         private readonly List<EventOption> _options;
-
-        public EventScreen(string description, string sprite, List<EventOption> options)
+        private readonly Event _event;
+        
+        public EventScreen(string description, string sprite, List<EventOption> options, Event eventobj)
         {
             this._description = description;
             this._sprite = sprite;
             this._options = options;
+            this._event = eventobj;
 
             if (options.Count() == 1)
             {
@@ -39,7 +41,7 @@ namespace KNTLibrary.Components.Events
         {
             base.OnInitialize();
 
-            this._dataSource = new EventViewModel(this._description, this._sprite, this._options);
+            this._dataSource = new EventViewModel(this._description, this._sprite, this._options, this._event);
             this._gauntletLayer = new GauntletLayer(100)
             {
                 IsFocusLayer = true

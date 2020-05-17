@@ -52,6 +52,7 @@ namespace Revolutions.Components.Base.Characters
         public bool IsCivilWarKingdomLeader { get; set; } = false;
 
         public PlotState PlotState { get; set; } = PlotState.IsLoyal;
+        public DecisionMade DecisionMade { get; set; } = DecisionMade.No;
 
         #endregion
     }
@@ -59,10 +60,16 @@ namespace Revolutions.Components.Base.Characters
     [Serializable]
     public enum PlotState
     {
-        NotAsked = 0,
         IsLoyal = 1,
         WillPlotting = 2,
         IsPlotting = 3,
         Considering = 4
+    }
+
+    [Serializable]
+    public enum DecisionMade
+    {
+        No = 0,
+        Yes = 1
     }
 }

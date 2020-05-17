@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using KNTLibrary.Components.Events;
 using Revolutions.Components.Base.Parties;
 using TaleWorlds.CampaignSystem;
 
@@ -28,6 +30,11 @@ namespace Revolutions.CampaignBehaviors
 
         private void TickEvent(float dt)
         {
+            if (_currentTick == RefreshAtTick + 60)
+            {
+                HandleEventCalls();
+            }
+            
             //Assuming, that we have 30 ticks per second, we update one of our data pieces once per second. So after 6 seconds all data was updated one time.
             switch (this._currentTick)
             {
@@ -50,6 +57,14 @@ namespace Revolutions.CampaignBehaviors
                 default:
                     this._currentTick++;
                     break;
+            }
+        }
+
+        private void HandleEventCalls()
+        {
+            if (!EventManager.Instance.InEvent && EventManager.Instance.Events.Count() > 0)
+            {
+                EventManager.Instance.Events[0].Invoke();
             }
         }
 
