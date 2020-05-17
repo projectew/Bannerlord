@@ -170,7 +170,6 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                     if (this._daysSinceConsider >= RevolutionsSettings.Instance.CivilWarsPlottingConsiderTime)
                     {
                         var plottingEvent = new PlottingEvent();
-                        plottingEvent.Invoke();
                         this._daysSinceConsider = 0;
                     }
                     else
@@ -257,7 +256,6 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 if (warChance > new Random().Next(0, 100))
                 {
                     var warEvent = new WarEvent();
-                    warEvent.Invoke();
 
                     loyalClans.Clear();
                     plottingClans.Clear();
