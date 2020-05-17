@@ -26,7 +26,7 @@ namespace KNTLibrary.Components.Events
             this.Id = id;
             this.Description = description;
             this.Sprite = sprite;
-            
+
         }
 
         public void AddOption(string id, string text)
@@ -43,16 +43,17 @@ namespace KNTLibrary.Components.Events
         {
             if (EventManager.Instance.InEvent)
             {
-                EventManager.Instance.StartEvent(this);   
+                EventManager.Instance.StartEvent(this);
             }
             else
             {
                 EventManager.Instance.StartEvent(this);
+
                 if (pause)
                 {
                     Campaign.Current.TimeControlMode = CampaignTimeControlMode.Stop;
                     Campaign.Current.SetTimeSpeed(0);
-                    Game.Current.GameStateManager.ActiveStateDisabledByUser = true;   
+                    Game.Current.GameStateManager.ActiveStateDisabledByUser = true;
                 }
 
                 ScreenManager.PushScreen(new EventScreen(this.Description, this.Sprite, this.Options, this));

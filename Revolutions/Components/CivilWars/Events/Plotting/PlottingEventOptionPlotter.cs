@@ -1,4 +1,5 @@
 ﻿using KNTLibrary.Components.Events;
+using KNTLibrary.Components.Plots;
 using Revolutions.Components.Base.Characters;
 using TaleWorlds.CampaignSystem;
 
@@ -18,8 +19,9 @@ namespace Revolutions.Components.CivilWars.Events.Plotting
 
         public override void Invoke()
         {
-            Managers.Character.GetInfo(Hero.MainHero.CharacterObject).PlotState = PlotState.IsPlotting;
-            Managers.Character.GetInfo(Hero.MainHero.CharacterObject).DecisionMade = DecisionMade.Yes;
+            var mainHeroInfo = Managers.Character.GetInfo(Hero.MainHero.CharacterObject);
+            mainHeroInfo.PlotState = PlotState.IsPlotting;
+            mainHeroInfo.DecisionMade = DecisionMade.Yes;
         }
     }
 }

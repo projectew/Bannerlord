@@ -20,6 +20,7 @@ namespace KNTLibrary.Components.Events
         public EventViewModel(string description, string sprite, List<EventOption> options, Event eventobj)
         {
             this._optionOne = options[0];
+
             if (options.Count() > 1)
             {
                 this._optionTwo = options[1];
@@ -27,9 +28,9 @@ namespace KNTLibrary.Components.Events
 
             if (options.Count() > 2)
             {
-                this._optionThree = options[2];    
+                this._optionThree = options[2];
             }
-            
+
             this.Description = description.ToString();
             this.Sprite = sprite;
             this._event = eventobj;
@@ -46,7 +47,7 @@ namespace KNTLibrary.Components.Events
 
         [DataSourceProperty]
         public string OptionTwoText => new TextObject(this._optionTwo.Text).ToString();
-        
+
         [DataSourceProperty]
         public string OptionThreeText => new TextObject(this._optionThree.Text).ToString();
 
@@ -61,7 +62,7 @@ namespace KNTLibrary.Components.Events
             this._optionTwo.Invoke();
             this.ExitMenu();
         }
-        
+
         private void InvokeOptionThree()
         {
             this._optionThree.Invoke();
@@ -70,7 +71,7 @@ namespace KNTLibrary.Components.Events
 
         private void ExitMenu()
         {
-            EventManager.Instance.EndEvent(_event);
+            EventManager.Instance.EndEvent(this._event);
             Game.Current.GameStateManager.ActiveStateDisabledByUser = false;
             ScreenManager.PopScreen();
         }

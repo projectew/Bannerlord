@@ -13,6 +13,7 @@ using TaleWorlds.CampaignSystem.MapNotificationTypes;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
+using KNTLibrary.Components.Plots;
 
 namespace Revolutions.Components.CivilWars.CampaignBehaviors
 {
@@ -172,11 +173,10 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                     {
                         continue;
                     }
-                    
-                    if (this._daysSinceConsider >= RevolutionsSettings.Instance.CivilWarsPlottingConsiderTime && 
-                        (Managers.Character.GetInfo(Hero.MainHero.CharacterObject).PlotState == PlotState.Considering ||
-                        Managers.Character.GetInfo(Hero.MainHero.CharacterObject).PlotState == PlotState.IsLoyal) &&
-                        Managers.Character.GetInfo(Hero.MainHero.CharacterObject).DecisionMade == DecisionMade.No)
+
+                    var mainHeroInfo = Managers.Character.GetInfo(Hero.MainHero.CharacterObject);
+                    if (this._daysSinceConsider >= RevolutionsSettings.Instance.CivilWarsPlottingConsiderTime
+                        && mainHeroInfo.PlotState == PlotState.Considering && mainHeroInfo.DecisionMade == DecisionMade.No)
                     {
                         var plottingEvent = new PlottingEvent();
                         this._daysSinceConsider = 0;
@@ -266,9 +266,14 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 {
                     if (kingdomInfo.Id == Hero.MainHero.Clan.Kingdom?.StringId && EventManager.Instance.InEvent)
                     {
-                        continue;;
+                        continue;
                     }
-                    
+
+                    if (kingdomInfo.Id == Hero.MainHero.Clan.Kingdom?.StringId && kingdomLeader != Hero.MainHero)
+                    {
+                        var warEvent = new WarEvent();
+                    }
+
                     loyalClans.Clear();
                     plottingClans.Clear();
                     foreach (var clan in kingdomWithClans.Clans)
@@ -358,17 +363,11 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                     }
 
                     DeclareWarAction.Apply(plotKingdom, kingdomInfo.Kingdom);
-                    
-                    if (kingdomInfo.Id == Hero.MainHero.Clan.Kingdom?.StringId)
-                    {
-                        var warEvent = new WarEvent(plotKingdom, kingdomInfo.Kingdom); 
-                    }
-                    
+
                     if (RevolutionsSettings.Instance.CivilWarsKeepExistingWars)
                     {
                         foreach (var enemyFaction in FactionManager.GetEnemyFactions(kingdomInfo.Kingdom).ToList())
                         {
-                            //for some reason sometimes kingdoms are considered to be at war with themselves
                             if (!enemyFaction.Equals(plotKingdom))
                             {
                                 DeclareWarAction.Apply(plotKingdom, enemyFaction);

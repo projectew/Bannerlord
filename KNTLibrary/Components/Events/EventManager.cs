@@ -15,20 +15,20 @@ namespace KNTLibrary.Components.Events
 
         #endregion
 
-        
-        public List<Event> Events = new List<Event>();
+        public List<Event> Events { get; set; } = new List<Event>();
+
         public bool InEvent { get; private set; }
-        
+
         public void StartEvent(Event eventobj)
         {
-            Events.Add(eventobj);
-            InEvent = true;
+            this.Events.Add(eventobj);
+            this.InEvent = true;
         }
-        
+
         public void EndEvent(Event eventobj)
         {
-            Events.Remove(eventobj);
-            InEvent = false;
+            this.Events.Remove(eventobj);
+            this.InEvent = false;
         }
     }
 }

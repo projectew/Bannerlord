@@ -58,6 +58,8 @@
       <HintPath>%(Identity)</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <!-- Files & Classes -->
   <ItemGroup>
@@ -67,9 +69,6 @@
     <Reference Include="MBOptionScreen.v2.0.10, Version=2.0.10.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Bannerlord.MBOptionScreen.2.0.10\lib\net472\MBOptionScreen.v2.0.10.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Banners\BaseBannerInfo.cs" />
@@ -91,6 +90,7 @@
     <Compile Include="Components\Plots\BasePlotInfo.cs" />
     <Compile Include="Components\Plots\BasePlotInfoExtension.cs" />
     <Compile Include="Components\Plots\BasePlotManager.cs" />
+    <Compile Include="Components\Plots\DecisionState.cs" />
     <Compile Include="Helpers\ColorHelper.cs" />
     <Compile Include="Components\Factions\BaseFactionInfo.cs" />
     <Compile Include="Components\Factions\BaseFactionManager.cs" />
