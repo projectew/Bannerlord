@@ -86,7 +86,7 @@
   <!-- Mod Resource Files -->
   <ItemGroup>
     <Content Include="GUI\Prefabs\OneOptionEvent.xml" />
-    <Content Include="GUI\Prefabs\PlotScreen.xml" />
+    <Content Include="GUI\Prefabs\CivilWarsPlotScreen.xml" />
     <Content Include="GUI\Prefabs\ThreeOptionEvent.xml" />
     <Content Include="GUI\Prefabs\TwoOptionEvent.xml" />
     <Content Include="GUI\RevolutionsSpriteData.xml" />
@@ -110,6 +110,7 @@
   <!-- Mod Programming Files -->
   <ItemGroup>
     <Compile Include="CampaignBehaviors\CleanupBehavior.cs" />
+    <Compile Include="Components\CivilWars\Plots\CivilWarsPlotInfo.cs" />
     <Compile Include="Components\CivilWars\Events\Plotting\PlottingEvent.cs" />
     <Compile Include="Components\CivilWars\Events\Plotting\PlottingEventOptionOne.cs" />
     <Compile Include="Components\CivilWars\Events\Plotting\PlottingEventOptionThree.cs" />
@@ -117,8 +118,6 @@
     <Compile Include="Components\CivilWars\Events\War\WarEvent.cs" />
     <Compile Include="Components\CivilWars\Events\War\WarEventOptionOne.cs" />
     <Compile Include="Components\CivilWars\Events\War\WarEventOptionTwo.cs" />
-    <Compile Include="Components\Events\Test\TestEventOption.cs" />
-    <Compile Include="Components\Events\Test\TestEventBehavior.cs" />
     <Compile Include="CampaignBehaviors\GuiHandlersBehavior.cs" />
     <Compile Include="CampaignBehaviors\RevolutionsBehavior.cs" />
     <Compile Include="Components\Base\Banner\BannerInfoExtensions.cs" />
@@ -127,6 +126,8 @@
     <Compile Include="Components\CivilWars\CampaignBehaviors\CivilWarsDailyBehavior.cs" />
     <Compile Include="Components\CivilWars\CivilWar.cs" />
     <Compile Include="Components\CivilWars\CivilWarManager.cs" />
+    <Compile Include="Components\CivilWars\Plots\Screens\CivilWarsPlotScreen.cs" />
+    <Compile Include="Components\CivilWars\Plots\Screens\CivilWarsPlotViewModel.cs" />
     <Compile Include="Components\Revolts\CampaignBehaviors\LuckyNationBehaviour.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="Components\Base\Kingdoms\KingdomInfo.cs" />

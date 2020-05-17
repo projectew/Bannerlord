@@ -1,9 +1,11 @@
-﻿using KNTLibrary.Components.Banners;
+﻿using KNTLibrary.Components;
+using KNTLibrary.Components.Banners;
 using KNTLibrary.Components.Characters;
 using KNTLibrary.Components.Clans;
 using KNTLibrary.Components.Factions;
 using KNTLibrary.Components.Kingdoms;
 using KNTLibrary.Components.Parties;
+using KNTLibrary.Components.Plots;
 using KNTLibrary.Components.Settlements;
 
 namespace KNTLibrary
@@ -23,5 +25,7 @@ namespace KNTLibrary
         public static BaseCharacterManager<BaseCharacterInfo> Character { get; } = BaseCharacterManager<BaseCharacterInfo>.Instance;
 
         public static BaseSettlementManager<BaseSettlementInfo> Settlement { get; } = BaseSettlementManager<BaseSettlementInfo>.Instance;
+
+        public static BasePlotManager<BasePlotInfo<IBaseInfoType, IBaseInfoType>> Plot { get; } = BasePlotManager<BasePlotInfo<IBaseInfoType, IBaseInfoType>>.Instance;
     }
 }

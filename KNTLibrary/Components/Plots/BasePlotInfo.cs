@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace KNTLibrary.Components.Plot
+namespace KNTLibrary.Components.Plots
 {
-    public abstract class BasePlotInfo<TargetObjectiveType, AttendeeType> : IEquatable<BasePlotInfo<TargetObjectiveType, AttendeeType>> where TargetObjectiveType : IBaseInfoType where AttendeeType : IBaseInfoType
+    [Serializable]
+    public class BasePlotInfo<TargetObjectiveType, AttendeeType> : IEquatable<BasePlotInfo<TargetObjectiveType, AttendeeType>> where TargetObjectiveType : IBaseInfoType where AttendeeType : IBaseInfoType
     {
         #region IGameComponent<InfoType>
 
@@ -84,8 +85,14 @@ namespace KNTLibrary.Components.Plot
             return true;
         }
 
-        public abstract void ExecuteStart();
+        public virtual void ExecuteStart()
+        {
 
-        public abstract void ExecuteEnd();
+        }
+
+        public virtual void ExecuteEnd()
+        {
+
+        }
     }
 }

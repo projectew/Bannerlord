@@ -2,11 +2,11 @@
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.Library;
 
-namespace KNTLibrary.Components.Plots.Screens
+namespace Revolutions.Components.CivilWars.Plots.Screens
 {
-    public class PlotViewModel : ViewModel
+    public class CivilWarsPlotViewModel : ViewModel
     {
-        public PlotViewModel()
+        public CivilWarsPlotViewModel()
         {
 
         }

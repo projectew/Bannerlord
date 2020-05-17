@@ -1,24 +1,24 @@
 ﻿using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Engine.Screens;
 
-namespace KNTLibrary.Components.Plots.Screens
+namespace Revolutions.Components.CivilWars.Plots.Screens
 {
-    public class PlotScreen : ScreenBase
+    public class CivilWarsPlotScreen : ScreenBase
     {
         private readonly string _movieName;
-        private PlotViewModel _dataSource;
+        private CivilWarsPlotViewModel _dataSource;
         private GauntletLayer _gauntletLayer;
 
-        public PlotScreen()
+        public CivilWarsPlotScreen()
         {
-            this._movieName = "PlotScreen";
+            this._movieName = "CivilWarsPlotScreen";
         }
 
         protected override void OnInitialize()
         {
             base.OnInitialize();
 
-            this._dataSource = new PlotViewModel();
+            this._dataSource = new CivilWarsPlotViewModel();
             this._gauntletLayer = new GauntletLayer(100)
             {
                 IsFocusLayer = true

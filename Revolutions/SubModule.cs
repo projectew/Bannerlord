@@ -8,10 +8,8 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Engine;
 using TaleWorlds.Engine.GauntletUI;
-using TaleWorlds.Library;
 using TaleWorlds.TwoDimension;
 using TaleWorlds.MountAndBlade;
-using Revolutions.Components.Events;
 
 namespace Revolutions
 {
@@ -74,7 +72,6 @@ namespace Revolutions
         {
             campaignGameStarter.AddModel(new Components.General.Models.SettlementLoyaltyModel());
             campaignGameStarter.AddBehavior(new RevolutionsBehavior(ref this._dataStorage, campaignGameStarter));
-            campaignGameStarter.AddBehavior(new TestEventBehavior());
 
             if (RevolutionsSettings.Instance.EnableRevolts)
             {
