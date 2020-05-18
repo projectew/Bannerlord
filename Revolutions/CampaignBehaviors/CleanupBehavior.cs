@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using KNTLibrary.Components.Events;
+using Revolutions.Components.Base.Kingdoms;
 using Revolutions.Components.Base.Parties;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Actions;
 
 namespace Revolutions.CampaignBehaviors
 {
@@ -76,7 +79,7 @@ namespace Revolutions.CampaignBehaviors
             Managers.Party.CleanupDuplicatedInfos();
             Managers.Character.CleanupDuplicatedInfos();
             Managers.Settlement.CleanupDuplicatedInfos();
-
+            DestroyGhostKingdoms();
             Managers.Party.UpdateInfos();
         }
 
@@ -86,6 +89,22 @@ namespace Revolutions.CampaignBehaviors
             if (kingdomInfo != null && kingdomInfo.IsCustomKingdom)
             {
                 Managers.Kingdom.RemoveKingdom(kingdom);
+            }
+        }
+
+        private void DestroyGhostKingdoms()
+        {
+            int kingdomsCount = Managers.Kingdom.Infos.Count();
+            for (int i = 0; i < kingdomsCount; i++)
+            {
+                var kingdomInfo = Managers.Kingdom.Infos.ElementAtOrDefault(i);
+                if (kingdomInfo.IsCustomKingdom && kingdomInfo.Kingdom.Leader.IsDead || 
+                    kingdomInfo.Kingdom.Leader.IsPrisoner && !kingdomInfo.Kingdom.Parties.Any())
+                {
+                    DestroyKingdomAction.Apply(kingdomInfo.Kingdom);
+                    kingdomsCount = Managers.Kingdom.Infos.Count();
+                    i--;
+                }
             }
         }
 
