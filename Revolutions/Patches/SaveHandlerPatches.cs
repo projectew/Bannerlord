@@ -32,19 +32,17 @@ namespace Revolutions.Patches
         {
             internal static void Postfix()
             {
+                DataStorage.ActiveSaveSlotName = AccessTools.Field(typeof(MBSaveLoad), "ActiveSaveSlotName").GetValue(null).ToString();
+
+                DataStorage.SaveBaseData();
+                if (RevolutionsSettings.Instance.EnableRevolts)
                 {
-                    DataStorage.ActiveSaveSlotName = AccessTools.Field(typeof(MBSaveLoad), "ActiveSaveSlotName").GetValue(null).ToString();
+                    DataStorage.SaveRevoltData();
+                }
 
-                    DataStorage.SaveBaseData();
-                    if (RevolutionsSettings.Instance.EnableRevolts)
-                    {
-                        DataStorage.SaveRevoltData();
-                    }
-
-                    if (RevolutionsSettings.Instance.EnableCivilWars)
-                    {
-                        DataStorage.SaveCivilWarData();
-                    }
+                if (RevolutionsSettings.Instance.EnableCivilWars)
+                {
+                    DataStorage.SaveCivilWarData();
                 }
             }
         }
@@ -54,19 +52,17 @@ namespace Revolutions.Patches
         {
             internal static void Postfix(string saveName)
             {
+                DataStorage.ActiveSaveSlotName = AccessTools.Field(typeof(MBSaveLoad), "ActiveSaveSlotName").GetValue(null).ToString();
+
+                DataStorage.SaveBaseData();
+                if (RevolutionsSettings.Instance.EnableRevolts)
                 {
-                    DataStorage.ActiveSaveSlotName = AccessTools.Field(typeof(MBSaveLoad), "ActiveSaveSlotName").GetValue(null).ToString();
+                    DataStorage.SaveRevoltData();
+                }
 
-                    DataStorage.SaveBaseData();
-                    if (RevolutionsSettings.Instance.EnableRevolts)
-                    {
-                        DataStorage.SaveRevoltData();
-                    }
-
-                    if (RevolutionsSettings.Instance.EnableCivilWars)
-                    {
-                        DataStorage.SaveCivilWarData();
-                    }
+                if (RevolutionsSettings.Instance.EnableCivilWars)
+                {
+                    DataStorage.SaveCivilWarData();
                 }
             }
         }
