@@ -19,6 +19,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
         public override void RegisterEvents()
         {
+            CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.OnSessionLaunchedEvent));
             CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.OnGameLoadedEvent));
             CampaignEvents.MapEventEnded.AddNonSerializedListener(this, new Action<MapEvent>(this.MapEventEnded));
             CampaignEvents.OnSettlementOwnerChangedEvent.AddNonSerializedListener(this, new Action<Settlement, bool, Hero, Hero, Hero, ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail>(this.OnSettlementOwnerChangedEvent));
@@ -30,6 +31,11 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
         public override void SyncData(IDataStore dataStore)
         {
 
+        }
+
+        private void OnSessionLaunchedEvent(CampaignGameStarter campaignGameStarter)
+        {
+            DataStorage.LoadRevoltData();
         }
 
         private void OnGameLoadedEvent(CampaignGameStarter obj)

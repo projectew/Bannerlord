@@ -18,68 +18,36 @@ namespace Revolutions
     {
         internal static string ActiveSaveSlotName { get; set; }
 
-        internal static void ClearData()
-        {
-            Managers.Faction.Infos = new HashSet<FactionInfo>();
-            Managers.Kingdom.Infos = new HashSet<KingdomInfo>();
-            Managers.Clan.Infos = new HashSet<ClanInfo>();
-            Managers.Party.Infos = new HashSet<PartyInfo>();
-            Managers.Character.Infos = new HashSet<CharacterInfo>();
-            Managers.Settlement.Infos = new HashSet<SettlementInfo>();
-            Managers.Banner.Infos = new HashSet<BaseBannerInfo>();
-        }
-
         internal static void LoadBaseData()
         {
             var saveDirectory = DataStorage.GetSaveDirectory();
 
             Managers.Faction.Infos = FileHelper.Load<List<FactionInfo>>(saveDirectory, "Factions").ToHashSet();
-            if(Managers.Faction.Infos.Count == 0)
-            {
-                Managers.Faction.InitializeInfos();
-            }
+            Managers.Faction.InitializeInfos();
             Managers.Faction.CleanupDuplicatedInfos();
 
             Managers.Kingdom.Infos = FileHelper.Load<List<KingdomInfo>>(saveDirectory, "Kingdoms").ToHashSet();
-            if (Managers.Kingdom.Infos.Count == 0)
-            {
-                Managers.Kingdom.InitializeInfos();
-            }
+            Managers.Kingdom.InitializeInfos();
             Managers.Kingdom.CleanupDuplicatedInfos();
 
             Managers.Clan.Infos = FileHelper.Load<List<ClanInfo>>(saveDirectory, "Clans").ToHashSet();
-            if (Managers.Clan.Infos.Count == 0)
-            {
-                Managers.Clan.InitializeInfos();
-            }
+            Managers.Clan.InitializeInfos();
             Managers.Clan.CleanupDuplicatedInfos();
 
             Managers.Party.Infos = FileHelper.Load<List<PartyInfo>>(saveDirectory, "Parties").ToHashSet();
-            if (Managers.Party.Infos.Count == 0)
-            {
-                Managers.Party.InitializeInfos();
-            }
+            Managers.Party.InitializeInfos();
             Managers.Party.CleanupDuplicatedInfos();
 
             Managers.Character.Infos = FileHelper.Load<List<CharacterInfo>>(saveDirectory, "Characters").ToHashSet();
-            if (Managers.Character.Infos.Count == 0)
-            {
-                Managers.Character.InitializeInfos();
-            }
+            Managers.Character.InitializeInfos();
             Managers.Character.CleanupDuplicatedInfos();
 
             Managers.Settlement.Infos = FileHelper.Load<List<SettlementInfo>>(saveDirectory, "Settlements").ToHashSet();
-            if (Managers.Settlement.Infos.Count == 0)
-            {
-                Managers.Settlement.InitializeInfos();
-            }
+            Managers.Settlement.InitializeInfos();
             Managers.Settlement.CleanupDuplicatedInfos();
 
             Managers.Banner.Infos = FileHelper.Load<List<BaseBannerInfo>>(saveDirectory, "Banners").ToHashSet();
-            if (Managers.Faction.Infos.Count == 0)
-            {
-                Managers.Banner.InitializeInfos();
-            }
+            Managers.Banner.InitializeInfos();
             Managers.Banner.CleanupDuplicatedInfos();
         }
 
@@ -95,19 +63,8 @@ namespace Revolutions
             FileHelper.Save(Managers.Banner.Infos, saveDirectory, "Banners");
         }
 
-        internal static void ClearRevoltData()
-        {
-            Managers.Revolt.Revolts = new HashSet<Revolt>();
-        }
-        
-        internal static void ClearCivilWarData()
-        {
-            Managers.CivilWar.CivilWars = new HashSet<CivilWar>();
-        }
-        
         internal static void LoadRevoltData()
         {
-            ClearRevoltData();
             var saveDirectory = DataStorage.GetSaveDirectory();
             Managers.Revolt.Revolts = FileHelper.Load<List<Revolt>>(saveDirectory, "Revolts").ToHashSet();
         }
@@ -120,7 +77,6 @@ namespace Revolutions
 
         internal static void LoadCivilWarData()
         {
-            ClearCivilWarData();
             var saveDirectory = DataStorage.GetSaveDirectory();
             Managers.CivilWar.CivilWars = FileHelper.Load<List<CivilWar>>(saveDirectory, "CivilWars").ToHashSet();
         }

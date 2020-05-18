@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Runtime.Versioning;
-using KNTLibrary.Components.Events;
 using TaleWorlds.CampaignSystem;
 
 namespace Revolutions.CampaignBehaviors
@@ -19,20 +17,14 @@ namespace Revolutions.CampaignBehaviors
 			CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.OnGameLoadedEvent));
         }
 
-        private void OnSessionLaunchedEvent(CampaignGameStarter campaignGameStarter)
-        {
-            DataStorage.ClearData();
-            DataStorage.ClearRevoltData();
-            DataStorage.ClearCivilWarData();
-        }
-
         public override void SyncData(IDataStore dataStore)
         {
-            if(dataStore.IsLoading)
-            {
-                DataStorage.ClearData();
-                DataStorage.LoadBaseData();
-            }
+
+        }
+
+        private void OnSessionLaunchedEvent(CampaignGameStarter campaignGameStarter)
+        {
+            DataStorage.LoadBaseData();
         }
 
         private void OnGameLoadedEvent(CampaignGameStarter obj)
