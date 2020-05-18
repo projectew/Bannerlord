@@ -24,10 +24,10 @@ namespace Revolutions.CampaignBehaviors
 
         private void OnSessionLaunchedEvent(CampaignGameStarter campaignGameStarter)
         {
-            DataStorage.LoadBaseData();
+            DataStorage.InitializeBaseData();
         }
 
-        private void OnGameLoadedEvent(CampaignGameStarter obj)
+        private void OnGameLoadedEvent(CampaignGameStarter campaignGameStarter)
         {
             DataStorage.LoadBaseData();
         }

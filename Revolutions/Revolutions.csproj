@@ -154,7 +154,7 @@
     <Compile Include="Managers.cs" />
     <Compile Include="Components\General\Screens\TownRevolution\TownRevolutionsScreen.cs" />
     <Compile Include="Components\General\Screens\TownRevolution\TownRevolutionViewModel.cs" />
-    <Compile Include="Patches\SaveHandlerPatches.cs" />
+    <Compile Include="Patches\SaveFilePatches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Localization\Settings\Descriptions.cs" />
     <Compile Include="Settings\RevolutionsSettings.cs" />

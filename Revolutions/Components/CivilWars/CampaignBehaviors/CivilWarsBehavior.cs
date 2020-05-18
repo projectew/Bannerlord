@@ -14,8 +14,6 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
         public override void RegisterEvents()
         {
-            CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.OnSessionLaunchedEvent));
-            CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.OnGameLoadedEvent));
             CampaignEvents.KingdomDestroyedEvent.AddNonSerializedListener(this, new Action<Kingdom>(this.KingdomDestroyedEvent));
             CampaignEvents.OnClanDestroyedEvent.AddNonSerializedListener(this, new Action<Clan>(this.OnClanDestroyedEvent));
             CampaignEvents.ClanChangedKingdom.AddNonSerializedListener(this, new Action<Clan, Kingdom, Kingdom, bool, bool>(this.ClanChangedKingdom));
@@ -24,16 +22,6 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
         public override void SyncData(IDataStore dataStore)
         {
 
-        }
-
-        private void OnSessionLaunchedEvent(CampaignGameStarter campaignGameStarter)
-        {
-            DataStorage.LoadCivilWarData();
-        }
-
-        private void OnGameLoadedEvent(CampaignGameStarter obj)
-        {
-            DataStorage.LoadCivilWarData();
         }
 
         private void KingdomDestroyedEvent(Kingdom kingdom)
