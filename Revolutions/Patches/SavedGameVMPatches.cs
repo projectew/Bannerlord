@@ -14,6 +14,7 @@ namespace Revolutions.Patches
             {
                 DataStorage.ActiveSaveSlotName = AccessTools.Field(typeof(MBSaveLoad), "ActiveSaveSlotName").GetValue(null).ToString();
 
+                DataStorage.ClearData();
                 DataStorage.LoadBaseData();
                 if (RevolutionsSettings.Instance.EnableRevolts)
                 {

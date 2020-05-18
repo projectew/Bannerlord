@@ -18,6 +18,17 @@ namespace Revolutions
     {
         internal static string ActiveSaveSlotName { get; set; }
 
+        internal static void ClearData()
+        {
+            Managers.Faction.Infos = new HashSet<FactionInfo>();
+            Managers.Kingdom.Infos = new HashSet<KingdomInfo>();
+            Managers.Clan.Infos = new HashSet<ClanInfo>();
+            Managers.Party.Infos = new HashSet<PartyInfo>();
+            Managers.Character.Infos = new HashSet<CharacterInfo>();
+            Managers.Settlement.Infos = new HashSet<SettlementInfo>();
+            Managers.Banner.Infos = new HashSet<BaseBannerInfo>();
+        }
+
         internal static void LoadBaseData()
         {
             var saveDirectory = DataStorage.GetSaveDirectory();
@@ -84,8 +95,19 @@ namespace Revolutions
             FileHelper.Save(Managers.Banner.Infos, saveDirectory, "Banners");
         }
 
+        internal static void ClearRevoltData()
+        {
+            Managers.Revolt.Revolts = new HashSet<Revolt>();
+        }
+        
+        internal static void ClearCivilWarData()
+        {
+            Managers.CivilWar.CivilWars = new HashSet<CivilWar>();
+        }
+        
         internal static void LoadRevoltData()
         {
+            ClearRevoltData();
             var saveDirectory = DataStorage.GetSaveDirectory();
             Managers.Revolt.Revolts = FileHelper.Load<List<Revolt>>(saveDirectory, "Revolts").ToHashSet();
         }
@@ -98,6 +120,7 @@ namespace Revolutions
 
         internal static void LoadCivilWarData()
         {
+            ClearCivilWarData();
             var saveDirectory = DataStorage.GetSaveDirectory();
             Managers.CivilWar.CivilWars = FileHelper.Load<List<CivilWar>>(saveDirectory, "CivilWars").ToHashSet();
         }
