@@ -18,39 +18,40 @@ namespace Revolutions
     {
         internal static string ActiveSaveSlotName { get; set; }
 
+        internal static void InitializeBaseData()
+        {
+            Managers.Faction.InitializeInfos();
+            Managers.Kingdom.InitializeInfos();
+            Managers.Clan.InitializeInfos();
+            Managers.Party.InitializeInfos();
+            Managers.Character.InitializeInfos();
+            Managers.Settlement.InitializeInfos();
+            Managers.Banner.InitializeInfos();
+        }
+
         internal static void LoadBaseData()
         {
             var saveDirectory = DataStorage.GetSaveDirectory();
-            if(!string.IsNullOrEmpty(saveDirectory))
-            {
-                Managers.Faction.Infos = FileHelper.Load<List<FactionInfo>>(saveDirectory, "Factions").ToHashSet();
-                Managers.Kingdom.Infos = FileHelper.Load<List<KingdomInfo>>(saveDirectory, "Kingdoms").ToHashSet();
-                Managers.Clan.Infos = FileHelper.Load<List<ClanInfo>>(saveDirectory, "Clans").ToHashSet();
-                Managers.Party.Infos = FileHelper.Load<List<PartyInfo>>(saveDirectory, "Parties").ToHashSet();
-                Managers.Character.Infos = FileHelper.Load<List<CharacterInfo>>(saveDirectory, "Characters").ToHashSet();
-                Managers.Settlement.Infos = FileHelper.Load<List<SettlementInfo>>(saveDirectory, "Settlements").ToHashSet();
-                Managers.Banner.Infos = FileHelper.Load<List<BaseBannerInfo>>(saveDirectory, "Banners").ToHashSet();
-            }
 
-            Managers.Faction.InitializeInfos();
+            Managers.Faction.Infos = FileHelper.Load<List<FactionInfo>>(saveDirectory, "Factions").ToHashSet();
             Managers.Faction.CleanupDuplicatedInfos();
 
-            Managers.Kingdom.InitializeInfos();
+            Managers.Kingdom.Infos = FileHelper.Load<List<KingdomInfo>>(saveDirectory, "Kingdoms").ToHashSet();
             Managers.Kingdom.CleanupDuplicatedInfos();
 
-            Managers.Clan.InitializeInfos();
+            Managers.Clan.Infos = FileHelper.Load<List<ClanInfo>>(saveDirectory, "Clans").ToHashSet();
             Managers.Clan.CleanupDuplicatedInfos();
 
-            Managers.Party.InitializeInfos();
+            Managers.Party.Infos = FileHelper.Load<List<PartyInfo>>(saveDirectory, "Parties").ToHashSet();
             Managers.Party.CleanupDuplicatedInfos();
 
-            Managers.Character.InitializeInfos();
+            Managers.Character.Infos = FileHelper.Load<List<CharacterInfo>>(saveDirectory, "Characters").ToHashSet();
             Managers.Character.CleanupDuplicatedInfos();
 
-            Managers.Settlement.InitializeInfos();
+            Managers.Settlement.Infos = FileHelper.Load<List<SettlementInfo>>(saveDirectory, "Settlements").ToHashSet();
             Managers.Settlement.CleanupDuplicatedInfos();
 
-            Managers.Banner.InitializeInfos();
+            Managers.Banner.Infos = FileHelper.Load<List<BaseBannerInfo>>(saveDirectory, "Banners").ToHashSet();
             Managers.Banner.CleanupDuplicatedInfos();
         }
 
@@ -97,7 +98,7 @@ namespace Revolutions
 
         private static string GetSaveDirectory()
         {
-            if(string.IsNullOrEmpty(DataStorage.ActiveSaveSlotName))
+            if (string.IsNullOrEmpty(DataStorage.ActiveSaveSlotName))
             {
                 return string.Empty;
             }

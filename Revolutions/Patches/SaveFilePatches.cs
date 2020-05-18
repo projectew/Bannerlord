@@ -54,7 +54,7 @@ namespace Revolutions.Patches
         {
             internal static void Postfix()
             {
-                DataStorage.ActiveSaveSlotName = AccessTools.Field(typeof(MBSaveLoad), "ActiveSaveSlotName").GetValue(null).ToString();
+                DataStorage.ActiveSaveSlotName = "save_auto";
 
                 DataStorage.SaveBaseData();
 
