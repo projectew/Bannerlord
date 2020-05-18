@@ -14,7 +14,6 @@ namespace Revolutions.CampaignBehaviors
         public override void RegisterEvents()
         {
             CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.OnSessionLaunchedEvent));
-			CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.OnGameLoadedEvent));
         }
 
         public override void SyncData(IDataStore dataStore)
@@ -23,11 +22,6 @@ namespace Revolutions.CampaignBehaviors
         }
 
         private void OnSessionLaunchedEvent(CampaignGameStarter campaignGameStarter)
-        {
-            DataStorage.InitializeBaseData();
-        }
-
-        private void OnGameLoadedEvent(CampaignGameStarter campaignGameStarter)
         {
             DataStorage.LoadBaseData();
         }
