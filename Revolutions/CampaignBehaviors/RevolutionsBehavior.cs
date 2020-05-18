@@ -1,4 +1,5 @@
-﻿using TaleWorlds.CampaignSystem;
+﻿using System;
+using TaleWorlds.CampaignSystem;
 
 namespace Revolutions.CampaignBehaviors
 {
@@ -12,15 +13,16 @@ namespace Revolutions.CampaignBehaviors
 
         public override void RegisterEvents()
         {
-
+            CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.OnGameLoadedEvent));
         }
 
         public override void SyncData(IDataStore dataStore)
         {
-            if(dataStore.IsLoading)
-            {
-                DataStorage.LoadBaseData();
-            }
+        }
+
+        private void OnGameLoadedEvent(CampaignGameStarter obj)
+        {
+            DataStorage.LoadBaseData();
         }
     }
 }
