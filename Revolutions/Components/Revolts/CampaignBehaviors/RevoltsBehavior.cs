@@ -19,10 +19,9 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
         public override void RegisterEvents()
         {
+            CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.OnGameLoadedEvent));
             CampaignEvents.MapEventEnded.AddNonSerializedListener(this, new Action<MapEvent>(this.MapEventEnded));
-
             CampaignEvents.OnSettlementOwnerChangedEvent.AddNonSerializedListener(this, new Action<Settlement, bool, Hero, Hero, Hero, ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail>(this.OnSettlementOwnerChangedEvent));
-
             CampaignEvents.KingdomDestroyedEvent.AddNonSerializedListener(this, new Action<Kingdom>(this.KingdomDestroyedEvent));
             CampaignEvents.OnClanDestroyedEvent.AddNonSerializedListener(this, new Action<Clan>(this.OnClanDestroyedEvent));
             CampaignEvents.ClanChangedKingdom.AddNonSerializedListener(this, new Action<Clan, Kingdom, Kingdom, bool, bool>(this.ClanChangedKingdom));
@@ -30,10 +29,12 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
         public override void SyncData(IDataStore dataStore)
         {
-            if (dataStore.IsLoading)
-            {
-                DataStorage.LoadRevoltData();
-            }
+
+        }
+
+        private void OnGameLoadedEvent(CampaignGameStarter obj)
+        {
+            DataStorage.LoadRevoltData();
         }
 
         private void MapEventEnded(MapEvent mapEvent)

@@ -16,6 +16,7 @@ namespace Revolutions.CampaignBehaviors
         public override void RegisterEvents()
         {
             CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.OnSessionLaunchedEvent));
+			CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.OnGameLoadedEvent));
         }
 
         private void OnSessionLaunchedEvent(CampaignGameStarter campaignGameStarter)
@@ -32,6 +33,11 @@ namespace Revolutions.CampaignBehaviors
                 DataStorage.ClearData();
                 DataStorage.LoadBaseData();
             }
+        }
+
+        private void OnGameLoadedEvent(CampaignGameStarter obj)
+        {
+            DataStorage.LoadBaseData();
         }
     }
 }
