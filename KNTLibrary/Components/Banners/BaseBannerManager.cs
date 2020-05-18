@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Library;
 
 namespace KNTLibrary.Components.Banners
 {
@@ -22,30 +23,23 @@ namespace KNTLibrary.Components.Banners
 
         public HashSet<BaseBannerInfo> Infos { get; set; } = new HashSet<BaseBannerInfo>();
 
-        private HashSet<BaseBannerInfo> LoadedInfos { get; } = new HashSet<BaseBannerInfo>();
 
-
-        public void AddBanners(string directoryPath)
+        public void InitializeInfos()
         {
-            var files = Directory.GetFiles(directoryPath);
+            var directoryPath = BasePath.Name + "Modules/Revolutions/ModuleData/Banners";
 
-            foreach (var file in files)
+            foreach (var file in Directory.GetFiles(directoryPath))
             {
-                var infos = FileHelper.Load<List<BaseBannerInfo>>(directoryPath, Path.GetFileNameWithoutExtension(file)).ToHashSet();
-                foreach (var info in infos)
+                var loadedInfos = FileHelper.Load<List<BaseBannerInfo>>(directoryPath, Path.GetFileNameWithoutExtension(file));
+                foreach (var info in loadedInfos)
                 {
-                    this.LoadedInfos.Add(info);
+                    this.Infos.Add(info);
                 }
             }
         }
 
         public void CleanupDuplicatedInfos()
         {
-            foreach (var info in this.LoadedInfos)
-            {
-                this.Infos.Add(info);
-            }
-
             this.Infos.Reverse();
             this.Infos = this.Infos.GroupBy(i => i.Id)
                 .Select(i => i.First())

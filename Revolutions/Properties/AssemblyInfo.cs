@@ -13,4 +13,4 @@ using System.Runtime.InteropServices;
 [assembly: Guid("bd535d95-fd82-4ae2-a1a7-b669d58fce8e")]
 [assembly: AssemblyVersion("0.5.1")]
 [assembly: AssemblyFileVersion("0.5.1")]
-[assembly: AssemblyInformationalVersion("Mount & Blade II: Bannerlord 1.4.0")]
+[assembly: AssemblyInformationalVersion("Mount & Blade II: Bannerlord 1.4.0 & 1.4.1")]

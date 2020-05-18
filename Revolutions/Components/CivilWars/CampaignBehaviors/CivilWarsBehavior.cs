@@ -1,21 +1,14 @@
 ﻿using Helpers;
-using KNTLibrary.Helpers;
-using Revolutions.Settings;
 using System;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.Core;
 
 namespace Revolutions.Components.CivilWars.CampaignBehaviors
 {
     internal class CivilWarsBehavior : CampaignBehaviorBase
     {
-        private readonly DataStorage DataStorage;
-
-        internal CivilWarsBehavior(ref DataStorage dataStorage, CampaignGameStarter campaignGameStarter)
+        internal CivilWarsBehavior(CampaignGameStarter campaignGameStarter)
         {
-            this.DataStorage = dataStorage;
-
             campaignGameStarter.AddBehavior(new CivilWarsDailyBehavior());
         }
 
@@ -29,25 +22,9 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
         public override void SyncData(IDataStore dataStore)
         {
-            try
+            if (dataStore.IsLoading)
             {
-                if (dataStore.IsLoading)
-                {
-                    this.DataStorage.LoadCivilWarData();
-                }
-
-                if (dataStore.IsSaving)
-                {
-                    this.DataStorage.SaveCivilWarData();
-                }
-            }
-            catch (Exception exception)
-            {
-                InformationManager.DisplayMessage(new InformationMessage($"Revolutions.CivilWars.Data: SyncData failed (IsLoading: {dataStore.IsLoading} | IsSaving: {dataStore.IsSaving})!", ColorHelper.Red));
-                if (RevolutionsSettings.Instance.DebugMode)
-                {
-                    InformationManager.DisplayMessage(new InformationMessage(exception.ToString(), ColorHelper.Red));
-                }
+                DataStorage.LoadCivilWarData();
             }
         }
 

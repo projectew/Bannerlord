@@ -1,5 +1,4 @@
 ﻿using KNTLibrary;
-using KNTLibrary.Helpers;
 using Revolutions.Components.Base.Settlements;
 using Revolutions.Settings;
 using System;
@@ -12,12 +11,8 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 {
     internal class RevoltBehavior : CampaignBehaviorBase
     {
-        private readonly DataStorage DataStorage;
-
-        internal RevoltBehavior(ref DataStorage dataStorage, CampaignGameStarter campaignGameStarter)
+        internal RevoltBehavior(CampaignGameStarter campaignGameStarter)
         {
-            this.DataStorage = dataStorage;
-
             campaignGameStarter.AddBehavior(new RevoltsDailyBehavior());
             campaignGameStarter.AddBehavior(new LuckyNationBehaviour());
         }
@@ -35,25 +30,9 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
         public override void SyncData(IDataStore dataStore)
         {
-            try
+            if (dataStore.IsLoading)
             {
-                if (dataStore.IsLoading)
-                {
-                    this.DataStorage.LoadRevoltData();
-                }
-
-                if (dataStore.IsSaving)
-                {
-                    this.DataStorage.SaveRevoltData();
-                }
-            }
-            catch (Exception exception)
-            {
-                InformationManager.DisplayMessage(new InformationMessage($"Revolutions.Revolts.Data: SyncData failed (IsLoading: {dataStore.IsLoading} | IsSaving: {dataStore.IsSaving})!", ColorHelper.Red));
-                if(RevolutionsSettings.Instance.DebugMode)
-                {
-                    InformationManager.DisplayMessage(new InformationMessage(exception.ToString(), ColorHelper.Red));
-                }
+                DataStorage.LoadRevoltData();
             }
         }
 
@@ -88,7 +67,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
                 var revolt = RevoltManager.Instance.GetRevoltByParty(capturedHero.PartyBelongedTo.Party);
                 if (revolt != null && !RevolutionsSettings.Instance.RevoltsMinorFactionsMechanic && revolt.IsMinorFaction)
                 {
-                    if(revolt.SettlementInfo.CurrentFaction == revolt.SettlementInfo.LoyalFaction)
+                    if (revolt.SettlementInfo.CurrentFaction == revolt.SettlementInfo.LoyalFaction)
                     {
                         var previousFactionOwner = BaseManagers.Faction.GetLordWithLeastFiefs(revolt.SettlementInfo.PreviousFaction).HeroObject;
                         ChangeOwnerOfSettlementAction.ApplyByRevolt(previousFactionOwner, settlement);

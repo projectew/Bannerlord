@@ -10,13 +10,12 @@ using TaleWorlds.Engine;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.TwoDimension;
 using TaleWorlds.MountAndBlade;
+using HarmonyLib;
 
 namespace Revolutions
 {
     public class SubModule : MBSubModuleBase
     {
-        private DataStorage _dataStorage;
-
         internal static string BaseSavePath => System.IO.Path.Combine(Utilities.GetConfigsPath(), "Revolutions", "Saves");
 
         protected override void OnSubModuleLoad()
@@ -37,6 +36,9 @@ namespace Revolutions
             spriteCategory.SpriteSheets.Add(texture);
             spriteCategory.Load(resourceContext, uiResourceDepot);
             UIResourceManager.BrushFactory.Initialize();
+
+            var harmony = new Harmony(this.GetType().Namespace);
+            harmony.PatchAll(this.GetType().Assembly);
         }
 
         protected override void OnGameStart(Game game, IGameStarter gameStarter)
@@ -55,7 +57,6 @@ namespace Revolutions
         {
             try
             {
-                this._dataStorage = new DataStorage();
                 this.AddBehaviours(campaignGameStarter);
             }
             catch (Exception exception)
@@ -71,16 +72,16 @@ namespace Revolutions
         private void AddBehaviours(CampaignGameStarter campaignGameStarter)
         {
             campaignGameStarter.AddModel(new Components.General.Models.SettlementLoyaltyModel());
-            campaignGameStarter.AddBehavior(new RevolutionsBehavior(ref this._dataStorage, campaignGameStarter));
+            campaignGameStarter.AddBehavior(new RevolutionsBehavior(campaignGameStarter));
 
             if (RevolutionsSettings.Instance.EnableRevolts)
             {
-                campaignGameStarter.AddBehavior(new RevoltBehavior(ref this._dataStorage, campaignGameStarter));
+                campaignGameStarter.AddBehavior(new RevoltBehavior(campaignGameStarter));
             }
 
             if (RevolutionsSettings.Instance.EnableCivilWars)
             {
-                campaignGameStarter.AddBehavior(new CivilWarsBehavior(ref this._dataStorage, campaignGameStarter));
+                campaignGameStarter.AddBehavior(new CivilWarsBehavior(campaignGameStarter));
             }
         }
     }
