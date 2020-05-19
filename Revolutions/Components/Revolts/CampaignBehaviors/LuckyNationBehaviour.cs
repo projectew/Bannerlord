@@ -43,7 +43,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
             if (RevolutionsSettings.Instance.RevoltsLuckyNationRandom)
             {
-                if (!Managers.Kingdom.Infos.Any(i => i.LuckyNation))
+                if (!Managers.Kingdom.Infos.Any(i => i.LuckyNation) && Managers.Kingdom.Infos.Count > 0)
                 {
                     var randomNation = Managers.Kingdom.Infos.GetRandomElement();
                     if (randomNation != null)
