@@ -139,8 +139,11 @@ namespace Revolutions.CampaignBehaviors
             for (int i = 0; i < kingdomsCount; i++)
             {
                 var kingdomInfo = Managers.Kingdom.Infos.ElementAtOrDefault(i);
-                if (kingdomInfo.IsCustomKingdom && kingdomInfo.Kingdom.Leader.IsDead ||
-                    kingdomInfo.Kingdom.Leader.IsPrisoner && !kingdomInfo.Kingdom.Parties.Any())
+                if (kingdomInfo.Kingdom == null)
+                {
+                    Managers.Kingdom.RemoveInfo(kingdomInfo.Id);
+                }
+                else if (kingdomInfo.IsCustomKingdom && (kingdomInfo.Kingdom.Leader.IsDead || kingdomInfo.Kingdom.Leader.IsPrisoner || !kingdomInfo.Kingdom.Parties.Any()))
                 {
                     DestroyKingdomAction.Apply(kingdomInfo.Kingdom);
                     kingdomsCount = Managers.Kingdom.Infos.Count();
