@@ -233,7 +233,10 @@ namespace Revolutions.Components.Revolts
                 mobileParty.ChangePartyLeader(mobileParty.Party.Owner.CharacterObject, false);
             }
 
-            DeclareWarAction.Apply(leader.MapFaction, settlement.MapFaction);
+            if(!FactionManager.IsAtWarAgainstFaction(leader.MapFaction, settlement.MapFaction))
+            {
+                DeclareWarAction.Apply(leader.MapFaction, settlement.MapFaction);
+            }
 
             mobileParty.Ai.SetDoNotMakeNewDecisions(true);
             SetPartyAiAction.GetActionForBesiegingSettlement(mobileParty, settlement);
