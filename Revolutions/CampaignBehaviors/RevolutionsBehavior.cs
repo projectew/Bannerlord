@@ -1,5 +1,8 @@
-﻿using System;
+﻿using KNTLibrary.Helpers;
+using Revolutions.Settings;
+using System;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
 
 namespace Revolutions.CampaignBehaviors
 {
@@ -23,7 +26,20 @@ namespace Revolutions.CampaignBehaviors
 
         private void OnSessionLaunchedEvent(CampaignGameStarter campaignGameStarter)
         {
-            DataStorage.InitializeBaseData();
+            try
+            {
+                DataStorage.InitializeBaseData();
+            }
+            catch (Exception exception)
+            {
+                InformationManager.DisplayMessage(new InformationMessage($"Revolutions: Failed at InitializeBaseData.", ColorHelper.Red));
+
+                if (RevolutionsSettings.Instance.DebugMode)
+                {
+                    InformationManager.DisplayMessage(new InformationMessage($"Exception: {exception.Message}", ColorHelper.Red));
+                    InformationManager.DisplayMessage(new InformationMessage($"StackTrace: {exception.StackTrace}", ColorHelper.Red));
+                }
+            }
         }
     }
 }

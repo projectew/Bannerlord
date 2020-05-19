@@ -1,5 +1,7 @@
 ﻿using HarmonyLib;
+using KNTLibrary.Helpers;
 using Revolutions.Settings;
+using System;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 
@@ -12,18 +14,20 @@ namespace Revolutions.Patches
         {
             internal static void Postfix()
             {
-                DataStorage.ActiveSaveSlotName = AccessTools.Field(typeof(MBSaveLoad), "ActiveSaveSlotName").GetValue(null).ToString();
-
-                DataStorage.LoadBaseData();
-
-                if (RevolutionsSettings.Instance.EnableRevolts)
+                try
                 {
-                    DataStorage.LoadRevoltData();
+                    DataStorage.ActiveSaveSlotName = AccessTools.Field(typeof(MBSaveLoad), "ActiveSaveSlotName").GetValue(null)?.ToString() ?? AccessTools.Field(typeof(MBSaveLoad), "AutoSaveName").GetValue(null).ToString();
+                    DataStorage.LoadData();
                 }
-
-                if (RevolutionsSettings.Instance.EnableCivilWars)
+                catch (Exception exception)
                 {
-                    DataStorage.LoadCivilWarData();
+                    InformationManager.DisplayMessage(new InformationMessage($"Revolutions: Failed at LoadSaveGameData for '{DataStorage.ActiveSaveSlotName ?? "Null"}'", ColorHelper.Red));
+
+                    if (RevolutionsSettings.Instance.DebugMode)
+                    {
+                        InformationManager.DisplayMessage(new InformationMessage($"Exception: {exception.Message}", ColorHelper.Red));
+                        InformationManager.DisplayMessage(new InformationMessage($"StackTrace: {exception.StackTrace}", ColorHelper.Red));
+                    }
                 }
             }
         }
@@ -33,18 +37,20 @@ namespace Revolutions.Patches
         {
             internal static void Postfix()
             {
-                DataStorage.ActiveSaveSlotName = AccessTools.Field(typeof(MBSaveLoad), "ActiveSaveSlotName").GetValue(null).ToString();
-
-                DataStorage.SaveBaseData();
-
-                if (RevolutionsSettings.Instance.EnableRevolts)
+                try
                 {
-                    DataStorage.SaveRevoltData();
+                    DataStorage.ActiveSaveSlotName = AccessTools.Field(typeof(MBSaveLoad), "ActiveSaveSlotName").GetValue(null).ToString();
+                    DataStorage.SaveData();
                 }
-
-                if (RevolutionsSettings.Instance.EnableCivilWars)
+                catch (Exception exception)
                 {
-                    DataStorage.SaveCivilWarData();
+                    InformationManager.DisplayMessage(new InformationMessage($"Revolutions: Failed at QuickSaveCurrentGame for '{DataStorage.ActiveSaveSlotName ?? "Null"}'", ColorHelper.Red));
+
+                    if (RevolutionsSettings.Instance.DebugMode)
+                    {
+                        InformationManager.DisplayMessage(new InformationMessage($"Exception: {exception.Message}", ColorHelper.Red));
+                        InformationManager.DisplayMessage(new InformationMessage($"StackTrace: {exception.StackTrace}", ColorHelper.Red));
+                    }
                 }
             }
         }
@@ -54,18 +60,20 @@ namespace Revolutions.Patches
         {
             internal static void Postfix()
             {
-                DataStorage.ActiveSaveSlotName = "save_auto";
-
-                DataStorage.SaveBaseData();
-
-                if (RevolutionsSettings.Instance.EnableRevolts)
+                try
                 {
-                    DataStorage.SaveRevoltData();
+                    DataStorage.ActiveSaveSlotName = AccessTools.Field(typeof(MBSaveLoad), "AutoSaveName").GetValue(null).ToString();
+                    DataStorage.SaveData();
                 }
-
-                if (RevolutionsSettings.Instance.EnableCivilWars)
+                catch (Exception exception)
                 {
-                    DataStorage.SaveCivilWarData();
+                    InformationManager.DisplayMessage(new InformationMessage($"Revolutions: Failed at AutoSave for '{DataStorage.ActiveSaveSlotName ?? "Null"}'", ColorHelper.Red));
+
+                    if (RevolutionsSettings.Instance.DebugMode)
+                    {
+                        InformationManager.DisplayMessage(new InformationMessage($"Exception: {exception.Message}", ColorHelper.Red));
+                        InformationManager.DisplayMessage(new InformationMessage($"StackTrace: {exception.StackTrace}", ColorHelper.Red));
+                    }
                 }
             }
         }
@@ -75,18 +83,20 @@ namespace Revolutions.Patches
         {
             internal static void Postfix()
             {
-                DataStorage.ActiveSaveSlotName = AccessTools.Field(typeof(MBSaveLoad), "ActiveSaveSlotName").GetValue(null).ToString();
-
-                DataStorage.SaveBaseData();
-
-                if (RevolutionsSettings.Instance.EnableRevolts)
+                try
                 {
-                    DataStorage.SaveRevoltData();
+                    DataStorage.ActiveSaveSlotName = AccessTools.Field(typeof(MBSaveLoad), "ActiveSaveSlotName")?.GetValue(null)?.ToString();
+                    DataStorage.SaveData();
                 }
-
-                if (RevolutionsSettings.Instance.EnableCivilWars)
+                catch (Exception exception)
                 {
-                    DataStorage.SaveCivilWarData();
+                    InformationManager.DisplayMessage(new InformationMessage($"Revolutions: Failed at SaveAs for '{DataStorage.ActiveSaveSlotName ?? "Null"}'", ColorHelper.Red));
+
+                    if (RevolutionsSettings.Instance.DebugMode)
+                    {
+                        InformationManager.DisplayMessage(new InformationMessage($"Exception: {exception.Message}", ColorHelper.Red));
+                        InformationManager.DisplayMessage(new InformationMessage($"StackTrace: {exception.StackTrace}", ColorHelper.Red));
+                    }
                 }
             }
         }

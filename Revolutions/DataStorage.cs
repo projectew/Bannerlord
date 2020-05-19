@@ -8,6 +8,7 @@ using Revolutions.Components.Base.Parties;
 using Revolutions.Components.Base.Settlements;
 using Revolutions.Components.CivilWars;
 using Revolutions.Components.Revolts;
+using Revolutions.Settings;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,6 +18,36 @@ namespace Revolutions
     internal class DataStorage
     {
         internal static string ActiveSaveSlotName { get; set; }
+
+        internal static void SaveData()
+        {
+            DataStorage.SaveBaseData();
+
+            if (RevolutionsSettings.Instance.EnableRevolts)
+            {
+                DataStorage.SaveRevoltData();
+            }
+
+            if (RevolutionsSettings.Instance.EnableCivilWars)
+            {
+                DataStorage.SaveCivilWarData();
+            }
+        }
+
+        internal static void LoadData()
+        {
+            DataStorage.LoadBaseData();
+
+            if (RevolutionsSettings.Instance.EnableRevolts)
+            {
+                DataStorage.LoadRevoltData();
+            }
+
+            if (RevolutionsSettings.Instance.EnableCivilWars)
+            {
+                DataStorage.LoadCivilWarData();
+            }
+        }
 
         internal static void InitializeBaseData()
         {

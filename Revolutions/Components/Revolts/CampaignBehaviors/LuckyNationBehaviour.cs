@@ -31,11 +31,6 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
         private void SetLuckyNations()
         {
-            if(Managers.Kingdom.Infos.Count == 0)
-            {
-                return;
-            }
-
             if (!RevolutionsSettings.Instance.RevoltsLuckyNationMechanic)
             {
                 foreach (var info in Managers.Kingdom.Infos.Where(kingdomInfo => kingdomInfo.LuckyNation))
@@ -50,7 +45,11 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
             {
                 if (!Managers.Kingdom.Infos.Any(i => i.LuckyNation))
                 {
-                    Managers.Kingdom.Infos.GetRandomElement().LuckyNation = true;
+                    var randomNation = Managers.Kingdom.Infos.GetRandomElement();
+                    if (randomNation != null)
+                    {
+                        randomNation.LuckyNation = true;
+                    }
                 }
             }
 
@@ -59,7 +58,11 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
                 var imperialNations = Managers.Kingdom.Infos.Where(i => i.Kingdom.Culture.Name.ToString().ToLower().Contains("empire"));
                 if (!imperialNations.Any(i => i.LuckyNation) && imperialNations.Count() > 0)
                 {
-                    imperialNations.GetRandomElement().LuckyNation = true;
+                    var imperialNation = imperialNations.GetRandomElement();
+                    if (imperialNation != null)
+                    {
+                        imperialNation.LuckyNation = true;
+                    }
                 }
             }
 
@@ -68,7 +71,11 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
                 var nonImperialNations = Managers.Kingdom.Infos.Where(i => !i.Kingdom.Culture.Name.ToString().ToLower().Contains("empire"));
                 if (!nonImperialNations.Any(i => i.LuckyNation) && nonImperialNations.Count() > 0)
                 {
-                    nonImperialNations.GetRandomElement().LuckyNation = true;
+                    var nonImperialNation = nonImperialNations.GetRandomElement();
+                    if (nonImperialNation != null)
+                    {
+                        nonImperialNation.LuckyNation = true;
+                    }
                 }
             }
         }
