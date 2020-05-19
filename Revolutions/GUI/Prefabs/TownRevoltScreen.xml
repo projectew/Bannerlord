@@ -19,113 +19,89 @@
     </VisualDefinition>
   </VisualDefinitions>
   <Window>
+    <!--Background-->
     <Widget
         WidthSizePolicy="StretchToParent"
         HeightSizePolicy="StretchToParent"
         Brush="Frame1Brush">
       <Children>
+        <!--Main Panel-->
         <Widget
-            DoNotAcceptEvents="true"
-            WidthSizePolicy="Fixed"
             HeightSizePolicy="Fixed"
-            SuggestedHeight="700"
-            SuggestedWidth="1200"
-            MarginTop="50"
+            WidthSizePolicy="Fixed"
+            VerticalAlignment="Center"
             HorizontalAlignment="Center"
-            Brush="Recruitment.Frame">
+            SuggestedHeight="500"
+            SuggestedWidth="600"
+            Brush="Recruitment.Frame"
+            DoNotAcceptEvents="true">
           <Children>
             <Widget
-                WidthSizePolicy="Fixed"
-                HeightSiz2ePolicy="Fixed"
-                SuggestedWidth="300"
-                SuggestedHeight="500"
-                Brush="Recruitment.Panel.Left"
-                MarginTop="170"
-                MarginLeft="870">
+                HeightSizePolicy="StretchToParent"
+                WidthSizePolicy="StretchToParent">
               <Children>
+                <!-- TownDescription -->
                 <RichTextWidget
+                    HeightSizePolicy="StretchToParent"
                     WidthSizePolicy="StretchToParent"
-                    HeightSizePolicy="CoverChildren"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Center"
-                    MarginTop="20"
-                    MarginLeft="0"
-                    Text="@InformationDesc"
-                    Brush="CenterAlignedMediumFont" />
+                    Brush="CenterAlignedMediumFont"
+                    MarginTop="-400"
+                    Text="@TownDescription" />
+                <!-- TownOwnership -->
                 <RichTextWidget
+                    HeightSizePolicy="StretchToParent"
                     WidthSizePolicy="StretchToParent"
-                    HeightSizePolicy="CoverChildren"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Center"
-                    MarginTop="100"
-                    MarginLeft="0"
-                    Text="@RevoltProgress"
-                    Brush="CenterAlignedSmallFont" />
-              </Children>
-            </Widget>
-            <Widget
-                WidthSizePolicy="Fixed"
-                HeightSiz2ePolicy="Fixed"
-                SuggestedWidth="850"
-                SuggestedHeight="500"
-                MarginTop="140"
-                MarginLeft="0">
-              <Children>
-                <RichTextWidget
-                    WidthSizePolicy="StretchToParent"
-                    HeightSizePolicy="CoverChildren"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Center"
-                    MarginLeft="0"
-                    MarginTop="0"
-                    Text="@TownDescription"
-                    Brush="CenterAlignedMediumFont" />
-                <RichTextWidget
-                    WidthSizePolicy="StretchToParent"
-                    HeightSizePolicy="CoverChildren"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Center"
-                    MarginLeft="0"
-                    MarginTop="60"
-                    Text="@TownOwnership"
-                    Brush="CenterAlignedMediumFont" />
+                    Brush="CenterAlignedMediumFont"
+                    MarginTop="-200"
+                    Text="@TownOwnership" />
                 <!--Banner-->
                 <MaskedTextureWidget
-                    DataSource="{FactionVisual}"
-                    WidthSizePolicy="Fixed"
                     HeightSizePolicy="Fixed"
-                    SuggestedWidth="105"
-                    SuggestedHeight="126"
+                    WidthSizePolicy="Fixed"
+                    VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Top"
-                    PositionXOffset="0"
-                    MarginTop="120"
                     Brush="Kingdom.TornBanner"
+                    SuggestedHeight="125"
+                    SuggestedWidth="100"
+                    PositionXOffset="0"
                     AdditionalArgs="@AdditionalArgs"
                     ImageId="@Id"
                     ImageTypeCode="@ImageTypeCode"
-                    OverlayTextureScale="1.8" />
-                <!--Mood-->
+                    OverlayTextureScale="1.75"
+                    MarginTop="0"
+                    DataSource="{FactionVisual}" />
+                <!-- RevoltMood -->
                 <RichTextWidget
+                    HeightSizePolicy="StretchToParent"
                     WidthSizePolicy="StretchToParent"
-                    HeightSizePolicy="CoverChildren"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Center"
-                    MarginLeft="0"
-                    MarginTop="260"
-                    Text="@RevoltMood"
-                    Brush="CenterAlignedMediumFont" />
+                    Brush="CenterAlignedMediumFont"
+                    MarginTop="300"
+                    Text="@RevoltMood" />
+                <!-- RevoltProgress -->
+                <RichTextWidget
+                    HeightSizePolicy="StretchToParent"
+                    WidthSizePolicy="StretchToParent"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Center"
+                    Brush="CenterAlignedMediumFont"
+                    MarginTop="400"
+                    Text="@RevoltProgress" />
               </Children>
             </Widget>
           </Children>
         </Widget>
-        <!--Close Screen Button// Parameter.DoneButtonAction="ExecuteClose"-->
         <Standard.DialogCloseButtons
             VisualDefinition="BottomMenu"
-            Parameter.DoneButtonAction="ExitMenu"
             PositionYOffset="100"
-            Parameter.DoneButtonText="@DoneDesc"
-            Parameter.ShowCancel="false" />
+            Parameter.ShowCancel="false"
+            Parameter.DoneButtonAction="ExitMenu"
+            Parameter.DoneButtonText="@DoneDesc" />
       </Children>
     </Widget>
   </Window>
