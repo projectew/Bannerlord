@@ -127,7 +127,7 @@ namespace Revolutions.Settings
 
         [SettingPropertyGroup(groupName: Groups.CivilWarsGeneral, order: 2, isMainToggle: false)]
         [SettingPropertyBool(displayName: Names.CivilWarsKeepExistingWars, Order = 1, HintText = Descriptions.CivilWarsKeepExistingWars, RequireRestart = false)]
-        public bool CivilWarsKeepExistingWars { get; set; } = true;
+        public bool CivilWarsKeepExistingWars { get; set; } = false;
 
         [SettingPropertyGroup(groupName: Groups.CivilWarsGeneral, order: 2, isMainToggle: false)]
         [SettingPropertyInteger(displayName: Names.CivilWarsPositiveRelationshipTreshold, minValue: -100, maxValue: 100, Order = 2, HintText = Descriptions.CivilWarsPositiveRelationshipTreshold, RequireRestart = false)]

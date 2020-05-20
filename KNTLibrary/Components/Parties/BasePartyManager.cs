@@ -84,7 +84,7 @@ namespace KNTLibrary.Components.Parties
         public void RemoveInfo(string id)
         {
             var info = this.Infos.FirstOrDefault(i => i.Id == id);
-            if (id == null)
+            if (info == null)
             {
                 return;
             }

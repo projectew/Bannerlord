@@ -34,7 +34,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
         private void DailyTickEvent()
         {
-            var considerableClans = Campaign.Current.Clans.Where(c => c.Kingdom != null && c.Leader != null && c.StringId != c.Kingdom.Leader.StringId && !c.IsBanditFaction && !c.IsClanTypeMercenary && !c.IsMafia && !c.IsMinorFaction && !c.IsNomad && !c.IsOutlaw && !c.IsRebelFaction && !c.IsSect && !c.IsUnderMercenaryService);
+            var considerableClans = Campaign.Current.Clans.Where(c => c.Kingdom != null && c.Leader != null && c.Leader.StringId != c.Kingdom.Leader.StringId && !c.IsBanditFaction && !c.IsClanTypeMercenary && !c.IsMafia && !c.IsMinorFaction && !c.IsNomad && !c.IsOutlaw && !c.IsRebelFaction && !c.IsSect && !c.IsUnderMercenaryService);
             foreach (var kingdomWithClans in considerableClans.GroupBy(c => c.Kingdom.StringId, (key, clans) => new { KingdomId = key, Clans = clans.ToList() }))
             {
                 var kingdomInfo = Managers.Kingdom.GetInfo(kingdomWithClans.KingdomId);
@@ -387,15 +387,8 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                     }
                 }
 
-                try
-                {
-                    InformationManager.AddNotice(new WarMapNotification(plotKingdom, kingdomInfo.Kingdom, new TextObject($"Civil War: {kingdomInfo.Kingdom.Name} vs. {plotKingdom.Name}")));
-                    InformationManager.AddQuickInformation(new TextObject($"A Civil War has broken out in {kingdomInfo.Kingdom.Name}! It's lead by the mighty {plotLeadingClan.Leader.Name} of {plotLeadingClan.Name}."));
-                }
-                catch (Exception)
-                {
-                    InformationManager.AddQuickInformation(new TextObject($"A Civil War has broken out in {kingdomInfo.Kingdom.Name}! It's lead by the mighty {plotLeadingClan.Leader.Name} of {plotLeadingClan.Name}."));
-                }
+                InformationManager.AddNotice(new WarMapNotification(plotKingdom, kingdomInfo.Kingdom, new TextObject($"Civil War{Environment.NewLine}{plotKingdom.Name} vs. {kingdomInfo.Kingdom.Name}")));
+                InformationManager.AddQuickInformation(new TextObject($"A Civil War has broken out in {kingdomInfo.Kingdom.Name}! It's lead by the mighty {plotLeadingClan.Leader.Name} of {plotLeadingClan.Name}."));
 
                 var otherPlottingClans = plottingClans.Where(go => go.StringId != plotLeadingClan.StringId);
                 if (otherPlottingClans.Count() == 0)
@@ -407,6 +400,11 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 {
                     InformationManager.DisplayMessage(new InformationMessage($"{plottingClan.Leader.Name} of {plottingClan.Name} will be with the conspiracy leader!", ColorHelper.Orange));
                     ChangeKingdomAction.ApplyByJoinToKingdom(plottingClan, plotKingdom, false);
+                }
+
+                foreach (var loyalClan in loyalClans)
+                {
+                    InformationManager.DisplayMessage(new InformationMessage($"{loyalClan.Leader.Name} of {loyalClan.Name} will be with the king!", ColorHelper.Orange));
                 }
 
                 DeclareWarAction.Apply(plotKingdom, kingdomInfo.Kingdom);

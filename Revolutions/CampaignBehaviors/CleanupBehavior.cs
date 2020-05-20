@@ -5,7 +5,6 @@ using KNTLibrary.Components.Events;
 using Revolutions.Components.Base.Kingdoms;
 using Revolutions.Components.Base.Parties;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.Actions;
 
 namespace Revolutions.CampaignBehaviors
 {
@@ -148,7 +147,7 @@ namespace Revolutions.CampaignBehaviors
                 {
                     kingdomsToRemove.Add(kingdomInfo);
                 }
-                else if (kingdomInfo.Kingdom.Leader == null || kingdomInfo.Kingdom.Parties == null || !kingdomInfo.Kingdom.Parties.Any() || kingdomInfo.Kingdom.Leader.IsDead || kingdomInfo.Kingdom.Leader.IsPrisoner)
+                else if (kingdomInfo.Kingdom.Leader == null || kingdomInfo.Kingdom.Settlements.Count() == 0 && (kingdomInfo.Kingdom.Parties == null || !kingdomInfo.Kingdom.Parties.Any() || kingdomInfo.Kingdom.Leader.IsDead || kingdomInfo.Kingdom.Leader.IsPrisoner))
                 {
                     kingdomsToDestroy.Add(kingdomInfo.Kingdom);
                 }

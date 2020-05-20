@@ -84,7 +84,7 @@ namespace KNTLibrary.Components.Kingdoms
         public void RemoveInfo(string id)
         {
             var info = this.Infos.FirstOrDefault(i => i.Id == id);
-            if (id == null)
+            if (info == null)
             {
                 return;
             }
@@ -179,7 +179,7 @@ namespace KNTLibrary.Components.Kingdoms
             this.RemoveKingdom(kingdom);
         }
 
-        public Kingdom CreateKingdom(Hero leader, TextObject name, TextObject informalName, Banner banner = null, bool showNotification = true)
+        public Kingdom CreateKingdom(Hero leader, TextObject name, TextObject informalName, Banner banner = null, bool showNotification = false)
         {
             var kingdom = MBObjectManager.Instance.CreateObject<Kingdom>();
             kingdom.InitializeKingdom(name, informalName, leader.Culture, banner ?? Banner.CreateRandomClanBanner(leader.StringId.GetDeterministicHashCode()), leader.Clan.Color, leader.Clan.Color2, leader.Clan.InitialPosition);
