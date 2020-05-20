@@ -135,19 +135,19 @@ namespace Revolutions.CampaignBehaviors
 
         private void DestroyGhostKingdoms()
         {
-            int kingdomsCount = Managers.Kingdom.Infos.Count();
-            for (int i = 0; i < kingdomsCount; i++)
+            foreach (var kingdomInfo in Managers.Kingdom.Infos)
             {
-                var kingdomInfo = Managers.Kingdom.Infos.ElementAtOrDefault(i);
-                if (kingdomInfo.Kingdom == null)
+                if (kingdomInfo == null || !kingdomInfo.IsCustomKingdom)
+                {
+                    continue;
+                }
+                else if (kingdomInfo.Kingdom == null)
                 {
                     Managers.Kingdom.RemoveInfo(kingdomInfo.Id);
                 }
-                else if (kingdomInfo.IsCustomKingdom && (kingdomInfo.Kingdom.Leader.IsDead || kingdomInfo.Kingdom.Leader.IsPrisoner || !kingdomInfo.Kingdom.Parties.Any()))
+                else if (kingdomInfo.Kingdom.Leader == null || kingdomInfo.Kingdom.Parties == null || !kingdomInfo.Kingdom.Parties.Any() || kingdomInfo.Kingdom.Leader.IsDead || kingdomInfo.Kingdom.Leader.IsPrisoner)
                 {
                     DestroyKingdomAction.Apply(kingdomInfo.Kingdom);
-                    kingdomsCount = Managers.Kingdom.Infos.Count();
-                    i--;
                 }
             }
         }

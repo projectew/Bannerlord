@@ -30,7 +30,7 @@ namespace KNTLibrary.Components.Settlements
 
         public void InitializeInfos()
         {
-            if (this.Infos.Count() == Campaign.Current.Settlements.Count())
+            if (this.Infos.Count == Campaign.Current?.Settlements?.ToList()?.Count)
             {
                 return;
             }
@@ -43,7 +43,7 @@ namespace KNTLibrary.Components.Settlements
 
         public InfoType GetInfo(Settlement gameObject)
         {
-            var infos = this.Infos.ToList().Where(i => i.Id == gameObject.StringId);
+            var infos = this.Infos.Where(i => i.Id == gameObject.StringId);
             if (this.DebugMode && infos.Count() > 1)
             {
                 InformationManager.DisplayMessage(new InformationMessage("Revolutions: Multiple Settlements with same Id. Using first one.", ColorHelper.Orange));

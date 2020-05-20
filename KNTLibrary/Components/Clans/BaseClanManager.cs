@@ -35,7 +35,7 @@ namespace KNTLibrary.Components.Clans
 
         public void InitializeInfos()
         {
-            if (this.Infos.Count() == Campaign.Current.Clans.Count())
+            if (this.Infos.Count == Campaign.Current?.Clans?.ToList()?.Count)
             {
                 return;
             }
@@ -48,7 +48,7 @@ namespace KNTLibrary.Components.Clans
 
         public InfoType GetInfo(Clan gameObject)
         {
-            var infos = this.Infos.ToList().Where(i => i.Id == gameObject.StringId);
+            var infos = this.Infos.Where(i => i.Id == gameObject.StringId);
             if (this.DebugMode && infos.Count() > 1)
             {
                 InformationManager.DisplayMessage(new InformationMessage("Revolutions: Multiple Clans with same Id. Using first one.", ColorHelper.Orange));

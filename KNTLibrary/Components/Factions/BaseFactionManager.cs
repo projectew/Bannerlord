@@ -30,7 +30,7 @@ namespace KNTLibrary.Components.Factions
 
         public void InitializeInfos()
         {
-            if (this.Infos.Count() == Campaign.Current.Factions.Count())
+            if (this.Infos.Count == Campaign.Current?.Factions?.ToList()?.Count)
             {
                 return;
             }
@@ -43,7 +43,7 @@ namespace KNTLibrary.Components.Factions
 
         public InfoType GetInfo(IFaction gameObject)
         {
-            var infos = this.Infos.ToList().Where(i => i.Id == gameObject.StringId);
+            var infos = this.Infos.Where(i => i.Id == gameObject.StringId);
             if (this.DebugMode && infos.Count() > 1)
             {
                 InformationManager.DisplayMessage(new InformationMessage("Revolutions: Multiple Factions with same Id. Using first one.", ColorHelper.Orange));

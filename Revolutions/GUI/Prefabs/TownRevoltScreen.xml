@@ -49,7 +49,7 @@
                     Brush="CenterAlignedMediumFont"
                     MarginTop="-400"
                     Text="@TownDescription" />
-                <!-- TownOwnership -->
+                <!-- PopulationLoyalty -->
                 <RichTextWidget
                     HeightSizePolicy="StretchToParent"
                     WidthSizePolicy="StretchToParent"
@@ -57,8 +57,8 @@
                     HorizontalAlignment="Center"
                     Brush="CenterAlignedMediumFont"
                     MarginTop="-200"
-                    Text="@TownOwnership" />
-                <!--Banner-->
+                    Text="@PopulationLoyalty" />
+                <!--PopulationLoyaltyVisual-->
                 <MaskedTextureWidget
                     HeightSizePolicy="Fixed"
                     WidthSizePolicy="Fixed"
@@ -73,7 +73,7 @@
                     ImageTypeCode="@ImageTypeCode"
                     OverlayTextureScale="1.75"
                     MarginTop="0"
-                    DataSource="{FactionVisual}" />
+                    DataSource="{PopulationLoyaltyVisual}" />
                 <!-- RevoltMood -->
                 <RichTextWidget
                     HeightSizePolicy="StretchToParent"
@@ -101,7 +101,7 @@
             PositionYOffset="100"
             Parameter.ShowCancel="false"
             Parameter.DoneButtonAction="ExitMenu"
-            Parameter.DoneButtonText="@DoneDesc" />
+            Parameter.DoneButtonText="@CloseMenu" />
       </Children>
     </Widget>
   </Window>

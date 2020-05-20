@@ -1,4 +1,7 @@
-﻿using Revolutions.Components.Base.Settlements;
+﻿using KNTLibrary.Helpers;
+using Revolutions.Components.Base.Settlements;
+using Revolutions.Settings;
+using System;
 using TaleWorlds.Core;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.Library;
@@ -13,26 +16,6 @@ namespace Revolutions.Components.General.Screens.TownRevolution
         public TownRevoltViewModel(SettlementInfo settlementInfo)
         {
             this.SettlementInfo = settlementInfo;
-            this.FactionVisual = new ImageIdentifierVM(BannerCode.CreateFrom(this.SettlementInfo.LoyalFaction.Banner), true);
-        }
-
-        [DataSourceProperty]
-        public string DoneDesc => new TextObject("{=3fQwWiDZ}Done").ToString();
-
-        private ImageIdentifierVM _factionVisual;
-
-        [DataSourceProperty]
-        public ImageIdentifierVM FactionVisual
-        {
-            get => this._factionVisual;
-            set
-            {
-                if (value != this._factionVisual)
-                {
-                    this._factionVisual = value;
-                    this.OnPropertyChanged("FactionVisual");
-                }
-            }
         }
 
         [DataSourceProperty]
@@ -44,30 +27,30 @@ namespace Revolutions.Components.General.Screens.TownRevolution
                 {
                     var textObject = new TextObject("{=3fBkqk4u}The people of {SETTLEMENT} seem to be content.");
                     textObject.SetTextVariable("SETTLEMENT", this.SettlementInfo.Settlement.Name);
-
                     return textObject.ToString();
                 }
                 else
                 {
                     var textObject = new TextObject("{=dRoS0zTD}Flames of Revolt are slowly stirring in {SETTLEMENT}.");
                     textObject.SetTextVariable("SETTLEMENT", this.SettlementInfo.Settlement.Name);
-
                     return textObject.ToString();
                 }
             }
         }
 
         [DataSourceProperty]
-        public string TownOwnership
+        public string PopulationLoyalty
         {
             get
             {
                 var textObject = new TextObject("{=MYu8szGz}Population is loyal to {FACTION}.");
                 textObject.SetTextVariable("FACTION", this.SettlementInfo.LoyalFaction.Name);
-
                 return textObject.ToString();
             }
         }
+
+        [DataSourceProperty]
+        public ImageIdentifierVM PopulationLoyaltyVisual => new ImageIdentifierVM(BannerCode.CreateFrom(this.SettlementInfo.LoyalFaction.Banner), true);
 
         [DataSourceProperty]
         public string RevoltProgress
@@ -76,7 +59,6 @@ namespace Revolutions.Components.General.Screens.TownRevolution
             {
                 var textObject = new TextObject("{=q2tbSs8d}Current revolt progress is {PROGRESS}%");
                 textObject.SetTextVariable("PROGRESS", this.SettlementInfo.RevoltProgress);
-
                 return textObject.ToString();
             }
         }
@@ -86,54 +68,70 @@ namespace Revolutions.Components.General.Screens.TownRevolution
         {
             get
             {
-                var currentSettlementId = this.SettlementInfo.Id;
-                var currentFactionInfo = this.SettlementInfo.CurrentFactionInfo;
-                var previousFactionInfo = this.SettlementInfo.PreviousFactionInfo;
-
-                if (currentFactionInfo.Id == this.SettlementInfo.LoyalFaction.StringId)
+                try
                 {
-                    return $"{new TextObject("{=zQNPQz3q}People are content with the current rule.")}";
-                }
+                    var currentSettlementId = this.SettlementInfo.Id;
+                    var currentFactionInfo = this.SettlementInfo.CurrentFactionInfo;
+                    var previousFactionInfo = this.SettlementInfo.PreviousFactionInfo;
 
-                var revoltedInPreviousFaction = previousFactionInfo.RevoltedSettlementId == currentSettlementId;
+                    if (currentFactionInfo.Id == this.SettlementInfo.LoyalFaction.StringId)
+                    {
+                        return $"{new TextObject("{=zQNPQz3q}People are content with the current rule.")}";
+                    }
 
-                if (currentFactionInfo.CanRevolt)
-                {
-                    var inspiration = new TextObject("");
+                    var revoltedInPreviousFaction = previousFactionInfo?.RevoltedSettlementId == currentSettlementId;
 
-                    if (currentFactionInfo.SuccessfullyRevolted || revoltedInPreviousFaction && previousFactionInfo.SuccessfullyRevolted)
+                    if (currentFactionInfo.CanRevolt)
+                    {
+                        var inspiration = new TextObject("");
+
+                        if (currentFactionInfo.SuccessfullyRevolted || revoltedInPreviousFaction && previousFactionInfo?.SuccessfullyRevolted == true)
+                        {
+                            if (currentFactionInfo.RevoltedSettlementId == currentSettlementId || revoltedInPreviousFaction)
+                            {
+                                inspiration = new TextObject("{=qZS0ma0z}Many are inspired by tales of revolts in the kingdom.");
+                            }
+                            else
+                            {
+                                inspiration = new TextObject("{=7LzQWiDZ}Many are inspired by events at {SETTLEMENT}.");
+                                inspiration.SetTextVariable("SETTLEMENT", currentFactionInfo.RevoltedSettlement.Name);
+                            }
+                        }
+
+                        return $"{new TextObject("{=HWiDqN8d}Some talk of raising banners of their homeland.")} {inspiration}";
+                    }
+                    else
                     {
                         if (currentFactionInfo.RevoltedSettlementId == currentSettlementId || revoltedInPreviousFaction)
                         {
-                            inspiration = new TextObject("{=qZS0ma0z}Many are inspired by tales of revolts in the kingdom.");
+                            return $"{new TextObject("{=q2tbH41e}The people of this town had revolted recently and don't wish to spill blood again.")}";
                         }
-                        else
+
+                        if (currentFactionInfo.RevoltedSettlement == null)
                         {
-                            inspiration = new TextObject("{=7LzQWiDZ}Many are inspired by events at {SETTLEMENT}.");
-                            inspiration.SetTextVariable("SETTLEMENT", currentFactionInfo.RevoltedSettlement.Name);
+                            return string.Empty;
                         }
-                    }
 
-                    return $"{new TextObject("{=HWiDqN8d}Some talk of raising banners of their homeland.")} {inspiration}";
+                        var textObject = new TextObject("{=6m7Ss8fW}After hearing of blood spilled in {SETTLEMENT} citizens are afraid of revolting.");
+                        textObject.SetTextVariable("SETTLEMENT", currentFactionInfo.RevoltedSettlement.Name);
+                        return textObject.ToString();
+                    }
                 }
-                else
+                catch (Exception exception)
                 {
-                    if (currentFactionInfo.RevoltedSettlementId == currentSettlementId || revoltedInPreviousFaction)
+                    if (RevolutionsSettings.Instance.DebugMode)
                     {
-                        return $"{new TextObject("{=q2tbH41e}The people of this town had revolted recently and don't wish to spill blood again.")}";
+                        InformationManager.DisplayMessage(new InformationMessage($"{exception.Message}{Environment.NewLine}{exception.StackTrace}", ColorHelper.Red));
+                        return $"{exception.Message}{Environment.NewLine}{exception.StackTrace}";
                     }
 
-                    if (currentFactionInfo.RevoltedSettlement == null)
-                    {
-                        return string.Empty;
-                    }
-
-                    var textObject = new TextObject("{=6m7Ss8fW}After hearing of blood spilled in {SETTLEMENT} citizens are afraid of revolting.");
-                    textObject.SetTextVariable("SETTLEMENT", this.SettlementInfo.CurrentFactionInfo.RevoltedSettlement.Name);
-                    return textObject.ToString();
+                    return "An error occurred. Pleas enable Debug Mode for more information!";
                 }
             }
         }
+
+        [DataSourceProperty]
+        public string CloseMenu => new TextObject("{=3fQwWiDZ}Close").ToString();
 
         private void ExitMenu()
         {

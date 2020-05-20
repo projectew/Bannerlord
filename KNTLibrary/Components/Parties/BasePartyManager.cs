@@ -34,7 +34,7 @@ namespace KNTLibrary.Components.Parties
 
         public void InitializeInfos()
         {
-            if (this.Infos.Count() == Campaign.Current.Parties.Count())
+            if (this.Infos.Count == Campaign.Current?.Parties?.ToList()?.Count)
             {
                 return;
             }
@@ -47,7 +47,7 @@ namespace KNTLibrary.Components.Parties
 
         public InfoType GetInfo(PartyBase gameObject)
         {
-            var infos = this.Infos.ToList().Where(i => i.Id == gameObject.Id);
+            var infos = this.Infos.Where(i => i.Id == gameObject.Id);
             if (this.DebugMode && infos.Count() > 1)
             {
                 InformationManager.DisplayMessage(new InformationMessage("Revolutions: Multiple Parties with same Id. Using first one.", ColorHelper.Orange));
