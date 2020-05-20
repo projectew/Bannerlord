@@ -130,11 +130,12 @@ namespace Revolutions.Components.Revolts
             {
                 Managers.Kingdom.DestroyKingdom(revolt.Party.Owner.Clan.Kingdom);
                 KillCharacterAction.ApplyByExecution(revolt.Party.Owner, revolt.Settlement.OwnerClan?.Kingdom?.Leader ?? revolt.Settlement.OwnerClan.Leader, true);
-            }
 
-            if(revolt.Party?.MobileParty != null)
-            {
-                DestroyPartyAction.Apply(revolt.SettlementInfo.Garrision, revolt.Party.MobileParty);
+                if (revolt.Party?.MobileParty != null)
+                {
+                    DestroyPartyAction.Apply(revolt.SettlementInfo.Garrision, revolt.Party.MobileParty);
+                }
+
             }
 
             this.Revolts.Remove(revolt);
@@ -170,21 +171,19 @@ namespace Revolutions.Components.Revolts
 
                 this.Revolts.Remove(revolt);
             }
+            else if(!revolt.IsMinorFaction)
+            {
+                revolt.Party.MobileParty.Ai.SetDoNotMakeNewDecisions(false);
+                this.Revolts.Remove(revolt);
+            }
         }
 
         internal void StartRebellionEvent(Settlement settlement)
         {
             var information = new TextObject("{=dRoS0maD}{SETTLEMENT} is revolting!");
             information.SetTextVariable("SETTLEMENT", settlement.Name);
-            try
-            {
-                InformationManager.AddNotice(new SettlementRebellionMapNotification(settlement, information));
-                InformationManager.AddQuickInformation(information);
-            }
-            catch (Exception)
-            {
-                InformationManager.AddQuickInformation(information);
-            }
+            InformationManager.AddNotice(new SettlementRebellionMapNotification(settlement, information));
+            InformationManager.AddQuickInformation(information);
 
             var settlementInfo = Managers.Settlement.GetInfo(settlement);
             var atWarWithLoyalFaction = settlementInfo.CurrentFaction.IsAtWarWith(settlementInfo.LoyalFaction);
@@ -228,12 +227,9 @@ namespace Revolutions.Components.Revolts
                 settlement.MilitaParty.RemoveParty();
             }
 
-            if (!atWarWithLoyalFaction)
-            {
-                mobileParty.ChangePartyLeader(mobileParty.Party.Owner.CharacterObject, false);
-            }
+            mobileParty.ChangePartyLeader(mobileParty.Party.Owner.CharacterObject, false);
 
-            if(!FactionManager.IsAtWarAgainstFaction(leader.MapFaction, settlement.MapFaction))
+            if (!FactionManager.IsAtWarAgainstFaction(leader.MapFaction, settlement.MapFaction))
             {
                 DeclareWarAction.Apply(leader.MapFaction, settlement.MapFaction);
             }

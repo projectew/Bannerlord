@@ -51,12 +51,25 @@ namespace Revolutions
 
         internal static void InitializeBaseData()
         {
+            Managers.Faction.Infos.Clear();
             Managers.Faction.InitializeInfos();
+
+            Managers.Kingdom.Infos.Clear();
             Managers.Kingdom.InitializeInfos();
+
+            Managers.Clan.Infos.Clear();
             Managers.Clan.InitializeInfos();
+
+            Managers.Party.Infos.Clear();
             Managers.Party.InitializeInfos();
+
+            Managers.Character.Infos.Clear();
             Managers.Character.InitializeInfos();
+
+            Managers.Settlement.Infos.Clear();
             Managers.Settlement.InitializeInfos();
+
+            Managers.Banner.Infos.Clear();
             Managers.Banner.InitializeInfos();
         }
 

@@ -23,17 +23,30 @@ namespace Revolutions.Components.General.Screens.TownRevolution
         {
             get
             {
-                if (this.SettlementInfo.RevoltProgress < 10)
+                try
                 {
-                    var textObject = new TextObject("{=3fBkqk4u}The people of {SETTLEMENT} seem to be content.");
-                    textObject.SetTextVariable("SETTLEMENT", this.SettlementInfo.Settlement.Name);
-                    return textObject.ToString();
+                    if (this.SettlementInfo.RevoltProgress < 10)
+                    {
+                        var textObject = new TextObject("{=3fBkqk4u}The people of {SETTLEMENT} seem to be content.");
+                        textObject.SetTextVariable("SETTLEMENT", this.SettlementInfo.Settlement.Name);
+                        return textObject.ToString();
+                    }
+                    else
+                    {
+                        var textObject = new TextObject("{=dRoS0zTD}Flames of Revolt are slowly stirring in {SETTLEMENT}.");
+                        textObject.SetTextVariable("SETTLEMENT", this.SettlementInfo.Settlement.Name);
+                        return textObject.ToString();
+                    }
                 }
-                else
+                catch (Exception exception)
                 {
-                    var textObject = new TextObject("{=dRoS0zTD}Flames of Revolt are slowly stirring in {SETTLEMENT}.");
-                    textObject.SetTextVariable("SETTLEMENT", this.SettlementInfo.Settlement.Name);
-                    return textObject.ToString();
+                    if (RevolutionsSettings.Instance.DebugMode)
+                    {
+                        InformationManager.DisplayMessage(new InformationMessage($"{exception.Message}{Environment.NewLine}{exception.StackTrace}", ColorHelper.Red));
+                        return $"{exception.Message}{Environment.NewLine}{exception.StackTrace}";
+                    }
+
+                    return "An error occurred. Pleas enable Debug Mode for more information!";
                 }
             }
         }
@@ -43,9 +56,22 @@ namespace Revolutions.Components.General.Screens.TownRevolution
         {
             get
             {
-                var textObject = new TextObject("{=MYu8szGz}Population is loyal to {FACTION}.");
-                textObject.SetTextVariable("FACTION", this.SettlementInfo.LoyalFaction.Name);
-                return textObject.ToString();
+                try
+                {
+                    var textObject = new TextObject("{=MYu8szGz}Population is loyal to {FACTION}.");
+                    textObject.SetTextVariable("FACTION", this.SettlementInfo.LoyalFaction.Name);
+                    return textObject.ToString();
+                }
+                catch (Exception exception)
+                {
+                    if (RevolutionsSettings.Instance.DebugMode)
+                    {
+                        InformationManager.DisplayMessage(new InformationMessage($"{exception.Message}{Environment.NewLine}{exception.StackTrace}", ColorHelper.Red));
+                        return $"{exception.Message}{Environment.NewLine}{exception.StackTrace}";
+                    }
+
+                    return "An error occurred. Pleas enable Debug Mode for more information!";
+                }
             }
         }
 
@@ -57,9 +83,22 @@ namespace Revolutions.Components.General.Screens.TownRevolution
         {
             get
             {
-                var textObject = new TextObject("{=q2tbSs8d}Current revolt progress is {PROGRESS}%");
-                textObject.SetTextVariable("PROGRESS", this.SettlementInfo.RevoltProgress);
-                return textObject.ToString();
+                try
+                {
+                    var textObject = new TextObject("{=q2tbSs8d}Current revolt progress is {PROGRESS}%");
+                    textObject.SetTextVariable("PROGRESS", new TextObject($"{(int)this.SettlementInfo.RevoltProgress}"));
+                    return textObject.ToString();
+                }
+                catch (Exception exception)
+                {
+                    if (RevolutionsSettings.Instance.DebugMode)
+                    {
+                        InformationManager.DisplayMessage(new InformationMessage($"{exception.Message}{Environment.NewLine}{exception.StackTrace}", ColorHelper.Red));
+                        return $"{exception.Message}{Environment.NewLine}{exception.StackTrace}";
+                    }
+
+                    return "An error occurred. Pleas enable Debug Mode for more information!";
+                }
             }
         }
 
