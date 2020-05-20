@@ -312,7 +312,7 @@ namespace Revolutions
                 luckyNations.Add(info.Kingdom.Name.ToString());
             }
 
-            return $"{luckyNations.Aggregate((i, j) => i + Environment.NewLine + j)}";
+            return luckyNations.Count == 0 ? "There are no Lucky Nations!" : $"{luckyNations.Aggregate((i, j) => i + Environment.NewLine + j)}";
         }
 
         #endregion
