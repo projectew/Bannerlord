@@ -387,7 +387,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                     }
                 }
 
-                InformationManager.AddNotice(new WarMapNotification(plotKingdom, kingdomInfo.Kingdom, new TextObject($"Civil War{Environment.NewLine}{plotKingdom.Name} vs. {kingdomInfo.Kingdom.Name}")));
+                InformationManager.AddNotice(new WarMapNotification(plotKingdom, kingdomInfo.Kingdom, new TextObject($"Civil War: {plotKingdom.Name} vs. {kingdomInfo.Kingdom.Name}")));
                 InformationManager.AddQuickInformation(new TextObject($"A Civil War has broken out in {kingdomInfo.Kingdom.Name}! It's lead by the mighty {plotLeadingClan.Leader.Name} of {plotLeadingClan.Name}."));
 
                 var otherPlottingClans = plottingClans.Where(go => go.StringId != plotLeadingClan.StringId);
