@@ -9,6 +9,28 @@ namespace Revolutions.Patches
 {
     internal static class SaveFilePatches
     {
+        [HarmonyPatch(typeof(MBSaveLoad), "OnNewGame")]
+        internal static class OnNewGame
+        {
+            internal static void Postfix()
+            {
+                try
+                {
+                    DataStorage.ActiveSaveSlotName = string.Empty;
+                }
+                catch (Exception exception)
+                {
+                    InformationManager.DisplayMessage(new InformationMessage($"Revolutions: Failed at LoadSaveGameData for '{DataStorage.ActiveSaveSlotName ?? "Null"}'", ColorHelper.Red));
+
+                    if (RevolutionsSettings.Instance.DebugMode)
+                    {
+                        InformationManager.DisplayMessage(new InformationMessage($"Exception: {exception.Message}", ColorHelper.Red));
+                        InformationManager.DisplayMessage(new InformationMessage($"StackTrace: {exception.StackTrace}", ColorHelper.Red));
+                    }
+                }
+            }
+        }
+
         [HarmonyPatch(typeof(MBSaveLoad), "LoadSaveGameData")]
         internal static class LoadSaveGameData
         {
@@ -17,7 +39,6 @@ namespace Revolutions.Patches
                 try
                 {
                     DataStorage.ActiveSaveSlotName = AccessTools.Field(typeof(MBSaveLoad), "ActiveSaveSlotName").GetValue(null)?.ToString() ?? AccessTools.Field(typeof(MBSaveLoad), "AutoSaveName").GetValue(null).ToString();
-                    DataStorage.LoadData();
                 }
                 catch (Exception exception)
                 {

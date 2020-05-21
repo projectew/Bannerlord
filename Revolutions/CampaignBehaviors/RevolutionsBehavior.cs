@@ -28,7 +28,7 @@ namespace Revolutions.CampaignBehaviors
         {
             try
             {
-                DataStorage.InitializeBaseData();
+                DataStorage.LoadData();
             }
             catch (Exception exception)
             {

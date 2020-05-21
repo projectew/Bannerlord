@@ -234,11 +234,18 @@ namespace Revolutions.Components.Revolts
                 DeclareWarAction.Apply(leader.MapFaction, settlement.MapFaction);
             }
 
-            mobileParty.Ai.SetDoNotMakeNewDecisions(true);
-            SetPartyAiAction.GetActionForBesiegingSettlement(mobileParty, settlement);
-
-            this.Revolts.Add(new Revolt(mobileParty.Party.Id, settlement, !atWarWithLoyalFaction));
+            var revolt = new Revolt(mobileParty.Party.Id, settlement, !atWarWithLoyalFaction);
+            this.Revolts.Add(revolt);
             settlementInfo.HasRebellionEvent = true;
+
+            if (settlementInfo.Garrision == null || settlementInfo.Garrision.TotalStrength == 0)
+            {
+                this.EndSucceededRevolut(revolt);
+                return;
+            }
+
+            mobileParty.Ai.SetDoNotMakeNewDecisions(true);
+            StartBattleAction.Apply(mobileParty.Party, settlementInfo.Garrision);
         }
     }
 }

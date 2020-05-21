@@ -144,7 +144,7 @@ namespace KNTLibrary.Components.Parties
             }
 
             name = name ?? MobilePartyHelper.GeneratePartyName(leader.CharacterObject);
-            mobileParty.InitializeMobileParty(name, leader.Clan.DefaultPartyTemplate, spawnPosition, 2.5f, 0.0f, MobileParty.PartyTypeEnum.Default, 0);
+            mobileParty.InitializeMobileParty(name, leader.Clan.DefaultPartyTemplate, spawnPosition, 5f, 0.0f, MobileParty.PartyTypeEnum.Default, 0);
             mobileParty.Party.Owner = leader;
             mobileParty.IsLordParty = true;
             mobileParty.HomeSettlement = homeSettlement;

@@ -81,12 +81,7 @@ namespace KNTLibrary.Components.Banners
         public BaseBannerInfo GetBaseBannerBySettlement(Settlement settlement)
         {
             var settlementInfo = BaseManagers.Settlement.GetInfo(settlement);
-            if (settlementInfo == null)
-            {
-                return null;
-            }
-
-            return this.GetBaseBannerBySettlementInfo(settlementInfo);
+            return settlementInfo == null ? null : this.GetBaseBannerBySettlementInfo(settlementInfo);
         }
     }
 }

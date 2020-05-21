@@ -3,7 +3,6 @@ using System.IO;
 using System.Security.AccessControl;
 using System.Security.Principal;
 using System.Xml.Serialization;
-using TaleWorlds.Core;
 
 namespace KNTLibrary.Helpers
 {
@@ -25,10 +24,8 @@ namespace KNTLibrary.Helpers
                     xmlSerializer.Serialize(fileStream, data);
                 }
             }
-            catch (Exception exception)
+            catch (Exception)
             {
-                InformationManager.DisplayMessage(new InformationMessage($"Revolutions: Could not save file '{fileName}'!", ColorHelper.Red));
-                InformationManager.DisplayMessage(new InformationMessage(exception.ToString(), ColorHelper.Red));
             }
         }
 
@@ -48,11 +45,8 @@ namespace KNTLibrary.Helpers
                     return (T)xmlSerializer.Deserialize(fileStream);
                 }
             }
-            catch (Exception exception)
+            catch (Exception)
             {
-                InformationManager.DisplayMessage(new InformationMessage($"Revolutions: Could not load file '{fileName}'! Using default model.", ColorHelper.Red));
-                InformationManager.DisplayMessage(new InformationMessage(exception.ToString(), ColorHelper.Red));
-
                 return (T)Activator.CreateInstance(typeof(T));
             }
         }

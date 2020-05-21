@@ -1,4 +1,8 @@
-﻿using Revolutions.Components.Base.Settlements;
+﻿using KNTLibrary.Helpers;
+using Revolutions.Components.Base.Settlements;
+using Revolutions.Settings;
+using System;
+using TaleWorlds.Core;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Engine.Screens;
 
@@ -17,18 +21,30 @@ namespace Revolutions.Components.General.Screens.TownRevolution
 
         protected override void OnInitialize()
         {
-            base.OnInitialize();
-
-            this._dataSource = new TownRevoltViewModel(this._settlementInfo);
-            this._gauntletLayer = new GauntletLayer(100)
+            try
             {
-                IsFocusLayer = true
-            };
+                base.OnInitialize();
 
-            this.AddLayer(this._gauntletLayer);
-            this._gauntletLayer.InputRestrictions.SetInputRestrictions();
-            ScreenManager.TrySetFocus(this._gauntletLayer);
-            this._gauntletLayer.LoadMovie("TownRevoltScreen", this._dataSource);
+                this._dataSource = new TownRevoltViewModel(this._settlementInfo);
+                this._gauntletLayer = new GauntletLayer(100)
+                {
+                    IsFocusLayer = true
+                };
+
+                this.AddLayer(this._gauntletLayer);
+                this._gauntletLayer.InputRestrictions.SetInputRestrictions();
+                ScreenManager.TrySetFocus(this._gauntletLayer);
+                this._gauntletLayer.LoadMovie("TownRevoltScreen", this._dataSource);
+            }
+            catch (Exception exception)
+            {
+                InformationManager.DisplayMessage(new InformationMessage($"Revolutions: Error while initializing screen. Turn on debug mode for details.", ColorHelper.Red));
+
+                if (RevolutionsSettings.Instance.DebugMode)
+                {
+                    InformationManager.DisplayMessage(new InformationMessage($"{exception.Message}{Environment.NewLine}{exception.StackTrace}", ColorHelper.Red));
+                }
+            }
         }
 
         protected override void OnFinalize()
