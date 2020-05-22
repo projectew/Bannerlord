@@ -1,22 +1,15 @@
-﻿using System;
+﻿using Revolutions.Components.Kingdoms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using KNTLibrary.Components.Events;
-using Revolutions.Components.Base.Kingdoms;
-using Revolutions.Components.Base.Parties;
 using TaleWorlds.CampaignSystem;
 
 namespace Revolutions.CampaignBehaviors
 {
     internal class CleanupBehavior : CampaignBehaviorBase
     {
-        private const int RefreshAtTick = 0;
-
-        private int _currentTick = 0;
-
         public override void RegisterEvents()
         {
-            CampaignEvents.TickEvent.AddNonSerializedListener(this, new Action<float>(this.TickEvent));
             CampaignEvents.DailyTickEvent.AddNonSerializedListener(this, new Action(this.DailyTickEvent));
 
             CampaignEvents.KingdomDestroyedEvent.AddNonSerializedListener(this, new Action<Kingdom>(this.KingdomDestroyedEvent));
@@ -30,61 +23,15 @@ namespace Revolutions.CampaignBehaviors
 
         }
 
-        private void TickEvent(float dt)
-        {
-            if (this._currentTick == CleanupBehavior.RefreshAtTick + 60)
-            {
-                this.HandleEventCalls();
-            }
-
-            //Assuming, that we have 30 ticks per second, we update one of our data pieces once per second. So after 6 seconds all data was updated one time.
-            switch (this._currentTick)
-            {
-                case CleanupBehavior.RefreshAtTick:
-                    Managers.Faction.UpdateInfos();
-                    break;
-                case CleanupBehavior.RefreshAtTick + 30:
-                    Managers.Kingdom.UpdateInfos();
-                    break;
-                case CleanupBehavior.RefreshAtTick + 60:
-                    Managers.Clan.UpdateInfos();
-                    break;
-                case CleanupBehavior.RefreshAtTick + 90:
-                    Managers.Settlement.UpdateInfos();
-                    break;
-                case CleanupBehavior.RefreshAtTick + 120:
-                    Managers.Character.UpdateInfos();
-                    this._currentTick = 0;
-                    break;
-                default:
-                    this._currentTick++;
-                    break;
-            }
-        }
-
-        private void HandleEventCalls()
-        {
-            if (!EventManager.Instance.InEvent && EventManager.Instance.Events.Count() > 0)
-            {
-                EventManager.Instance.Events[0].Invoke();
-            }
-        }
-
         private void DailyTickEvent()
         {
-            Managers.Faction.CleanupDuplicatedInfos();
-            Managers.Kingdom.CleanupDuplicatedInfos();
-            Managers.Clan.CleanupDuplicatedInfos();
-            Managers.Party.CleanupDuplicatedInfos();
-            Managers.Character.CleanupDuplicatedInfos();
-            Managers.Settlement.CleanupDuplicatedInfos();
             this.DestroyGhostKingdoms();
-            Managers.Party.UpdateInfos();
+            this.RemoveInvalidInfos();
         }
 
         private void KingdomDestroyedEvent(Kingdom kingdom)
         {
-            var kingdomInfo = Managers.Kingdom.GetInfo(kingdom);
+            var kingdomInfo = Managers.Kingdom.Get(kingdom);
             if (kingdomInfo != null && kingdomInfo.IsCustomKingdom)
             {
                 Managers.Kingdom.RemoveKingdom(kingdom);
@@ -93,7 +40,7 @@ namespace Revolutions.CampaignBehaviors
 
         private void OnClanDestroyedEvent(Clan clan)
         {
-            var clanInfo = Managers.Clan.GetInfo(clan);
+            var clanInfo = Managers.Clan.Get(clan);
             if (clanInfo != null && clanInfo.IsCustomClan)
             {
                 Managers.Clan.RemoveClan(clan);
@@ -102,24 +49,10 @@ namespace Revolutions.CampaignBehaviors
 
         private void MobilePartyDestroyed(MobileParty mobileParty, PartyBase party)
         {
-            PartyInfo partyInfo;
-
-            if (party != null)
-            {
-                partyInfo = Managers.Party.GetInfo(party);
-            }
-            else if (mobileParty.Party != null)
-            {
-                partyInfo = Managers.Party.GetInfo(mobileParty.Party);
-            }
-            else
-            {
-                return;
-            }
-
+            var partyInfo = Managers.Party.GetInfo(party) ?? Managers.Party.GetInfo(mobileParty.Party);
             if (partyInfo != null && partyInfo.IsCustomParty)
             {
-                Managers.Party.RemoveInfo(mobileParty.Party.Id);
+                Managers.Party.Remove(mobileParty.Party.Id);
             }
         }
 
@@ -128,7 +61,7 @@ namespace Revolutions.CampaignBehaviors
             var partyInfo = Managers.Party.GetInfo(party);
             if (partyInfo != null && partyInfo.IsCustomParty)
             {
-                Managers.Party.RemoveInfo(party.Id);
+                Managers.Party.Remove(party.Id);
             }
         }
 
@@ -137,17 +70,13 @@ namespace Revolutions.CampaignBehaviors
             var kingdomsToRemove = new List<KingdomInfo>();
             var kingdomsToDestroy = new List<Kingdom>();
 
-            foreach (var kingdomInfo in Managers.Kingdom.Infos)
+            foreach (var kingdomInfo in Managers.Kingdom.Infos.Where(i => i.IsCustomKingdom))
             {
-                if (kingdomInfo == null || !kingdomInfo.IsCustomKingdom)
-                {
-                    continue;
-                }
-                else if (kingdomInfo.Kingdom == null)
+                if (kingdomInfo.Kingdom == null)
                 {
                     kingdomsToRemove.Add(kingdomInfo);
                 }
-                else if (kingdomInfo.Kingdom.Leader == null || kingdomInfo.Kingdom.Settlements.Count() == 0 && 
+                else if (kingdomInfo.Kingdom.Leader == null || kingdomInfo.Kingdom.Settlements.Count() == 0 &&
                     (kingdomInfo.Kingdom.Parties == null || !kingdomInfo.Kingdom.Parties.Any() || kingdomInfo.Kingdom.Leader.IsDead || kingdomInfo.Kingdom.Leader.IsPrisoner))
                 {
                     kingdomsToDestroy.Add(kingdomInfo.Kingdom);
@@ -156,13 +85,23 @@ namespace Revolutions.CampaignBehaviors
 
             foreach (var kingdomInfo in kingdomsToRemove)
             {
-                Managers.Kingdom.RemoveInfo(kingdomInfo.Id);
+                Managers.Kingdom.Remove(kingdomInfo.Id);
             }
 
             foreach (var kingdom in kingdomsToDestroy)
             {
                 Managers.Kingdom.DestroyKingdom(kingdom);
             }
+        }
+
+        private void RemoveInvalidInfos()
+        {
+            Managers.Faction.RemoveInvalids();
+            Managers.Kingdom.RemoveInvalids();
+            Managers.Clan.RemoveInvalids();
+            Managers.Party.RemoveInvalids();
+            Managers.Character.RemoveInvalids();
+            Managers.Settlement.RemoveInvalids();
         }
     }
 }

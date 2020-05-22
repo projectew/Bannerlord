@@ -14,8 +14,6 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
         public override void RegisterEvents()
         {
-            CampaignEvents.KingdomDestroyedEvent.AddNonSerializedListener(this, new Action<Kingdom>(this.KingdomDestroyedEvent));
-            CampaignEvents.OnClanDestroyedEvent.AddNonSerializedListener(this, new Action<Clan>(this.OnClanDestroyedEvent));
             CampaignEvents.ClanChangedKingdom.AddNonSerializedListener(this, new Action<Clan, Kingdom, Kingdom, bool, bool>(this.ClanChangedKingdom));
         }
 
@@ -24,39 +22,21 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
         }
 
-        private void KingdomDestroyedEvent(Kingdom kingdom)
-        {
-            var kingdomInfo = Managers.Kingdom.GetInfo(kingdom);
-            if (kingdomInfo != null && kingdomInfo.IsCivilWarKingdom)
-            {
-                Managers.Kingdom.RemoveKingdom(kingdom);
-            }
-        }
-
-        private void OnClanDestroyedEvent(Clan clan)
-        {
-            var clanInfo = Managers.Clan.GetInfo(clan);
-            if (clanInfo != null && clanInfo.IsCivilWarClan)
-            {
-                Managers.Clan.RemoveClan(clan);
-            }
-        }
-
         private void ClanChangedKingdom(Clan clan, Kingdom oldKingdom, Kingdom newKingdom, bool byRebellion, bool showNotification)
         {
-            if(oldKingdom == null)
+            if (oldKingdom == null)
             {
                 return;
             }
 
-            var kingdomInfo = Managers.Kingdom.GetInfo(oldKingdom);
-            if(kingdomInfo == null || !kingdomInfo.IsCivilWarKingdom)
+            var kingdomInfo = Managers.Kingdom.Get(oldKingdom);
+            if (kingdomInfo == null || !kingdomInfo.IsCivilWarKingdom)
             {
                 return;
             }
 
             var clans = oldKingdom.Clans.Where(go => !go.IsUnderMercenaryService && !go.IsClanTypeMercenary);
-            if(clans.Count() > 0)
+            if (clans.Count() > 0)
             {
                 return;
             }

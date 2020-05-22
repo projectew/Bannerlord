@@ -71,15 +71,15 @@ namespace KNTLibrary.Components.Settlements
 
         public IFaction InitialFaction => BaseManagers.Faction.GetGameObject(this.InitialFactionId);
 
-        public BaseFactionInfo InitialFactionBaseInfo => BaseManagers.Faction.GetInfo(this.InitialFactionId);
+        public BaseFactionInfo InitialFactionBaseInfo => BaseManagers.Faction.Get(this.InitialFactionId);
 
         public IFaction CurrentFaction => BaseManagers.Faction.GetGameObject(this.CurrentFactionId);
 
-        public BaseFactionInfo CurrentFactionBaseInfo => BaseManagers.Faction.GetInfo(this.CurrentFactionId);
+        public BaseFactionInfo CurrentFactionBaseInfo => BaseManagers.Faction.Get(this.CurrentFactionId);
 
         public IFaction PreviousFaction => BaseManagers.Faction.GetGameObject(this.PreviousFactionId);
 
-        public BaseFactionInfo PreviousFactionBaseInfo => BaseManagers.Faction.GetInfo(this.PreviousFactionId);
+        public BaseFactionInfo PreviousFactionBaseInfo => BaseManagers.Faction.Get(this.PreviousFactionId);
 
         #endregion
 

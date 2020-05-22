@@ -5,24 +5,22 @@ namespace KNTLibrary.Components
 {
     public interface IBaseManager<InfoType, GameObjectType> where GameObjectType : MBObjectBase
     {
-        bool DebugMode { get; set; }
-
         HashSet<InfoType> Infos { get; set; }
 
-        void InitializeInfos();
+        void Initialize();
 
-        InfoType GetInfo(GameObjectType gameObject);
+        void RemoveInvalids();
 
-        InfoType GetInfo(string id);
+        void RemoveDuplicates();
 
-        void RemoveInfo(string id);
+        InfoType Get(GameObjectType gameObject);
+
+        InfoType Get(string id);
+
+        void Remove(string id);
 
         GameObjectType GetGameObject(string id);
 
         GameObjectType GetGameObject(InfoType info);
-
-        void UpdateInfos(bool onlyRemoving = false);
-
-        void CleanupDuplicatedInfos();
     }
 }

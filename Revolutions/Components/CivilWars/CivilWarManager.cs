@@ -1,5 +1,4 @@
-﻿using Revolutions.Components.CivilWars.Plots;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 
@@ -9,11 +8,9 @@ namespace Revolutions.Components.CivilWars
     {
         #region Singleton
 
-        private CivilWarManager() { }
-
         static CivilWarManager()
         {
-            CivilWarManager.Instance = new CivilWarManager();
+            Instance = new CivilWarManager();
         }
 
         internal static CivilWarManager Instance { get; private set; }
@@ -21,8 +18,6 @@ namespace Revolutions.Components.CivilWars
         #endregion
 
         internal HashSet<CivilWar> CivilWars = new HashSet<CivilWar>();
-
-        internal HashSet<CivilWarsPlotInfo> Plots = new HashSet<CivilWarsPlotInfo>();
 
         internal CivilWar GetCivilWarByKingdomId(string id)
         {

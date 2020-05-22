@@ -1,13 +1,13 @@
 ﻿using KNTLibrary.Components.Banners;
 using KNTLibrary.Helpers;
-using Revolutions.Components.Base.Characters;
-using Revolutions.Components.Base.Clans;
-using Revolutions.Components.Base.Factions;
-using Revolutions.Components.Base.Kingdoms;
-using Revolutions.Components.Base.Parties;
-using Revolutions.Components.Base.Settlements;
+using Revolutions.Components.Characters;
 using Revolutions.Components.CivilWars;
+using Revolutions.Components.Clans;
+using Revolutions.Components.Factions;
+using Revolutions.Components.Kingdoms;
+using Revolutions.Components.Parties;
 using Revolutions.Components.Revolts;
+using Revolutions.Components.Settlements;
 using Revolutions.Settings;
 using System.Collections.Generic;
 using System.IO;
@@ -21,38 +21,38 @@ namespace Revolutions
 
         internal static void LoadData()
         {
-            DataStorage.LoadBaseData();
+            LoadBaseData();
 
             if (RevolutionsSettings.Instance.EnableRevolts)
             {
-                DataStorage.LoadRevoltData();
+                LoadRevoltData();
             }
 
             if (RevolutionsSettings.Instance.EnableCivilWars)
             {
-                DataStorage.LoadCivilWarData();
+                LoadCivilWarData();
             }
         }
 
         internal static void SaveData()
         {
-            DataStorage.SaveBaseData();
+            SaveBaseData();
 
             if (RevolutionsSettings.Instance.EnableRevolts)
             {
-                DataStorage.SaveRevoltData();
+                SaveRevoltData();
             }
 
             if (RevolutionsSettings.Instance.EnableCivilWars)
             {
-                DataStorage.SaveCivilWarData();
+                SaveCivilWarData();
             }
         }
 
         private static void LoadBaseData()
         {
-            var saveDirectory = DataStorage.GetSaveDirectory();
-            if(string.IsNullOrEmpty(saveDirectory))
+            var saveDirectory = GetSaveDirectory();
+            if (string.IsNullOrEmpty(saveDirectory))
             {
                 Managers.Faction.Infos.Clear();
                 Managers.Kingdom.Infos.Clear();
@@ -63,46 +63,46 @@ namespace Revolutions
             }
 
             Managers.Faction.Infos = FileHelper.Load<List<FactionInfo>>(saveDirectory, "Factions").ToHashSet();
-            if(Managers.Faction.Infos.Count == 0)
+            if (Managers.Faction.Infos.Count == 0)
             {
-                Managers.Faction.InitializeInfos();
+                Managers.Faction.Initialize();
             }
-            Managers.Faction.CleanupDuplicatedInfos();
+            Managers.Faction.RemoveDuplicates();
 
             Managers.Kingdom.Infos = FileHelper.Load<List<KingdomInfo>>(saveDirectory, "Kingdoms").ToHashSet();
             if (Managers.Kingdom.Infos.Count == 0)
             {
-                Managers.Kingdom.InitializeInfos();
+                Managers.Kingdom.Initialize();
             }
-            Managers.Kingdom.CleanupDuplicatedInfos();
+            Managers.Kingdom.RemoveDuplicates();
 
             Managers.Clan.Infos = FileHelper.Load<List<ClanInfo>>(saveDirectory, "Clans").ToHashSet();
             if (Managers.Clan.Infos.Count == 0)
             {
-                Managers.Clan.InitializeInfos();
+                Managers.Clan.Initialize();
             }
-            Managers.Clan.CleanupDuplicatedInfos();
+            Managers.Clan.RemoveDuplicates();
 
             Managers.Party.Infos = FileHelper.Load<List<PartyInfo>>(saveDirectory, "Parties").ToHashSet();
             if (Managers.Party.Infos.Count == 0)
             {
-                Managers.Party.InitializeInfos();
+                Managers.Party.Initialize();
             }
-            Managers.Party.CleanupDuplicatedInfos();
+            Managers.Party.RemoveDuplicates();
 
             Managers.Character.Infos = FileHelper.Load<List<CharacterInfo>>(saveDirectory, "Characters").ToHashSet();
             if (Managers.Character.Infos.Count == 0)
             {
-                Managers.Character.InitializeInfos();
+                Managers.Character.Initialize();
             }
-            Managers.Character.CleanupDuplicatedInfos();
+            Managers.Character.RemoveDuplicates();
 
             Managers.Settlement.Infos = FileHelper.Load<List<SettlementInfo>>(saveDirectory, "Settlements").ToHashSet();
             if (Managers.Settlement.Infos.Count == 0)
             {
-                Managers.Settlement.InitializeInfos();
+                Managers.Settlement.Initialize();
             }
-            Managers.Settlement.CleanupDuplicatedInfos();
+            Managers.Settlement.RemoveDuplicates();
 
             Managers.Banner.Infos = FileHelper.Load<List<BaseBannerInfo>>(saveDirectory, "Banners").ToHashSet();
             if (Managers.Banner.Infos.Count == 0)
@@ -114,7 +114,7 @@ namespace Revolutions
 
         private static void SaveBaseData()
         {
-            var saveDirectory = DataStorage.GetSaveDirectory();
+            var saveDirectory = GetSaveDirectory();
 
             FileHelper.Save(Managers.Faction.Infos, saveDirectory, "Factions");
             FileHelper.Save(Managers.Kingdom.Infos, saveDirectory, "Kingdoms");
@@ -127,8 +127,8 @@ namespace Revolutions
 
         private static void LoadRevoltData()
         {
-            var saveDirectory = DataStorage.GetSaveDirectory();
-            if(string.IsNullOrEmpty(saveDirectory))
+            var saveDirectory = GetSaveDirectory();
+            if (string.IsNullOrEmpty(saveDirectory))
             {
                 Managers.Revolt.Revolts.Clear();
             }
@@ -138,15 +138,15 @@ namespace Revolutions
 
         private static void SaveRevoltData()
         {
-            var saveDirectory = DataStorage.GetSaveDirectory();
+            var saveDirectory = GetSaveDirectory();
 
             FileHelper.Save(Managers.Revolt.Revolts, saveDirectory, "Revolts");
         }
 
         private static void LoadCivilWarData()
         {
-            var saveDirectory = DataStorage.GetSaveDirectory();
-            if(string.IsNullOrEmpty(saveDirectory))
+            var saveDirectory = GetSaveDirectory();
+            if (string.IsNullOrEmpty(saveDirectory))
             {
                 Managers.CivilWar.CivilWars.Clear();
             }
@@ -156,19 +156,19 @@ namespace Revolutions
 
         private static void SaveCivilWarData()
         {
-            var saveDirectory = DataStorage.GetSaveDirectory();
+            var saveDirectory = GetSaveDirectory();
 
             FileHelper.Save(Managers.CivilWar.CivilWars, saveDirectory, "CivilWars");
         }
 
         private static string GetSaveDirectory()
         {
-            if (string.IsNullOrEmpty(DataStorage.ActiveSaveSlotName))
+            if (string.IsNullOrEmpty(ActiveSaveSlotName))
             {
                 return string.Empty;
             }
 
-            return Path.Combine(SubModule.BaseSavePath, DataStorage.ActiveSaveSlotName);
+            return Path.Combine(SubModule.BaseSavePath, ActiveSaveSlotName);
         }
     }
 }

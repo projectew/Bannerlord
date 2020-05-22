@@ -15,7 +15,7 @@ namespace KNTLibrary.Components.Events
         private readonly string _sprite;
         private readonly List<EventOption> _options;
         private readonly Event _event;
-        
+
         public EventScreen(string description, string sprite, List<EventOption> options, Event eventobj)
         {
             this._description = description;

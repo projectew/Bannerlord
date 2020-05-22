@@ -1,4 +1,5 @@
-﻿using KNTLibrary.Helpers;
+﻿using HarmonyLib;
+using KNTLibrary.Helpers;
 using Revolutions.CampaignBehaviors;
 using Revolutions.Components.CivilWars.CampaignBehaviors;
 using Revolutions.Components.Revolts.CampaignBehaviors;
@@ -8,9 +9,8 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Engine;
 using TaleWorlds.Engine.GauntletUI;
-using TaleWorlds.TwoDimension;
 using TaleWorlds.MountAndBlade;
-using HarmonyLib;
+using TaleWorlds.TwoDimension;
 
 namespace Revolutions
 {
@@ -29,8 +29,8 @@ namespace Revolutions
             spriteData2.Load(uiResourceDepot);
             var texture = new TaleWorlds.TwoDimension.Texture(new EngineTexture(TaleWorlds.Engine.Texture.CreateTextureFromPath("../../Modules/Revolutions/GUI/SpriteSheets/", "revolutions-ui-1.png")));
             spriteData1.SpriteCategories.Add("revolutions_events", spriteData2.SpriteCategories["revolutions_events"]);
-            spriteData1.SpriteNames.Add("Revolutions.PlottingLords", (Sprite)new SpriteGeneric("Revolutions.PlottingLords", spriteData2.SpritePartNames["Revolutions.PlottingLords"]));
-            spriteData1.SpriteNames.Add("Revolutions.Whatever", (Sprite)new SpriteGeneric("Revolutions.Whatever", spriteData2.SpritePartNames["Revolutions.Whatever"]));
+            spriteData1.SpriteNames.Add("Revolutions.PlottingLords", new SpriteGeneric("Revolutions.PlottingLords", spriteData2.SpritePartNames["Revolutions.PlottingLords"]));
+            spriteData1.SpriteNames.Add("Revolutions.Whatever", new SpriteGeneric("Revolutions.Whatever", spriteData2.SpritePartNames["Revolutions.Whatever"]));
 
             var spriteCategory = spriteData1.SpriteCategories["revolutions_events"];
             spriteCategory.SpriteSheets.Add(texture);
@@ -71,12 +71,12 @@ namespace Revolutions
 
         private void AddBehaviours(CampaignGameStarter campaignGameStarter)
         {
-            campaignGameStarter.AddModel(new Components.General.Models.SettlementLoyaltyModel());
             campaignGameStarter.AddBehavior(new RevolutionsBehavior(campaignGameStarter));
 
             if (RevolutionsSettings.Instance.EnableRevolts)
             {
-                campaignGameStarter.AddBehavior(new RevoltBehavior(campaignGameStarter));
+                campaignGameStarter.AddModel(new Components.Revolts.Models.SettlementLoyaltyModel());
+                campaignGameStarter.AddBehavior(new RevoltBehavior());
             }
 
             if (RevolutionsSettings.Instance.EnableCivilWars)

@@ -1,5 +1,4 @@
 ﻿using Helpers;
-using KNTLibrary.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +14,9 @@ namespace KNTLibrary.Components.Parties
     {
         #region Singleton
 
-        private BasePartyManager() { }
-
         static BasePartyManager()
         {
-            BasePartyManager<InfoType>.Instance = new BasePartyManager<InfoType>();
+            Instance = new BasePartyManager<InfoType>();
         }
 
         public static BasePartyManager<InfoType> Instance { get; private set; }
@@ -28,13 +25,11 @@ namespace KNTLibrary.Components.Parties
 
         #region IManager
 
-        public bool DebugMode { get; set; }
-
         public HashSet<InfoType> Infos { get; set; } = new HashSet<InfoType>();
 
-        public void InitializeInfos()
+        public void Initialize()
         {
-            if (this.Infos.Count == Campaign.Current?.Parties?.ToList()?.Count)
+            if (this.Infos.Count == Campaign.Current.Parties.Count())
             {
                 return;
             }
@@ -45,20 +40,39 @@ namespace KNTLibrary.Components.Parties
             }
         }
 
+        public void RemoveInvalids()
+        {
+            if (this.Infos.Count == Campaign.Current.Parties.Count())
+            {
+                return;
+            }
+
+            this.Infos.RemoveWhere(i => !Campaign.Current.Parties.Any(go => go.Id == i.Id));
+        }
+
+        public void RemoveDuplicates()
+        {
+            this.Infos.Reverse();
+            this.Infos = this.Infos.GroupBy(i => i.Id)
+                                   .Select(i => i.First())
+                                   .ToHashSet();
+            this.Infos.Reverse();
+        }
+
         public InfoType GetInfo(PartyBase gameObject)
         {
-            var infos = this.Infos.Where(i => i.Id == gameObject.Id);
-            if (this.DebugMode && infos.Count() > 1)
+            if (gameObject == null)
             {
-                InformationManager.DisplayMessage(new InformationMessage("Revolutions: Multiple Parties with same Id. Using first one.", ColorHelper.Orange));
-                foreach (var duplicatedInfo in infos)
-                {
-                    InformationManager.DisplayMessage(new InformationMessage($"Name: {duplicatedInfo.Party.Name} | StringId: {duplicatedInfo.Id}", ColorHelper.Orange));
-                }
+                return null;
+            }
+
+            var infos = this.Infos.Where(i => i.Id == gameObject.Id);
+            if (infos.Count() > 1)
+            {
+                this.RemoveDuplicates();
             }
 
             var info = infos.FirstOrDefault();
-
             if (info != null)
             {
                 return info;
@@ -81,14 +95,8 @@ namespace KNTLibrary.Components.Parties
             return this.GetInfo(gameObject);
         }
 
-        public void RemoveInfo(string id)
+        public void Remove(string id)
         {
-            var info = this.Infos.FirstOrDefault(i => i.Id == id);
-            if (info == null)
-            {
-                return;
-            }
-
             this.Infos.RemoveWhere(i => i.Id == id);
         }
 
@@ -100,35 +108,6 @@ namespace KNTLibrary.Components.Parties
         public PartyBase GetGameObject(InfoType info)
         {
             return this.GetGameObject(info.Id);
-        }
-
-        public void UpdateInfos(bool onlyRemoving = false)
-        {
-            if (this.Infos.Count == Campaign.Current.Parties.Count)
-            {
-                return;
-            }
-
-            this.Infos.RemoveWhere(i => !Campaign.Current.Parties.Any(go => go.Id == i.Id));
-
-            if (onlyRemoving)
-            {
-                return;
-            }
-
-            foreach (var gameObject in Campaign.Current.Parties.Where(go => !this.Infos.Any(i => i.Id == go.Id)))
-            {
-                this.GetInfo(gameObject);
-            }
-        }
-
-        public void CleanupDuplicatedInfos()
-        {
-            this.Infos.Reverse();
-            this.Infos = this.Infos.GroupBy(i => i.Id)
-                                   .Select(i => i.First())
-                                   .ToHashSet();
-            this.Infos.Reverse();
         }
 
         #endregion

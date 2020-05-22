@@ -14,7 +14,7 @@ namespace KNTLibrary.Components.Banners
 
         static BaseBannerManager()
         {
-            BaseBannerManager.Instance = new BaseBannerManager();
+            Instance = new BaseBannerManager();
         }
 
         public static BaseBannerManager Instance { get; private set; }
@@ -80,7 +80,7 @@ namespace KNTLibrary.Components.Banners
 
         public BaseBannerInfo GetBaseBannerBySettlement(Settlement settlement)
         {
-            var settlementInfo = BaseManagers.Settlement.GetInfo(settlement);
+            var settlementInfo = BaseManagers.Settlement.Get(settlement);
             return settlementInfo == null ? null : this.GetBaseBannerBySettlementInfo(settlementInfo);
         }
     }

@@ -1,6 +1,6 @@
 ﻿using KNTLibrary.Components;
-using Revolutions.Components.Base.Parties;
-using Revolutions.Components.Base.Settlements;
+using Revolutions.Components.Parties;
+using Revolutions.Components.Settlements;
 using System;
 using TaleWorlds.CampaignSystem;
 
@@ -66,7 +66,7 @@ namespace Revolutions.Components.Revolts
 
         public Settlement Settlement => Managers.Settlement.GetGameObject(this.SettlementId);
 
-        public SettlementInfo SettlementInfo => Managers.Settlement.GetInfo(this.Settlement);
+        public SettlementInfo SettlementInfo => Managers.Settlement.Get(this.Settlement);
 
         #endregion
 

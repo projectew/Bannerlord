@@ -1,20 +1,20 @@
-﻿using KNTLibrary.Helpers;
-using Revolutions.Components.Base.Characters;
+﻿using KNTLibrary.Components.Events;
+using KNTLibrary.Components.Plots;
+using KNTLibrary.Helpers;
+using Revolutions.Components.Characters;
 using Revolutions.Components.CivilWars.Events.Plotting;
 using Revolutions.Components.CivilWars.Events.War;
+using Revolutions.Components.Kingdoms;
 using Revolutions.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using KNTLibrary.Components.Events;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.CampaignSystem.MapNotificationTypes;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
-using KNTLibrary.Components.Plots;
-using Revolutions.Components.Base.Kingdoms;
 
 namespace Revolutions.Components.CivilWars.CampaignBehaviors
 {
@@ -37,8 +37,8 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
             var considerableClans = Campaign.Current.Clans.Where(c => c.Kingdom != null && c.Leader != null && c.Leader.StringId != c.Kingdom.Leader.StringId && !c.IsBanditFaction && !c.IsClanTypeMercenary && !c.IsMafia && !c.IsMinorFaction && !c.IsNomad && !c.IsOutlaw && !c.IsRebelFaction && !c.IsSect && !c.IsUnderMercenaryService);
             foreach (var kingdomWithClans in considerableClans.GroupBy(c => c.Kingdom.StringId, (key, clans) => new { KingdomId = key, Clans = clans.ToList() }))
             {
-                var kingdomInfo = Managers.Kingdom.GetInfo(kingdomWithClans.KingdomId);
-                if(kingdomInfo == null)
+                var kingdomInfo = Managers.Kingdom.Get(kingdomWithClans.KingdomId);
+                if (kingdomInfo == null)
                 {
                     continue;
                 }
@@ -72,12 +72,12 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                 this.UpdatePlotState(kingdomInfo, kingdomWithClans.Clans);
 
-                if(this.CheckPlayerPlotState(kingdomInfo))
+                if (this.CheckPlayerPlotState(kingdomInfo))
                 {
                     continue;
                 }
 
-                if(this.CheckWarState(kingdomInfo, kingdomWithClans.Clans))
+                if (this.CheckWarState(kingdomInfo, kingdomWithClans.Clans))
                 {
                     continue;
                 }
@@ -99,7 +99,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 }
 
                 var clanLeader = clan.Leader;
-                var clanLeaderInfo = Managers.Character.GetInfo(clanLeader.CharacterObject);
+                var clanLeaderInfo = Managers.Character.Get(clanLeader.CharacterObject);
 
                 var relationDifference = clanLeader.GetRelation(kingdomInfo.Kingdom.Leader);
 
@@ -114,7 +114,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                     var clanLeaderPlottingFriends = clans.Select(go => go.Leader)
                                                                           .Where(go => go.IsFriend(clanLeader) && go.StringId != Hero.MainHero.StringId)
-                                                                          .Select(go => Managers.Character.GetInfo(go.CharacterObject))
+                                                                          .Select(go => Managers.Character.Get(go.CharacterObject))
                                                                           .Where(info => info.PlotState == PlotState.IsPlotting)
                                                                           .ToList();
 
@@ -171,7 +171,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
             var clanLeaderHonor = clanLeader.GetHeroTraits().Honor;
 
             var kingdomClanLeaders = Campaign.Current.Clans.Where(w => w.Kingdom?.StringId == clanLeader.Clan.Kingdom?.StringId && w.Kingdom.Leader.StringId != clanLeader.StringId).Select(s => s.Leader).ToList();
-            var clanLeaderFriends = kingdomClanLeaders.Where(w => w.IsFriend(clanLeader) && Managers.Character.GetInfo(w.CharacterObject).PlotState == PlotState.IsPlotting).ToList();
+            var clanLeaderFriends = kingdomClanLeaders.Where(w => w.IsFriend(clanLeader) && Managers.Character.Get(w.CharacterObject).PlotState == PlotState.IsPlotting).ToList();
 
             float personalityTraits = kingdomLeaderHonor + clanLeaderHonor;
             var personalityWeight = MathF.Pow(RevolutionsSettings.Instance.CivilWarsPlottingPersonalityMultiplier, -personalityTraits);
@@ -193,7 +193,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
             foreach (var clan in clans)
             {
                 var clanLeader = clan.Leader;
-                var clanLeaderInfo = Managers.Character.GetInfo(clanLeader.CharacterObject);
+                var clanLeaderInfo = Managers.Character.Get(clanLeader.CharacterObject);
 
                 if (clanLeaderInfo.PlotState != PlotState.WillPlotting)
                 {
@@ -218,7 +218,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                     return true;
                 }
 
-                var mainHeroInfo = Managers.Character.GetInfo(Hero.MainHero.CharacterObject);
+                var mainHeroInfo = Managers.Character.Get(Hero.MainHero.CharacterObject);
                 if (this._daysSinceConsider >= RevolutionsSettings.Instance.CivilWarsPlottingConsiderTime
                     && mainHeroInfo.PlotState == PlotState.Considering && mainHeroInfo.DecisionMade == DecisionMade.No)
                 {
@@ -242,7 +242,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
             foreach (var clan in clans)
             {
                 var clanLeader = clan.Leader;
-                var clanLeaderInfo = Managers.Character.GetInfo(clanLeader.CharacterObject);
+                var clanLeaderInfo = Managers.Character.Get(clanLeader.CharacterObject);
 
                 if (clanLeaderInfo.PlotState == PlotState.IsLoyal)
                 {
@@ -326,7 +326,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 foreach (var clan in clans)
                 {
                     var clanLeader = clan.Leader;
-                    var clanLeaderInfo = Managers.Character.GetInfo(clanLeader.CharacterObject);
+                    var clanLeaderInfo = Managers.Character.Get(clanLeader.CharacterObject);
 
                     if (clanLeaderInfo.PlotState == PlotState.IsLoyal)
                     {
@@ -348,19 +348,19 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                     return true;
                 }
 
-                Managers.Character.GetInfo(plottingLeader.CharacterObject).IsCivilWarKingdomLeader = true;
+                Managers.Character.Get(plottingLeader.CharacterObject).IsCivilWarKingdomLeader = true;
 
-                var settlementInfo = Managers.Settlement.GetInfo(plotLeadingClan.HomeSettlement);
+                var settlementInfo = Managers.Settlement.Get(plotLeadingClan.HomeSettlement);
                 var bannerInfo = Managers.Banner.GetRevolutionsBannerBySettlementInfo(settlementInfo);
 
                 var plotKingdom = Managers.Kingdom.CreateKingdom(plotLeadingClan.Leader, new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), new TextObject($"Kingdom of {plottingLeader.Clan.Name}"), bannerInfo != null ? new Banner(bannerInfo.BannerId) : plotLeadingClan.Banner, false);
-                Managers.Kingdom.GetInfo(plotKingdom).IsCivilWarKingdom = true;
+                Managers.Kingdom.Get(plotKingdom).IsCivilWarKingdom = true;
 
                 ChangeRelationAction.ApplyRelationChangeBetweenHeroes(plottingLeader, kingdomLeader, -(int)(RevolutionsSettings.Instance.CivilWarsRelationshipChange * (RevolutionsSettings.Instance.CivilWarsRelationshipChangeMultiplier * 2)), false);
 
                 foreach (var clan1 in clans.Where(c1 => c1.StringId != plotLeadingClan.StringId))
                 {
-                    var clanLeader1 = Managers.Character.GetInfo(clan1.Leader.CharacterObject);
+                    var clanLeader1 = Managers.Character.Get(clan1.Leader.CharacterObject);
                     if (clanLeader1.PlotState == PlotState.IsLoyal)
                     {
                         ChangeRelationAction.ApplyRelationChangeBetweenHeroes(clan1.Leader, kingdomLeader, (int)(RevolutionsSettings.Instance.CivilWarsRelationshipChange * RevolutionsSettings.Instance.CivilWarsRelationshipChangeMultiplier), false);
@@ -374,7 +374,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
 
                     foreach (var clan2 in clans.Where(c2 => c2.StringId != clan1.StringId && c2.StringId != plotLeadingClan.StringId))
                     {
-                        var clanLeader2 = Managers.Character.GetInfo(clan2.Leader.CharacterObject);
+                        var clanLeader2 = Managers.Character.Get(clan2.Leader.CharacterObject);
 
                         if (clanLeader1.PlotState == clanLeader2.PlotState)
                         {

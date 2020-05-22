@@ -1,5 +1,4 @@
 ﻿using HarmonyLib;
-using KNTLibrary.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +15,9 @@ namespace KNTLibrary.Components.Clans
     {
         #region Singleton
 
-        private BaseClanManager() { }
-
         static BaseClanManager()
         {
-            BaseClanManager<InfoType>.Instance = new BaseClanManager<InfoType>();
+            Instance = new BaseClanManager<InfoType>();
         }
 
         public static BaseClanManager<InfoType> Instance { get; private set; }
@@ -29,33 +26,51 @@ namespace KNTLibrary.Components.Clans
 
         #region IManager
 
-        public bool DebugMode { get; set; }
-
         public HashSet<InfoType> Infos { get; set; } = new HashSet<InfoType>();
 
-        public void InitializeInfos()
+        public void Initialize()
         {
-            if (this.Infos.Count == Campaign.Current?.Clans?.ToList()?.Count)
+            if (this.Infos.Count == Campaign.Current.Clans.Count())
             {
                 return;
             }
 
             foreach (var gameObject in Campaign.Current.Clans)
             {
-                this.GetInfo(gameObject);
+                this.Get(gameObject);
             }
         }
 
-        public InfoType GetInfo(Clan gameObject)
+        public void RemoveInvalids()
         {
-            var infos = this.Infos.Where(i => i.Id == gameObject.StringId);
-            if (this.DebugMode && infos.Count() > 1)
+            if (this.Infos.Count == Campaign.Current.Clans.Count)
             {
-                InformationManager.DisplayMessage(new InformationMessage("Revolutions: Multiple Clans with same Id. Using first one.", ColorHelper.Orange));
-                foreach (var duplicatedInfo in infos)
-                {
-                    InformationManager.DisplayMessage(new InformationMessage($"Name: {duplicatedInfo.Clan.Name} | StringId: {duplicatedInfo.Id}", ColorHelper.Orange));
-                }
+                return;
+            }
+
+            this.Infos.RemoveWhere(i => !Campaign.Current.Clans.Any(go => go.StringId == i.Id));
+        }
+
+        public void RemoveDuplicates()
+        {
+            this.Infos.Reverse();
+            this.Infos = this.Infos.GroupBy(i => i.Id)
+                                   .Select(i => i.First())
+                                   .ToHashSet();
+            this.Infos.Reverse();
+        }
+
+        public InfoType Get(Clan gameObject)
+        {
+            if (gameObject == null)
+            {
+                return null;
+            }
+
+            var infos = this.Infos.Where(i => i.Id == gameObject.StringId);
+            if (infos.Count() > 1)
+            {
+                this.RemoveDuplicates();
             }
 
             var info = infos.FirstOrDefault();
@@ -70,7 +85,7 @@ namespace KNTLibrary.Components.Clans
             return info;
         }
 
-        public InfoType GetInfo(string id)
+        public InfoType Get(string id)
         {
             var gameObject = this.GetGameObject(id);
             if (gameObject == null)
@@ -78,17 +93,11 @@ namespace KNTLibrary.Components.Clans
                 return null;
             }
 
-            return this.GetInfo(gameObject);
+            return this.Get(gameObject);
         }
 
-        public void RemoveInfo(string id)
+        public void Remove(string id)
         {
-            var info = this.Infos.FirstOrDefault(i => i.Id == id);
-            if (info == null)
-            {
-                return;
-            }
-
             this.Infos.RemoveWhere(i => i.Id == id);
         }
 
@@ -100,35 +109,6 @@ namespace KNTLibrary.Components.Clans
         public Clan GetGameObject(InfoType info)
         {
             return this.GetGameObject(info.Id);
-        }
-
-        public void UpdateInfos(bool onlyRemoving = false)
-        {
-            if (this.Infos.Count == Campaign.Current.Clans.Count)
-            {
-                return;
-            }
-
-            this.Infos.RemoveWhere(i => !Campaign.Current.Clans.Any(go => go.StringId == i.Id));
-
-            if (onlyRemoving)
-            {
-                return;
-            }
-
-            foreach (var gameObject in Campaign.Current.Clans.Where(go => !this.Infos.Any(i => i.Id == go.StringId)))
-            {
-                this.GetInfo(gameObject);
-            }
-        }
-
-        public void CleanupDuplicatedInfos()
-        {
-            this.Infos.Reverse();
-            this.Infos = this.Infos.GroupBy(i => i.Id)
-                                   .Select(i => i.First())
-                                   .ToHashSet();
-            this.Infos.Reverse();
         }
 
         #endregion
@@ -144,7 +124,7 @@ namespace KNTLibrary.Components.Clans
 
             leader.Clan = clan;
 
-            this.GetInfo(clan).IsCustomClan = true;
+            this.Get(clan).IsCustomClan = true;
             return clan;
         }
 
@@ -159,17 +139,17 @@ namespace KNTLibrary.Components.Clans
 
         public void RemoveClan(Clan clan)
         {
-            this.ModifyClanList(gos =>
+            this.ModifyClanList(clans =>
             {
-                if (gos.RemoveAll(go => go.StringId == clan.StringId) > 0)
+                if (clans.RemoveAll(go => go.StringId == go.StringId) > 0)
                 {
-                    return gos;
+                    return clans;
                 }
 
                 return null;
             });
 
-            this.RemoveInfo(clan.StringId);
+            this.Remove(clan.StringId);
         }
 
         public void DestroyClan(Clan clan)

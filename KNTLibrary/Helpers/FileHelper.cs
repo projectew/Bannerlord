@@ -36,7 +36,7 @@ namespace KNTLibrary.Helpers
                 var filePath = Path.Combine(directoryPath, $"{fileName}.xml");
                 if (!File.Exists(filePath))
                 {
-                    FileHelper.Save<T>(default, directoryPath, fileName);
+                    Save<T>(default, directoryPath, fileName);
                 }
 
                 using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None))

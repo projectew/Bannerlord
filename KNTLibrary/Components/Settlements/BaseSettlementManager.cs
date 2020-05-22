@@ -1,9 +1,7 @@
-﻿using KNTLibrary.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.Core;
 
 namespace KNTLibrary.Components.Settlements
 {
@@ -11,11 +9,9 @@ namespace KNTLibrary.Components.Settlements
     {
         #region Singleton
 
-        private BaseSettlementManager() { }
-
         static BaseSettlementManager()
         {
-            BaseSettlementManager<InfoType>.Instance = new BaseSettlementManager<InfoType>();
+            Instance = new BaseSettlementManager<InfoType>();
         }
 
         public static BaseSettlementManager<InfoType> Instance { get; private set; }
@@ -24,33 +20,51 @@ namespace KNTLibrary.Components.Settlements
 
         #region IManager
 
-        public bool DebugMode { get; set; }
-
         public HashSet<InfoType> Infos { get; set; } = new HashSet<InfoType>();
 
-        public void InitializeInfos()
+        public void Initialize()
         {
-            if (this.Infos.Count == Campaign.Current?.Settlements?.ToList()?.Count)
+            if (this.Infos.Count == Campaign.Current.Settlements.Count())
             {
                 return;
             }
 
             foreach (var gameObject in Campaign.Current.Settlements)
             {
-                this.GetInfo(gameObject);
+                this.Get(gameObject);
             }
         }
 
-        public InfoType GetInfo(Settlement gameObject)
+        public void RemoveInvalids()
         {
-            var infos = this.Infos.Where(i => i.Id == gameObject.StringId);
-            if (this.DebugMode && infos.Count() > 1)
+            if (this.Infos.Count == Campaign.Current.Settlements.Count())
             {
-                InformationManager.DisplayMessage(new InformationMessage("Revolutions: Multiple Settlements with same Id. Using first one.", ColorHelper.Orange));
-                foreach (var duplicatedInfo in infos)
-                {
-                    InformationManager.DisplayMessage(new InformationMessage($"Name: {duplicatedInfo.Settlement.Name} | StringId: {duplicatedInfo.Id}", ColorHelper.Orange));
-                }
+                return;
+            }
+
+            this.Infos.RemoveWhere(i => !Campaign.Current.Settlements.Any(go => go.StringId == i.Id));
+        }
+
+        public void RemoveDuplicates()
+        {
+            this.Infos.Reverse();
+            this.Infos = this.Infos.GroupBy(i => i.Id)
+                                   .Select(i => i.First())
+                                   .ToHashSet();
+            this.Infos.Reverse();
+        }
+
+        public InfoType Get(Settlement gameObject)
+        {
+            if (gameObject == null)
+            {
+                return null;
+            }
+
+            var infos = this.Infos.Where(i => i.Id == gameObject.StringId);
+            if (infos.Count() > 1)
+            {
+                this.RemoveDuplicates();
             }
 
             var info = infos.FirstOrDefault();
@@ -65,7 +79,7 @@ namespace KNTLibrary.Components.Settlements
             return info;
         }
 
-        public InfoType GetInfo(string id)
+        public InfoType Get(string id)
         {
             var gameObject = this.GetGameObject(id);
             if (gameObject == null)
@@ -73,17 +87,11 @@ namespace KNTLibrary.Components.Settlements
                 return null;
             }
 
-            return this.GetInfo(gameObject);
+            return this.Get(gameObject);
         }
 
-        public void RemoveInfo(string id)
+        public void Remove(string id)
         {
-            var info = this.Infos.FirstOrDefault(i => i.Id == id);
-            if (info == null)
-            {
-                return;
-            }
-
             this.Infos.RemoveWhere(i => i.Id == id);
         }
 
@@ -95,35 +103,6 @@ namespace KNTLibrary.Components.Settlements
         public Settlement GetGameObject(InfoType info)
         {
             return this.GetGameObject(info.Id);
-        }
-
-        public void UpdateInfos(bool onlyRemoving = false)
-        {
-            if (this.Infos.Count == Campaign.Current.Settlements.Count)
-            {
-                return;
-            }
-
-            this.Infos.RemoveWhere(i => !Campaign.Current.Settlements.Any(go => go.StringId == i.Id));
-
-            if (onlyRemoving)
-            {
-                return;
-            }
-
-            foreach (var settlement in Campaign.Current.Settlements.Where(go => !this.Infos.Any(i => i.Id == go.StringId)))
-            {
-                this.GetInfo(settlement);
-            }
-        }
-
-        public void CleanupDuplicatedInfos()
-        {
-            this.Infos.Reverse();
-            this.Infos = this.Infos.GroupBy(i => i.Id)
-                                   .Select(i => i.First())
-                                   .ToHashSet();
-            this.Infos.Reverse();
         }
 
         #endregion

@@ -14,7 +14,7 @@ namespace LocalizationIdGenerator
             var randomIds = new List<string>();
             for (var i = 0; i < 100; i++)
             {
-                randomIds.Add(Program.GetRandomString());
+                randomIds.Add(GetRandomString());
             }
 
             var filePath = Path.Combine(Environment.CurrentDirectory, "RandomIds.txt");
@@ -30,7 +30,7 @@ namespace LocalizationIdGenerator
             (
                 Enumerable
                     .Repeat(0, int.MaxValue)
-                    .Select(repeat => Program.GetRandomByte())
+                    .Select(repeat => GetRandomByte())
                     .Where(randomByte => randomByte < outOfRange)
                     .Take(length)
                     .Select(randomByte => alphabet[randomByte % alphabet.Length]

@@ -8,7 +8,7 @@ namespace KNTLibrary.Components.Events
 
         static EventManager()
         {
-            EventManager.Instance = new EventManager();
+            Instance = new EventManager();
         }
 
         public static EventManager Instance { get; private set; }
@@ -19,15 +19,15 @@ namespace KNTLibrary.Components.Events
 
         public bool InEvent { get; private set; }
 
-        public void StartEvent(Event eventobj)
+        public void StartEvent(Event eventObj)
         {
-            this.Events.Add(eventobj);
+            this.Events.Add(eventObj);
             this.InEvent = true;
         }
 
-        public void EndEvent(Event eventobj)
+        public void EndEvent(Event eventObj)
         {
-            this.Events.Remove(eventobj);
+            this.Events.Remove(eventObj);
             this.InEvent = false;
         }
     }

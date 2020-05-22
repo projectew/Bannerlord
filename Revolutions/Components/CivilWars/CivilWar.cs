@@ -1,5 +1,5 @@
 ﻿using KNTLibrary.Components;
-using Revolutions.Components.Base.Kingdoms;
+using Revolutions.Components.Kingdoms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,7 +62,7 @@ namespace Revolutions.Components.CivilWars
 
         public Kingdom Kingdom => Managers.Kingdom.GetGameObject(this.KingdomId);
 
-        public KingdomInfo KingdomInfo => Managers.Kingdom.GetInfo(this.Kingdom);
+        public KingdomInfo KingdomInfo => Managers.Kingdom.Get(this.Kingdom);
 
         #endregion
 

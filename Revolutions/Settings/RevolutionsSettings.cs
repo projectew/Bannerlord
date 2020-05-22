@@ -1,7 +1,7 @@
 ﻿using MBOptionScreen.Attributes;
 using MBOptionScreen.Attributes.v2;
 using MBOptionScreen.Settings;
-using Revolutions.Localization.Settings;
+using Revolutions.Settings.Localization;
 
 namespace Revolutions.Settings
 {
@@ -16,20 +16,12 @@ namespace Revolutions.Settings
         #region General
 
         [SettingPropertyGroup(groupName: Categories.General, order: 0, isMainToggle: false)]
-        [SettingPropertyFloatingInteger(displayName: Names.GeneralBaseLoyalty, minValue: 0f, maxValue: 100f, Order = 0, HintText = Descriptions.GeneralBasePlayerLoyalty, RequireRestart = false)]
-        public float GeneralBaseLoyalty { get; set; } = 5.0f;
-
-        [SettingPropertyGroup(groupName: Categories.General, order: 0, isMainToggle: false)]
-        [SettingPropertyInteger(displayName: Names.GeneralDaysUntilLoyaltyChange, minValue: 0, maxValue: 365, Order = 1, HintText = Descriptions.GeneralDaysUntilLoyaltyChange, RequireRestart = false)]
-        public int GeneralDaysUntilLoyaltyChange { get; set; } = 90;
+        [SettingPropertyFloatingInteger(displayName: Names.GeneralPlayerBaseLoyalty, minValue: 0f, maxValue: 100f, Order = 0, HintText = Descriptions.GeneralPlayerBaseLoyalty, RequireRestart = false)]
+        public float GeneralPlayerBaseLoyalty { get; set; } = 5.0f;
 
         [SettingPropertyGroup(groupName: Categories.General, order: 0, isMainToggle: false)]
         [SettingPropertyInteger(displayName: Names.GeneralPlayerInTownLoyaltyIncrease, minValue: 0, maxValue: 100, Order = 2, HintText = Descriptions.GeneralPlayerInTownLoyaltyIncrease, RequireRestart = false)]
         public int GeneralPlayerInTownLoyaltyIncrease { get; set; } = 5;
-
-        [SettingPropertyGroup(groupName: Categories.General, order: 0, isMainToggle: false)]
-        [SettingPropertyInteger(displayName: Names.GeneralMinimumObedienceLoyalty, minValue: 0, maxValue: 250, Order = 3, HintText = Descriptions.GeneralMinimumObedienceLoyalty, RequireRestart = false)]
-        public int GeneralMinimumObedienceLoyalty { get; set; } = 25;
 
         #endregion
 
