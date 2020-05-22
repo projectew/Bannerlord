@@ -147,7 +147,8 @@ namespace Revolutions.CampaignBehaviors
                 {
                     kingdomsToRemove.Add(kingdomInfo);
                 }
-                else if (kingdomInfo.Kingdom.Leader == null || kingdomInfo.Kingdom.Settlements.Count() == 0 && (kingdomInfo.Kingdom.Parties == null || !kingdomInfo.Kingdom.Parties.Any() || kingdomInfo.Kingdom.Leader.IsDead || kingdomInfo.Kingdom.Leader.IsPrisoner))
+                else if (kingdomInfo.Kingdom.Leader == null || kingdomInfo.Kingdom.Settlements.Count() == 0 && 
+                    (kingdomInfo.Kingdom.Parties == null || !kingdomInfo.Kingdom.Parties.Any() || kingdomInfo.Kingdom.Leader.IsDead || kingdomInfo.Kingdom.Leader.IsPrisoner))
                 {
                     kingdomsToDestroy.Add(kingdomInfo.Kingdom);
                 }
