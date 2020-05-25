@@ -349,7 +349,8 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
                 Managers.Revolt.Revolts.Remove(revolt);
             }
-            else if (!revolt.IsMinorFaction)
+
+            if (RevolutionsSettings.Instance.RevoltsMinorFactionsMechanic && !revolt.IsMinorFaction)
             {
                 revolt.Party.MobileParty.Ai.SetDoNotMakeNewDecisions(false);
                 Managers.Revolt.Revolts.Remove(revolt);
