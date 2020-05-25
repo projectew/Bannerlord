@@ -110,8 +110,9 @@ namespace KNTLibrary.Components.Factions
 
         public CharacterObject GetLordWithLeastFiefs(IFaction faction)
         {
-            var noble = faction.Heroes.Where(hero => hero.StringId != Hero.MainHero.StringId && !hero.IsPrisoner && hero.IsAlive && !hero.IsOccupiedByAnEvent() && !hero.Noncombatant && hero.CharacterObject.Occupation == Occupation.Lord || hero.CharacterObject.Occupation == Occupation.Lady).Aggregate((currentResult, current) => current.Clan.Settlements.Count() < currentResult.Clan.Settlements.Count() ? current : currentResult);
-            return noble.Clan != null ? noble.Clan.Nobles.GetRandomElement().CharacterObject : faction.Leader.CharacterObject;
+            var validNobles = faction.Heroes.Where(hero => hero.StringId != Hero.MainHero.StringId && !hero.IsPrisoner && hero.IsAlive && !hero.IsOccupiedByAnEvent() && !hero.PartyBelongedTo.IsJoiningArmy && hero.PartyBelongedTo.Army != null && !hero.Noncombatant && hero.CharacterObject.Occupation == Occupation.Lord || hero.CharacterObject.Occupation == Occupation.Lady);
+            var noble = validNobles.Aggregate((currentResult, current) => current.Clan.Settlements.Count() < currentResult.Clan.Settlements.Count() ? current : currentResult);
+            return noble.Clan != null ? noble.CharacterObject : faction.Leader.CharacterObject;
         }
     }
 }
