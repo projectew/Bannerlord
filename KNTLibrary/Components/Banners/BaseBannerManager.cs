@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
 using TaleWorlds.Library;
 
 namespace KNTLibrary.Components.Banners
@@ -28,7 +29,7 @@ namespace KNTLibrary.Components.Banners
         {
             var directoryPath = BasePath.Name + "Modules/Revolutions/ModuleData/Banners";
 
-            foreach (var file in Directory.GetFiles(directoryPath))
+            foreach (var file in Directory.GetFiles(directoryPath, "*.xml"))
             {
                 var loadedInfos = FileHelper.Load<List<BaseBannerInfo>>(directoryPath, Path.GetFileNameWithoutExtension(file));
                 foreach (var info in loadedInfos)
@@ -47,41 +48,49 @@ namespace KNTLibrary.Components.Banners
             this.Infos.Reverse();
         }
 
-        public BaseBannerInfo GetBaseBannerBySettlementInfo(BaseSettlementInfo settlementInfo)
+        public BaseBannerInfo GetBaseBanner(BaseSettlementInfo settlementInfo)
         {
+            var availableBannerInfos = new List<BaseBannerInfo>();
             BaseBannerInfo bannerInfo = null;
 
-            foreach (var info in this.Infos)
+            foreach (var info in this.Infos.Where(i => !i.Used))
             {
-                if (info.Used)
-                {
-                    continue;
-                }
-
                 if (info.Settlement == settlementInfo.Settlement.Name.ToString() && info.Culture == settlementInfo.Settlement.Culture.StringId)
                 {
-                    bannerInfo = info;
+                    availableBannerInfos.Add(info);
                     break;
                 }
-                else if (info.Culture == settlementInfo.Settlement.Culture.StringId)
+
+                if (info.Culture == settlementInfo.Settlement.Culture.StringId)
                 {
-                    bannerInfo = info;
+                    availableBannerInfos.Add(info);
                     break;
                 }
-                else if (info.Faction == settlementInfo.CurrentFaction.StringId)
+
+                if (info.Faction == settlementInfo.CurrentFaction.StringId)
                 {
-                    bannerInfo = info;
+                    availableBannerInfos.Add(info);
                     break;
                 }
+            }
+
+            if (availableBannerInfos.Count > 0)
+            {
+                bannerInfo = availableBannerInfos.GetRandomElement();
+            }
+
+            if (bannerInfo != null)
+            {
+                bannerInfo.Used = true;
             }
 
             return bannerInfo;
         }
 
-        public BaseBannerInfo GetBaseBannerBySettlement(Settlement settlement)
+        public BaseBannerInfo GetBaseBanner(Settlement settlement)
         {
             var settlementInfo = BaseManagers.Settlement.Get(settlement);
-            return settlementInfo == null ? null : this.GetBaseBannerBySettlementInfo(settlementInfo);
+            return settlementInfo == null ? null : this.GetBaseBanner(settlementInfo);
         }
     }
 }

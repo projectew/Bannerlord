@@ -20,18 +20,13 @@ namespace Revolutions.Components.Banners
 
         #endregion
 
-        public BaseBannerInfo GetRevolutionsBannerBySettlementInfo(SettlementInfo settlementInfo)
+        public BaseBannerInfo GetBanner(SettlementInfo settlementInfo)
         {
             var availableBannerInfos = new List<BaseBannerInfo>();
             BaseBannerInfo bannerInfo = null;
 
-            foreach (var info in this.Infos)
+            foreach (var info in this.Infos.Where(i => !i.Used))
             {
-                if (info.Used)
-                {
-                    continue;
-                }
-
                 if (info.Settlement == settlementInfo.Settlement.Name.ToString() && info.Culture == settlementInfo.Settlement.Culture.StringId)
                 {
                     availableBannerInfos.Add(info);
@@ -51,9 +46,14 @@ namespace Revolutions.Components.Banners
                 }
             }
 
-            if (availableBannerInfos.Count() > 0)
+            if (availableBannerInfos.Count > 0)
             {
                 bannerInfo = availableBannerInfos.GetRandomElement();
+            }
+
+            if (bannerInfo == null)
+            {
+                bannerInfo = this.GetBaseBanner(settlementInfo);
             }
 
             if (bannerInfo != null)
@@ -64,15 +64,10 @@ namespace Revolutions.Components.Banners
             return bannerInfo;
         }
 
-        public BaseBannerInfo GetRevolutionsBannerBySettlement(Settlement settlement)
+        public BaseBannerInfo GetBanner(Settlement settlement)
         {
             var settlementInfo = Managers.Settlement.Get(settlement);
-            if (settlementInfo == null)
-            {
-                return null;
-            }
-
-            return this.GetRevolutionsBannerBySettlementInfo(settlementInfo);
+            return settlementInfo == null ? null : this.GetBanner(settlementInfo);
         }
     }
 }

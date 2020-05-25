@@ -394,7 +394,7 @@ namespace Revolutions.Components.CivilWars.CampaignBehaviors
                 Managers.Character.Get(plottingLeader.CharacterObject).IsCivilWarKingdomLeader = true;
 
                 var settlementInfo = Managers.Settlement.Get(plotLeadingClan.HomeSettlement);
-                var bannerInfo = Managers.Banner.GetRevolutionsBannerBySettlementInfo(settlementInfo);
+                var bannerInfo = Managers.Banner.GetBanner(settlementInfo);
 
                 var textObject = new TextObject(Localization.GameTexts.CivilWarsKingdom);
                 textObject.SetTextVariable("CLAN", plottingLeader.Name);

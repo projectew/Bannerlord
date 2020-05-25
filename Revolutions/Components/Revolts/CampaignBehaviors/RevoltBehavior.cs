@@ -235,7 +235,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
                 leader = Managers.Character.CreateRandomLeader(settlementInfo.LoyalFaction?.Leader?.Clan ?? settlement.OwnerClan, settlementInfo);
                 Managers.Character.Get(leader.CharacterObject).IsRevoltKingdomLeader = true;
 
-                var bannerInfo = Managers.Banner.GetRevolutionsBannerBySettlementInfo(settlementInfo);
+                var bannerInfo = Managers.Banner.GetBanner(settlementInfo);
                 var banner = bannerInfo != null ? new Banner(bannerInfo.BannerId) : null;
 
                 var clan = Managers.Clan.CreateClan(leader, null, null, banner);
