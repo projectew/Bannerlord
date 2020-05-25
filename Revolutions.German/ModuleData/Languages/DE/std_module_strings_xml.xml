@@ -12,7 +12,7 @@
     <string id="RblChrft" text="Sonstiges" />
     <!-- Groups -->
     <!-- Revolts -->
-    <string id="Ii5uvnHE" text="Imperiale Treue" />
+    <string id="Ii5uvnHE" text="Kaiserliche Treue" />
     <string id="DzPgQgHY" text="Überdehnung" />
     <string id="L3FIrWzB" text="Unabhängige Fraktion" />
     <string id="FgE33u5N" text="Glücksnation" />
@@ -39,8 +39,8 @@
     <string id="vAyloRN9" text="Ansehenserhöhung" />
     <!-- Lucky Nation -->
     <string id="IHx6f80s" text="Zufällig" />
-    <string id="yqVZOUHt" text="Imperial" />
-    <string id="PcDF5MgS" text="Nicht-Imperial" />
+    <string id="yqVZOUHt" text="Kaiserlich" />
+    <string id="PcDF5MgS" text="Nicht-Kaiserlich" />
     <!-- Civil Wars -->
     <!-- General -->
     <string id="4QTdpuYM" text="Bestehende Kriege behalten" />
@@ -107,14 +107,11 @@
     <string id="O0WtFLpL" text="Aktiviert/Deaktiviert die Ausgabe von detaillierten Informationen." />
 
     <!-- Game Texts-->
-    <!-- Lucky Nations -->
-    <string id="glCo42fD" text="Loyale Bevölkerung" />
-    <!-- Loyalty Model -->
+    <!-- Revolts -->
+    <string id="Ts1iVN8d" text="Loyalität der Stadt" />
     <string id="PqkwszGz" text="Durch das Verbringen von Zeit in {SETTLEMENT} fühlt sich die Bevölkerung Ihnen gegenüber loyaler." />
     <string id="dRoS0maD" text="In {SETTLEMENT} ist ein Aufstand ausgebrochen!" />
-    <string id="dRoS0maD" text="Der Aufstand in {SETTLEMENT} ist vorrüber." />
-    <string id="Ts1iVN8d" text="Loyalität der Stadt" />
-    <string id="q2t1Ss8d" text="Aufständische Armee" />
+    <string id="dkpS074R" text="Der Aufstand in {SETTLEMENT} ist vorrüber." />
     <!-- Town Menu -->
     <string id="3fBkqk4u" text="Die Bevölkerung von {SETTLEMENT} scheint zufrieden zu sein." />
     <string id="dRoS0zTD" text="Unruhen machen sich in {SETTLEMENT} bemerkbar." />
@@ -127,11 +124,13 @@
     <string id="q2tbH41e" text="Die Menschen in dieser Stadt haben erst kürzlich einen Aufstand veranstaltet und möchten daher kein weiteres Blut vergießen." />
     <string id="6m7Ss8fW" text="Nach dem Hören von Blutvergießen in {SETTLEMENT} haben die Bürger Angst vor Aufruhr und Aufständen." />
     <!-- Loyalty State -->
-    <string id="YnRmNltF" text="Überdehnung" />
-    <string id="3fQwNP5z" text="Imperiale Loyalität" />
-    <string id="7LzQNP0z" text="Ausländische Regelung" />
-    <string id="qNWmNN8d" text="Imperiale Abneigung" />
     <string id="q2tbqP0z" text="Spielersiedlung" />
+    <string id="k4uQWiDy" text="Bemerkenswerte: {SETTLEMENT}" />
+    <string id="YnRmNltF" text="Überdehnung" />
+    <string id="3fQwNP5z" text="Kaiserliche Loyalität" />
+    <string id="7LzQNP0z" text="Ausländische Regelung" />
+    <string id="qNWmNN8d" text="Kaiserliche Abneigung" />
+    <string id="boVJ6OqO" text="Glückliche Nation" />
     <!-- GUI Buttons -->
     <string id="3fQwWiDZ" text="Schließen" />
   </strings>

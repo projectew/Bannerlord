@@ -25,7 +25,7 @@ namespace Revolutions.Components.Revolts.Models
 
             if (settlementInfo.CurrentFaction.Leader == Hero.MainHero)
             {
-                explainedNumber.Add(RevolutionsSettings.Instance.GeneralPlayerBaseLoyalty, new TextObject("Player Settlement"));
+                explainedNumber.Add(RevolutionsSettings.Instance.GeneralPlayerBaseLoyalty, new TextObject("{=q2tbqP0z}Bannerlord Settlement"));
             }
 
             this.NotablesChange(settlementInfo, ref explainedNumber);
@@ -53,9 +53,11 @@ namespace Revolutions.Components.Revolts.Models
                 }
             }
 
-            explainedNumber.Add(notablesLoyaltyChange, new TextObject($"Notables: {settlement.Name}"));
+            var textObject = new TextObject("{=k4uQWiDy}Notables: {SETTLEMENT}");
+            textObject.SetTextVariable("SETTLEMENT", settlement.Name);
+            explainedNumber.Add(notablesLoyaltyChange, textObject);
 
-            foreach (var village in settlement.BoundVillages.Select(v => v.Settlement))
+            foreach (var village in settlement.BoundVillages.Select(village => village.Settlement))
             {
                 notablesLoyaltyChange = 0;
 
@@ -71,7 +73,9 @@ namespace Revolutions.Components.Revolts.Models
                     }
                 }
 
-                explainedNumber.Add(notablesLoyaltyChange, new TextObject($"Notables: {village.Name}"));
+                textObject = new TextObject("{=k4uQWiDy}Notables: {SETTLEMENT}");
+                textObject.SetTextVariable("SETTLEMENT", settlement.Name);
+                explainedNumber.Add(notablesLoyaltyChange, textObject);
             }
         }
 
@@ -85,7 +89,7 @@ namespace Revolutions.Components.Revolts.Models
             }
 
             var overextension = settlementInfo.CurrentFaction.Settlements.Where(s => settlementInfo.CurrentFactionId != Managers.Settlement.Get(s).LoyalFaction.StringId).Count();
-            explainedNumber.Add(overextension * RevolutionsSettings.Instance.RevoltsOverextensionMultiplier, new TextObject("Overextension"));
+            explainedNumber.Add(overextension * RevolutionsSettings.Instance.RevoltsOverextensionMultiplier, new TextObject("{=YnRmNltF}Overextension"));
         }
 
         private void ImperialChange(SettlementInfo settlementInfo, ref ExplainedNumber explainedNumber)
@@ -99,23 +103,23 @@ namespace Revolutions.Components.Revolts.Models
             {
                 if (settlementInfo.IsCurrentFactionOfImperialCulture)
                 {
-                    explainedNumber.Add(1, new TextObject("Imperial Loyalty"));
+                    explainedNumber.Add(3, new TextObject("{=3fQwNP5z}Imperial Loyalty"));
                 }
                 else
                 {
-                    explainedNumber.Add(-1, new TextObject("Foreign Rule"));
+                    explainedNumber.Add(-1, new TextObject("{=7LzQNP0z}Foreign Rule"));
                 }
             }
             else
             {
                 if (settlementInfo.IsCurrentFactionOfImperialCulture)
                 {
-                    explainedNumber.Add(-1, new TextObject("Imperial Aversion"));
+                    explainedNumber.Add(-1, new TextObject("{=qNWmNN8d}Imperial Aversion"));
                 }
 
                 if (settlementInfo.LoyalFaction.StringId != settlementInfo.CurrentFactionId)
                 {
-                    explainedNumber.Add(1, new TextObject("Foreign Rule"));
+                    explainedNumber.Add(1, new TextObject("{=7LzQNP0z}Foreign Rule"));
                 }
             }
         }
@@ -126,7 +130,7 @@ namespace Revolutions.Components.Revolts.Models
             {
                 if (Managers.Kingdom.Get(settlementInfo.Settlement.OwnerClan.Kingdom)?.LuckyNation == true)
                 {
-                    explainedNumber.Add(3, new TextObject("Lucky Nation)"));
+                    explainedNumber.Add(5, new TextObject("{=boVJ6OqO}Lucky Nation)"));
                     return;
                 }
             }

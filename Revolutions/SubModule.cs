@@ -76,7 +76,7 @@ namespace Revolutions
             if (RevolutionsSettings.Instance.EnableRevolts)
             {
                 campaignGameStarter.AddModel(new Components.Revolts.Models.SettlementLoyaltyModel());
-                campaignGameStarter.AddBehavior(new RevoltBehavior());
+                campaignGameStarter.AddBehavior(new RevoltBehavior(campaignGameStarter));
             }
 
             if (RevolutionsSettings.Instance.EnableCivilWars)

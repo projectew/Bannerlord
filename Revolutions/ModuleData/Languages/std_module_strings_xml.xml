@@ -107,14 +107,11 @@
     <string id="O0WtFLpL" text="Enables/Disables the output of detailed information." />
 
     <!-- Game Texts-->
-    <!-- Lucky Nation-->
-    <string id="glCo42fD" text="Loyal Population" />
-    <!-- Loyalty Model -->
+    <!-- Revolts -->
+    <string id="Ts1iVN8d" text="Town Loyalty" />
     <string id="PqkwszGz" text="Seeing you spend time at {SETTLEMENT}. Your subjects feel more loyal to you." />
     <string id="dRoS0maD" text="{SETTLEMENT} is revolting!" />
-    <string id="dRoS0maD" text="The revolt in {SETTLEMENT} has ended." />
-    <string id="Ts1iVN8d" text="Town Loyalty" />
-    <string id="q2t1Ss8d" text="Revolt Mob" />
+    <string id="dkpS074R" text="The revolt in {SETTLEMENT} has ended." />
     <!-- Town Menu -->
     <string id="3fBkqk4u" text="The people of {SETTLEMENT} seem to be content." />
     <string id="dRoS0zTD" text="Flames of Revolt are slowly stirring in {SETTLEMENT}." />
@@ -127,11 +124,13 @@
     <string id="q2tbH41e" text="The people of this town had revolted recently and don't wish to spill blood again." />
     <string id="6m7Ss8fW" text="After hearing of blood spilled in {SETTLEMENT} citizens are afraid of revolting." />
     <!-- Loyalty State -->
+    <string id="q2tbqP0z" text="Bannerlord Settlement" />
+    <string id="k4uQWiDy" text="Notables: {SETTLEMENT}" />
     <string id="YnRmNltF" text="Overextension" />
     <string id="3fQwNP5z" text="Imperial Loyalty" />
     <string id="7LzQNP0z" text="Foreign Rule" />
     <string id="qNWmNN8d" text="Imperial Aversion" />
-    <string id="q2tbqP0z" text="Bannerlord Settlement" />
+    <string id="boVJ6OqO" text="Lucky Nation" />
     <!-- GUI Buttons -->
     <string id="3fQwWiDZ" text="Close" />
   </strings>

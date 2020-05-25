@@ -7,7 +7,7 @@ using TaleWorlds.Localization;
 
 namespace Revolutions.Components.Revolts.CampaignBehaviors
 {
-    internal class GuiHandlersBehavior : CampaignBehaviorBase
+    internal class GuiHandlerBehavior : CampaignBehaviorBase
     {
         public override void RegisterEvents()
         {

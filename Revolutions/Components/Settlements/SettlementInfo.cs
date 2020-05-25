@@ -1,6 +1,7 @@
 ﻿using KNTLibrary.Components.Settlements;
 using Revolutions.Components.Factions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 
@@ -31,11 +32,20 @@ namespace Revolutions.Components.Settlements
         {
             get
             {
-                return this.Settlement.Notables
+                var factions = new List<(IFaction MapFaction, int Power)>();
+
+                var settlementFactions = this.Settlement.Notables
                     .Where(notable => notable.SupporterOf != null)
-                    .GroupBy(notable => notable.SupporterOf.MapFaction, (key, notable) => new { MapFaction = key, Power = notable.Select(s => s.Power) })
-                    .OrderByDescending(o => o.Power)
-                    .FirstOrDefault().MapFaction;
+                    .Select(s => (s.SupporterOf.MapFaction, s.Power));
+                factions.AddRange(settlementFactions);
+
+                var villageFactions = this.Settlement.BoundVillages.SelectMany(village => village.Settlement.Notables)
+                        .Where(notable => notable.SupporterOf != null)
+                        .Select(s => (s.SupporterOf.MapFaction, s.Power));
+                factions.AddRange(villageFactions);
+
+                factions = factions.GroupBy(g => g.MapFaction, (key, g) => (MapFaction: key, Power: g.Select(s => s.Power).Aggregate((current, next) => current + next))).ToList();
+                return factions.FirstOrDefault(w => w.Power == factions.Max(m => m.Power)).MapFaction ?? this.Settlement.MapFaction;
             }
         }
 

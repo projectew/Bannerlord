@@ -1,4 +1,6 @@
 ﻿using Revolutions.Components.Characters;
+using Revolutions.Components.Revolts;
+using Revolutions.Components.Revolts.CampaignBehaviors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,94 +40,91 @@ namespace Revolutions
             }
 
             var settlementInfo = Managers.Settlement.Get(settlement);
-            return $"{settlement.Name} is loyal to {settlementInfo.LoyalFaction.Name} with a score of {settlement.Town.Loyalty}.";
+            return $"{settlement.Name} is loyal to {settlementInfo.LoyalFaction.Name}.";
         }
 
         #endregion
 
         #region Revolts
 
-        //[CommandLineFunctionality.CommandLineArgumentFunction("start", "revolts")]
-        //public static string StartRevolt(List<string> strings)
-        //{
-        //    if (Campaign.Current == null)
-        //    {
-        //        return "Campaign was not started.";
-        //    }
+        [CommandLineFunctionality.CommandLineArgumentFunction("start", "revolts")]
+        public static string StartRevolt(List<string> strings)
+        {
+            if (Campaign.Current == null)
+            {
+                return "Campaign was not started.";
+            }
 
-        //    if (strings.Count() < 1 || CampaignCheats.CheckHelp(strings))
-        //    {
-        //        return "Format is \"revolts.start [Settlement Name]\"";
-        //    }
+            if (strings.Count() < 1 || CampaignCheats.CheckHelp(strings))
+            {
+                return "Format is \"revolts.start [Settlement Name]\"";
+            }
 
-        //    var settlementName = strings.Aggregate((i, j) => i + " " + j);
+            var settlementName = strings.Aggregate((i, j) => i + " " + j);
 
-        //    var settlement = Campaign.Current.Settlements.FirstOrDefault(s => s.Name.ToString().ToLower() == settlementName.ToLower());
-        //    if (settlement == null)
-        //    {
-        //        return $"There is no Settlement \"{settlementName}\".";
-        //    }
+            var settlement = Campaign.Current.Settlements.FirstOrDefault(s => s.Name.ToString().ToLower() == settlementName.ToLower());
+            if (settlement == null)
+            {
+                return $"There is no Settlement \"{settlementName}\".";
+            }
 
-        //    if (settlement.IsUnderSiege)
-        //    {
-        //        return $"{settlement.Name} is under siege.";
-        //    }
+            var settlementInfo = Managers.Settlement.Get(settlement);
+            if (settlementInfo.HasRebellionEvent)
+            {
+                return $"{settlement.Name} has an running revolt.";
+            }
 
-        //    var settlementInfo = Managers.Settlement.Get(settlement);
-        //    settlementInfo.RevoltProgress = 100;
+            RevoltBehavior.StartRevolt(settlement);
+            return $"Started a Revolt in {settlement.Name}.";
+        }
 
-        //    Managers.Revolt.StartRebellionEvent(settlement);
+        [CommandLineFunctionality.CommandLineArgumentFunction("end", "revolts")]
+        public static string EndRevolt(List<string> strings)
+        {
+            if (Campaign.Current == null)
+            {
+                return "Campaign was not started.";
+            }
 
-        //    return $"Started a Revolt in {settlement.Name}.";
-        //}
+            if (strings.Count() < 2 || !strings.Contains("-s") || !strings.Contains("-w") || CampaignCheats.CheckHelp(strings))
+            {
+                return "Format is \"revolts.end -s [Settlement Name] -w [Win (true|false)]\"";
+            }
 
-        //[CommandLineFunctionality.CommandLineArgumentFunction("end", "revolts")]
-        //public static string EndRevolt(List<string> strings)
-        //{
-        //    if (Campaign.Current == null)
-        //    {
-        //        return "Campaign was not started.";
-        //    }
+            var aggregatedString = strings.Aggregate((i, j) => i + " " + j);
+            var settlementNameIndex = 3;
+            var winIndex = aggregatedString.IndexOf("-w ") + 3;
 
-        //    if (strings.Count() < 2 || !strings.Contains("-s") || !strings.Contains("-w") || CampaignCheats.CheckHelp(strings))
-        //    {
-        //        return "Format is \"revolts.end -s [Settlement Name] -w [Win (true|false)]\"";
-        //    }
+            var settlementName = aggregatedString.Substring(settlementNameIndex, winIndex - 7);
 
-        //    var aggregatedString = strings.Aggregate((i, j) => i + " " + j);
-        //    var settlementNameIndex = 3;
-        //    var winIndex = aggregatedString.IndexOf("-w ") + 3;
+            var settlement = Campaign.Current.Settlements.FirstOrDefault(s => s.Name.ToString().ToLower() == settlementName.ToLower());
+            if (settlement == null)
+            {
+                return $"There is no Settlement \"{settlementName}\".";
+            }
 
-        //    var settlementName = aggregatedString.Substring(settlementNameIndex, winIndex - 7);
+            var Revolt = Managers.Revolt.GetRevoltBySettlementId(settlement.StringId);
+            if (Revolt == null)
+            {
+                return $"{settlementName} is not conflicted in a revolt.";
+            }
 
-        //    var settlement = Campaign.Current.Settlements.FirstOrDefault(s => s.Name.ToString().ToLower() == settlementName.ToLower());
-        //    if (settlement == null)
-        //    {
-        //        return $"There is no Settlement \"{settlementName}\".";
-        //    }
+            if (!bool.TryParse(aggregatedString.Substring(winIndex, aggregatedString.Length - winIndex), out var isWin))
+            {
+                return "Format is \"Revolts.end_Revolt -s [Settlement Name] -w [Win (true|false)]\".";
+            }
 
-        //    var Revolt = Managers.Revolt.GetRevoltBySettlementId(settlement.StringId);
-        //    if (Revolt == null)
-        //    {
-        //        return $"{settlementName} is not conflicted in a revolt.";
-        //    }
+            if (isWin)
+            {
+                RevoltBehavior.EndSucceededRevolt(Revolt);
+            }
+            else
+            {
+                RevoltBehavior.EndFailedRevolt(Revolt);
+            }
 
-        //    if (!bool.TryParse(aggregatedString.Substring(winIndex, aggregatedString.Length - winIndex), out var isWin))
-        //    {
-        //        return "Format is \"Revolts.end_Revolt -s [Settlement Name] -w [Win (true|false)]\".";
-        //    }
-
-        //    if (isWin)
-        //    {
-        //        Managers.Revolt.EndSucceededRevolut(Revolt);
-        //    }
-        //    else
-        //    {
-        //        Managers.Revolt.EndFailedRevolt(Revolt);
-        //    }
-
-        //    return $"Ended a {(isWin ? "successful" : "failed")} Revolt in {settlement.Name}.";
-        //}
+            return $"Ended a {(isWin ? "successful" : "failed")} Revolt in {settlement.Name}.";
+        }
 
         [CommandLineFunctionality.CommandLineArgumentFunction("show_lucky_nations", "revolts")]
         public static string ShowLuckyNations(List<string> strings)

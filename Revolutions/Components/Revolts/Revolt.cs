@@ -40,7 +40,7 @@ namespace Revolutions.Components.Revolts
 
         public Revolt(string partyId, Settlement settlement, bool isMinorFaction)
         {
-            this.Id = $"p_{partyId}__s_";
+            this.Id = $"p_{partyId}__s_{settlement.StringId}";
             this.PartyId = partyId;
             this.SettlementId = settlement.StringId;
             this.IsMinorFaction = isMinorFaction;

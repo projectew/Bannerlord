@@ -117,7 +117,7 @@
     <Compile Include="Components\CivilWars\Events\War\WarEvent.cs" />
     <Compile Include="Components\CivilWars\Events\War\WarEventOptionPlotter.cs" />
     <Compile Include="Components\CivilWars\Events\War\WarEventOptionLoyal.cs" />
-    <Compile Include="Components\Revolts\CampaignBehaviors\GuiHandlersBehavior.cs" />
+    <Compile Include="Components\Revolts\CampaignBehaviors\GuiHandlerBehavior.cs" />
     <Compile Include="CampaignBehaviors\RevolutionsBehavior.cs" />
     <Compile Include="Components\Banners\BannerInfoExtensions.cs" />
     <Compile Include="Components\Banners\BannerManager.cs" />
@@ -141,7 +141,7 @@
     <Compile Include="Components\Settlements\SettlementInfo.cs" />
     <Compile Include="Components\Settlements\SettlementInfoExtension.cs" />
     <Compile Include="DataStorage.cs" />
-    <Compile Include="Components\Revolts\CampaignBehaviors\RevoltsBehavior.cs" />
+    <Compile Include="Components\Revolts\CampaignBehaviors\RevoltBehavior.cs" />
     <Compile Include="Settings\Localization\Categories.cs" />
     <Compile Include="Components\Revolts\Models\SettlementLoyaltyModel.cs" />
     <Compile Include="Managers.cs" />

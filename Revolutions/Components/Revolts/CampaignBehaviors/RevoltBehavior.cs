@@ -14,6 +14,11 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 {
     internal class RevoltBehavior : CampaignBehaviorBase
     {
+        public RevoltBehavior(CampaignGameStarter campaignGameStarter)
+        {
+            campaignGameStarter.AddBehavior(new GuiHandlerBehavior());
+        }
+
         public override void RegisterEvents()
         {
             CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.OnSessionLaunchedEvent));
@@ -30,7 +35,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
         private void OnSessionLaunchedEvent(CampaignGameStarter starter)
         {
-            if (!RevolutionsSettings.Instance.RevoltsLuckyNationMechanic)
+            if (!RevolutionsSettings.Instance.RevoltsLuckyNationMechanic && Managers.Kingdom.Infos.Count > 0)
             {
                 foreach (var info in Managers.Kingdom.Infos.Where(kingdomInfo => kingdomInfo.LuckyNation))
                 {
@@ -42,7 +47,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
             if (RevolutionsSettings.Instance.RevoltsLuckyNationRandom)
             {
-                if (!Managers.Kingdom.Infos.Any(i => i.LuckyNation) && Managers.Kingdom.Infos.Count > 0)
+                if (Managers.Kingdom.Infos.Count > 0 && !Managers.Kingdom.Infos.Any(i => i.LuckyNation))
                 {
                     var randomNation = Managers.Kingdom.Infos.GetRandomElement();
                     if (randomNation != null)
@@ -55,7 +60,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
             if (RevolutionsSettings.Instance.RevoltsLuckyNationImperial)
             {
                 var imperialNations = Managers.Kingdom.Infos.Where(i => i.Kingdom.Culture.Name.ToString().ToLower().Contains("empire"));
-                if (!imperialNations.Any(i => i.LuckyNation) && imperialNations.Count() > 0)
+                if (imperialNations.Count() > 0 && !imperialNations.Any(i => i.LuckyNation))
                 {
                     var imperialNation = imperialNations.GetRandomElement();
                     if (imperialNation != null)
@@ -68,7 +73,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
             if (RevolutionsSettings.Instance.RevoltsLuckyNationNonImperial)
             {
                 var nonImperialNations = Managers.Kingdom.Infos.Where(i => !i.Kingdom.Culture.Name.ToString().ToLower().Contains("empire"));
-                if (!nonImperialNations.Any(i => i.LuckyNation) && nonImperialNations.Count() > 0)
+                if (nonImperialNations.Count() > 0 && !nonImperialNations.Any(i => i.LuckyNation))
                 {
                     var nonImperialNation = nonImperialNations.GetRandomElement();
                     if (nonImperialNation != null)
@@ -92,11 +97,11 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
             var winnerSide = mapEvent.BattleState == BattleState.AttackerVictory ? mapEvent.AttackerSide : mapEvent.DefenderSide;
             if (winnerSide.PartiesOnThisSide.FirstOrDefault(party => party.Id == involvedParty.Id) == null)
             {
-                this.EndFailedRevolt(currentRevolt);
+                RevoltBehavior.EndFailedRevolt(currentRevolt);
             }
             else
             {
-                this.EndSucceededRevolut(currentRevolt);
+                RevoltBehavior.EndSucceededRevolt(currentRevolt);
             }
         }
 
@@ -186,7 +191,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
                 if (info.RevoltProgress >= 100 && !info.Settlement.IsUnderSiege)
                 {
-                    this.StartRebellionEvent(info.Settlement);
+                    RevoltBehavior.StartRevolt(info.Settlement);
                     continue;
                 }
 
@@ -209,7 +214,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
             }
         }
 
-        private void StartRebellionEvent(Settlement settlement)
+        internal static void StartRevolt(Settlement settlement)
         {
             var information = new TextObject("{=dRoS0maD}{SETTLEMENT} is revolting!");
             information.SetTextVariable("SETTLEMENT", settlement.Name);
@@ -271,7 +276,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
             if (settlementInfo.Garrision == null || settlementInfo.Garrision.TotalStrength == 0)
             {
-                this.EndSucceededRevolut(revolt);
+                RevoltBehavior.EndSucceededRevolt(revolt);
                 return;
             }
 
@@ -279,7 +284,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
             StartBattleAction.Apply(mobileParty.Party, settlementInfo.Garrision);
         }
 
-        private void EndFailedRevolt(Revolt revolt)
+        internal static void EndFailedRevolt(Revolt revolt)
         {
             var information = new TextObject("{=dkpS074R}The revolt in {SETTLEMENT} has ended.");
             information.SetTextVariable("SETTLEMENT", revolt.Settlement.Name);
@@ -301,7 +306,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
             Managers.Revolt.Revolts.Remove(revolt);
         }
 
-        private void EndSucceededRevolut(Revolt revolt)
+        internal static void EndSucceededRevolt(Revolt revolt)
         {
             var information = new TextObject("{=dkpS074R}The revolt in {SETTLEMENT} has ended.");
             information.SetTextVariable("SETTLEMENT", revolt.Settlement.Name);
