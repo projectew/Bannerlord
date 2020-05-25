@@ -20,7 +20,7 @@ namespace Revolutions.Patches
                 }
                 catch (Exception exception)
                 {
-                    InformationManager.DisplayMessage(new InformationMessage($"Revolutions: Failed at LoadSaveGameData for '{DataStorage.ActiveSaveSlotName ?? "Null"}'", ColorHelper.Red));
+                    InformationManager.DisplayMessage(new InformationMessage($"Revolutions: Failed at OnNewGame.", ColorHelper.Red));
 
                     if (RevolutionsSettings.Instance.DebugMode)
                     {

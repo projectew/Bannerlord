@@ -37,7 +37,7 @@ namespace Revolutions.CampaignBehaviors
             }
             catch (Exception exception)
             {
-                InformationManager.DisplayMessage(new InformationMessage($"Revolutions: Failed to initialize base data.", ColorHelper.Red));
+                InformationManager.DisplayMessage(new InformationMessage($"Revolutions: Failed to initialize data. Turn on Debug Mode for detailed information.", ColorHelper.Red));
 
                 if (RevolutionsSettings.Instance.DebugMode)
                 {

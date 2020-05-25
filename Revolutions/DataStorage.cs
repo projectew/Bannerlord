@@ -9,9 +9,11 @@ using Revolutions.Components.Parties;
 using Revolutions.Components.Revolts;
 using Revolutions.Components.Settlements;
 using Revolutions.Settings;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using TaleWorlds.Core;
 
 namespace Revolutions
 {
@@ -21,16 +23,55 @@ namespace Revolutions
 
         internal static void LoadData()
         {
-            LoadBaseData();
+            try
+            {
+                LoadBaseData();
+            }
+            catch (Exception exception)
+            {
+                InformationManager.DisplayMessage(new InformationMessage($"Revolutions: Failed to initialize base data. Turn on Debug Mode for detailed information.", ColorHelper.Red));
+
+                if (RevolutionsSettings.Instance.DebugMode)
+                {
+                    InformationManager.DisplayMessage(new InformationMessage($"Exception: {exception.Message}", ColorHelper.Red));
+                    InformationManager.DisplayMessage(new InformationMessage($"StackTrace: {exception.StackTrace}", ColorHelper.Red));
+                }
+            }
 
             if (RevolutionsSettings.Instance.EnableRevolts)
             {
-                LoadRevoltData();
+                try
+                {
+                    LoadRevoltData();
+                }
+                catch (Exception exception)
+                {
+                    InformationManager.DisplayMessage(new InformationMessage($"Revolutions: Failed to initialize revolt data. Turn on Debug Mode for detailed information.", ColorHelper.Red));
+
+                    if (RevolutionsSettings.Instance.DebugMode)
+                    {
+                        InformationManager.DisplayMessage(new InformationMessage($"Exception: {exception.Message}", ColorHelper.Red));
+                        InformationManager.DisplayMessage(new InformationMessage($"StackTrace: {exception.StackTrace}", ColorHelper.Red));
+                    }
+                }
             }
 
             if (RevolutionsSettings.Instance.EnableCivilWars)
             {
-                LoadCivilWarData();
+                try
+                {
+                    LoadCivilWarData();
+                }
+                catch (Exception exception)
+                {
+                    InformationManager.DisplayMessage(new InformationMessage($"Revolutions: Failed to initialize civil wars data. Turn on Debug Mode for detailed information.", ColorHelper.Red));
+
+                    if (RevolutionsSettings.Instance.DebugMode)
+                    {
+                        InformationManager.DisplayMessage(new InformationMessage($"Exception: {exception.Message}", ColorHelper.Red));
+                        InformationManager.DisplayMessage(new InformationMessage($"StackTrace: {exception.StackTrace}", ColorHelper.Red));
+                    }
+                }
             }
         }
 
