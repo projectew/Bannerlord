@@ -138,6 +138,13 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
         private void ClanChangedKingdom(Clan clan, Kingdom oldKingdom, Kingdom newKingdom, bool byRebellion, bool showNotification)
         {
+            foreach (var settlement in clan.Settlements)
+            {
+                var settlementInfo = Managers.Settlement.Get(settlement);
+                settlementInfo.PreviousFactionId = settlementInfo.CurrentFactionId;
+                settlementInfo.CurrentFactionId = clan.MapFaction.StringId;
+            }
+
             var clanInfo = Managers.Clan.Get(clan);
 
             if (clan.StringId == Clan.PlayerClan.StringId || clanInfo.CanChangeKingdom || !clanInfo.IsRevoltClan || clan.StringId == newKingdom.RulingClan.StringId
