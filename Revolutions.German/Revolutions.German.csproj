@@ -44,7 +44,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\German.PNG" />
+    <Content Include="Images\Loyalty_Change.PNG" />
+    <Content Include="Images\Menu_Town.PNG" />
+    <Content Include="Images\Options_CivilWars_I.PNG" />
+    <Content Include="Images\Options_CivilWars_II.PNG" />
+    <Content Include="Images\Options_General.PNG" />
+    <Content Include="Images\Options_Revolts_I.PNG" />
+    <Content Include="Images\Options_Revolts_II.PNG" />
     <Content Include="ModuleData\Languages\DE\std_module_strings_xml.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
