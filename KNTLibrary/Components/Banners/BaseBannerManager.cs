@@ -36,6 +36,18 @@ namespace KNTLibrary.Components.Banners
                 {
                     this.Infos.Add(info);
                 }
+
+                foreach (var subDirectoryPath in Directory.GetDirectories(directoryPath))
+                {
+                    foreach (var subDirectoryFile in Directory.GetFiles(subDirectoryPath, "*.xml"))
+                    {
+                        var loadedSubDirectoryInfos = FileHelper.Load<List<BaseBannerInfo>>(directoryPath, Path.GetFileNameWithoutExtension(subDirectoryFile));
+                        foreach (var info in loadedSubDirectoryInfos)
+                        {
+                            this.Infos.Add(info);
+                        }
+                    }
+                }
             }
         }
 

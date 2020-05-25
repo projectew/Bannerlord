@@ -98,6 +98,12 @@
     <Content Include="Images\Options_General.PNG" />
     <Content Include="Images\Options_Revolts_I.PNG" />
     <Content Include="Images\Options_Revolts_II.PNG" />
+    <Content Include="ModuleData\Banners\Pseudohistoric Heraldry Change Mod\Aserai.xml" />
+    <Content Include="ModuleData\Banners\Pseudohistoric Heraldry Change Mod\Battania.xml" />
+    <Content Include="ModuleData\Banners\Pseudohistoric Heraldry Change Mod\Empire.xml" />
+    <Content Include="ModuleData\Banners\Pseudohistoric Heraldry Change Mod\Khuzait.xml" />
+    <Content Include="ModuleData\Banners\Pseudohistoric Heraldry Change Mod\Sturgia.xml" />
+    <Content Include="ModuleData\Banners\Pseudohistoric Heraldry Change Mod\Vlandia.xml" />
     <Content Include="ModuleData\Banners\Vlandia.xml" />
     <Content Include="SubModule.xml" />
     <Content Include="ModuleData\Languages\std_module_strings_xml.xml" />
@@ -163,8 +169,7 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy /d /y /i "$(MSBuildProjectDirectory)\SubModule.xml" "$(SolutionDir)\..\Revolutions\"
 xcopy /d /y /i /e "$(MSBuildProjectDirectory)\GUI" "$(SolutionDir)\..\Revolutions\GUI\"
-xcopy /d /y /i "$(MSBuildProjectDirectory)\ModuleData\Languages\std_module_strings_xml.xml" "$(SolutionDir)\..\Revolutions\ModuleData\Languages\"
-xcopy /d /y /i "$(MSBuildProjectDirectory)\ModuleData\Banners" "$(SolutionDir)\..\Revolutions\ModuleData\Banners\"</PostBuildEvent>
+xcopy /d /y /i /e "$(MSBuildProjectDirectory)\ModuleData" "$(SolutionDir)\..\Revolutions\ModuleData\"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
