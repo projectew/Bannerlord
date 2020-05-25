@@ -26,7 +26,7 @@ namespace Revolutions.Components.Revolts.Models
 
             if (settlementInfo.CurrentFaction.Leader == Hero.MainHero)
             {
-                explainedNumber.Add(RevolutionsSettings.Instance.RevoltsGeneralPlayerBaseLoyalty, new TextObject(GameTexts.RevoltsLoyaltyBannerlordSettlement));
+                explainedNumber.Add(RevolutionsSettings.Instance.RevoltsGeneralPlayerBaseLoyalty, new TextObject(GameTexts.RevoltsLoyaltyCalculationBannerlordSettlement));
             }
 
             this.NotablesChange(settlementInfo, ref explainedNumber);
@@ -54,7 +54,7 @@ namespace Revolutions.Components.Revolts.Models
                 }
             }
 
-            var textObject = new TextObject(GameTexts.RevoltsLoyaltyNotables);
+            var textObject = new TextObject(GameTexts.RevoltsLoyaltyCalculationNotables);
             textObject.SetTextVariable("SETTLEMENT", settlement.Name);
             explainedNumber.Add(notablesLoyaltyChange, textObject);
 
@@ -74,7 +74,7 @@ namespace Revolutions.Components.Revolts.Models
                     }
                 }
 
-                textObject = new TextObject(GameTexts.RevoltsLoyaltyNotables);
+                textObject = new TextObject(GameTexts.RevoltsLoyaltyCalculationNotables);
                 textObject.SetTextVariable("SETTLEMENT", settlement.Name);
                 explainedNumber.Add(notablesLoyaltyChange, textObject);
             }
@@ -90,7 +90,7 @@ namespace Revolutions.Components.Revolts.Models
             }
 
             var overextension = settlementInfo.CurrentFaction.Settlements.Where(s => settlementInfo.CurrentFactionId != Managers.Settlement.Get(s).LoyalFaction.StringId).Count();
-            explainedNumber.Add(overextension * RevolutionsSettings.Instance.RevoltsOverextensionMultiplier, new TextObject(GameTexts.RevoltsLoyaltyOverextension));
+            explainedNumber.Add(overextension * RevolutionsSettings.Instance.RevoltsOverextensionMultiplier, new TextObject(GameTexts.RevoltsLoyaltyCalculationOverextension));
         }
 
         private void ImperialChange(SettlementInfo settlementInfo, ref ExplainedNumber explainedNumber)
@@ -104,23 +104,23 @@ namespace Revolutions.Components.Revolts.Models
             {
                 if (settlementInfo.IsCurrentFactionOfImperialCulture)
                 {
-                    explainedNumber.Add(3, new TextObject(GameTexts.RevoltsLoyaltyImperialLoyalty));
+                    explainedNumber.Add(3, new TextObject(GameTexts.RevoltsLoyaltyCalculationImperialLoyalty));
                 }
                 else
                 {
-                    explainedNumber.Add(-1, new TextObject(GameTexts.RevoltsLoyaltyForeignRule));
+                    explainedNumber.Add(-1, new TextObject(GameTexts.RevoltsLoyaltyCalculationForeignRule));
                 }
             }
             else
             {
                 if (settlementInfo.IsCurrentFactionOfImperialCulture)
                 {
-                    explainedNumber.Add(-1, new TextObject(GameTexts.RevoltsLoyaltyImperialAversion));
+                    explainedNumber.Add(-1, new TextObject(GameTexts.RevoltsLoyaltyCalculationImperialAversion));
                 }
 
                 if (settlementInfo.LoyalFaction.StringId != settlementInfo.CurrentFactionId)
                 {
-                    explainedNumber.Add(1, new TextObject(GameTexts.RevoltsLoyaltyForeignRule));
+                    explainedNumber.Add(1, new TextObject(GameTexts.RevoltsLoyaltyCalculationForeignRule));
                 }
             }
         }
@@ -131,7 +131,7 @@ namespace Revolutions.Components.Revolts.Models
             {
                 if (Managers.Kingdom.Get(settlementInfo.Settlement.OwnerClan.Kingdom)?.LuckyNation == true)
                 {
-                    explainedNumber.Add(5, new TextObject(GameTexts.RevoltsLoyaltyLuckyNation));
+                    explainedNumber.Add(5, new TextObject(GameTexts.RevoltsLoyaltyCalculationLuckyNation));
                     return;
                 }
             }

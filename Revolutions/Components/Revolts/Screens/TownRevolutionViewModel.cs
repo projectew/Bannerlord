@@ -1,4 +1,5 @@
 ﻿using KNTLibrary.Helpers;
+using Revolutions.Components.CivilWars.Localization;
 using Revolutions.Components.Settlements;
 using Revolutions.Settings;
 using System;
@@ -27,13 +28,13 @@ namespace Revolutions.Components.Revolts.Screens
                 {
                     if (this.SettlementInfo.RevoltProgress < 10)
                     {
-                        var textObject = new TextObject("{=3fBkqk4u}The people of {SETTLEMENT} seem to be content.");
+                        var textObject = new TextObject(Localization.GameTexts.RevoltsLoyaltyMenuDescriptionPositive);
                         textObject.SetTextVariable("SETTLEMENT", this.SettlementInfo.Settlement.Name);
                         return textObject.ToString();
                     }
                     else
                     {
-                        var textObject = new TextObject("{=dRoS0zTD}Flames of Revolt are slowly stirring in {SETTLEMENT}.");
+                        var textObject = new TextObject(Localization.GameTexts.RevoltsLoyaltyMenuDescriptionNegative);
                         textObject.SetTextVariable("SETTLEMENT", this.SettlementInfo.Settlement.Name);
                         return textObject.ToString();
                     }
@@ -58,7 +59,7 @@ namespace Revolutions.Components.Revolts.Screens
             {
                 try
                 {
-                    var textObject = new TextObject("{=MYu8szGz}Population is loyal to {FACTION}");
+                    var textObject = new TextObject(Localization.GameTexts.RevoltsLoyaltyMenuPopulationLoyaltyFaction);
                     textObject.SetTextVariable("FACTION", this.SettlementInfo.LoyalFaction.Name);
                     return textObject.ToString();
                 }
@@ -85,7 +86,7 @@ namespace Revolutions.Components.Revolts.Screens
             {
                 try
                 {
-                    var textObject = new TextObject("{=q2tbSs8d}Current revolt progress {PROGRESS}%");
+                    var textObject = new TextObject(Localization.GameTexts.RevoltsLoyaltyMenuRevoltProgress);
                     textObject.SetTextVariable("PROGRESS", new TextObject($"{(int)this.SettlementInfo.RevoltProgress}"));
                     return textObject.ToString();
                 }
@@ -115,7 +116,7 @@ namespace Revolutions.Components.Revolts.Screens
 
                     if (currentFactionInfo.Id == this.SettlementInfo.LoyalFaction.StringId)
                     {
-                        return $"{new TextObject("{=zQNPQz3q}People are content with the current rule.")}";
+                        return $"{new TextObject(Localization.GameTexts.RevoltsLoyaltyMenuRevoltMoodPositive)}";
                     }
 
                     var revoltedInPreviousFaction = previousFactionInfo?.RevoltedSettlementId == currentSettlementId;
@@ -128,22 +129,22 @@ namespace Revolutions.Components.Revolts.Screens
                         {
                             if (currentFactionInfo.RevoltedSettlementId == currentSettlementId || revoltedInPreviousFaction)
                             {
-                                inspiration = new TextObject("{=qZS0ma0z}Many are inspired by tales of revolts in the kingdom.");
+                                inspiration = new TextObject(Localization.GameTexts.RevoltsLoyaltyMenuRevoltMoodNegativeKingdom);
                             }
                             else
                             {
-                                inspiration = new TextObject("{=7LzQWiDZ}Many are inspired by events at {SETTLEMENT}.");
+                                inspiration = new TextObject(Localization.GameTexts.RevoltsLoyaltyMenuRevoltMoodNegativeSettlement);
                                 inspiration.SetTextVariable("SETTLEMENT", currentFactionInfo.RevoltedSettlement.Name);
                             }
                         }
 
-                        return $"{new TextObject("{=HWiDqN8d}Some talk of raising banners of their homeland.")} {inspiration}";
+                        return $"{new TextObject(Localization.GameTexts.RevoltsLoyaltyMenuRevoltMoodNegativeBase)} {inspiration}";
                     }
                     else
                     {
                         if (currentFactionInfo.RevoltedSettlementId == currentSettlementId || revoltedInPreviousFaction)
                         {
-                            return $"{new TextObject("{=q2tbH41e}The people of this town had revolted recently and don't wish to spill blood again.")}";
+                            return $"{new TextObject(Localization.GameTexts.RevoltsLoyaltyMenuRevoltMoodNeutralCurrent)}";
                         }
 
                         if (currentFactionInfo.RevoltedSettlement == null)
@@ -151,7 +152,7 @@ namespace Revolutions.Components.Revolts.Screens
                             return string.Empty;
                         }
 
-                        var textObject = new TextObject("{=6m7Ss8fW}After hearing of blood spilled in {SETTLEMENT} citizens are afraid of revolting.");
+                        var textObject = new TextObject(Localization.GameTexts.RevoltsLoyaltyMenuRevoltMoodNeutralSettlement);
                         textObject.SetTextVariable("SETTLEMENT", currentFactionInfo.RevoltedSettlement.Name);
                         return textObject.ToString();
                     }
