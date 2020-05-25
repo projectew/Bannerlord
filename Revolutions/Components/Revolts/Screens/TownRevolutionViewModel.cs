@@ -58,7 +58,7 @@ namespace Revolutions.Components.Revolts.Screens
             {
                 try
                 {
-                    var textObject = new TextObject("{=MYu8szGz}Population is loyal to {FACTION}.");
+                    var textObject = new TextObject("{=MYu8szGz}Population is loyal to {FACTION}");
                     textObject.SetTextVariable("FACTION", this.SettlementInfo.LoyalFaction.Name);
                     return textObject.ToString();
                 }
@@ -85,7 +85,7 @@ namespace Revolutions.Components.Revolts.Screens
             {
                 try
                 {
-                    var textObject = new TextObject("{=q2tbSs8d}Current revolt progress is {PROGRESS}%");
+                    var textObject = new TextObject("{=q2tbSs8d}Current revolt progress {PROGRESS}%");
                     textObject.SetTextVariable("PROGRESS", new TextObject($"{(int)this.SettlementInfo.RevoltProgress}"));
                     return textObject.ToString();
                 }

@@ -4,15 +4,17 @@
     {
         #region General
 
-        internal const string GeneralPlayerBaseLoyalty = "{=38qkSLV6}Player Base Loyalty";
 
-        internal const string GeneralPlayerInTownLoyaltyIncrease = "{=nfS1777S}Loyalty Increase";
 
         #endregion
 
         #region Revolts
 
         #region General
+
+        internal const string RevoltsGeneralPlayerBaseLoyalty = "{=38qkSLV6}Player Base Loyalty";
+
+        internal const string RevoltsGeneralOwnerInTownLoyaltyIncrease = "{=nfS1777S}Loyalty Increase";
 
         internal const string RevoltsGeneralCooldownTime = "{=N1b4PO5d}Revolt Cooldown";
 

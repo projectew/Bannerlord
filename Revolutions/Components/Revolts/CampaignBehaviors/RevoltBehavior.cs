@@ -92,16 +92,16 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
                 return;
             }
 
-            var currentRevolt = Managers.Revolt.GetRevoltByPartyId(involvedParty.Id);
+            var revolt = Managers.Revolt.GetRevoltByParty(involvedParty);
 
             var winnerSide = mapEvent.BattleState == BattleState.AttackerVictory ? mapEvent.AttackerSide : mapEvent.DefenderSide;
             if (winnerSide.PartiesOnThisSide.FirstOrDefault(party => party.Id == involvedParty.Id) == null)
             {
-                RevoltBehavior.EndFailedRevolt(currentRevolt);
+                RevoltBehavior.EndFailedRevolt(revolt);
             }
             else
             {
-                RevoltBehavior.EndSucceededRevolt(currentRevolt);
+                RevoltBehavior.EndSucceededRevolt(revolt);
             }
         }
 
@@ -158,11 +158,11 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
                 {
                     if (party.IsLordParty && party.Party.Owner.Clan == info.Settlement.OwnerClan)
                     {
-                        info.Settlement.Town.Loyalty += RevolutionsSettings.Instance.GeneralPlayerInTownLoyaltyIncrease;
+                        info.Settlement.Town.Loyalty += RevolutionsSettings.Instance.RevoltsGeneralOwnerInTownLoyaltyIncrease;
 
                         if (info.Settlement.OwnerClan.StringId == Hero.MainHero.Clan.StringId)
                         {
-                            var textObject = new TextObject("{=PqkwszGz}Seeing you spend time at {SETTLEMENT}, your subjects feel more loyal to you.");
+                            var textObject = new TextObject(Localization.GameTexts.RevoltsLoyaltyIncrease);
                             textObject.SetTextVariable("SETTLEMENT", info.Settlement.Name);
                             InformationManager.DisplayMessage(new InformationMessage(textObject.ToString()));
                         }
@@ -216,10 +216,10 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
         internal static void StartRevolt(Settlement settlement)
         {
-            var information = new TextObject("{=dRoS0maD}{SETTLEMENT} is revolting!");
-            information.SetTextVariable("SETTLEMENT", settlement.Name);
-            InformationManager.AddNotice(new SettlementRebellionMapNotification(settlement, information));
-            InformationManager.AddQuickInformation(information);
+            var textObject = new TextObject(Localization.GameTexts.RevoltsRevoltStart);
+            textObject.SetTextVariable("SETTLEMENT", settlement.Name);
+            InformationManager.AddNotice(new SettlementRebellionMapNotification(settlement, textObject));
+            InformationManager.AddQuickInformation(textObject);
 
             var settlementInfo = Managers.Settlement.Get(settlement);
             var atWarWithLoyalFaction = settlementInfo.CurrentFaction.IsAtWarWith(settlementInfo.LoyalFaction);
@@ -241,7 +241,9 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
                 var clan = Managers.Clan.CreateClan(leader, null, null, banner);
                 Managers.Clan.Get(leader.Clan).IsRevoltClan = true;
 
-                Managers.Kingdom.CreateKingdom(leader, new TextObject($"Kingdom of {settlement.Name}"), new TextObject($"Kingdom of {settlement.Name}"), banner ?? clan.Banner, false);
+                textObject = new TextObject(Localization.GameTexts.RevoltsMinorFactionKingdom);
+                textObject.SetTextVariable("SETTLEMENT", settlement.Name);
+                Managers.Kingdom.CreateKingdom(leader, textObject, textObject, banner ?? clan.Banner, false);
                 Managers.Kingdom.Get(leader.Clan.Kingdom).IsRevoltKingdom = true;
             }
 
@@ -286,9 +288,9 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
         internal static void EndFailedRevolt(Revolt revolt)
         {
-            var information = new TextObject("{=dkpS074R}The revolt in {SETTLEMENT} has ended.");
-            information.SetTextVariable("SETTLEMENT", revolt.Settlement.Name);
-            InformationManager.AddQuickInformation(information);
+            var textObject = new TextObject(Localization.GameTexts.RevoltsRevoltEnd);
+            textObject.SetTextVariable("SETTLEMENT", revolt.Settlement.Name);
+            InformationManager.AddQuickInformation(textObject);
 
             revolt.SettlementInfo.CurrentFactionInfo.CityRevoltionFailed(revolt.Settlement);
 
@@ -308,9 +310,9 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
         internal static void EndSucceededRevolt(Revolt revolt)
         {
-            var information = new TextObject("{=dkpS074R}The revolt in {SETTLEMENT} has ended.");
-            information.SetTextVariable("SETTLEMENT", revolt.Settlement.Name);
-            InformationManager.AddQuickInformation(information);
+            var textObject = new TextObject(Localization.GameTexts.RevoltsRevoltEnd);
+            textObject.SetTextVariable("SETTLEMENT", revolt.Settlement.Name);
+            InformationManager.AddQuickInformation(textObject);
 
             revolt.SettlementInfo.CurrentFactionInfo.CityRevoltionSucceeded(revolt.Settlement);
 

@@ -1,5 +1,4 @@
 ﻿using Revolutions.Components.Characters;
-using Revolutions.Components.Revolts;
 using Revolutions.Components.Revolts.CampaignBehaviors;
 using System;
 using System.Collections.Generic;
@@ -103,7 +102,7 @@ namespace Revolutions
                 return $"There is no Settlement \"{settlementName}\".";
             }
 
-            var Revolt = Managers.Revolt.GetRevoltBySettlementId(settlement.StringId);
+            var Revolt = Managers.Revolt.GetRevoltBySettlement(settlement);
             if (Revolt == null)
             {
                 return $"{settlementName} is not conflicted in a revolt.";

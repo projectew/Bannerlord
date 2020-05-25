@@ -1,4 +1,5 @@
-﻿using Revolutions.Components.Revolts.Screens;
+﻿using Revolutions.Components.Revolts.Localization;
+using Revolutions.Components.Revolts.Screens;
 using System;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameMenus;
@@ -26,7 +27,7 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
 
         private void CreateLoyaltyMenu(CampaignGameStarter campaignGameStarter)
         {
-            var menuName = new TextObject("{=Ts1iVN8d}Town Loyalty");
+            var menuName = new TextObject(GameTexts.RevoltsTownLoyalty);
             campaignGameStarter.AddGameMenuOption("town", "town_enter_entr_option", menuName.ToString(), (args) =>
             {
                 args.optionLeaveType = GameMenuOption.LeaveType.Submenu;

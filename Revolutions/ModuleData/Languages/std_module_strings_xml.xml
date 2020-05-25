@@ -24,7 +24,6 @@
     <string id="38qkSLV6" text="Base Loyalty" />
     <string id="CXXaQ4dT" text="Loyalty Change" />
     <string id="nfS1777S" text="Loyalty Increase" />
-    <string id="PctZXPPi" text="Minimum Obedience" />
     <!-- Revolts -->
     <!-- General -->
     <string id="N1b4PO5d" text="Revolt Cooldown" />
@@ -64,7 +63,6 @@
     <string id="XLMyVNzj" text="The base loyalty of cities to the owner." />
     <string id="rD2UgIHi" text="Days until the city's loyalty to the new owner changes." />
     <string id="97WepaH0" text="The amount by which the city's loyalty to the owner increases when the owner is in the city." />
-    <string id="xxvyiZ31" text="Needed loyalty which is required for the city's obedience to the owner." />
     <!-- Revolts -->
     <string id="XgDjEUh5" text="Enables/Disables Revolts." />
     <!-- General -->
@@ -112,11 +110,19 @@
     <string id="PqkwszGz" text="Seeing you spend time at {SETTLEMENT}. Your subjects feel more loyal to you." />
     <string id="dRoS0maD" text="{SETTLEMENT} is revolting!" />
     <string id="dkpS074R" text="The revolt in {SETTLEMENT} has ended." />
+    <string id="SoOS0P5z" text="Kingdom of {SETTLEMENT}" />
+    <!-- Civil Wars -->
+    <string id="351n2ybn" text="Kingdom of {CLAN}" />
+    <string id="hwZG92Xs" text="Civil War: {PLOTKINGDOM} vs. {KINGDOM}" />
+    <string id="DMUEj7rQ" text="A civil war has broken out in {KINGDOM}! The conspirators are led by the mighty {LEADER} of {CLAN}." />
+    <string id="UJsUSlkS" text="{LEADER} from {CLAN} appears to be on its own." />
+    <string id="V9OBix39" text="{LEADER} from {CLAN} joins the conspirators." />
+    <string id="pOFigN5c" text="{LEADER} from {CLAN} stays true to the king." />
     <!-- Town Menu -->
     <string id="3fBkqk4u" text="The people of {SETTLEMENT} seem to be content." />
     <string id="dRoS0zTD" text="Flames of Revolt are slowly stirring in {SETTLEMENT}." />
-    <string id="MYu8szGz" text="Population is loyal to the {FACTION}." />
-    <string id="q2tbSs8d" text="Current revolt progress is {PROGRESS}%." />
+    <string id="MYu8szGz" text="Population is loyal to {FACTION}." />
+    <string id="q2tbSs8d" text="Current revolt progress: {PROGRESS}%" />
     <string id="zQNPQz3q" text="People are content with the current rule." />
     <string id="qZS0ma0z" text="Many are inspired by tales of revolts in the kingdom." />
     <string id="7LzQWiDZ" text="Many are inspired by events at {SETTLEMENT}." />

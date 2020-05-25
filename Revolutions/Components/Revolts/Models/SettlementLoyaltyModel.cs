@@ -1,4 +1,5 @@
-﻿using Revolutions.Components.Settlements;
+﻿using Revolutions.Components.Revolts.Localization;
+using Revolutions.Components.Settlements;
 using Revolutions.Settings;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
@@ -25,7 +26,7 @@ namespace Revolutions.Components.Revolts.Models
 
             if (settlementInfo.CurrentFaction.Leader == Hero.MainHero)
             {
-                explainedNumber.Add(RevolutionsSettings.Instance.GeneralPlayerBaseLoyalty, new TextObject("{=q2tbqP0z}Bannerlord Settlement"));
+                explainedNumber.Add(RevolutionsSettings.Instance.RevoltsGeneralPlayerBaseLoyalty, new TextObject(GameTexts.RevoltsLoyaltyBannerlordSettlement));
             }
 
             this.NotablesChange(settlementInfo, ref explainedNumber);
@@ -53,7 +54,7 @@ namespace Revolutions.Components.Revolts.Models
                 }
             }
 
-            var textObject = new TextObject("{=k4uQWiDy}Notables: {SETTLEMENT}");
+            var textObject = new TextObject(GameTexts.RevoltsLoyaltyNotables);
             textObject.SetTextVariable("SETTLEMENT", settlement.Name);
             explainedNumber.Add(notablesLoyaltyChange, textObject);
 
@@ -73,7 +74,7 @@ namespace Revolutions.Components.Revolts.Models
                     }
                 }
 
-                textObject = new TextObject("{=k4uQWiDy}Notables: {SETTLEMENT}");
+                textObject = new TextObject(GameTexts.RevoltsLoyaltyNotables);
                 textObject.SetTextVariable("SETTLEMENT", settlement.Name);
                 explainedNumber.Add(notablesLoyaltyChange, textObject);
             }
@@ -89,7 +90,7 @@ namespace Revolutions.Components.Revolts.Models
             }
 
             var overextension = settlementInfo.CurrentFaction.Settlements.Where(s => settlementInfo.CurrentFactionId != Managers.Settlement.Get(s).LoyalFaction.StringId).Count();
-            explainedNumber.Add(overextension * RevolutionsSettings.Instance.RevoltsOverextensionMultiplier, new TextObject("{=YnRmNltF}Overextension"));
+            explainedNumber.Add(overextension * RevolutionsSettings.Instance.RevoltsOverextensionMultiplier, new TextObject(GameTexts.RevoltsLoyaltyOverextension));
         }
 
         private void ImperialChange(SettlementInfo settlementInfo, ref ExplainedNumber explainedNumber)
@@ -103,23 +104,23 @@ namespace Revolutions.Components.Revolts.Models
             {
                 if (settlementInfo.IsCurrentFactionOfImperialCulture)
                 {
-                    explainedNumber.Add(3, new TextObject("{=3fQwNP5z}Imperial Loyalty"));
+                    explainedNumber.Add(3, new TextObject(GameTexts.RevoltsLoyaltyImperialLoyalty));
                 }
                 else
                 {
-                    explainedNumber.Add(-1, new TextObject("{=7LzQNP0z}Foreign Rule"));
+                    explainedNumber.Add(-1, new TextObject(GameTexts.RevoltsLoyaltyForeignRule));
                 }
             }
             else
             {
                 if (settlementInfo.IsCurrentFactionOfImperialCulture)
                 {
-                    explainedNumber.Add(-1, new TextObject("{=qNWmNN8d}Imperial Aversion"));
+                    explainedNumber.Add(-1, new TextObject(GameTexts.RevoltsLoyaltyImperialAversion));
                 }
 
                 if (settlementInfo.LoyalFaction.StringId != settlementInfo.CurrentFactionId)
                 {
-                    explainedNumber.Add(1, new TextObject("{=7LzQNP0z}Foreign Rule"));
+                    explainedNumber.Add(1, new TextObject(GameTexts.RevoltsLoyaltyForeignRule));
                 }
             }
         }
@@ -130,7 +131,7 @@ namespace Revolutions.Components.Revolts.Models
             {
                 if (Managers.Kingdom.Get(settlementInfo.Settlement.OwnerClan.Kingdom)?.LuckyNation == true)
                 {
-                    explainedNumber.Add(5, new TextObject("{=boVJ6OqO}Lucky Nation)"));
+                    explainedNumber.Add(5, new TextObject(GameTexts.RevoltsLoyaltyLuckyNation));
                     return;
                 }
             }

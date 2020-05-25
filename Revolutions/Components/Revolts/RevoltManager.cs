@@ -19,24 +19,24 @@ namespace Revolutions.Components.Revolts
 
         internal HashSet<Revolt> Revolts = new HashSet<Revolt>();
 
-        internal Revolt GetRevoltByPartyId(string id)
+        internal Revolt GetRevoltByParty(string id)
         {
             return this.Revolts.FirstOrDefault(r => r.PartyId == id);
         }
 
         internal Revolt GetRevoltByParty(PartyBase party)
         {
-            return this.GetRevoltByPartyId(party.Id);
+            return this.GetRevoltByParty(party.Id);
         }
 
-        internal Revolt GetRevoltBySettlementId(string id)
+        internal Revolt GetRevoltBySettlement(string id)
         {
             return this.Revolts.FirstOrDefault(r => r.Id == id);
         }
 
         internal Revolt GetRevoltBySettlement(Settlement settlement)
         {
-            return this.GetRevoltBySettlementId(settlement.StringId);
+            return this.GetRevoltBySettlement(settlement.StringId);
         }
 
         internal List<Settlement> GetSettlements()

@@ -24,7 +24,6 @@
     <string id="38qkSLV6" text="Grundlegende Loyalität" />
     <string id="CXXaQ4dT" text="Änderung der Treue" />
     <string id="nfS1777S" text="Erhöhung der Treue" />
-    <string id="PctZXPPi" text="Minimaler Gehorsam" />
     <!-- Revolts -->
     <!-- General -->
     <string id="N1b4PO5d" text="Abklingzeit Revolte" />
@@ -64,7 +63,6 @@
     <string id="XLMyVNzj" text="Die grundlegende Loyalität der Städte zum Eigentümer." />
     <string id="rD2UgIHi" text="Tage, bis sich die Loyalität der Stadt gegenüber dem neuen Eigentümer ändert." />
     <string id="97WepaH0" text="Der Betrag, um den sich die Loyalität der Stadt zum Eigentümer erhöht, wenn der Eigentümer in der Stadt ist." />
-    <string id="xxvyiZ31" text="Benötigte Loyalität, die für den Gehorsam der Stadt gegenüber dem Eigentümer erforderlich ist." />
     <!-- Revolts -->
     <string id="XgDjEUh5" text="Aktiviert/Deaktiviert Aufstände." />
     <!-- General -->
@@ -112,6 +110,14 @@
     <string id="PqkwszGz" text="Durch das Verbringen von Zeit in {SETTLEMENT} fühlt sich die Bevölkerung Ihnen gegenüber loyaler." />
     <string id="dRoS0maD" text="In {SETTLEMENT} ist ein Aufstand ausgebrochen!" />
     <string id="dkpS074R" text="Der Aufstand in {SETTLEMENT} ist vorrüber." />
+    <string id="SoOS0P5z" text="Königreich von {SETTLEMENT}" />
+    <!-- Civil Wars -->
+    <string id="351n2ybn" text="Königreich von {CLAN}" />
+    <string id="hwZG92Xs" text="Bürgerkrieg: {PLOTKINGDOM} gg. {KINGDOM}" />
+    <string id="DMUEj7rQ" text="Ein Bürgerkrieg ist in {KINGDOM} ausgebrochen! Die Verschwörer werden durch den mächtigen {LEADER} von {CLAN} angeführt." />
+    <string id="UJsUSlkS" text="{LEADER} von {CLAN} ist scheinbar auf sich alleine gestellt." />
+    <string id="V9OBix39" text="{LEADER} von {CLAN} schließt sich den Verschwörern an." />
+    <string id="pOFigN5c" text="{LEADER} von {CLAN} bleibt dem König treu." />
     <!-- Town Menu -->
     <string id="3fBkqk4u" text="Die Bevölkerung von {SETTLEMENT} scheint zufrieden zu sein." />
     <string id="dRoS0zTD" text="Unruhen machen sich in {SETTLEMENT} bemerkbar." />

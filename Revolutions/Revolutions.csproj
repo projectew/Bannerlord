@@ -117,12 +117,12 @@
     <Compile Include="Components\CivilWars\Events\War\WarEvent.cs" />
     <Compile Include="Components\CivilWars\Events\War\WarEventOptionPlotter.cs" />
     <Compile Include="Components\CivilWars\Events\War\WarEventOptionLoyal.cs" />
+    <Compile Include="Components\CivilWars\Localization\GameTexts.cs" />
     <Compile Include="Components\Revolts\CampaignBehaviors\GuiHandlerBehavior.cs" />
     <Compile Include="CampaignBehaviors\RevolutionsBehavior.cs" />
     <Compile Include="Components\Banners\BannerInfoExtensions.cs" />
     <Compile Include="Components\Banners\BannerManager.cs" />
     <Compile Include="Components\CivilWars\CampaignBehaviors\CivilWarsBehavior.cs" />
-    <Compile Include="Components\CivilWars\CampaignBehaviors\CivilWarsDailyBehavior.cs" />
     <Compile Include="Components\CivilWars\CivilWar.cs" />
     <Compile Include="Components\CivilWars\CivilWarManager.cs" />
     <Compile Include="Commands.cs" />
@@ -136,6 +136,7 @@
     <Compile Include="Components\Characters\CharacterInfoExtension.cs" />
     <Compile Include="Components\Parties\PartyInfo.cs" />
     <Compile Include="Components\Parties\PartyInfoExtension.cs" />
+    <Compile Include="Components\Revolts\Localization\GameTexts.cs" />
     <Compile Include="Components\Revolts\RevoltManager.cs" />
     <Compile Include="Components\Revolts\Revolt.cs" />
     <Compile Include="Components\Settlements\SettlementInfo.cs" />

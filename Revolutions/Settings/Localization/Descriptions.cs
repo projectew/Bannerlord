@@ -4,9 +4,7 @@
     {
         #region General
 
-        internal const string GeneralPlayerBaseLoyalty = "{=XLMyVNzj}The base loyalty of cities to the owner, if it's the player.";
 
-        internal const string GeneralPlayerInTownLoyaltyIncrease = "{=97WepaH0}The amount by which loyalty increases when the owner is in town.";
 
         #endregion
 
@@ -15,6 +13,10 @@
         internal const string EnableRevolts = "{=XgDjEUh5}Enables/Disables Revolts.";
 
         #region General
+
+        internal const string RevoltsGeneralPlayerBaseLoyalty = "{=XLMyVNzj}The base loyalty of cities to the owner.";
+
+        internal const string RevoltsGeneralOwnerInTownLoyaltyIncrease = "{=97WepaH0}The amount by which the city's loyalty to the owner increases when the owner is in the city.";
 
         internal const string RevoltsGeneralCooldownTime = "{=6YaMmHjg}The time before another revolt can arise in the same faction.";
 
