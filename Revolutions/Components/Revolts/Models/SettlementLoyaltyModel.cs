@@ -92,7 +92,7 @@ namespace Revolutions.Components.Revolts.Models
             var loyalSettlements = settlementInfo.CurrentFaction.Settlements.Where(s => s.IsFortification && settlementInfo.CurrentFactionId == Managers.Settlement.Get(s).LoyalFaction.StringId).Count();
             var illoyalSettlements = settlementInfo.CurrentFaction.Settlements.Where(s => s.IsFortification && settlementInfo.CurrentFactionId != Managers.Settlement.Get(s).LoyalFaction.StringId).Count();
             var overextension = loyalSettlements - illoyalSettlements;
-            var calculatedOverextension = overextension < 0 ? overextension * RevolutionsSettings.Instance.RevoltsOverextensionMultiplier : overextension;
+            var calculatedOverextension = overextension < 0 ? overextension * RevolutionsSettings.Instance.RevoltsOverextensionMultiplier : 1;
             explainedNumber.Add(calculatedOverextension, new TextObject(GameTexts.RevoltsLoyaltyCalculationOverextension));
         }
 
