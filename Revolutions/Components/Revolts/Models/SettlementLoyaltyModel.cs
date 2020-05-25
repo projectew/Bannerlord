@@ -89,8 +89,11 @@ namespace Revolutions.Components.Revolts.Models
                 return;
             }
 
-            var overextension = settlementInfo.CurrentFaction.Settlements.Where(s => settlementInfo.CurrentFactionId != Managers.Settlement.Get(s).LoyalFaction.StringId).Count();
-            explainedNumber.Add(overextension * RevolutionsSettings.Instance.RevoltsOverextensionMultiplier, new TextObject(GameTexts.RevoltsLoyaltyCalculationOverextension));
+            var loyalSettlements = settlementInfo.CurrentFaction.Settlements.Where(s => settlementInfo.CurrentFactionId == Managers.Settlement.Get(s).LoyalFaction.StringId).Count();
+            var illoyalSettlements = settlementInfo.CurrentFaction.Settlements.Where(s => settlementInfo.CurrentFactionId != Managers.Settlement.Get(s).LoyalFaction.StringId).Count();
+            var overextension = loyalSettlements - illoyalSettlements;
+            var calculatedOverextension = overextension < 0 ? overextension * RevolutionsSettings.Instance.RevoltsOverextensionMultiplier : overextension;
+            explainedNumber.Add(calculatedOverextension, new TextObject(GameTexts.RevoltsLoyaltyCalculationOverextension));
         }
 
         private void ImperialChange(SettlementInfo settlementInfo, ref ExplainedNumber explainedNumber)

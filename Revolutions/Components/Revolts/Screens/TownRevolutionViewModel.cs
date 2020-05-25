@@ -1,5 +1,4 @@
 ﻿using KNTLibrary.Helpers;
-using Revolutions.Components.CivilWars.Localization;
 using Revolutions.Components.Settlements;
 using Revolutions.Settings;
 using System;
