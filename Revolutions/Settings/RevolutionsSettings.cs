@@ -31,8 +31,8 @@ namespace Revolutions.Settings
         public int RevoltsGeneralOwnerInTownLoyaltyIncrease { get; set; } = 5;
 
         [SettingPropertyGroup(groupName: Groups.RevoltsGeneral, order: 1, isMainToggle: false)]
-        [SettingPropertyFloatingInteger(displayName: Names.RevoltsGeneralCooldownTime, minValue: 0f, maxValue: 250f, Order = 3, HintText = Descriptions.RevoltsGeneralCooldownTime, RequireRestart = false)]
-        public float RevoltsGeneralCooldownTime { get; set; } = 30.0f;
+        [SettingPropertyInteger(displayName: Names.RevoltsGeneralCooldownTime, minValue: 0, maxValue: 365, Order = 3, HintText = Descriptions.RevoltsGeneralCooldownTime, RequireRestart = false)]
+        public int RevoltsGeneralCooldownTime { get; set; } = 30;
 
         [SettingPropertyGroup(groupName: Groups.RevoltsGeneral, order: 1, isMainToggle: false)]
         [SettingPropertyInteger(displayName: Names.RevoltsGeneralBaseSize, minValue: 0, maxValue: 1000, Order = 4, HintText = Descriptions.RevoltsGeneralBaseSize, RequireRestart = false)]
