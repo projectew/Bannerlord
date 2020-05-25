@@ -1,4 +1,5 @@
 ﻿using KNTLibrary.Helpers;
+using Revolutions.Components.Revolts.ViewModels;
 using Revolutions.Components.Settlements;
 using Revolutions.Settings;
 using System;

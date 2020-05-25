@@ -7,7 +7,7 @@ using TaleWorlds.Engine.Screens;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
-namespace Revolutions.Components.Revolts.Screens
+namespace Revolutions.Components.Revolts.ViewModels
 {
     public class TownRevoltViewModel : ViewModel
     {

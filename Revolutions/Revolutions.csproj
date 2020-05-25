@@ -147,7 +147,7 @@
     <Compile Include="Components\Revolts\Models\SettlementLoyaltyModel.cs" />
     <Compile Include="Managers.cs" />
     <Compile Include="Components\Revolts\Screens\TownRevolutionsScreen.cs" />
-    <Compile Include="Components\Revolts\Screens\TownRevolutionViewModel.cs" />
+    <Compile Include="Components\Revolts\ViewModels\TownRevolutionViewModel.cs" />
     <Compile Include="Patches\SaveFilePatches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\Localization\Descriptions.cs" />
