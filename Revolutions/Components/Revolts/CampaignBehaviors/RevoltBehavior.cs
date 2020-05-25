@@ -333,15 +333,19 @@ namespace Revolutions.Components.Revolts.CampaignBehaviors
                 ChangeOwnerOfSettlementAction.ApplyByRevolt(revolt.Party.LeaderHero, revolt.Settlement);
                 revolt.Party.LeaderHero.Clan.AddRenown(RevolutionsSettings.Instance.RevoltsMinorFactionsRenownGainOnWin);
 
+                foreach (var notable in revolt.Settlement.Notables.Concat(revolt.Settlement.BoundVillages.SelectMany(s => s.Settlement.Notables)))
+                {
+                    notable.SetPersonalRelation(revolt.Party.Leader.HeroObject, new Random().Next(5, 25));
+                }
+
                 var amountOTroops = (RevolutionsSettings.Instance.RevoltsGeneralBaseSize + (int)(revolt.Settlement.Prosperity * RevolutionsSettings.Instance.RevoltsGeneralProsperityMulitplier)) / 3;
                 var eliteUnits = new TroopRoster();
                 eliteUnits.AddToCounts(revolt.Party.Leader.Culture.RangedEliteMilitiaTroop, amountOTroops);
                 eliteUnits.AddToCounts(revolt.Party.Leader.Culture.MeleeEliteMilitiaTroop, amountOTroops * 2);
                 revolt.Party.MobileParty.MemberRoster.Add(eliteUnits);
 
-                revolt.Party.MobileParty.Ai.SetDoNotMakeNewDecisions(false);
-
                 SetPartyAiAction.GetActionForPatrollingAroundSettlement(revolt.Party.MobileParty, revolt.Settlement);
+                revolt.Party.MobileParty.Ai.SetDoNotMakeNewDecisions(false);
 
                 Managers.Revolt.Revolts.Remove(revolt);
             }
