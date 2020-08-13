@@ -1,0 +1,184 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Main Project Properties -->
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <PlatformTarget Condition=" '$(PlatformTarget)' == '' ">x64</PlatformTarget>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BD535D95-FD82-4AE2-A1A7-B669D58FCE8E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Revolutions.Module</RootNamespace>
+    <AssemblyName>Revolutions.Module</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <!-- Debug Configuration Properties -->
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\Modules\Revolutions\bin\Win64_Shipping_Client</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- Release Configuration Properties -->
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\Modules\Revolutions\bin\Win64_Shipping_Client</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- Debugging Properties -->
+  <PropertyGroup>
+    <StartAction>Program</StartAction>
+    <StartProgram>..\..\..\bin\Win64_Shipping_Client\Bannerlord.exe</StartProgram>
+    <StartArguments>/singleplayer _MODULES_*Native*SandBoxCore*SandBox*StoryMode*CustomBattle*Revolutions*_MODULES_</StartArguments>
+    <StartWorkingDirectory>..\..\..\bin\Win64_Shipping_Client</StartWorkingDirectory>
+  </PropertyGroup>
+  <!-- Bannerlord Native Assemblies -->
+  <ItemGroup>
+    <Reference Include="..\..\..\bin\Win64_Shipping_Client\TaleWorlds*.dll">
+      <HintPath>%(Identity)</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <!-- Bannerlord Module Assemblies  -->
+    <Reference Include="..\..\..\Modules\Native\bin\Win64_Shipping_Client\TaleWorlds*.dll">
+      <HintPath>%(Identity)</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="..\..\..\Modules\SandBox\bin\Win64_Shipping_Client\SandBox*.dll">
+      <HintPath>%(Identity)</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="..\..\..\Modules\StoryMode\bin\Win64_Shipping_Client\StoryMode*.dll">
+      <HintPath>%(Identity)</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="..\..\..\Modules\CustomBattle\bin\Win64_Shipping_Client\TaleWorlds*.dll">
+      <HintPath>%(Identity)</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <!-- NuGet -->
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Reference Include="0Harmony, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lib.Harmony.2.0.2\lib\net48\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="Bannerlord.UIExtenderEx, Version=0.0.11.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bannerlord.MCM.Integrated.3.1.9\lib\net472\Bannerlord.UIExtenderEx.dll</HintPath>
+    </Reference>
+    <Reference Include="MCMv3, Version=3.1.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bannerlord.MCM.Integrated.3.1.9\lib\net472\MCMv3.dll</HintPath>
+    </Reference>
+    <Reference Include="MCMv3.Implementation.v3.1.9, Version=3.1.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bannerlord.MCM.Integrated.3.1.9\lib\net472\MCMv3.Implementation.v3.1.9.dll</HintPath>
+    </Reference>
+    <Reference Include="MCMv3.UI.v3.1.9, Version=3.1.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bannerlord.MCM.Integrated.3.1.9\lib\net472\MCMv3.UI.v3.1.9.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
+  </ItemGroup>
+  <!-- Project References -->
+  <ItemGroup>
+    <ProjectReference Include="..\Revolutions.Library\Revolutions.Library.csproj">
+      <Project>{D711D674-808C-421A-BA59-9DCD8B4A51DC}</Project>
+      <Name>Revolutions.Library</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <!-- Mod Resource Files -->
+  <ItemGroup>
+    <Content Include="GUI\Prefabs\OneOptionEvent.xml" />
+    <Content Include="GUI\Prefabs\CivilWarsPlotScreen.xml" />
+    <Content Include="GUI\Prefabs\ThreeOptionEvent.xml" />
+    <Content Include="GUI\Prefabs\TwoOptionEvent.xml" />
+    <Content Include="GUI\RevolutionsSpriteData.xml" />
+    <Content Include="GUI\SpriteSheets\revolutions_events.png" />
+    <Content Include="Images\Loyalty_Change.PNG" />
+    <Content Include="Images\Menu_Town.PNG" />
+    <Content Include="Images\Options_CivilWars_I.PNG" />
+    <Content Include="Images\Options_CivilWars_II.PNG" />
+    <Content Include="Images\Options_General.PNG" />
+    <Content Include="Images\Options_Revolts_I.PNG" />
+    <Content Include="Images\Options_Revolts_II.PNG" />
+    <Content Include="ModuleData\Banners\Pseudohistoric Heraldry Change Mod\Aserai.xml" />
+    <Content Include="ModuleData\Banners\Pseudohistoric Heraldry Change Mod\Battania.xml" />
+    <Content Include="ModuleData\Banners\Pseudohistoric Heraldry Change Mod\Empire.xml" />
+    <Content Include="ModuleData\Banners\Pseudohistoric Heraldry Change Mod\Khuzait.xml" />
+    <Content Include="ModuleData\Banners\Pseudohistoric Heraldry Change Mod\Sturgia.xml" />
+    <Content Include="ModuleData\Banners\Pseudohistoric Heraldry Change Mod\Vlandia.xml" />
+    <Content Include="ModuleData\Banners\Vlandia.xml" />
+    <Content Include="SubModule.xml" />
+    <Content Include="ModuleData\Languages\std_module_strings_xml.xml" />
+    <Content Include="ModuleData\Banners\Aserai.xml" />
+    <Content Include="ModuleData\Banners\Battania.xml" />
+    <Content Include="ModuleData\Banners\Empire.xml" />
+    <Content Include="ModuleData\Banners\Khuzait.xml" />
+    <Content Include="ModuleData\Banners\Sturgia.xml" />
+  </ItemGroup>
+  <!-- Mod Programming Files -->
+  <ItemGroup>
+    <Compile Include="CampaignBehaviors\CleanupBehavior.cs" />
+    <Compile Include="Components\CivilWars\Events\Plotting\PlottingEvent.cs" />
+    <Compile Include="Components\CivilWars\Events\Plotting\PlottingEventOptionPlotter.cs" />
+    <Compile Include="Components\CivilWars\Events\Plotting\PlottingEventOptionUndecided.cs" />
+    <Compile Include="Components\CivilWars\Events\Plotting\PlottingEventOptionLoyal.cs" />
+    <Compile Include="Components\CivilWars\Events\War\WarEvent.cs" />
+    <Compile Include="Components\CivilWars\Events\War\WarEventOptionPlotter.cs" />
+    <Compile Include="Components\CivilWars\Events\War\WarEventOptionLoyal.cs" />
+    <Compile Include="Components\CivilWars\Localization\GameTexts.cs" />
+    <Compile Include="Components\Revolts\CampaignBehaviors\GuiHandlerBehavior.cs" />
+    <Compile Include="CampaignBehaviors\RevolutionsBehavior.cs" />
+    <Compile Include="Components\Banners\BannerInfoExtensions.cs" />
+    <Compile Include="Components\Banners\BannerManager.cs" />
+    <Compile Include="Components\CivilWars\CampaignBehaviors\CivilWarsBehavior.cs" />
+    <Compile Include="Components\CivilWars\CivilWar.cs" />
+    <Compile Include="Components\CivilWars\CivilWarManager.cs" />
+    <Compile Include="Commands.cs" />
+    <Compile Include="Components\Kingdoms\KingdomInfo.cs" />
+    <Compile Include="Components\Kingdoms\KingdomInfoExtension.cs" />
+    <Compile Include="Components\Clans\ClanInfo.cs" />
+    <Compile Include="Components\Clans\ClanInfoExtension.cs" />
+    <Compile Include="Components\Factions\FactionInfo.cs" />
+    <Compile Include="Components\Factions\FactionInfoExtesion.cs" />
+    <Compile Include="Components\Characters\CharacterInfo.cs" />
+    <Compile Include="Components\Characters\CharacterInfoExtension.cs" />
+    <Compile Include="Components\Parties\PartyInfo.cs" />
+    <Compile Include="Components\Parties\PartyInfoExtension.cs" />
+    <Compile Include="Components\Revolts\Localization\GameTexts.cs" />
+    <Compile Include="Components\Revolts\RevoltManager.cs" />
+    <Compile Include="Components\Revolts\Revolt.cs" />
+    <Compile Include="Components\Settlements\SettlementInfo.cs" />
+    <Compile Include="Components\Settlements\SettlementInfoExtension.cs" />
+    <Compile Include="DataStorage.cs" />
+    <Compile Include="Components\Revolts\CampaignBehaviors\RevoltBehavior.cs" />
+    <Compile Include="Settings\Localization\Categories.cs" />
+    <Compile Include="Components\Revolts\Models\SettlementLoyaltyModel.cs" />
+    <Compile Include="Managers.cs" />
+    <Compile Include="Components\Revolts\Screens\TownRevolutionsScreen.cs" />
+    <Compile Include="Components\Revolts\ViewModels\TownRevolutionViewModel.cs" />
+    <Compile Include="Patches\SaveFilePatches.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\Localization\Descriptions.cs" />
+    <Compile Include="Settings\RevolutionsSettings.cs" />
+    <Compile Include="Settings\Localization\Groups.cs" />
+    <Compile Include="Settings\Localization\Names.cs" />
+    <Compile Include="SubModule.cs" />
+    <Content Include="GUI\Brushes\ButtonBrush.xml" />
+    <Content Include="GUI\Prefabs\TownRevoltScreen.xml" />
+  </ItemGroup>
+  <ItemGroup />
+  <!-- Post-Build -->
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /d /y /i "$(MSBuildProjectDirectory)\SubModule.xml" "$(SolutionDir)\..\Revolutions\"
+xcopy /d /y /i /e "$(MSBuildProjectDirectory)\GUI" "$(SolutionDir)\..\Revolutions\GUI\"
+xcopy /d /y /i /e "$(MSBuildProjectDirectory)\ModuleData" "$(SolutionDir)\..\Revolutions\ModuleData\"</PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <!-- Main Project Properties -->
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <PlatformTarget Condition=" '$(PlatformTarget)' == '' ">x64</PlatformTarget>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D711D674-808C-421A-BA59-9DCD8B4A51DC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Revolutions.Library</RootNamespace>
+    <AssemblyName>Revolutions.Library</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <!-- Debug Configuration Properties -->
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- Release Configuration Properties -->
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- Bannerlord Native Assemblies -->
+  <ItemGroup>
+    <Reference Include="..\..\..\bin\Win64_Shipping_Client\TaleWorlds*.dll">
+      <HintPath>%(Identity)</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <!-- Bannerlord Module Assemblies  -->
+    <Reference Include="..\..\..\Modules\Native\bin\Win64_Shipping_Client\TaleWorlds*.dll">
+      <HintPath>%(Identity)</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="..\..\..\Modules\SandBox\bin\Win64_Shipping_Client\SandBox*.dll">
+      <HintPath>%(Identity)</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="..\..\..\Modules\StoryMode\bin\Win64_Shipping_Client\StoryMode*.dll">
+      <HintPath>%(Identity)</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="..\..\..\Modules\CustomBattle\bin\Win64_Shipping_Client\TaleWorlds*.dll">
+      <HintPath>%(Identity)</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="0Harmony, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lib.Harmony.2.0.2\lib\net48\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <!-- Files & Classes -->
+  <ItemGroup>
+    <Reference Include="MBOptionScreen.v2.0.10, Version=2.0.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bannerlord.MBOptionScreen.2.0.10\lib\net472\MBOptionScreen.v2.0.10.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Components\Banners\BaseBannerInfo.cs" />
+    <Compile Include="Components\Banners\BaseBannerManager.cs" />
+    <Compile Include="Components\Characters\BaseCharacterInfoExtension.cs" />
+    <Compile Include="Components\Clans\BaseClanInfoExtension.cs" />
+    <Compile Include="Components\Events\Event.cs" />
+    <Compile Include="Components\Events\EventManager.cs" />
+    <Compile Include="Components\Events\EventOption.cs" />
+    <Compile Include="Components\Events\EventScreen.cs" />
+    <Compile Include="Components\Events\EventViewModel.cs" />
+    <Compile Include="Components\IBaseComponent.cs" />
+    <Compile Include="Components\IBaseInfoType.cs" />
+    <Compile Include="Components\Kingdoms\BaseKingdomInfo.cs" />
+    <Compile Include="Components\Characters\BaseCharacterInfo.cs" />
+    <Compile Include="Components\Characters\BaseCharacterManager.cs" />
+    <Compile Include="Components\Clans\BaseClanInfo.cs" />
+    <Compile Include="Components\Clans\BaseClanManager.cs" />
+    <Compile Include="Components\Plots\DecisionState.cs" />
+    <Compile Include="Helpers\ColorHelper.cs" />
+    <Compile Include="Components\Factions\BaseFactionInfo.cs" />
+    <Compile Include="Components\Factions\BaseFactionManager.cs" />
+    <Compile Include="Components\Factions\BaseFactionInfoExtension.cs" />
+    <Compile Include="Components\IBaseManager.cs" />
+    <Compile Include="Components\Kingdoms\BaseKingdomManager.cs" />
+    <Compile Include="Components\Kingdoms\BaseKingdomInfoExtension.cs" />
+    <Compile Include="Components\Parties\BasePartyInfoExtension.cs" />
+    <Compile Include="BaseManagers.cs" />
+    <Compile Include="Components\Parties\BasePartyInfo.cs" />
+    <Compile Include="Components\Parties\BasePartyManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
+    <Compile Include="Components\Settlements\BaseSettlementInfo.cs" />
+    <Compile Include="Components\Settlements\BaseSettlementInfoExtension.cs" />
+    <Compile Include="Components\Settlements\BaseSettlementManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
