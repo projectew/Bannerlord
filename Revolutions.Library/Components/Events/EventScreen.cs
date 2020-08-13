@@ -23,15 +23,15 @@ namespace Revolutions.Library.Components.Events
             _options = options;
             _event = eventobj;
 
-            if (options.Count() == 1)
+            if (options.Count == 1)
             {
                 _movieName = "OneOptionEvent";
             }
-            else if (options.Count() == 2)
+            else if (options.Count == 2)
             {
                 _movieName = "TwoOptionEvent";
             }
-            else if (options.Count() == 3)
+            else if (options.Count == 3)
             {
                 _movieName = "ThreeOptionEvent";
             }

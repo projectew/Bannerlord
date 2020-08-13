@@ -31,7 +31,7 @@ namespace Revolutions.Library.Components.Kingdoms
 
         public void Initialize()
         {
-            if (Infos.Count == Campaign.Current.Kingdoms.Count())
+            if (Infos.Count == Campaign.Current.Kingdoms.Count)
             {
                 return;
             }
@@ -44,7 +44,7 @@ namespace Revolutions.Library.Components.Kingdoms
 
         public void RemoveInvalids()
         {
-            if (Infos.Count == Campaign.Current.Kingdoms.Count())
+            if (Infos.Count == Campaign.Current.Kingdoms.Count)
             {
                 return;
             }
@@ -70,7 +70,7 @@ namespace Revolutions.Library.Components.Kingdoms
 
             var infos = Infos.Where(i => i.Id == gameObject.StringId);
             var baseKingdomInfos = infos as TInfoType[] ?? infos.ToArray();
-            if (baseKingdomInfos.Count() > 1)
+            if (baseKingdomInfos.Length > 1)
             {
                 RemoveDuplicates();
             }

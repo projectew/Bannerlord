@@ -24,7 +24,7 @@ namespace Revolutions.Library.Components.Settlements
 
         public void Initialize()
         {
-            if (Infos.Count == Campaign.Current.Settlements.Count())
+            if (Infos.Count == Campaign.Current.Settlements.Count)
             {
                 return;
             }
@@ -37,7 +37,7 @@ namespace Revolutions.Library.Components.Settlements
 
         public void RemoveInvalids()
         {
-            if (Infos.Count == Campaign.Current.Settlements.Count())
+            if (Infos.Count == Campaign.Current.Settlements.Count)
             {
                 return;
             }
@@ -63,7 +63,7 @@ namespace Revolutions.Library.Components.Settlements
 
             var infos = Infos.Where(i => i.Id == gameObject.StringId);
             var baseSettlementInfos = infos as TInfoType[] ?? infos.ToArray();
-            if (baseSettlementInfos.Count() > 1)
+            if (baseSettlementInfos.Length > 1)
             {
                 RemoveDuplicates();
             }

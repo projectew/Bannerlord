@@ -30,7 +30,7 @@ namespace Revolutions.Library.Components.Clans
 
         public void Initialize()
         {
-            if (Infos.Count == Campaign.Current.Clans.Count())
+            if (Infos.Count == Campaign.Current.Clans.Count)
             {
                 return;
             }
@@ -69,7 +69,7 @@ namespace Revolutions.Library.Components.Clans
 
             var infos = Infos.Where(i => i.Id == gameObject.StringId);
             var baseClanInfos = infos as TInfoType[] ?? infos.ToArray();
-            if (baseClanInfos.Count() > 1)
+            if (baseClanInfos.Length > 1)
             {
                 RemoveDuplicates();
             }

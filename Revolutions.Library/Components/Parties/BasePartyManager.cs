@@ -29,7 +29,7 @@ namespace Revolutions.Library.Components.Parties
 
         public void Initialize()
         {
-            if (Infos.Count == Campaign.Current.Parties.Count())
+            if (Infos.Count == Campaign.Current.Parties.Count)
             {
                 return;
             }
@@ -42,7 +42,7 @@ namespace Revolutions.Library.Components.Parties
 
         public void RemoveInvalids()
         {
-            if (Infos.Count == Campaign.Current.Parties.Count())
+            if (Infos.Count == Campaign.Current.Parties.Count)
             {
                 return;
             }
@@ -68,7 +68,7 @@ namespace Revolutions.Library.Components.Parties
 
             var infos = Infos.Where(i => i.Id == gameObject.Id);
             var basePartyInfos = infos as TInfoType[] ?? infos.ToArray();
-            if (basePartyInfos.Count() > 1)
+            if (basePartyInfos.Length > 1)
             {
                 RemoveDuplicates();
             }

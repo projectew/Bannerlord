@@ -31,7 +31,7 @@ namespace Revolutions.Library.Components.Characters
 
         public void Initialize()
         {
-            if (Infos.Count == Campaign.Current.Characters.Count())
+            if (Infos.Count == Campaign.Current.Characters.Count)
             {
                 return;
             }
@@ -44,7 +44,7 @@ namespace Revolutions.Library.Components.Characters
 
         public void RemoveInvalids()
         {
-            if (Infos.Count == Campaign.Current.Characters.Count())
+            if (Infos.Count == Campaign.Current.Characters.Count)
             {
                 return;
             }
@@ -70,7 +70,7 @@ namespace Revolutions.Library.Components.Characters
 
             var infos = Infos.Where(i => i.Id == gameObject.StringId);
             var baseCharacterInfos = infos as TInfoType[] ?? infos.ToArray();
-            if (baseCharacterInfos.Count() > 1)
+            if (baseCharacterInfos.Length > 1)
             {
                 RemoveDuplicates();
             }

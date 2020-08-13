@@ -63,7 +63,7 @@ namespace Revolutions.Library.Components.Factions
 
             var infos = Infos.Where(i => i.Id == gameObject.StringId);
             var baseFactionInfos = infos as TInfoType[] ?? infos.ToArray();
-            if (baseFactionInfos.Count() > 1)
+            if (baseFactionInfos.Length > 1)
             {
                 RemoveDuplicates();
             }

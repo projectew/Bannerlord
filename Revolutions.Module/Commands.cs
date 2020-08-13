@@ -27,7 +27,7 @@ namespace Revolutions.Module
 
             var settlementName = strings.Aggregate((i, j) => i + " " + j);
 
-            var settlement = Campaign.Current.Settlements.FirstOrDefault(s => s.Name.ToString().ToLower() == settlementName.ToLower());
+            var settlement = Campaign.Current.Settlements.FirstOrDefault(s => string.Equals(s.Name.ToString(), settlementName, StringComparison.CurrentCultureIgnoreCase));
             if (settlement == null)
             {
                 return $"There is no Settlement \"{settlementName}\".";
@@ -61,7 +61,7 @@ namespace Revolutions.Module
 
             var settlementName = strings.Aggregate((i, j) => i + " " + j);
 
-            var settlement = Campaign.Current.Settlements.FirstOrDefault(s => s.Name.ToString().ToLower() == settlementName.ToLower());
+            var settlement = Campaign.Current.Settlements.FirstOrDefault(s => string.Equals(s.Name.ToString(), settlementName, StringComparison.CurrentCultureIgnoreCase));
             if (settlement == null)
             {
                 return $"There is no Settlement \"{settlementName}\".";
@@ -85,18 +85,18 @@ namespace Revolutions.Module
                 return "Campaign was not started.";
             }
 
-            if (strings.Count() < 2 || !strings.Contains("-s") || !strings.Contains("-w") || CampaignCheats.CheckHelp(strings))
+            if (strings.Count < 2 || !strings.Contains("-s") || !strings.Contains("-w") || CampaignCheats.CheckHelp(strings))
             {
                 return "Format is \"revolts.end -s [Settlement Name] -w [Win (true|false)]\"";
             }
 
             var aggregatedString = strings.Aggregate((i, j) => i + " " + j);
-            var settlementNameIndex = 3;
+            const int settlementNameIndex = 3;
             var winIndex = aggregatedString.IndexOf("-w ", StringComparison.Ordinal) + 3;
 
             var settlementName = aggregatedString.Substring(settlementNameIndex, winIndex - 7);
 
-            var settlement = Campaign.Current.Settlements.FirstOrDefault(s => s.Name.ToString().ToLower() == settlementName.ToLower());
+            var settlement = Campaign.Current.Settlements.FirstOrDefault(s => string.Equals(s.Name.ToString(), settlementName, StringComparison.CurrentCultureIgnoreCase));
             if (settlement == null)
             {
                 return $"There is no Settlement \"{settlementName}\".";
@@ -138,13 +138,7 @@ namespace Revolutions.Module
                 return "Format is \"revolts.show_lucky_nations\"";
             }
 
-            var luckyNations = new List<string>();
-
-            foreach (var info in Managers.Kingdom.Infos.Where(i => i.LuckyNation))
-            {
-                luckyNations.Add(info.Kingdom.Name.ToString());
-            }
-
+            var luckyNations = Managers.Kingdom.Infos.Where(i => i.LuckyNation).Select(info => info.Kingdom.Name.ToString()).ToList();
             return luckyNations.Count == 0 ? "There are no Lucky Nations!" : $"{luckyNations.Aggregate((i, j) => i + Environment.NewLine + j)}";
         }
 
@@ -167,25 +161,13 @@ namespace Revolutions.Module
 
             var kingdomName = strings.Aggregate((i, j) => i + " " + j);
 
-            var kingdom = Campaign.Current.Kingdoms.FirstOrDefault(s => s.Name.ToString().ToLower() == kingdomName.ToLower());
+            var kingdom = Campaign.Current.Kingdoms.FirstOrDefault(s => string.Equals(s.Name.ToString(), kingdomName, StringComparison.CurrentCultureIgnoreCase));
             if (kingdom == null)
             {
                 return $"There is no Kingdom \"{kingdomName}\".";
             }
 
-            var clanLeaders = new List<string>();
-
-            foreach (var clan in kingdom.Clans.Where(c => c.StringId != kingdom.Leader.StringId))
-            {
-                var clanLeader = Managers.Character.Get(clan.Leader.CharacterObject);
-                if (clanLeader == null)
-                {
-                    continue;
-                }
-
-                clanLeaders.Add($"{clanLeader.Character.Name} | {Enum.GetName(typeof(PlotState), clanLeader.PlotState)}");
-            }
-
+            var clanLeaders = (from clan in kingdom.Clans.Where(c => c.StringId != kingdom.Leader.StringId) select Managers.Character.Get(clan.Leader.CharacterObject) into clanLeader where clanLeader != null select $"{clanLeader.Character.Name} | {Enum.GetName(typeof(PlotState), clanLeader.PlotState)}").ToList();
             return $"{clanLeaders.Aggregate((i, j) => i + Environment.NewLine + j)}";
         }
 

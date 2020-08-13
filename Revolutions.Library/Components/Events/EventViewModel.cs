@@ -21,12 +21,12 @@ namespace Revolutions.Library.Components.Events
         {
             _optionOne = options[0];
 
-            if (options.Count() > 1)
+            if (options.Count > 1)
             {
                 _optionTwo = options[1];
             }
 
-            if (options.Count() > 2)
+            if (options.Count > 2)
             {
                 _optionThree = options[2];
             }

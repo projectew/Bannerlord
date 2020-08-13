@@ -19,7 +19,7 @@ namespace Revolutions.Library.Components.Clans
                 return Kingdom.All.ToArray();
             }
 
-            clanPosition *= (float)1 / clanSettlements.Count();
+            clanPosition *= (float)1 / clanSettlements.Length;
 
             var kingdomDistance = Kingdom.All
                 .Select(go => (Kingdom: go, FactionMidPoint: go.FactionMidPoint.Distance(clanPosition)))
