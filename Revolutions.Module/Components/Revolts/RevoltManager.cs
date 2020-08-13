@@ -26,7 +26,7 @@ namespace Revolutions.Module.Components.Revolts
 
         internal Revolt GetRevoltByParty(PartyBase party)
         {
-            return GetRevoltByParty(party.Id);
+            return Revolts.FirstOrDefault(r => r.PartyId == party.Id);
         }
 
         internal Revolt GetRevoltBySettlement(string id)
@@ -36,7 +36,7 @@ namespace Revolutions.Module.Components.Revolts
 
         internal Revolt GetRevoltBySettlement(Settlement settlement)
         {
-            return GetRevoltBySettlement(settlement.StringId);
+            return Revolts.FirstOrDefault(r => r.SettlementId == settlement.StringId);
         }
 
         internal List<Settlement> GetSettlements()
