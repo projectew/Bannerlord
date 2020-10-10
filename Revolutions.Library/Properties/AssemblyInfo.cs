@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Bannerlord KNT Library")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Modified by ProjectEW")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("KNTLibrary")]
@@ -11,6 +11,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 [assembly: Guid("d711d674-808c-421a-ba59-9dcd8b4a51dc")]
-[assembly: AssemblyVersion("0.7.0")]
-[assembly: AssemblyFileVersion("0.7.0")]
+[assembly: AssemblyVersion("0.7.1")]
+[assembly: AssemblyFileVersion("0.7.1")]
 [assembly: AssemblyInformationalVersion("Mount & Blade II: Bannerlord")]

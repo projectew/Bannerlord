@@ -76,7 +76,7 @@ namespace Revolutions.Module.CampaignBehaviors
                     kingdomsToRemove.Add(kingdomInfo);
                 }
                 else if (kingdomInfo.Kingdom.Leader == null || !kingdomInfo.Kingdom.Settlements.Any() &&
-                    (kingdomInfo.Kingdom.Parties == null || !kingdomInfo.Kingdom.Parties.Any() || kingdomInfo.Kingdom.Leader.IsDead || kingdomInfo.Kingdom.Leader.IsPrisoner))
+                    (kingdomInfo.Kingdom.AllParties == null || !kingdomInfo.Kingdom.AllParties.Any() || kingdomInfo.Kingdom.Leader.IsDead || kingdomInfo.Kingdom.Leader.IsPrisoner))
                 {
                     kingdomsToDestroy.Add(kingdomInfo.Kingdom);
                 }

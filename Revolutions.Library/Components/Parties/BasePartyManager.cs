@@ -110,8 +110,7 @@ namespace Revolutions.Library.Components.Parties
 
         public MobileParty CreateMobileParty(Hero leader, TextObject name, Vec2 spawnPosition, Settlement homeSettlement, bool addLeaderToRoster, bool addInitialFood = true)
         {
-            var mobileParty = MBObjectManager.Instance.CreateObject<MobileParty>(leader.CharacterObject.StringId + "_" + leader.NumberOfCreatedParties);
-            ++leader.NumberOfCreatedParties;
+            var mobileParty = MBObjectManager.Instance.CreateObject<MobileParty>(leader.CharacterObject.StringId + "_" + leader.OwnedParties.Count());
 
             if (addLeaderToRoster)
             {

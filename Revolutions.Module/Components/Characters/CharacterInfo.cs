@@ -1,7 +1,7 @@
 ﻿using System;
+using TaleWorlds.CampaignSystem;
 using Revolutions.Library.Components.Characters;
 using Revolutions.Library.Components.Plots;
-using TaleWorlds.CampaignSystem;
 
 namespace Revolutions.Module.Components.Characters
 {
