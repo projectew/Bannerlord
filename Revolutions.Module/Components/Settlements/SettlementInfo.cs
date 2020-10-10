@@ -32,19 +32,28 @@ namespace Revolutions.Module.Components.Settlements
         {
             get
             {
-                var factions = new List<(IFaction MapFaction, int Power)>();
+                var factions = new List<(IFaction MapFaction, float Power)>();
 
+                //  gets list of (supported faction, notable power) from all notables in this settlement
                 var settlementFactions = Settlement.Notables
                     .Where(notable => notable.SupporterOf != null)
                     .Select(s => (s.SupporterOf.MapFaction, s.Power));
                 factions.AddRange(settlementFactions);
+
+				//  gets list of (supported faction, notable power) from all notables in this settlement's bound villages
 
                 var villageFactions = Settlement.BoundVillages.SelectMany(village => village.Settlement.Notables)
                         .Where(notable => notable.SupporterOf != null)
                         .Select(s => (s.SupporterOf.MapFaction, s.Power));
                 factions.AddRange(villageFactions);
 
+                //  groups list by faction and aggregates the total notable power supporting each faction
+
                 factions = factions.GroupBy(g => g.MapFaction, (key, g) => (MapFaction: key, Power: g.Select(s => s.Power).Aggregate((current, next) => current + next))).ToList();
+
+                // returns (faction, total power) tuple with highest power, or this settlement's own faction if no such faction matching the faction with the most power exists
+                // faction must exist?, since the highest power faction was found by LINQing the same list
+                
                 return factions.FirstOrDefault(w => w.Power == factions.Max(m => m.Power)).MapFaction ?? Settlement.MapFaction;
             }
         }

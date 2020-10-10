@@ -130,12 +130,12 @@ namespace Revolutions.Module.Components.Revolts.CampaignBehaviors
             if (revolt.SettlementInfo.CurrentFaction == revolt.SettlementInfo.LoyalFaction)
             {
                 var previousFactionOwner = BaseManagers.Faction.GetLordWithLeastFiefs(revolt.SettlementInfo.PreviousFaction).HeroObject;
-                ChangeOwnerOfSettlementAction.ApplyByRevolt(previousFactionOwner, settlement);
+                ChangeOwnerOfSettlementAction.ApplyByLeaveFaction(previousFactionOwner, settlement);
             }
             else
             {
                 var loyalFactionOwner = BaseManagers.Faction.GetLordWithLeastFiefs(revolt.SettlementInfo.LoyalFaction).HeroObject;
-                ChangeOwnerOfSettlementAction.ApplyByRevolt(loyalFactionOwner, settlement);
+                ChangeOwnerOfSettlementAction.ApplyByLeaveFaction(loyalFactionOwner, settlement);
             }
 
             Managers.Kingdom.DestroyKingdom(capturedHero.Clan.Kingdom);
@@ -262,7 +262,7 @@ namespace Revolutions.Module.Components.Revolts.CampaignBehaviors
             var mobileParty = Managers.Party.CreateMobileParty(leader, null, settlement.GatePosition, settlement, !atWarWithLoyalFaction);
 
             var amountOfTroops = (RevolutionsSettings.Instance.RevoltsGeneralBaseSize + (int)(settlement.Prosperity * RevolutionsSettings.Instance.RevoltsGeneralProsperityMulitplier)) / 3;
-            var basicUnits = new TroopRoster();
+            var basicUnits = new TroopRoster(mobileParty.Party);
             basicUnits.AddToCounts(leader.Culture.RangedMilitiaTroop, amountOfTroops);
             basicUnits.AddToCounts(leader.Culture.MeleeMilitiaTroop, amountOfTroops * 2);
             mobileParty.MemberRoster.Add(basicUnits);
@@ -335,7 +335,7 @@ namespace Revolutions.Module.Components.Revolts.CampaignBehaviors
 
             if (RevolutionsSettings.Instance.RevoltsMinorFactionsMechanic && revolt.IsMinorFaction)
             {
-                ChangeOwnerOfSettlementAction.ApplyByRevolt(revolt.Party.LeaderHero, revolt.Settlement);
+                ChangeOwnerOfSettlementAction.ApplyByLeaveFaction(revolt.Party.LeaderHero, revolt.Settlement);
                 revolt.Party.LeaderHero.Clan.AddRenown(RevolutionsSettings.Instance.RevoltsMinorFactionsRenownGainOnWin);
 
                 foreach (var notable in revolt.Settlement.Notables.Concat(revolt.Settlement.BoundVillages.SelectMany(s => s.Settlement.Notables)))
@@ -344,7 +344,7 @@ namespace Revolutions.Module.Components.Revolts.CampaignBehaviors
                 }
 
                 var amountOTroops = (RevolutionsSettings.Instance.RevoltsGeneralBaseSize + (int)(revolt.Settlement.Prosperity * RevolutionsSettings.Instance.RevoltsGeneralProsperityMulitplier)) / 3;
-                var eliteUnits = new TroopRoster();
+                var eliteUnits = new TroopRoster(revolt.Party);
                 eliteUnits.AddToCounts(revolt.Party.Leader.Culture.RangedEliteMilitiaTroop, amountOTroops);
                 eliteUnits.AddToCounts(revolt.Party.Leader.Culture.MeleeEliteMilitiaTroop, amountOTroops * 2);
                 revolt.Party.MobileParty.MemberRoster.Add(eliteUnits);
